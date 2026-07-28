@@ -67,6 +67,9 @@ classification is the point: nothing is promoted without a proof.
 | **T50** | An even least safe-map failure must start below the midpoint and later hit exact zero quotient slack | `safe-map-checkpoint-analysis.md` | **Theorem - new; fresh audit pending** |
 | **L51** | Zero steps and their maximal wrap runs admit the exact accelerated return-or-termination map (51.1)--(51.2) | `safe-map-checkpoint-analysis.md` | **Lemma - new; fresh audit pending** |
 | **C52** | A zero-slack boundary exits to positive odd slack; local equality is classified, while later boundary residues strictly increase | `safe-map-checkpoint-analysis.md` | **Corollary - new; fresh audit pending** |
+| **L53** | The accelerated overshoot pair $(n,A)$ evolves autonomously; the wrap counter only selects return versus termination | `zero-epoch-overshoot-analysis.md` | **Lemma - new; fresh audit pending** |
+| **C54** | Every infinite safe path would satisfy an exact sparse dyadic identity over its zero epochs | `zero-epoch-overshoot-analysis.md` | **Corollary - new; fresh audit pending** |
+| **T55** | A positive-wrap block run has the explicit bound (55.1); every infinite safe path has infinitely many $00$ pairs and eventually $U\le(n-4)/2$ | `zero-epoch-overshoot-analysis.md` | **Theorem - new; fresh audit pending** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**

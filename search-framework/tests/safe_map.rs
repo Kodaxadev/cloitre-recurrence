@@ -138,17 +138,26 @@ fn accelerated_zero_epoch_matches_safe_map() {
                     - 2 * i128::from(wraps)
                     - 2 * i128::from(run)
                     - 7;
+                let next_overshoot =
+                    i128::try_from(scale(run)).unwrap() - i128::from(current.n() + 2);
                 assert_eq!(current.w, w + 1);
                 assert_eq!(current.wraps, wraps + u64::from(run));
+                assert!((2..=i128::from(current.n() + 2)).contains(&next_overshoot));
+                assert_eq!(next_overshoot.rem_euclid(2), i128::from(current.n() % 2));
+                assert_eq!(candidate, next_overshoot - i128::from(current.wraps) - 4);
                 match stop {
                     SafeOutcome::Continue {
                         digit: SafeDigit::Zero,
                         ..
                     } => {
                         assert!(candidate >= 0);
+                        assert!(next_overshoot >= i128::from(current.wraps + 4));
                         assert_eq!(candidate, i128::from(current.w - 2 * current.e));
                     }
-                    SafeOutcome::Terminated { .. } => assert!(candidate < 0),
+                    SafeOutcome::Terminated { .. } => {
+                        assert!(candidate < 0);
+                        assert!(next_overshoot <= i128::from(current.wraps + 3));
+                    }
                     SafeOutcome::Continue {
                         digit: SafeDigit::Wrap,
                         ..

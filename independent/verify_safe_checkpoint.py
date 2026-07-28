@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Independent bounded checks for Theorems 46/50 and Lemmas 47/49/51.
+"""Independent checks for Theorems 46/50/55 and Lemmas 47/49/51/53.
 
 This verifier uses raw `(n,q,e)` inequalities and imports no project code.
 It is a finite regression check, not the proof of either symbolic statement.
@@ -190,6 +190,54 @@ def check_zero_acceleration(
     return wraps, candidate, current, outcome
 
 
+def check_autonomous_overshoot(state: State) -> int:
+    wraps, slack, current, outcome = check_zero_acceleration(state)
+    width = state.n - state.q
+    old_slack = width - 2 * state.e
+    overshoot = state.q + old_slack + 4
+    next_overshoot = (
+        (1 << (wraps + 1)) * overshoot
+        - current.n
+        - 2
+    )
+
+    assert current.n == state.n + wraps + 1
+    assert 2 <= next_overshoot <= current.n + 2
+    assert (next_overshoot - current.n) % 2 == 0
+    assert (1 << (wraps + 1)) * overshoot == (
+        next_overshoot + current.n + 2
+    )
+    if outcome is None:
+        assert next_overshoot <= current.q + 3
+    else:
+        assert next_overshoot == current.q + slack + 4
+        assert next_overshoot >= current.q + 4
+    return wraps
+
+
+def check_positive_block_bound(state: State) -> int:
+    initial_q = state.q
+    initial_gap = state.n - 2 * state.q
+    positive_blocks = 0
+    while True:
+        wraps, _, current, outcome = check_zero_acceleration(state)
+        if wraps == 0:
+            break
+        positive_blocks += 1
+        if outcome is None:
+            break
+        state = current
+
+    if positive_blocks:
+        assert initial_gap >= 4
+        bound = max(
+            1,
+            (3 * initial_gap - 2 * initial_q - 14) // 2,
+        )
+        assert positive_blocks <= bound
+    return positive_blocks
+
+
 def check_boundary_equalities() -> int:
     checked = 0
     for q in range(51):
@@ -238,6 +286,9 @@ def main() -> None:
     even_predecessors_checked = 0
     zero_epochs_checked = 0
     accelerated_wraps_checked = 0
+    overshoots_checked = 0
+    positive_runs_checked = 0
+    positive_blocks_checked = 0
     for n in range(2, 151):
         for q in range(n):
             for e in range(1, n - q):
@@ -249,9 +300,13 @@ def main() -> None:
                     check_local_dominance(state)
                     dominance_checked += 1
                     if n <= 100 and outcome[0] == "zero":
-                        wraps, _, _, _ = check_zero_acceleration(state)
+                        wraps = check_autonomous_overshoot(state)
                         zero_epochs_checked += 1
                         accelerated_wraps_checked += wraps
+                        overshoots_checked += 1
+                        if n <= 50:
+                            positive_blocks_checked += check_positive_block_bound(state)
+                            positive_runs_checked += 1
 
         if n >= 3:
             for e in range(2, n, 2):
@@ -286,10 +341,13 @@ def main() -> None:
     print(f"even-checkpoint constructions checked: {even_predecessors_checked}")
     print(f"accelerated zero epochs checked: {zero_epochs_checked}")
     print(f"wrap transitions accelerated: {accelerated_wraps_checked}")
+    print(f"autonomous overshoots checked: {overshoots_checked}")
+    print(f"positive-block runs checked: {positive_runs_checked}")
+    print(f"positive blocks covered: {positive_blocks_checked}")
     print(f"boundary equality cases checked: {equality_cases_checked}")
     print(
-        "VERDICT: bounded raw checks agree with Theorems 46/50, "
-        "Lemmas 47/49/51, and Corollaries 48/52."
+        "VERDICT: bounded raw checks agree with Theorems 46/50/55, "
+        "Lemmas 47/49/51/53, and Corollaries 48/52/54."
     )
 
 

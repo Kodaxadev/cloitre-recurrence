@@ -106,3 +106,5 @@ boundary visits. For example, direct symbolic transitions give
 Both endpoints have zero slack, and the residue increased from \(7\) to
 \(8\). Thus excluding the boundary mechanism in Theorem 50 requires a
 global arithmetic argument, not monotonicity of the boundary residue.
+Chapter 6 derives the autonomous overshoot map and a global
+double-zero recurrence bound.

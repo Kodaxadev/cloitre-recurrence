@@ -65,12 +65,17 @@ flowchart TD
   L43 --> L51["L51 accelerated zero-epoch map"]
   L44 --> L51
   L51 --> C52["C52 exact zero-slack exit"]
+  L51 --> L53["L53 autonomous overshoot map"]
+  L53 --> C54["C54 sparse dyadic coding"]
+  L51 --> T55["T55 forced double-zero recurrence"]
+  L44 --> T55
 
   T24 --> O1["Open branch A: infinitely many down-steps"]
   T38 --> O1
   T24 --> O2["Open branch B: eventually no down-steps"]
   T38 --> O2
   L42 --> O2
+  T55 --> O2
   U["Uniform termination of the safe map"] -->|would eliminate| O2
   O1 --> CJ["Original stabilization conjecture remains open"]
   O2 --> CJ
@@ -83,7 +88,7 @@ flowchart TD
   classDef compute fill:#e5efff,stroke:#3566a8,color:#13243d;
   classDef open fill:#fff1d6,stroke:#ad6b00,color:#422900;
   classDef formal fill:#eee4ff,stroke:#6542a6,color:#261642;
-  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52 proof;
+  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55 proof;
   class K1,K11,K13,C46 compute;
   class O1,O2,U,CJ open;
   class F formal;
@@ -125,3 +130,4 @@ flowchart TD
 | 6 | L41 -> T46 -> C46 | Contrapositive audit and confirmation that one checkpoint covers all smaller indices |
 | 7 | C48 -> L49 -> T50 | Backward-predecessor validity, complementary-residue merge, and exact slack endpoint |
 | 8 | L43 -> L44 -> L51 -> C52 | Wrap-run acceleration, threshold endpoints, equality family, and boundary-return limitation |
+| 9 | L51 -> L53 -> C54 and T55 | Autonomous-coordinate endpoints, telescoping limit, and quantitative positive-block bound |

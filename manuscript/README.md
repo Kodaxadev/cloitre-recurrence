@@ -36,6 +36,7 @@ files in order:
 3. [`03-periodic-exclusion.md`](03-periodic-exclusion.md)
 4. [`04-aperiodic-frontier.md`](04-aperiodic-frontier.md)
 5. [`05-zero-epoch-boundary.md`](05-zero-epoch-boundary.md)
+6. [`06-autonomous-zero-epoch-map.md`](06-autonomous-zero-epoch-map.md)
 
 Only definitions, statements, proofs, and explicit claim boundaries belong
 here. Algorithms, benchmarks, certificates, and reproduction instructions
@@ -48,9 +49,9 @@ result is the finite-start bound and its computer-assisted nonsurjectivity
 corollary. Theorem numbering follows `../theorem-status.md` to preserve
 traceability to the frozen research snapshot
 `f19ffcd75d04a05529878ce0226088f2f3221c0b`.
-Theorems 46 and 50, Lemmas 47, 49, and 51, and Corollaries 48 and 52 are
-post-freeze additions and have not yet received the fresh-context audit
-applied to the frozen theorem chain.
+Theorems 46, 50, and 55; Lemmas 47, 49, 51, and 53; and Corollaries 48,
+52, and 54 are post-freeze additions and have not yet received the
+fresh-context audit applied to the frozen theorem chain.
 
 ## Formalization boundary
 

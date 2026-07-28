@@ -190,3 +190,43 @@ goes from one zero-slack boundary to another while increasing the boundary
 residue. Corollary 52 proves that every later boundary residue must increase.
 This removes simple boundary monotonicity from the viable proof strategies
 and leaves an arithmetic return-map problem.
+
+## 7. Autonomous overshoot and forced double zeros
+
+Writing
+
+```text
+A = U+d+4
+```
+
+removes the wrap counter from the arithmetic part of the accelerated map.
+If `k` is the next wrap-run length, then
+
+```text
+k  = least j with 2^(j+1) A >= n+j+5,
+n' = n+k+1,
+A' = 2^(k+1) A - (n'+2).
+```
+
+Only the final test `A' >= U'+4` versus `A' <= U'+3` still uses `U`.
+This gives an autonomous `(n,A)` map and, on any infinite path, the exact
+sparse dyadic identity
+
+```text
+A_i / 2^n_i = sum_(j>i) (n_j+2) / 2^n_j.
+```
+
+The autonomous map is not visibly contracting: exact finite trajectories
+can avoid its smallest overshoots for thousands of zero epochs. A different
+global restriction does survive. Put `G=n-2U` at a zero epoch. If `R`
+consecutive zero epochs are each followed by a positive wrap run, then
+
+```text
+2R <= 3G_0 - 2U_0 - 14                  (R >= 2).
+```
+
+Therefore an infinite safe path must contain infinitely many consecutive
+zero pairs `00`, as well as infinitely many wraps. After its first positive
+wrap block it also has `n-2U>=4` at every state. These are Theorem 55's
+proved restrictions, not evidence for termination; aperiodic words satisfying
+both recurrence requirements have not been excluded.
