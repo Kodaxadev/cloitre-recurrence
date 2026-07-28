@@ -230,3 +230,42 @@ zero pairs `00`, as well as infinitely many wraps. After its first positive
 wrap block it also has `n-2U>=4` at every state. These are Theorem 55's
 proved restrictions, not evidence for termination; aperiodic words satisfying
 both recurrence requirements have not been excluded.
+
+## 8. Removing the factor-three growth loss
+
+Theorem 27 charged every sufficiently deep down-step against two forced
+up-steps, producing the leading constant `1/3` in the global
+`n/log n` growth bound. The exact rebound cascade supports any fixed charge
+length `s`.
+
+On a window with
+
+```text
+2^(s+2) q_k <= k,
+```
+
+each down-step forces at least `s` consecutive up-steps. The blocks are
+disjoint, and only one can cross the right endpoint, so
+
+```text
+U >= sD-s,
+q_n-q_u >= ((s-1)/(s+1)) E - 2.
+```
+
+Combining this with the logarithmic zero-run bound and the final
+low-quotient-window argument yields, for each fixed `s`,
+
+```text
+q_n >= ((s-1)/(s+1)) n/(floor(log2 n)+1) - O_(m,s)(1).
+```
+
+Taking `n` to infinity first and then the fixed integer `s` to infinity
+proves
+
+```text
+liminf q_n log2(n)/n >= 1
+```
+
+for every counterexample, regardless of whether down-steps occur infinitely
+often. This is Theorem 56. It makes Theorem 45's leading constant
+unconditional but does not improve the logarithmic order itself.
