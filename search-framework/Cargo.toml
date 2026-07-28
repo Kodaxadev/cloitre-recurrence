@@ -1,0 +1,23 @@
+[package]
+name = "conjecture"
+version = "0.1.0"
+edition = "2021"
+
+# Deliberately ZERO dependencies: the framework must be reproducible offline
+# and auditable line by line. Parallelism uses std::thread::scope.
+
+[dependencies]
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+debug = false
+# Correctness dominates: a silent wraparound would invalidate every claim.
+overflow-checks = true
+
+# Identical to release except overflow checks are off. Used ONLY to measure the
+# cost of the checks in benchmark-report.md; never used to produce results.
+[profile.bench-nocheck]
+inherits = "release"
+overflow-checks = false

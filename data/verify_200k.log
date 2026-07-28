@@ -1,0 +1,21 @@
+﻿selftest: OK (A073117, A117846 x12, pair merging)
+verifying 200000 rows from ..\data\scan_200k.csv (stride 1, tail 64)
+.\target\release\verify.exe : [verify] 20000/200000 rows
+At line:1 char:371
++ ... -framework; .\target\release\verify.exe --csv ..\data\scan_200k.csv - ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([verify] 20000/200000 rows:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[verify] 40000/200000 rows
+[verify] 60000/200000 rows
+[verify] 80000/200000 rows
+[verify] 100000/200000 rows
+[verify] 120000/200000 rows
+[verify] 140000/200000 rows
+[verify] 160000/200000 rows
+[verify] 180000/200000 rows
+[verify] 200000/200000 rows
+rows checked : 200000
+rows FAILED  : 0
+VERDICT: every checked row independently confirmed.

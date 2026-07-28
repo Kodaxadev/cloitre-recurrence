@@ -1,0 +1,105 @@
+﻿.\search-framework\target\release\record.exe : [record] n=5000000 live=25 records=9886 elapsed=24.0s
+At line:1 char:348
++ ... Conjecture; .\search-framework\target\release\record.exe --lo 1 --hi  ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([record] n=5000...6 elapsed=24.0s:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[record] n=10000000 live=15 records=9896 elapsed=31.3s
+[record] n=15000000 live=12 records=9899 elapsed=35.9s
+[record] n=20000000 live=10 records=9901 elapsed=39.1s
+[record] n=25000000 live=7 records=9904 elapsed=41.5s
+[record] n=30000000 live=7 records=9904 elapsed=43.6s
+[record] n=35000000 live=7 records=9904 elapsed=45.9s
+[record] n=40000000 live=7 records=9904 elapsed=48.2s
+[record] n=45000000 live=7 records=9904 elapsed=50.6s
+[record] n=50000000 live=6 records=9905 elapsed=52.4s
+[record] n=55000000 live=5 records=9906 elapsed=53.9s
+[record] n=60000000 live=5 records=9906 elapsed=58.8s
+[record] n=65000000 live=5 records=9906 elapsed=70.9s
+[record] n=70000000 live=5 records=9906 elapsed=77.4s
+[record] n=75000000 live=5 records=9906 elapsed=82.4s
+[record] n=80000000 live=5 records=9906 elapsed=87.2s
+[record] n=85000000 live=5 records=9906 elapsed=92.3s
+[record] n=90000000 live=4 records=9907 elapsed=96.6s
+[record] n=95000000 live=3 records=9908 elapsed=99.3s
+[record] n=100000000 live=3 records=9908 elapsed=101.9s
+[record] n=105000000 live=3 records=9908 elapsed=104.4s
+[record] n=110000000 live=3 records=9908 elapsed=106.9s
+[record] n=115000000 live=3 records=9908 elapsed=109.1s
+[record] n=120000000 live=3 records=9908 elapsed=111.4s
+[record] n=125000000 live=3 records=9908 elapsed=113.2s
+[record] n=130000000 live=3 records=9908 elapsed=115.1s
+[record] n=135000000 live=2 records=9909 elapsed=116.8s
+[record] n=140000000 live=2 records=9909 elapsed=117.9s
+[record] n=145000000 live=2 records=9909 elapsed=118.9s
+[record] n=150000000 live=2 records=9909 elapsed=120.0s
+[record] n=155000000 live=2 records=9909 elapsed=121.4s
+[record] n=160000000 live=2 records=9909 elapsed=122.8s
+[record] n=165000000 live=2 records=9909 elapsed=124.1s
+[record] n=170000000 live=2 records=9909 elapsed=125.2s
+[record] n=175000000 live=2 records=9909 elapsed=126.2s
+[record] n=180000000 live=2 records=9909 elapsed=127.2s
+[record] n=185000000 live=2 records=9909 elapsed=128.2s
+[record] n=190000000 live=2 records=9909 elapsed=129.2s
+[record] n=195000000 live=2 records=9909 elapsed=130.2s
+[record] n=200000000 live=2 records=9909 elapsed=131.2s
+[record] n=205000000 live=2 records=9909 elapsed=132.2s
+[record] n=210000000 live=2 records=9909 elapsed=133.1s
+[record] n=215000000 live=2 records=9909 elapsed=134.2s
+[record] n=220000000 live=2 records=9909 elapsed=135.2s
+[record] n=225000000 live=2 records=9909 elapsed=136.2s
+[record] n=230000000 live=2 records=9909 elapsed=137.1s
+[record] n=235000000 live=2 records=9909 elapsed=138.0s
+[record] n=240000000 live=2 records=9909 elapsed=138.9s
+[record] n=245000000 live=2 records=9909 elapsed=139.9s
+[record] n=250000000 live=2 records=9909 elapsed=140.9s
+[record] n=255000000 live=2 records=9909 elapsed=141.9s
+[record] n=260000000 live=2 records=9909 elapsed=142.9s
+[record] n=265000000 live=2 records=9909 elapsed=143.9s
+[record] n=270000000 live=2 records=9909 elapsed=144.9s
+[record] n=275000000 live=2 records=9909 elapsed=145.9s
+[record] n=280000000 live=2 records=9909 elapsed=146.9s
+[record] n=285000000 live=2 records=9909 elapsed=147.9s
+[record] n=290000000 live=2 records=9909 elapsed=148.9s
+[record] n=295000000 live=2 records=9909 elapsed=149.9s
+[record] n=300000000 live=2 records=9909 elapsed=150.9s
+[record] n=305000000 live=1 records=9910 elapsed=151.8s
+[record] n=310000000 live=1 records=9910 elapsed=152.3s
+[record] n=315000000 live=1 records=9910 elapsed=152.8s
+[record] n=320000000 live=1 records=9910 elapsed=153.2s
+[record] n=325000000 live=1 records=9910 elapsed=153.7s
+range                    : 1..=10000000  (10000000 starts)
+distinct orbits (records): 9911
+merges                   : 9990089
+live remaining           : 0
+accounting records+merges+live = 10000000  (must equal 10000000)
+compression factor       : 1009.0x fewer orbits than starts
+
+LONGEST stabilization:
+  t (absorbing index)    : 327695231
+  c (eventual increment) : 81923126
+  smallest start m       : 1320111
+  b_t = c*(t+1)          : 26845817780735232
+  c/t                    : 0.249998   (n^2/4 law predicts 0.25)
+
+top 15 by absorbing index:
+             t              c     witness m
+     327695231       81923126       1320111
+     303967101       75990326       2283283
+     133301871       33324063       1529233
+      90502807       22627131       3350571
+      89913893       22476689       2608579
+      53497613       13374288       3454473
+      45761407       11440542       4219977
+      24235501        6058697       1464979
+      21892247        5473536       4697193
+      21654679        5412977       9149923
+      17844449        4461215       3190663
+      16817599        4203767       8637897
+      14822199        3705500       1660005
+      11567789        2891863       3467277
+      10560981        2639353       5145029
+
+census digest            : 0xf554b190e8bd0eee
+elapsed seconds          : 153.97

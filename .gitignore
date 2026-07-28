@@ -1,0 +1,15 @@
+# Local agent/editor state
+.claude/
+
+# Reproducible build and interpreter caches
+**/target/
+**/__pycache__/
+*.py[cod]
+
+# Large generated row-by-row scans. Their hashes belong in the evidence
+# manifest; compact certificates, logs, census files, and profiles stay tracked.
+data/scan_*.csv
+
+# Platform noise
+.DS_Store
+Thumbs.db

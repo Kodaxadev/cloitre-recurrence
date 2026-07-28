@@ -1,0 +1,16 @@
+[package]
+name = "verify"
+version = "0.1.0"
+edition = "2021"
+
+# INDEPENDENT of the search-framework crate on purpose. It shares no code with
+# it, uses the raw b-recurrence instead of (q,r) coordinates, and computes in
+# u128 instead of u64. A bug common to both is therefore unlikely.
+
+[dependencies]
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+overflow-checks = true

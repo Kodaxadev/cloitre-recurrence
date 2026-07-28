@@ -1,0 +1,23 @@
+﻿.\search-framework\target\release\scan.exe : [scan] m<=25000 (12.5%)  elapsed 5.8s  max_t=2755735 at m=11489  
+unresolved=0
+At line:1 char:348
++ ... Conjecture; .\search-framework\target\release\scan.exe --lo 1 --hi 20 ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([scan] m<=25000...9  unresolved=0:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[scan] m<=50000 (25.0%)  elapsed 7.2s  max_t=9363863 at m=31873  unresolved=0
+[scan] m<=75000 (37.5%)  elapsed 7.5s  max_t=9363863 at m=31873  unresolved=0
+[scan] m<=100000 (50.0%)  elapsed 7.9s  max_t=9363863 at m=31873  unresolved=0
+[scan] m<=125000 (62.5%)  elapsed 17.3s  max_t=9363863 at m=31873  unresolved=0
+[scan] m<=150000 (75.0%)  elapsed 18.3s  max_t=9363863 at m=31873  unresolved=0
+[scan] m<=175000 (87.5%)  elapsed 20.3s  max_t=9363863 at m=31873  unresolved=0
+[scan] m<=200000 (100.0%)  elapsed 21.5s  max_t=9363863 at m=31873  unresolved=0
+range              : 1..=200000  (this run started at 1)
+max-n cap          : 50000000
+rows written       : 200000
+unresolved         : 0
+longest t(m)       : t=9363863 at m=31873
+largest c(m)       : c=2341202 at m=31873
+fnv1a64 digest     : 0x230b00411fa7c340
+elapsed seconds    : 21.54

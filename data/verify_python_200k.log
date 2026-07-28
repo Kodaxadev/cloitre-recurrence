@@ -1,0 +1,22 @@
+﻿loaded 200000 rows from ..\data\scan_200k.csv
+deep-checking 4003 rows (seed 20260728, tail 300)
+  ... 250/4003
+  ... 500/4003
+  ... 750/4003
+  ... 1000/4003
+  ... 1250/4003
+  ... 1500/4003
+  ... 1750/4003
+  ... 2000/4003
+  ... 2250/4003
+  ... 2500/4003
+  ... 2750/4003
+  ... 3000/4003
+  ... 3250/4003
+  ... 3500/4003
+  ... 3750/4003
+  ... 4000/4003
+checked 4003 rows, 0 failures
+record orbit: m=31873 t=9363863 c=2341202 b_t=21922697124528
+             c/t = 0.250025   (n^2/4 law predicts 0.25)
+VERDICT: all deep-checked rows independently confirmed.
