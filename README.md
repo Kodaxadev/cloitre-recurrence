@@ -32,11 +32,12 @@ publication boundary.
 
 **A published open question, answered — unconditionally.**
 OEIS A117846 asks *"Do the values a(n) include all positive numbers?"*
-The answer is **no**. The smallest eventual increments that never occur are
-**5 and 7**; exactly **106** of the increments $1,\dots,1823$ never occur.
-
-This follows from a new theorem plus a finite computation, and does **not**
-assume the stabilization conjecture:
+The answer is **no**: the smallest eventual increments that never occur are
+**5 and 7**. This follows from a new theorem plus an independent complete
+finite certificate and does **not** assume the stabilization conjecture.
+Separately, the primary compressed census reports exactly **106** omissions
+among $1,\dots,1823$; that full $10^7$ census has not yet been independently
+reimplemented.
 
 > **Theorem 18.** If the orbit from $m$ has eventual increment $c$, then $m<(c+3)(3c+5)$.
 
@@ -95,10 +96,12 @@ by advancing the *set* of live values in lockstep instead of one start at a time
 (**313–1900× fewer iterations**; $10^7$ starts collapse to **9,911** distinct
 orbits). The stated baseline was reproduced exactly first.
 
-**Quantitative structure.** The quotient-change process has an exactly predicted
-transition matrix, matching measurement to four decimals, whose stationary
-distribution $(\tfrac18,\tfrac12,\tfrac38)$ self-consistently forces $q_n/n\to1/4$
-— confirmed by $c/t = 0.249998$ at $t=3.3\times10^8$.
+**Quantitative heuristic.** An equidistribution model predicts a quotient-change
+transition matrix that matches measurement to four decimals. One row is proved
+by Theorem 13, but the full matrix and its stationary conclusion remain
+heuristic. Its stationary distribution
+$(\tfrac18,\tfrac12,\tfrac38)$ suggests $q_n/n\to1/4$; the measurement
+$c/t=0.249998$ at $t=3.3\times10^8$ is supporting evidence, not a proof.
 
 **Negative results, on record.** 17 candidate potentials rejected; affine Lyapunov
 functions ruled out exactly; no modular invariant for any $M\in[2,64]$; and the
