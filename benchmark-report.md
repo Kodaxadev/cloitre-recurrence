@@ -125,7 +125,7 @@ ratio is the right way round.
 ## 5. Reproduction
 
 ```bash
-cd search-framework && cargo test --release          # 37 tests
+cd search-framework && cargo test --release          # 39 tests
 cargo run --release --bin bench   -- --lo 1 --hi 20000
 cargo run --release --bin sweep   -- --lo 1 --hi 10000000 --max-n 2000000000
 cargo run --release --bin record  -- --lo 1 --hi 10000000 --out ../data/census_10M.csv

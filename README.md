@@ -85,6 +85,12 @@ $N^{-1/2}$).
 
 | file | contents |
 |---|---|
+| [`audit/evidence-manifest.md`](audit/evidence-manifest.md) | **frozen audit entry point** — source commit, artifact hashes, and evidence boundaries |
+| [`audit/theorem-dependency.md`](audit/theorem-dependency.md) | theorem dependency graph and critical audit cuts |
+| [`audit/fresh-proof-review.md`](audit/fresh-proof-review.md) | blind proof-facing review and resolved findings |
+| [`audit/release-readiness.md`](audit/release-readiness.md) | publication status, open risks, and the next narrow review request |
+| [`manuscript/README.md`](manuscript/README.md) | compact proof dossier, separated from exploratory history |
+| [`supplement/README.md`](supplement/README.md) | algorithms, certificates, completeness arguments, and reproduction |
 | [`theorem-status.md`](theorem-status.md) | **start here** — every claim, classified as proved / computational / heuristic / refuted |
 | [`partial-proofs.md`](partial-proofs.md) | the proofs |
 | [`bounded-quotient-analysis.md`](bounded-quotient-analysis.md) | entry ridge, rebound cascade, and bounded-quotient theorem |
@@ -101,6 +107,20 @@ $N^{-1/2}$).
 | [`research-log.md`](research-log.md) | chronology, including mistakes |
 | [`future-directions.md`](future-directions.md) | ranked next steps |
 | [`lean/`](lean/) | machine-checked formalization (no `sorry`) |
+
+## Audit phase
+
+The exploratory snapshot is frozen at Git commit
+`f19ffcd75d04a05529878ce0226088f2f3221c0b`. Subsequent work is limited to
+audit packaging, independent verification, and corrections. The proposed paper
+title is **Structural and arithmetic restrictions on stabilization in a modular
+additive recurrence**.
+
+The two-counter safe map is not a reduction of every unresolved orbit. It is
+equivalent to the eventually-no-down branch after the branch's entry state is
+fixed. A hypothetical non-stabilizing orbit with infinitely many down-steps is
+outside that map. The exact scope and dependency boundary are recorded in the
+[theorem graph](audit/theorem-dependency.md).
 
 ## Layout
 

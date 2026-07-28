@@ -1,0 +1,11 @@
+# Preserve byte-stable research artifacts and source across platforms.
+.gitattributes text eol=lf
+*.csv text eol=lf
+*.txt text eol=lf
+*.log text eol=lf
+*.md text eol=lf
+*.py text eol=lf
+*.rs text eol=lf
+*.lean text eol=lf
+*.toml text eol=lf
+*.lock text eol=lf

@@ -5,6 +5,7 @@
 
 use conjecture::cli::{now, Args};
 use conjecture::monotone::{safe_step, SafeOutcome, SafeState};
+use conjecture::Fnv;
 use std::collections::{btree_map::Entry, BTreeMap};
 
 #[allow(dead_code)]
@@ -104,6 +105,9 @@ fn safe_sweep(start_n: u64, max_steps: u64) {
     let mut captured = 0u64;
     let mut merges = 0u64;
     let starts = start_n - 1;
+    let mut trajectory = Fnv::default();
+    trajectory.write_u64(start_n);
+    trajectory.write_u64(starts);
     let mut next_report = live.len().saturating_div(2);
     while !live.is_empty() && steps < max_steps {
         let mut next: BTreeMap<u64, (u64, u64)> = BTreeMap::new();
@@ -148,6 +152,30 @@ fn safe_sweep(start_n: u64, max_steps: u64) {
             rejected + captured + merges + live.len() as u64,
             "safe-sweep covering identity failed"
         );
+        let mut state_sum = 0u64;
+        let mut state_xor = 0u64;
+        let mut e_sum = 0u64;
+        let mut wrap_sum = 0u64;
+        for (&e, &(wraps, witness)) in &live {
+            let fingerprint = mix_state(e, wraps, witness);
+            state_sum = state_sum.wrapping_add(fingerprint);
+            state_xor ^= fingerprint;
+            e_sum = e_sum.wrapping_add(e);
+            wrap_sum = wrap_sum.wrapping_add(wraps);
+        }
+        for value in [
+            n,
+            rejected,
+            captured,
+            merges,
+            live.len() as u64,
+            state_sum,
+            state_xor,
+            e_sum,
+            wrap_sum,
+        ] {
+            trajectory.write_u64(value);
+        }
         n += 1;
         steps += 1;
         if live.len() <= next_report {
@@ -168,9 +196,19 @@ fn safe_sweep(start_n: u64, max_steps: u64) {
     println!("danger rejections           : {rejected}");
     println!("capture transitions         : {captured}");
     println!("dominated merges            : {merges}");
+    println!("trajectory fnv1a64          : {:#018x}", trajectory.0);
     for (e, (wraps, witness)) in live.iter().take(20) {
         println!("LIVE e={e} wraps={wraps} witness={witness}");
     }
+}
+
+#[inline]
+fn mix_state(e: u64, wraps: u64, witness: u64) -> u64 {
+    let mut x = e ^ wraps.rotate_left(21) ^ witness.rotate_left(42);
+    x = x.wrapping_add(0x9e37_79b9_7f4a_7c15);
+    x = (x ^ (x >> 30)).wrapping_mul(0xbf58_476d_1ce4_e5b9);
+    x = (x ^ (x >> 27)).wrapping_mul(0x94d0_49bb_1331_11eb);
+    x ^ (x >> 31)
 }
 
 fn main() {

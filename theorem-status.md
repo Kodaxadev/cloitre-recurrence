@@ -42,7 +42,7 @@ classification is the point: nothing is promoted without a proof.
 | **T29** | Every eventually periodic slope cycle with reduced denominator $3$ is impossible | `periodic-orbit-analysis.md` | **Theorem — new** |
 | **T18** | $c(m)=c \Rightarrow m<(c+3)(3c+5)$ | §5b | **Theorem — new** |
 | **C19** | $\{m: c(m)=c\}$ finite and effectively bounded | §5b | **Corollary — new** |
-| **C20** | Not every positive integer is an eventual increment; smallest missing are 5 and 7 | §5b | **Corollary — new** |
+| **C20** | Not every positive integer is an eventual increment; smallest missing are 5 and 7 | §5b | **Computer-assisted corollary — independent complete certificate for $m<260$** |
 | P16 | Only affine-in-$n$ orbit for $e_n$ is the absorbing one | §6 | **Proposition — new** |
 | P17 | No non-trivial affine Lyapunov function $\alpha q+\beta r+\gamma n+\delta$ | §6 | **Proposition — new** |
 | **T30** | Every eventually periodic slope cycle with reduced denominator $5$ is impossible | `periodic-denominator-families.md` | **Theorem - new** |
@@ -83,7 +83,7 @@ This is unconditional: it does not assume the stabilization conjecture.
 | K10 | Every periodic failure has a proper-divisor factor witness | periods $p\le54$ | exact divisor diagnostics; conjectural beyond range |
 | K11 | No nonzero eventually periodic slope orbit has reduced denominator $d\le501$ | all periods; 250 odd denominators, 463 boundary families | Theorems 32 and 36 + exact base-digit certificates |
 | K12 | Longest arbitrary-state no-down segments are 75, 223, and 822 steps at indices 100, 1000, and 10000 | all positive-$e$ states at each index | exact exhaustive `monotone` scan |
-| K13 | No positive state at index $10^6$ has an infinite no-down continuation; the compressed safe set empties at $1{,}009{,}019$ | all $999{,}999$ positive $e$ values, quotient-zero dominance | exact `pure --safe-sweep` certificate |
+| K13 | No positive state at index $10^6$ has an infinite no-down continuation; the compressed safe set empties at $1{,}009{,}019$ | all $999{,}999$ positive $e$ values, quotient-zero dominance | Rust and independent Python generators; matching trajectory digest |
 
 K8 answers MathOverflow Q2 ("what is special about 316?"): **essentially nothing**;
 it wins by a margin of one over its immediate neighbours.

@@ -302,13 +302,18 @@ Without Theorem 18 no finite computation could establish that a value is
 not are $c=5$ and $c=7$.*
 
 **Proof.** By Corollary 19, $c$ occurs iff it occurs for some $m<(c+3)(3c+5)$. All
-$m\le 10^7$ have been enumerated exhaustively (compressed census, with the
-accounting identity `#orbits + #merges = #starts` verified exactly), which settles
-every $c$ with $(c+3)(3c+5)\le10^7$, i.e. every $c\le1823$. Neither $5$ nor $7$
-occurs; the relevant search ranges $8\cdot20=160$ and $10\cdot26=260$ are far
-inside the enumerated range. $\square$
+$m<260$ have been recomputed from the literal recurrence by the independent
+arbitrary-precision verifier `independent/verify_small_spectrum.py`. Its complete
+259-row certificate is `certificates/spectrum_m259.csv`, with SHA-256
+`66a06cff15735c4a3caf98575f29afbcd881fbef06334616fbc3bc772b7ab084`.
+No row has increment $5$ or $7$, covering their complete candidate ranges
+$m<8\cdot20=160$ and $m<10\cdot26=260$. The same certificate contains witnesses
+for every smaller positive increment: $m=3,5,13,19,41$ give
+$c=1,2,3,4,6$, respectively. Thus $5$ and $7$ are the smallest omissions.
+$\square$
 
-Exactly **106** of the increments $1,\dots,1823$ never occur (94.2% are attained);
+Separately, the compressed $10^7$ census reports that exactly **106** of the
+increments $1,\dots,1823$ never occur (94.2% are attained);
 the 77 of them below 1052 are (the full list to 1823 is in
 `data/excluded_increments.txt`):
 

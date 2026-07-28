@@ -1,0 +1,36 @@
+certificate: quotient-zero no-down safe sweep
+start_index: 1000000
+positive_initial_states: 999999
+step_limit: 20000
+
+ending_index: 1009019
+steps: 9019
+live_states: 0
+danger_rejections: 2756
+capture_transitions: 9
+dominated_merges: 997234
+covering_identity: 999999 = 2756 + 9 + 997234 + 0
+trajectory_fnv1a64: 0xffe3df00b02fcb2d
+
+implementation_1:
+  language: Rust u64
+  transition: search-framework/src/monotone.rs
+  generator: search-framework/src/bin/pure.rs
+  state_merge: BTreeMap keyed by e, retaining minimum (wraps,witness)
+
+implementation_2:
+  language: Python arbitrary precision
+  generator: independent/verify_safe_certificate.py
+  transition: raw (n,q,e) threshold equations
+  state_merge: two sorted image lists with a linear merge
+
+agreement:
+  terminal_counts: exact
+  ending_index: exact
+  covering_identity: exact at every layer
+  trajectory_digest: exact
+
+scope:
+  This certificate proves the finite K13 statement only after accepting
+  Lemma 41 quotient-zero dominance. It is not a uniform-in-N termination
+  theorem and does not cover tails with quotient down-steps.
