@@ -1,10 +1,32 @@
 # The stabilization conjecture for `b(n+1) = b(n) + (b(n) mod n)`
 
+[![Research checks](https://github.com/Kodaxadev/cloitre-recurrence/actions/workflows/ci.yml/badge.svg)](https://github.com/Kodaxadev/cloitre-recurrence/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 OEIS [A073117](https://oeis.org/A073117) / [A117846](https://oeis.org/A117846).
 Conjectured by Benoit Cloitre (2002), restated by Alex Abercrombie (2007):
 for every starting value $m$ the increments $b_{n+1}-b_n$ are eventually constant.
 
 **The conjecture remains open.** What this project produced:
+
+## Claim status
+
+| Claim | Status |
+|---|---|
+| Universal stabilization | **Open** |
+| Finite-start bound \(m<(c+3)(3c+5)\) | Proved internally; awaiting external mathematical review |
+| Eventual increments 5 and 7 are omitted | Internal proof plus independent complete finite certificate |
+| 106 omissions through 1823 | Primary compressed census; independent full census still pending |
+| \(q_n=\Omega_m(n/\log n)\) and \(b_n=\Omega_m(n^2/\log n)\) for a counterexample | Proved internally; awaiting external mathematical review |
+| No eventually periodic quotient-change sequence | Proved internally; awaiting external mathematical review |
+| Two-counter termination for every valid entry state | **Open**; covers only the eventually-no-down branch |
+| \(N=10^6\) two-counter safe-map instance | Independently reproduced finite certificate |
+
+“Proved internally” means that the repository contains a complete proof which
+passed a fresh internal audit. It does not mean that a qualified external
+referee has validated the result. See
+[`audit/release-readiness.md`](audit/release-readiness.md) for the precise
+publication boundary.
 
 ## Results
 
@@ -28,9 +50,11 @@ $b_n=q_nn+r_n$) turns the recurrence into an exact modular doubling map,
 > **Theorem 6.** $e_{n+1} = 2e_n - \Delta q_n (n+2)$, hence $e_{n+1}\equiv 2e_n \pmod{n+2}$,
 
 with stabilization exactly $e_n=0$ — a *repelling* fixed point. $\Delta q_n$ is
-literally the digit sequence of $e$ in signed binary. This explains why every
-Lyapunov/invariant approach must fail, and two versions of that are proved
-(Propositions 16, 17). Also new: the capture criterion (C7), congruence
+literally the digit sequence of $e$ in signed binary. The doubling viewpoint
+explains why simple monotonicity heuristics are fragile. Two limited negative
+results are proved (Propositions 16, 17), and finite searches reject additional
+candidate invariants; the project does not rule out every possible invariant
+approach. Also new: the capture criterion (C7), congruence
 propagation and parity (L8, C9), consecutive-step bounds (L12), the **forced
 rebound** (T13) and the **ratchet** (T14) — the only monotonicity this system has,
 and the engine behind Theorem 18.
@@ -111,10 +135,13 @@ $N^{-1/2}$).
 ## Audit phase
 
 The exploratory snapshot is frozen at Git commit
-`f19ffcd75d04a05529878ce0226088f2f3221c0b`. Subsequent work is limited to
-audit packaging, independent verification, and corrections. The proposed paper
-title is **Structural and arithmetic restrictions on stabilization in a modular
-additive recurrence**.
+`f19ffcd75d04a05529878ce0226088f2f3221c0b`; the complete audit package is
+preserved by the immutable
+[`v0.1.0-audit`](https://github.com/Kodaxadev/cloitre-recurrence/tree/v0.1.0-audit)
+tag at commit `46e4780dc4955c1fd21110aebcbc6da688794668`. Subsequent work is
+limited to audit packaging, independent verification, and corrections. The
+proposed paper title is **Structural and arithmetic restrictions on
+stabilization in a modular additive recurrence**.
 
 The two-counter safe map is not a reduction of every unresolved orbit. It is
 equivalent to the eventually-no-down branch after the branch's entry state is
@@ -152,6 +179,14 @@ Every binary prints an FNV-1a-64 digest and is deterministic across thread count
 The sweep and census assert their covering identities
 (`merges + absorbed + live == starts`) and abort rather than report an unverified
 range — that assertion is what licenses Corollary 20.
+
+The [`Research checks`](.github/workflows/ci.yml) workflow runs the Rust theorem
+tests, independent Rust self-test, OEIS checks, small-spectrum regeneration,
+bounded safe-map cross-check, denominator-family certificate, committed
+artifact hashes, and the pinned Lean build. It intentionally does not rerun the
+full \(10^7\) census or the four-minute independent \(N=10^6\) safe-map
+generator on every push. A green workflow is reproducibility evidence, not
+external mathematical review.
 
 ## Correctness posture
 

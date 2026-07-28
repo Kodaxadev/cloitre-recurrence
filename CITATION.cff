@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this research package, please cite it using these metadata."
+title: "Cloitre recurrence research package"
+abstract: >-
+  An AI-assisted research package curated by the repository maintainer,
+  containing proofs, computational certificates, and verification software
+  concerning stabilization and attainable eventual increments in the
+  recurrence b(n+1) = b(n) + (b(n) mod n). The universal stabilization
+  conjecture remains open, and the principal new proofs await external
+  mathematical review.
+authors:
+  - name: "Kodaxadev"
+version: 0.1.0-audit
+commit: "46e4780dc4955c1fd21110aebcbc6da688794668"
+date-released: "2026-07-28"
+type: software
+repository-code: "https://github.com/Kodaxadev/cloitre-recurrence"
+url: "https://github.com/Kodaxadev/cloitre-recurrence"
+license: MIT
+keywords:
+  - integer recurrence
+  - modular arithmetic
+  - computational number theory
+  - formal verification
+  - research software
