@@ -1,205 +1,234 @@
-# The stabilization conjecture for `b(n+1) = b(n) + (b(n) mod n)`
+<p align="center">
+  <img src="assets/readme-hero.svg" alt="Cloitre recurrence research package" width="100%">
+</p>
 
-[![Research checks](https://github.com/Kodaxadev/cloitre-recurrence/actions/workflows/ci.yml/badge.svg)](https://github.com/Kodaxadev/cloitre-recurrence/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+<p align="center">
+  <a href="https://github.com/Kodaxadev/cloitre-recurrence/actions/workflows/ci.yml"><img src="https://github.com/Kodaxadev/cloitre-recurrence/actions/workflows/ci.yml/badge.svg" alt="Research checks"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-d9a441.svg" alt="MIT License"></a>
+  <a href="https://github.com/Kodaxadev/cloitre-recurrence/tree/v0.1.0-audit"><img src="https://img.shields.io/badge/audit-v0.1.0--audit-2b8a7e.svg" alt="Audit release"></a>
+  <img src="https://img.shields.io/badge/conjecture-open-c0392b.svg" alt="Conjecture open">
+</p>
 
-OEIS [A073117](https://oeis.org/A073117) / [A117846](https://oeis.org/A117846).
-Conjectured by Benoit Cloitre (2002), restated by Alex Abercrombie (2007):
-for every starting value $m$ the increments $b_{n+1}-b_n$ are eventually constant.
+<p align="center">
+  <strong>Proofs · exact certificates · compressed computation · partial Lean formalization</strong>
+</p>
 
-**The conjecture remains open.** What this project produced:
+---
+
+## The problem
+
+For a positive integer \(m\), define
+
+\[
+b_1=m,\qquad b_{n+1}=b_n+(b_n\bmod n).
+\]
+
+The **Cloitre stabilization conjecture** asks whether, for every start \(m\), the increments
+
+\[
+b_{n+1}-b_n
+\]
+
+are eventually constant. The problem appears in [OEIS A073117](https://oeis.org/A073117), [OEIS A117846](https://oeis.org/A117846), and [MathOverflow 191518](https://mathoverflow.net/questions/191518/mod-sequences-that-seem-to-become-constant-and-the-number-316).
+
+> [!IMPORTANT]
+> **The universal stabilization conjecture remains open.** This repository contains internally audited partial theorems, certified finite results, and reproducible computational evidence—not a proof of universal stabilization.
+
+## Results at a glance
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### Finite-start theorem
+
+If the orbit from \(m\) has eventual increment \(c\), then
+
+\[
+\boxed{m<(c+3)(3c+5)}.
+\]
+
+This converts every fixed-increment question into a finite computation.
+
+</td>
+<td width="50%" valign="top">
+
+### Certified nonsurjectivity
+
+The eventual increments are **not** surjective onto the positive integers.
+
+The smallest omitted values are
+
+\[
+\boxed{5\text{ and }7}.
+\]
+
+This is supported by an independent arbitrary-precision certificate covering the complete finite ranges supplied by the theorem.
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+
+### Counterexample restrictions
+
+Every bounded-quotient orbit stabilizes. Hence any counterexample must satisfy
+
+\[
+q_n\to\infty,
+\qquad
+q_n=\Omega_m\!\left(\frac{n}{\log n}\right),
+\qquad
+b_n=\Omega_m\!\left(\frac{n^2}{\log n}\right).
+\]
+
+</td>
+<td width="50%" valign="top">
+
+### Periodic behavior excluded
+
+No admissible nonzero eventually periodic quotient-change sequence exists.
+
+Therefore any counterexample must be **genuinely aperiodic**.
+
+</td>
+</tr>
+</table>
+
+## Structural coordinate
+
+Write
+
+\[
+b_n=q_n n+r_n,\qquad 0\le r_n<n,\qquad e_n=r_n-q_n.
+\]
+
+Then the recurrence becomes
+
+\[
+\boxed{e_{n+1}=2e_n-\Delta q_n(n+2)},
+\qquad
+e_{n+1}\equiv2e_n\pmod{n+2}.
+\]
+
+Stabilization is exactly the event \(e_n=0\). This exposes the dynamics as a doubling map with a moving modulus and supplies the main organizing coordinate for the project.
 
 ## Claim status
 
-| Claim | Status |
-|---|---|
-| Universal stabilization | **Open** |
-| Finite-start bound \(m<(c+3)(3c+5)\) | Proved internally; awaiting external mathematical review |
-| Eventual increments 5 and 7 are omitted | Internal proof plus independent complete finite certificate |
-| 106 omissions through 1823 | Primary compressed census; independent full census still pending |
-| \(q_n=\Omega_m(n/\log n)\) and \(b_n=\Omega_m(n^2/\log n)\) for a counterexample | Proved internally; awaiting external mathematical review |
-| No eventually periodic quotient-change sequence | Proved internally; awaiting external mathematical review |
-| Two-counter termination for every valid entry state | **Open**; covers only the eventually-no-down branch |
-| \(N=10^6\) two-counter safe-map instance | Independently reproduced finite certificate |
-
-“Proved internally” means that the repository contains a complete proof which
-passed a fresh internal audit. It does not mean that a qualified external
-referee has validated the result. See
-[`audit/release-readiness.md`](audit/release-readiness.md) for the precise
-publication boundary.
-
-## Results
-
-**A published open question, answered — unconditionally.**
-OEIS A117846 asks *"Do the values a(n) include all positive numbers?"*
-The answer is **no**: the smallest eventual increments that never occur are
-**5 and 7**. This follows from a new theorem plus an independent complete
-finite certificate and does **not** assume the stabilization conjecture.
-Separately, the primary compressed census reports exactly **106** omissions
-among $1,\dots,1823$; that full $10^7$ census has not yet been independently
-reimplemented.
-
-> **Theorem 18.** If the orbit from $m$ has eventual increment $c$, then $m<(c+3)(3c+5)$.
-
-This gives an effective finite candidate set for each increment. Whenever every
-candidate orbit in that set has been resolved, computation can prove absence;
-before this bound, no finite scan could do so.
-
-**New structural theory.** The substitution $e_n = r_n - q_n$ (where
-$b_n=q_nn+r_n$) turns the recurrence into an exact modular doubling map,
-
-> **Theorem 6.** $e_{n+1} = 2e_n - \Delta q_n (n+2)$, hence $e_{n+1}\equiv 2e_n \pmod{n+2}$,
-
-with stabilization exactly $e_n=0$ — a *repelling* fixed point. $\Delta q_n$ is
-literally the digit sequence of $e$ in signed binary. The doubling viewpoint
-explains why simple monotonicity heuristics are fragile. Two limited negative
-results are proved (Propositions 16, 17), and finite searches reject additional
-candidate invariants; the project does not rule out every possible invariant
-approach. Also new: the capture criterion (C7), congruence
-propagation and parity (L8, C9), consecutive-step bounds (L12), the **forced
-rebound** (T13) and the **ratchet** (T14) — the only monotonicity this system has,
-and the engine behind Theorem 18.
-
-The continuation adds an **entry ridge** ($q_{n_0}\in\{n_0-2,n_0-1\}$ at first
-entry), an exact **rebound cascade**, and the theorem that every bounded-quotient
-orbit stabilizes. In fact there is a dichotomy: either the orbit stabilizes or
-$q_n\to\infty$. A zero-run count sharpens this: any counterexample must satisfy
-$q_n=\Omega_m(n/\log n)$ and $b_n=\Omega_m(n^2/\log n)$.
-
-For eventually periodic quotient changes, an exact affine-phase calculation now
-gives a necessary divisibility condition. Exhaustive enumeration rejects every
-nonzero minimal period through 54. The continuation now proves more:
-**no nonzero eventually periodic quotient-change orbit exists at any period
-or rational phase denominator** (Theorem 38). Genuinely aperiodic escape
-remains open. An independent exact certificate verifies every reduced
-denominator through 501.
-
-For the aperiodic frontier, Theorem 39 gives an exact infinite future-digit
-formula. Lemmas 40--41 reduce every eventually monotone escape to a
-quotient-zero moving-modulus survivor problem. An exact compressed sweep of
-all 999,999 positive states at index one million empties after 9,019 steps;
-a bound uniform in the starting index remains open. Lemmas 43--44 put the
-survivor map in exact binary-Euclidean coordinates, and Theorem 45 shows that
-any monotone counterexample would have
-$\liminf q_n\log_2(n)/n\ge1$.
-
-**Verification extended 50×, with less arithmetic than the baseline.**
-
-| | previous baseline | this project |
+| Claim | Current status | Evidence boundary |
 |---|---|---|
-| verified range | $m \le 2\times10^5$ | $m\le 10^7$ |
-| longest stabilization | $t=9{,}363{,}863$ at $m=31{,}873$ | $t=\mathbf{327{,}695{,}231}$ at $m=\mathbf{1{,}320{,}111}$ |
-| eventual increment there | $2{,}341{,}202$ | $81{,}923{,}126$ |
-| wall time | — | 149 s |
+| Universal stabilization | **Open** | No proof claimed |
+| \(m<(c+3)(3c+5)\) | Internally proved | Complete proof; awaiting external mathematical review |
+| Eventual increments 5 and 7 are omitted | Certified | Independent complete finite certificate |
+| 106 omissions among \(1,\dots,1823\) | Census result | Primary compressed census; full independent census pending |
+| Counterexample growth bounds | Internally proved | Complete proof; awaiting external mathematical review |
+| No eventually periodic quotient-change sequence | Internally proved | Complete proof; awaiting external mathematical review |
+| Two-counter termination for every valid entry state | **Open** | Only the eventually-no-down branch is reduced |
+| Safe-map instance at \(N=10^6\) | Certified finite result | Independent Rust/Python agreement |
 
-by advancing the *set* of live values in lockstep instead of one start at a time
-(**313–1900× fewer iterations**; $10^7$ starts collapse to **9,911** distinct
-orbits). The stated baseline was reproduced exactly first.
+“Internally proved” means that a complete proof is present and passed a fresh-context internal audit. It does **not** mean that an external specialist has refereed it. See [`audit/release-readiness.md`](audit/release-readiness.md).
 
-**Quantitative heuristic.** An equidistribution model predicts a quotient-change
-transition matrix that matches measurement to four decimals. One row is proved
-by Theorem 13, but the full matrix and its stationary conclusion remain
-heuristic. Its stationary distribution
-$(\tfrac18,\tfrac12,\tfrac38)$ suggests $q_n/n\to1/4$; the measurement
-$c/t=0.249998$ at $t=3.3\times10^8$ is supporting evidence, not a proof.
+## The aperiodic frontier
 
-**Negative results, on record.** 17 candidate potentials rejected; affine Lyapunov
-functions ruled out exactly; no modular invariant for any $M\in[2,64]$; and the
-standard tail heuristic **refuted** (measured $N^{-0.655}$, predicted $N^{-1}$ or
-$N^{-1/2}$).
+For an eventually-no-down tail, the project derives an exact future-digit identity and an exact two-counter safe map. A compressed certificate checks all \(999{,}999\) positive states at index \(10^6\) and empties the safe set after \(9{,}019\) additional steps.
 
-## Reading order
+> [!CAUTION]
+> The two-counter map covers the **eventually-no-down branch only**. A hypothetical counterexample with infinitely many quotient down-steps lies outside this reduction. The \(N=10^6\) certificate is rigorous but finite; it is not a uniform termination theorem.
 
-| file | contents |
+## Computational record
+
+|  | Previous baseline | This project |
+|---|---:|---:|
+| Verified starting values | \(m\le2\times10^5\) | \(m\le10^7\) |
+| Longest stabilization index | \(9{,}363{,}863\) | **\(327{,}695{,}231\)** |
+| Smallest start attaining record | \(31{,}873\) | **\(1{,}320{,}111\)** |
+| Eventual increment there | \(2{,}341{,}202\) | **\(81{,}923{,}126\)** |
+| Distinct compressed orbits | — | **9,911 from \(10^7\) starts** |
+
+The primary sweep advances the set of live values in lockstep and checks the covering identity
+
+```text
+merges + absorbed + live == starts
+```
+
+before reporting a completed range.
+
+## Verification stack
+
+| Layer | Role |
 |---|---|
-| [`audit/evidence-manifest.md`](audit/evidence-manifest.md) | **frozen audit entry point** — source commit, artifact hashes, and evidence boundaries |
-| [`audit/theorem-dependency.md`](audit/theorem-dependency.md) | theorem dependency graph and critical audit cuts |
-| [`audit/fresh-proof-review.md`](audit/fresh-proof-review.md) | blind proof-facing review and resolved findings |
-| [`audit/release-readiness.md`](audit/release-readiness.md) | publication status, open risks, and the next narrow review request |
-| [`manuscript/README.md`](manuscript/README.md) | compact proof dossier, separated from exploratory history |
-| [`supplement/README.md`](supplement/README.md) | algorithms, certificates, completeness arguments, and reproduction |
-| [`theorem-status.md`](theorem-status.md) | **start here** — every claim, classified as proved / computational / heuristic / refuted |
-| [`partial-proofs.md`](partial-proofs.md) | the proofs |
-| [`bounded-quotient-analysis.md`](bounded-quotient-analysis.md) | entry ridge, rebound cascade, and bounded-quotient theorem |
-| [`periodic-orbit-analysis.md`](periodic-orbit-analysis.md) | exact obstruction and finite search for periodic quotient changes |
-| [`periodic-denominator-families.md`](periodic-denominator-families.md) | all-period exclusions for phase-slope denominators 5, 7, 9, and 11 |
-| [`periodic-boundary-reduction.md`](periodic-boundary-reduction.md) | reduction of every rational periodic slope to exact boundary subset equations |
-| [`aperiodic-tail-analysis.md`](aperiodic-tail-analysis.md) | future-digit identity and the exact moving-modulus reduction for monotone tails |
-| [`research-log-aperiodic.md`](research-log-aperiodic.md) | continued chronology for the aperiodic and monotone-tail attack |
-| [`symbolic-analysis.md`](symbolic-analysis.md) | the doubling picture; where heuristics hold and where they break |
-| [`literature-review.md`](literature-review.md) | what was already known, and by whom |
-| [`compressed-orbit-analysis.md`](compressed-orbit-analysis.md) | the compression method, and the four that failed |
-| [`invariant-search.md`](invariant-search.md) | comprehensive negative results |
-| [`benchmark-report.md`](benchmark-report.md) | timings, determinism, reproduction |
-| [`research-log.md`](research-log.md) | chronology, including mistakes |
-| [`future-directions.md`](future-directions.md) | ranked next steps |
-| [`lean/`](lean/) | machine-checked formalization (no `sorry`) |
+| `search-framework/` | Zero-dependency Rust dynamics, compressed sweep, census, periodic and safe-map tools |
+| `verification-framework/` | Independent `u128` raw-\(b\) verifier |
+| `verification-framework/verify.py` | Third implementation using arbitrary-precision Python integers |
+| `independent/` | Independent certificate regenerators |
+| `lean/Conjecture.lean` | Mathlib-free Lean formalization of foundational identities |
+| `.github/workflows/ci.yml` | Rust, Python, certificate, hash, OEIS, and Lean checks |
 
-## Audit phase
+The Lean development compiles without `sorry`, but it does **not** formalize the finite-start theorem, growth bounds, all-period exclusion, or two-counter reduction.
 
-The exploratory snapshot is frozen at Git commit
-`f19ffcd75d04a05529878ce0226088f2f3221c0b`; the complete audit package is
-preserved by the immutable
-[`v0.1.0-audit`](https://github.com/Kodaxadev/cloitre-recurrence/tree/v0.1.0-audit)
-tag at commit `46e4780dc4955c1fd21110aebcbc6da688794668`. Subsequent work is
-limited to audit packaging, independent verification, and corrections. The
-proposed paper title is **Structural and arithmetic restrictions on
-stabilization in a modular additive recurrence**.
+## Recommended reading path
 
-The two-counter safe map is not a reduction of every unresolved orbit. It is
-equivalent to the eventually-no-down branch after the branch's entry state is
-fixed. A hypothetical non-stabilizing orbit with infinitely many down-steps is
-outside that map. The exact scope and dependency boundary are recorded in the
-[theorem graph](audit/theorem-dependency.md).
+1. **[`audit/evidence-manifest.md`](audit/evidence-manifest.md)** — frozen artifacts, hashes, and evidence boundaries
+2. **[`manuscript/README.md`](manuscript/README.md)** — compact statement-and-proof dossier
+3. **[`audit/theorem-dependency.md`](audit/theorem-dependency.md)** — theorem dependency graph and critical cuts
+4. **[`theorem-status.md`](theorem-status.md)** — complete claim ledger
+5. **[`supplement/README.md`](supplement/README.md)** — algorithms, certificates, and reproduction
+6. **[`audit/fresh-proof-review.md`](audit/fresh-proof-review.md)** — fresh-context internal audit
 
-## Layout
+<details>
+<summary><strong>Research notes and specialized analyses</strong></summary>
 
-```
-search-framework/        Rust, zero dependencies
-  src/dynamics.rs          division-free (q,r) iteration
-  src/sweep.rs             compressed set sweep
-  src/witness.rs           sweep + orbit census
-  src/bin/{scan,sweep,record,epochs,invariant,bench,periodic,resets,monotone,pure}.rs
-  tests/                   adversarial tests vs. a naive reference + OEIS ground truth
-verification-framework/  independent: u128, raw b-form, no shared code
-  verify.py                third implementation, arbitrary precision
-lean/Conjecture.lean     Lean 4.32.1, mathlib-free, compiles clean
-data/                    census, scans, profiles
-computational-results.csv  top 2000 orbits by stabilization index
-```
+| File | Contents |
+|---|---|
+| [`partial-proofs.md`](partial-proofs.md) | foundational proofs and finite-start theorem |
+| [`bounded-quotient-analysis.md`](bounded-quotient-analysis.md) | entry ridge, rebound cascade, bounded quotient, growth bound |
+| [`periodic-orbit-analysis.md`](periodic-orbit-analysis.md) | affine-phase obstruction and finite periodic search |
+| [`periodic-denominator-families.md`](periodic-denominator-families.md) | denominator-family exclusions |
+| [`periodic-boundary-reduction.md`](periodic-boundary-reduction.md) | universal boundary subset-equation reduction |
+| [`aperiodic-tail-analysis.md`](aperiodic-tail-analysis.md) | future-digit identity and monotone-tail safe map |
+| [`symbolic-analysis.md`](symbolic-analysis.md) | doubling model, heuristics, and failures |
+| [`compressed-orbit-analysis.md`](compressed-orbit-analysis.md) | compression design and rejected approaches |
+| [`invariant-search.md`](invariant-search.md) | negative invariant and potential searches |
+| [`literature-review.md`](literature-review.md) | prior work and attribution |
+| [`research-log.md`](research-log.md) | exploratory chronology and corrections |
+| [`research-log-aperiodic.md`](research-log-aperiodic.md) | continuation chronology |
+| [`future-directions.md`](future-directions.md) | ranked unresolved directions |
 
-## Reproducing
+</details>
+
+## Reproduction
+
+Fast continuous-integration checks:
 
 ```bash
-cd search-framework && cargo test --release
-cargo run --release --bin record -- --lo 1 --hi 10000000 --out ../data/census_10M.csv
-cd ../verification-framework && cargo run --release -- --csv ../data/scan_200k.csv
-python verify.py --oeis
-lean ../lean/Conjecture.lean
+cargo test --release --manifest-path search-framework/Cargo.toml
+cargo test --release --manifest-path verification-framework/Cargo.toml
+cargo run --release --manifest-path verification-framework/Cargo.toml -- --selftest
+python verification-framework/verify.py --oeis
+python independent/verify_small_spectrum.py
+python scripts/periodic_phase_blocks.py --max-denominator 501
+lake build
+lean lean/Conjecture.lean
 ```
 
-Every binary prints an FNV-1a-64 digest and is deterministic across thread counts.
-The sweep and census assert their covering identities
-(`merges + absorbed + live == starts`) and abort rather than report an unverified
-range — that assertion is what licenses Corollary 20.
+The full \(10^7\) census and full \(N=10^6\) independent safe-map regeneration are intentionally not run on every push. Exact commands and expected digests are recorded in [`supplement/03-reproduction.md`](supplement/03-reproduction.md).
 
-The [`Research checks`](.github/workflows/ci.yml) workflow runs the Rust theorem
-tests, independent Rust self-test, OEIS checks, small-spectrum regeneration,
-bounded safe-map cross-check, denominator-family certificate, committed
-artifact hashes, and the pinned Lean build. It intentionally does not rerun the
-full \(10^7\) census or the four-minute independent \(N=10^6\) safe-map
-generator on every push. A green workflow is reproducibility evidence, not
-external mathematical review.
+## Frozen audit release
 
-## Correctness posture
+The exploratory snapshot is commit `f19ffcd75d04a05529878ce0226088f2f3221c0b`.
 
-Three independent implementations (Rust `u64` in $(q,r)$ coordinates; Rust `u128`
-in raw $b$-form; Python arbitrary-precision), agreeing on: all 68 published terms
-of A117846 in both parities, A073117's $a(397)=38606=398\cdot97$, all 200,000 rows
-of the $2\times10^5$ scan, and the ten record orbits checked 500 steps past
-stabilization. Arithmetic overflow checking is enabled in every build that
-produced a result — it costs nothing measurable here.
+The complete immutable audit package is tagged:
 
-The independent verifier earned its keep once: it rejected two rows of a
-spot-check file whose values I had typed by hand rather than extracted
-programmatically. See `research-log.md`.
+**[`v0.1.0-audit`](https://github.com/Kodaxadev/cloitre-recurrence/tree/v0.1.0-audit)** → `46e4780dc4955c1fd21110aebcbc6da688794668`
+
+Later README, metadata, and CI maintenance do not alter that frozen record.
+
+## Citation
+
+Citation metadata are provided in [`CITATION.cff`](CITATION.cff). The package is AI-assisted and maintainer-curated; that boundary is stated explicitly in the citation metadata and audit documents.
+
+---
+
+<p align="center">
+  <strong>The central conjecture is open. The partial results, certificates, and exact scope boundaries are the contribution of this repository.</strong>
+</p>
