@@ -95,3 +95,66 @@ fn every_finite_safe_prefix_propagates_to_the_next_checkpoint() {
         }
     }
 }
+
+#[test]
+fn accelerated_zero_epoch_matches_safe_map() {
+    for w in 2..=100u64 {
+        for wraps in 0..=60u64 {
+            for e in 1..w {
+                if 2 * e > w {
+                    continue;
+                }
+                let start = SafeState { e, w, wraps };
+                let slack = w - 2 * e;
+                let mut current = match safe_step(start) {
+                    SafeOutcome::Continue {
+                        state,
+                        digit: SafeDigit::Zero,
+                    } => state,
+                    _ => panic!("zero-epoch premise did not take a zero step"),
+                };
+                let mut run = 0u32;
+                let stop = loop {
+                    match safe_step(current) {
+                        SafeOutcome::Continue {
+                            state,
+                            digit: SafeDigit::Wrap,
+                        } => {
+                            current = state;
+                            run += 1;
+                        }
+                        outcome => break outcome,
+                    }
+                };
+
+                let scale = |j: u32| (1u128 << (j + 1)) * u128::from(wraps + slack + 4);
+                for j in 0..run {
+                    assert!(scale(j) < u128::from(w + wraps + u64::from(j) + 5));
+                }
+                assert!(scale(run) >= u128::from(w + wraps + u64::from(run) + 5));
+
+                let candidate = i128::try_from(scale(run)).unwrap()
+                    - i128::from(w)
+                    - 2 * i128::from(wraps)
+                    - 2 * i128::from(run)
+                    - 7;
+                assert_eq!(current.w, w + 1);
+                assert_eq!(current.wraps, wraps + u64::from(run));
+                match stop {
+                    SafeOutcome::Continue {
+                        digit: SafeDigit::Zero,
+                        ..
+                    } => {
+                        assert!(candidate >= 0);
+                        assert_eq!(candidate, i128::from(current.w - 2 * current.e));
+                    }
+                    SafeOutcome::Terminated { .. } => assert!(candidate < 0),
+                    SafeOutcome::Continue {
+                        digit: SafeDigit::Wrap,
+                        ..
+                    } => unreachable!("loop stops at the first non-wrap"),
+                }
+            }
+        }
+    }
+}

@@ -151,3 +151,42 @@ Therefore an even least failure must start with `2e<=N` and later hit
 `n-U-2e=0`. This is Theorem 50. Computation shows that zero-slack events do
 occur on finite paths, so the endpoint cannot be dismissed empirically; it
 is now the exact obstruction to completing this backward-induction route.
+
+## 6. Accelerating the boundary return
+
+The zero-slack obstruction can be accelerated exactly. At a zero epoch, put
+
+```text
+W = n-U,       d = W-2e.
+```
+
+After the zero and `k` maximal wraps, the next non-wrap state has candidate
+slack
+
+```text
+d' = 2^(k+1)(U+d+4) - W - 2U - 2k - 7,
+```
+
+where `k` is the first index satisfying the corresponding non-wrap
+inequality. Nonnegative `d'` is the next zero epoch; negative `d'` is
+termination. This is Lemma 51.
+
+For boundary input `d=0`, a surviving return has positive odd slack and
+residue at most the boundary residue. Local equality occurs in the explicit
+infinite family
+
+```text
+e = (2^k-1)(U+4)-k.
+```
+
+A hoped-for global descent is false. The exact path
+
+```text
+(14,0,7) --0--> (15,0,14) --1--> (16,1,11)
+           --1--> (17,2,4) --0--> (18,2,8)
+```
+
+goes from one zero-slack boundary to another while increasing the boundary
+residue. Corollary 52 proves that every later boundary residue must increase.
+This removes simple boundary monotonicity from the viable proof strategies
+and leaves an arithmetic return-map problem.

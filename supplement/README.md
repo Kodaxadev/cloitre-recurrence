@@ -35,9 +35,10 @@ the \(N=10^6\) safe-map certificate using sorted image lists rather than the
 Rust ordered-map implementation. The bounded regression verifier
 `independent/verify_safe_checkpoint.py` checks Theorem 46's local dominance,
 Lemma 47's signed coordinates, Corollary 48's even-witness predecessor,
-Lemma 49's quotient clearance, and Theorem 50's complementary-residue
-constructions directly from raw \((n,q,e)\) thresholds; it is not a
-substitute for their symbolic proofs.
+Lemma 49's quotient clearance, Theorem 50's complementary-residue
+constructions, and Lemma 51--Corollary 52's accelerated zero-epoch formulas
+directly from raw \((n,q,e)\) thresholds; it is not a substitute for their
+symbolic proofs.
 
 ## Files
 

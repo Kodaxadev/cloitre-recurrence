@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Independent bounded checks for Theorems 46/50 and Lemmas 47/49.
+"""Independent bounded checks for Theorems 46/50 and Lemmas 47/49/51.
 
 This verifier uses raw `(n,q,e)` inequalities and imports no project code.
 It is a finite regression check, not the proof of either symbolic statement.
@@ -146,6 +146,81 @@ def check_even_checkpoint_predecessors(n: int, e: int) -> bool:
         return True
 
 
+def check_zero_acceleration(
+    state: State,
+) -> tuple[int, int, State, tuple[str, State] | None]:
+    first = raw_safe_step(state)
+    assert first is not None and first[0] == "zero"
+    width = state.n - state.q
+    slack = width - 2 * state.e
+    assert slack >= 0
+
+    current = first[1]
+    wraps = 0
+    while True:
+        outcome = raw_safe_step(current)
+        if outcome is None or outcome[0] != "wrap":
+            break
+        current = outcome[1]
+        wraps += 1
+
+    for j in range(wraps):
+        assert (1 << (j + 1)) * (state.q + slack + 4) < (
+            width + state.q + j + 5
+        )
+    assert (1 << (wraps + 1)) * (state.q + slack + 4) >= (
+        width + state.q + wraps + 5
+    )
+
+    candidate = (
+        (1 << (wraps + 1)) * (state.q + slack + 4)
+        - width
+        - 2 * state.q
+        - 2 * wraps
+        - 7
+    )
+    assert current.n - current.q == width + 1
+    assert current.q == state.q + wraps
+    if outcome is None:
+        assert candidate < 0
+    else:
+        assert outcome[0] == "zero"
+        assert candidate >= 0
+        assert current.n - current.q - 2 * current.e == candidate
+    return wraps, candidate, current, outcome
+
+
+def check_boundary_equalities() -> int:
+    checked = 0
+    for q in range(51):
+        for wraps in range(1, 9):
+            e = ((1 << wraps) - 1) * (q + 4) - wraps
+            state = State(n=2 * e + q, q=q, e=e)
+            actual_wraps, slack, current, outcome = check_zero_acceleration(state)
+            assert actual_wraps == wraps
+            assert slack == 1
+            assert current.e == e
+            assert outcome is not None and outcome[0] == "zero"
+            checked += 1
+    return checked
+
+
+def check_boundary_growth_example() -> None:
+    states = [
+        State(n=14, q=0, e=7),
+        State(n=15, q=0, e=14),
+        State(n=16, q=1, e=11),
+        State(n=17, q=2, e=4),
+        State(n=18, q=2, e=8),
+    ]
+    digits = ["zero", "wrap", "wrap", "zero"]
+    for before, digit, after in zip(states, digits, states[1:]):
+        assert raw_safe_step(before) == (digit, after)
+    assert states[0].n - states[0].q - 2 * states[0].e == 0
+    assert states[-1].n - states[-1].q - 2 * states[-1].e == 0
+    assert states[-1].e > states[0].e
+
+
 def lifetime(state: State, limit: int) -> int:
     for steps in range(limit):
         outcome = raw_safe_step(state)
@@ -161,15 +236,22 @@ def main() -> None:
     parity_predecessors_checked = 0
     clearance_transitions_checked = 0
     even_predecessors_checked = 0
+    zero_epochs_checked = 0
+    accelerated_wraps_checked = 0
     for n in range(2, 151):
         for q in range(n):
             for e in range(1, n - q):
                 state = State(n=n, q=q, e=e)
                 check_signed_form(state)
                 signed_checked += 1
-                if raw_safe_step(state) is not None:
+                outcome = raw_safe_step(state)
+                if outcome is not None:
                     check_local_dominance(state)
                     dominance_checked += 1
+                    if n <= 100 and outcome[0] == "zero":
+                        wraps, _, _, _ = check_zero_acceleration(state)
+                        zero_epochs_checked += 1
+                        accelerated_wraps_checked += wraps
 
         if n >= 3:
             for e in range(2, n, 2):
@@ -190,6 +272,9 @@ def main() -> None:
             for e in range(1, n, 2):
                 even_predecessors_checked += check_even_checkpoint_predecessors(n, e)
 
+    equality_cases_checked = check_boundary_equalities()
+    check_boundary_growth_example()
+
     for n in (2, 4, 6):
         for e in range(1, n):
             lifetime(State(n=n, q=0, e=e), 100)
@@ -199,9 +284,12 @@ def main() -> None:
     print(f"even-witness predecessors checked: {parity_predecessors_checked}")
     print(f"clearance transitions checked: {clearance_transitions_checked}")
     print(f"even-checkpoint constructions checked: {even_predecessors_checked}")
+    print(f"accelerated zero epochs checked: {zero_epochs_checked}")
+    print(f"wrap transitions accelerated: {accelerated_wraps_checked}")
+    print(f"boundary equality cases checked: {equality_cases_checked}")
     print(
         "VERDICT: bounded raw checks agree with Theorems 46/50, "
-        "Lemmas 47/49, and Corollary 48."
+        "Lemmas 47/49/51, and Corollaries 48/52."
     )
 
 

@@ -65,6 +65,8 @@ classification is the point: nothing is promoted without a proof.
 | **C48** | Every witness at a least failing safe-map index has odd $e$; at an odd least index it is unreachable from $b_1=m$ | `safe-map-checkpoint-analysis.md` | **Corollary - new; fresh audit pending** |
 | **L49** | Initial quotient $Q$ preserves a safe prefix exactly while every zero-step slack is at least $Q$ | `safe-map-checkpoint-analysis.md` | **Lemma - new; fresh audit pending** |
 | **T50** | An even least safe-map failure must start below the midpoint and later hit exact zero quotient slack | `safe-map-checkpoint-analysis.md` | **Theorem - new; fresh audit pending** |
+| **L51** | Zero steps and their maximal wrap runs admit the exact accelerated return-or-termination map (51.1)--(51.2) | `safe-map-checkpoint-analysis.md` | **Lemma - new; fresh audit pending** |
+| **C52** | A zero-slack boundary exits to positive odd slack; local equality is classified, while later boundary residues strictly increase | `safe-map-checkpoint-analysis.md` | **Corollary - new; fresh audit pending** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**

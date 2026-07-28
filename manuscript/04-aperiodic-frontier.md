@@ -339,3 +339,4 @@ The following would eliminate eventually no-down counterexamples:
 
 This statement is not equivalent to the original conjecture. Even if proved,
 a nonstabilizing orbit with infinitely many down-steps would remain possible.
+Chapter 5 accelerates the zero-slack boundary singled out by Theorem 50.
