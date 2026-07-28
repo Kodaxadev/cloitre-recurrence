@@ -12,6 +12,7 @@ flowchart TD
   D --> L4["L4 quotient transition"]
   D --> T5["T5 growth ceiling"]
   D --> T6["T6 exact e-doubling"]
+  T6 --> C9["C9 odd-index parity"]
 
   T1 --> T2["T2 divisibility criterion"]
   L3 --> T18["T18 m < (c+3)(3c+5)"]
@@ -52,6 +53,12 @@ flowchart TD
   L40 --> T45
   L41 --> K13["K13 finite safe certificate at N=10^6"]
   L42 --> K13
+  L41 --> T46["T46 checkpoint monotonicity"]
+  K13 -.-> C46["C46 safe termination for every N <= 10^6"]
+  T46 --> C46
+  T46 --> C48["C48 parity of a least safe-map failure"]
+  C9 --> C48
+  L43 --> L47["L47 signed-distance safe map"]
 
   T24 --> O1["Open branch A: infinitely many down-steps"]
   T38 --> O1
@@ -70,8 +77,8 @@ flowchart TD
   classDef compute fill:#e5efff,stroke:#3566a8,color:#13243d;
   classDef open fill:#fff1d6,stroke:#ad6b00,color:#422900;
   classDef formal fill:#eee4ff,stroke:#6542a6,color:#261642;
-  class D,T1,T2,L3,L4,T5,T6,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45 proof;
-  class K1,K11,K13 compute;
+  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48 proof;
+  class K1,K11,K13,C46 compute;
   class O1,O2,U,CJ open;
   class F formal;
 ```
@@ -109,3 +116,4 @@ flowchart TD
 | 3 | T22 -> C23 -> T24 -> T27 | Quantifier audit at every sufficiently large index |
 | 4 | L40 -> L41 -> L42 | Exact necessity direction and explicit limitation to no-down tails |
 | 5 | L43 -> L44 -> T45 | Fresh audit because these entered immediately before the freeze |
+| 6 | L41 -> T46 -> C46 | Contrapositive audit and confirmation that one checkpoint covers all smaller indices |

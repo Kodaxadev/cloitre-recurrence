@@ -362,3 +362,13 @@ which is (45.1). For fixed `N`, multiply the resulting lower bound for
 Theorem 45 improves the leading constant supplied by Theorem 27 by a
 factor of three, but only under eventual monotonicity. It does not force
 the growing forbidden strip to be hit; that remains the uniform problem.
+
+## Checkpoint reduction
+
+Theorem 46 and Lemma 47 are recorded separately in
+[`safe-map-checkpoint-analysis.md`](safe-map-checkpoint-analysis.md).
+They prove that safe-map failure is upward-closed in the starting index and
+conjugate the map to centered doubling with the growing one-sided hole
+`1<=x<=U+2`. In particular, the certified checkpoint at `N=10^6`
+simultaneously rules out an infinite positive no-down path from every valid
+state at every starting index `N<=10^6`.

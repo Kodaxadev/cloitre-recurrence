@@ -47,6 +47,7 @@ jobs:
           verification-framework/verify.py
           independent/verify_small_spectrum.py
           independent/verify_safe_certificate.py
+          independent/verify_safe_checkpoint.py
           scripts/periodic_phase_blocks.py
       - name: Verify published OEIS terms
         run: python verification-framework/verify.py --oeis
@@ -56,6 +57,8 @@ jobs:
         run: >-
           python independent/verify_safe_certificate.py
           --n 10000 --max-steps 20000
+      - name: Check checkpoint monotonicity and signed safe coordinates
+        run: python independent/verify_safe_checkpoint.py
       - name: Regenerate the denominator-family certificate
         run: python scripts/periodic_phase_blocks.py --max-denominator 501
       - name: Verify committed audit artifact hashes

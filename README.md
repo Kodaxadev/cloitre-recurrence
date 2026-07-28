@@ -125,12 +125,13 @@ Stabilization is exactly the event \(e_n=0\). This exposes the dynamics as a dou
 | No eventually periodic quotient-change sequence | Internally proved | Complete proof; awaiting external mathematical review |
 | Two-counter termination for every valid entry state | **Open** | Only the eventually-no-down branch is reduced |
 | Safe-map instance at \(N=10^6\) | Certified finite result | Independent Rust/Python agreement |
+| Safe-map starts at every \(2\le N\le10^6\) | New internal proof from finite certificate | Theorem 46 propagates the checkpoint downward; fresh audit pending |
 
 “Internally proved” means that a complete proof is present and passed a fresh-context internal audit. It does **not** mean that an external specialist has refereed it. See [`audit/release-readiness.md`](audit/release-readiness.md).
 
 ## The aperiodic frontier
 
-For an eventually-no-down tail, the project derives an exact future-digit identity and an exact two-counter safe map. A compressed certificate checks all \(999{,}999\) positive states at index \(10^6\) and empties the safe set after \(9{,}019\) additional steps.
+For an eventually-no-down tail, the project derives an exact future-digit identity and an exact two-counter safe map. A compressed certificate checks all \(999{,}999\) positive states at index \(10^6\) and empties the safe set after \(9{,}019\) additional steps. Theorem 46 shows that this single checkpoint also rules out infinite positive no-down paths beginning at every earlier index.
 
 > [!CAUTION]
 > The two-counter map covers the **eventually-no-down branch only**. A hypothetical counterexample with infinitely many quotient down-steps lies outside this reduction. The \(N=10^6\) certificate is rigorous but finite; it is not a uniform termination theorem.
@@ -186,6 +187,7 @@ The Lean development compiles without `sorry`, but it does **not** formalize the
 | [`periodic-denominator-families.md`](periodic-denominator-families.md) | denominator-family exclusions |
 | [`periodic-boundary-reduction.md`](periodic-boundary-reduction.md) | universal boundary subset-equation reduction |
 | [`aperiodic-tail-analysis.md`](aperiodic-tail-analysis.md) | future-digit identity and monotone-tail safe map |
+| [`safe-map-checkpoint-analysis.md`](safe-map-checkpoint-analysis.md) | checkpoint monotonicity and signed-distance safe map |
 | [`symbolic-analysis.md`](symbolic-analysis.md) | doubling model, heuristics, and failures |
 | [`compressed-orbit-analysis.md`](compressed-orbit-analysis.md) | compression design and rejected approaches |
 | [`invariant-search.md`](invariant-search.md) | negative invariant and potential searches |

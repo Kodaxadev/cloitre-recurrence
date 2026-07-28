@@ -60,6 +60,9 @@ classification is the point: nothing is promoted without a proof.
 | **L43** | The two-counter map has an exact binary-Euclidean form with forbidden gap $h<e\le h+U+2$ | `aperiodic-tail-analysis.md` | **Lemma - new** |
 | **L44** | On a positive wrap run, $h+q+3$ doubles exactly at every step | `aperiodic-tail-analysis.md` | **Lemma - new** |
 | **T45** | An eventually monotone counterexample has $\liminf q_n\log_2(n)/n\ge1$ and the same normalized lower bound for $b_n/n$ | `aperiodic-tail-analysis.md` | **Theorem - new** |
+| **T46** | Safe-map termination at checkpoint $N+1$ implies termination at $N$; failure is upward-closed in the starting index | `safe-map-checkpoint-analysis.md` | **Theorem - new; fresh audit pending** |
+| **L47** | The safe map is centered doubling in a signed-distance coordinate with terminating hole $1\le x\le U+2$ | `safe-map-checkpoint-analysis.md` | **Lemma - new; fresh audit pending** |
+| **C48** | Every witness at a least failing safe-map index has odd $e$; at an odd least index it is unreachable from $b_1=m$ | `safe-map-checkpoint-analysis.md` | **Corollary - new; fresh audit pending** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**
@@ -83,7 +86,7 @@ This is unconditional: it does not assume the stabilization conjecture.
 | K10 | Every periodic failure has a proper-divisor factor witness | periods $p\le54$ | exact divisor diagnostics; conjectural beyond range |
 | K11 | No nonzero eventually periodic slope orbit has reduced denominator $d\le501$ | all periods; 250 odd denominators, 463 boundary families | Theorems 32 and 36 + exact base-digit certificates |
 | K12 | Longest arbitrary-state no-down segments are 75, 223, and 822 steps at indices 100, 1000, and 10000 | all positive-$e$ states at each index | exact exhaustive `monotone` scan |
-| K13 | No positive state at index $10^6$ has an infinite no-down continuation; the compressed safe set empties at $1{,}009{,}019$ | all $999{,}999$ positive $e$ values, quotient-zero dominance | Rust and independent Python generators; matching trajectory digest |
+| K13 | No valid positive state at any index $2\le N\le10^6$ has an infinite no-down continuation; at the checkpoint $N=10^6$ the compressed safe set empties at $1{,}009{,}019$ | all $999{,}999$ positive $e$ values at the checkpoint + Lemma 41 + Theorem 46 | Rust and independent Python generators; matching trajectory digest |
 
 K8 answers MathOverflow Q2 ("what is special about 316?"): **essentially nothing**;
 it wins by a margin of one over its immediate neighbours.

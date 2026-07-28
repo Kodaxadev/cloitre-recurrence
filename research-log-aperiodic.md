@@ -87,3 +87,42 @@ counterexample bound by a factor of three in its leading constant. The
 forbidden strip must therefore grow on the `n/log n` scale. The unresolved
 step is still deterministic capture: a growing hole need not be hit merely
 because its measure grows.
+
+## 4. Checkpoint monotonicity and signed distance
+
+The quotient-zero dominance lemma has a second consequence that was not used
+in the original safe certificate. If an infinite dominant path exists at
+index `N`, take one step and reset the resulting positive state to quotient
+zero. Dominance preserves an infinite continuation. Repeating this shows
+that failure at `N` forces failure at every later index.
+
+Thus the exact certificate at `N=10^6` covers all starting indices through
+one million, not only that single index. A uniform proof need only establish
+termination on an unbounded sequence of checkpoints. This is Theorem 46; it
+does not turn any finite list of certificates into an infinite proof.
+
+A further coordinate
+
+```text
+s = n+2,       x = s+1-2e
+```
+
+turns the two safe branches into
+
+```text
+x >= U+3 : x' = 2x-s, U' = U,
+x <= 0   : x' = 2x+s, U' = U+1,
+```
+
+while `1<=x<=U+2` is exactly the terminating strip. This is Lemma 47.
+It makes the obstruction especially sharp: an infinite path would be a
+centered-doubling orbit that avoids a one-sided hole whose width is its own
+negative-visit count. The coordinate is exact, but it does not supply a
+pointwise Lyapunov function.
+
+Checkpoint monotonicity also constrains a hypothetical first failure of the
+unrestricted safe map. Its witness `e` must be odd, since even `e` has the
+exact zero-step predecessor `e/2` at the preceding index. Reachable states
+have even `e` at every odd index, so an odd-index first failure would be an
+artifact of allowing unreachable initial states. The even-index case is not
+resolved by this parity argument.

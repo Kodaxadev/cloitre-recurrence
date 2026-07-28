@@ -204,6 +204,81 @@ which is (4.7). For fixed \(N\), multiply the resulting lower bound on
 \(q_n/n\) by \(\log_2n\) and pass to the limit inferior. Since
 \(b_n\ge nq_n\), (4.8) follows. \(\square\)
 
+## Theorem 46 (checkpoint monotonicity)
+
+Let \(P(N)\) mean that every quotient-zero safe-map start
+\((N,0,e)\), \(1\le e<N\), terminates. Then
+
+\[
+P(N+1)\Longrightarrow P(N).
+\]
+
+Equivalently, if an infinite quotient-zero safe path exists at one index,
+one exists at every later index.
+
+### Proof
+
+After one step, an infinite path from \((N,0,e)\) gives an infinite positive
+no-down continuation from a valid state \((N+1,q',e')\). Lemma 41 replaces
+that state by \((N+1,0,e')\) without shortening the continuation. Thus
+failure at \(N\) implies failure at \(N+1\); take the contrapositive.
+\(\square\)
+
+Consequently, the independently certified statement \(P(10^6)\) also proves
+\(P(N)\) for every \(2\le N\le10^6\). Lemma 41 extends this conclusion to
+every valid positive state at those indices. More generally, it is enough
+to prove \(P(N)\) on an unbounded sequence of checkpoints.
+
+## Lemma 47 (signed-distance form)
+
+In the coordinates of Lemma 43 put
+
+\[
+H=h+U+2,\qquad s=e+H=n+2,\qquad x=H-e+1=s+1-2e.
+\]
+
+Then the two safe branches are
+
+\[
+\begin{array}{rcll}
+(s,x,U)&\mapsto&(s+1,2x-s,U),&x\ge U+3,\\
+(s,x,U)&\mapsto&(s+1,2x+s,U+1),&x\le0,
+\end{array} \tag{4.9}
+\]
+
+and termination is exactly \(1\le x\le U+2\). Moreover,
+\(|x|<s\) and \(x\equiv s+1\pmod2\).
+
+### Proof
+
+The zero condition \(e+U+2\le H\) is \(x\ge U+3\), and its update gives
+\[
+x'=(H-e+1)-2e+1=2x-s.
+\]
+The wrap condition \(e>H\) is \(x\le0\), and its update gives
+\[
+x'=(2H+1)-(e-H)+1=2x+s.
+\]
+The terminating gap \(H-U-2<e\le H\) becomes
+\(1\le x\le U+2\). The final assertions follow immediately from
+\(e,H>0\) and \(x=s+1-2e\). \(\square\)
+
+## Corollary 48 (parity of a least safe-map failure)
+
+If \(P(N)\) fails and \(N_*\) is the least failing index, every infinite
+quotient-zero witness at \(N_*\) has odd \(e\). If \(N_*\) is odd, such a
+witness is unreachable from an original start \(b_1=m\).
+
+### Proof
+
+An even witness \(e\) has the valid predecessor
+\((N_*-1,0,e/2)\), whose first safe zero-step reaches
+\((N_*,0,e)\), contradicting minimality. At odd \(n\), Corollary 9 gives
+even \(b_n\), while \(b_n-e_n=q_n(n+1)\) is even. Thus every reachable
+\(e_n\) is even at an odd index. \(\square\)
+
+The even-index least-failure case remains open.
+
 ## Exact unresolved statement and its limitation
 
 The following would eliminate eventually no-down counterexamples:
