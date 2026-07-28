@@ -277,7 +277,58 @@ An even witness \(e\) has the valid predecessor
 even \(b_n\), while \(b_n-e_n=q_n(n+1)\) is even. Thus every reachable
 \(e_n\) is even at an odd index. \(\square\)
 
-The even-index least-failure case remains open.
+The even-index least-failure case remains open; the next two results isolate
+the exact boundary mechanism that such a failure must use.
+
+## Lemma 49 (quotient clearance)
+
+Along a quotient-zero safe path, define at every zero step
+
+\[
+\sigma_n=n-U_n-2e_n\ge0.
+\]
+
+A valid path begun with initial quotient \(Q\ge0\) follows the same digits
+and \(e\)-values through a prefix exactly when \(\sigma_n\ge Q\) at every
+zero step in that prefix.
+
+### Proof
+
+While the paths agree, their quotients differ by \(Q\). Wraps depend only
+on \(2e_n>n+2\). A zero remains safe exactly when
+\(U_n+Q+2e_n<n+1\), equivalently \(\sigma_n\ge Q\). Induct.
+\(\square\)
+
+## Theorem 50 (boundary at an even least failure)
+
+If \(N_*\) is the least failing checkpoint and is even, every infinite
+witness satisfies
+
+\[
+e\ \text{odd},\qquad 2e\le N_*,
+\]
+
+and its path has a zero step satisfying \(n-U_n-2e_n=0\).
+
+### Proof
+
+The cases \(N_*\le6\) terminate directly, and Corollary 48 makes \(e\)
+odd. If the first step wraps, set \(f=e-(N_*+2)/2\). Then
+\((N_*,1,f)\) zero-steps to the same next state. If \(f\) is even, it is
+dominated by the image of \((N_*-1,0,f/2)\); if \(f\) is odd, it is the
+wrap image of
+\[
+\left(N_*-1,0,\frac{f+N_*+1}{2}\right).
+\]
+Both contradict minimality. Thus \(2e\le N_*\).
+
+If every zero slack were at least one, Lemma 49 would give the same
+infinite path from \((N_*,1,e)\). Since \(e\) is odd, this state is the
+wrap image of
+\[
+\left(N_*-1,0,\frac{e+N_*+1}{2}\right),
+\]
+again a contradiction. Hence some zero slack is zero. \(\square\)
 
 ## Exact unresolved statement and its limitation
 

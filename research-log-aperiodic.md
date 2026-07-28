@@ -126,3 +126,28 @@ exact zero-step predecessor `e/2` at the preceding index. Reachable states
 have even `e` at every odd index, so an odd-index first failure would be an
 artifact of allowing unreachable initial states. The even-index case is not
 resolved by this parity argument.
+
+## 5. Quotient clearance and the even least-failure boundary
+
+For a quotient-zero safe path, a zero step has exact slack
+
+```text
+sigma = n-U-2e >= 0.
+```
+
+Raising the initial quotient by `Q` preserves precisely those prefixes for
+which every zero slack is at least `Q`; wraps do not depend on the quotient.
+This quotient-clearance lemma turns the remaining backward argument into an
+endpoint question.
+
+At an even least failing checkpoint, an odd witness cannot begin with a
+wrap. Its complementary residue below the midpoint either has a zero-step
+predecessor or a wrap-step predecessor at the previous checkpoint, and both
+merge into the alleged infinite path. If the witness begins with a zero,
+the same predecessor construction works with initial quotient one unless
+some zero slack is exactly zero.
+
+Therefore an even least failure must start with `2e<=N` and later hit
+`n-U-2e=0`. This is Theorem 50. Computation shows that zero-slack events do
+occur on finite paths, so the endpoint cannot be dismissed empirically; it
+is now the exact obstruction to completing this backward-induction route.

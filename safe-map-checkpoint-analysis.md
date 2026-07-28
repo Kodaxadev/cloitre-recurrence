@@ -140,6 +140,121 @@ This does not exclude a least failure at an even index. It shows that the
 uniform safe-map termination statement is stronger than the
 reachability-restricted statement actually needed for the recurrence.
 
+## Lemma 49: quotient clearance
+
+Along a quotient-zero safe path, let \(U_n\) be its current quotient. At
+each zero step define the nonnegative slack
+
+\[
+\sigma_n=n-U_n-2e_n.
+\]
+
+Fix an integer \(Q\ge0\) for which \((N,Q,e_N)\) is valid. The path begun
+with quotient \(Q\) follows the same digits and \(e\)-values through a
+given prefix if and only if
+
+\[
+\sigma_n\ge Q
+\]
+
+at every zero step in that prefix. Wrap steps impose no additional
+condition.
+
+Consequently, if the quotient-zero path is infinite and
+
+\[
+\delta=\min_{\{n:a_n=0\}}\sigma_n,
+\]
+
+then every valid initial quotient \(0\le Q\le\delta\) has the same infinite
+positive no-down continuation.
+
+### Proof
+
+As long as the digit and \(e\) sequences agree, the two quotients differ
+by the constant \(Q\). A wrap is characterized by \(2e_n>n+2\),
+independently of the quotient. A zero is safe for the shifted path exactly
+when
+
+\[
+U_n+Q+2e_n<n+1,
+\]
+
+which, by integrality, is \(\sigma_n\ge Q\). Induction proves the prefix
+statement. An infinite path has zero steps because Lemma 44 forbids an
+infinite wrap run; hence the displayed minimum exists in the
+well-ordered nonnegative integers. \(\square\)
+
+## Theorem 50: boundary forced at an even least failure
+
+Suppose \(N_*\) is the least index for which \(P(N_*)\) fails and \(N_*\)
+is even. Every infinite witness \(e\) at \(N_*\) satisfies
+
+\[
+e\ \text{odd},\qquad 2e\le N_*,
+\]
+
+and its path has a zero step with
+
+\[
+n-U_n-2e_n=0. \tag{50.1}
+\]
+
+Thus the only remaining even-index least-failure mechanism begins with a
+zero and later reaches the exact lower edge of the forbidden strip.
+
+### Proof
+
+Direct evaluation gives \(P(2),P(4),P(6)\). In increasing order of
+starting residue \(e=1,\ldots,N-1\), the numbers of safe transitions before
+termination are
+
+\[
+\begin{array}{c|c}
+N&\text{safe-transition counts}\\ \hline
+2&(1)\\
+4&(2,4,0)\\
+6&(4,1,11,0,2).
+\end{array}
+\]
+
+These nine finite traces use only the displayed safe-map rule, not the
+large certificate. Hence assume \(N_*\ge8\).
+Corollary 48 makes \(e\) odd.
+
+First suppose the initial step is a wrap. Put
+
+\[
+f=e-\frac{N_*+2}{2}.
+\]
+
+Then \(1\le f\le N_*/2-2\). The state \((N_*,1,f)\) takes a safe zero
+step to exactly the state reached when \((N_*,0,e)\) wraps, so it has an
+infinite continuation.
+
+If \(f\) is even, \((N_*-1,0,f/2)\) zero-steps to
+\((N_*,0,f)\), which dominates \((N_*,1,f)\). If \(f\) is odd, the valid
+state
+
+\[
+\left(N_*-1,0,\frac{f+N_*+1}{2}\right)
+\]
+
+wraps directly to \((N_*,1,f)\). Either case produces failure at
+\(N_*-1\), a contradiction. Hence the witness starts with a zero, so
+\(2e\le N_*\).
+
+Let \(\delta\) be the minimum zero-step slack from Lemma 49. If
+\(\delta\ge1\), then \((N_*,1,e)\) has the same infinite continuation.
+Because \(e\) is odd and \(e\le N_*/2\), the valid state
+
+\[
+\left(N_*-1,0,\frac{e+N_*+1}{2}\right)
+\]
+
+wraps to \((N_*,1,e)\), again contradicting minimality. Therefore
+\(\delta=0\), which is (50.1). \(\square\)
+
 ## Remaining obstruction
 
 Lemma 47 conjugates the surviving branch to centered doubling in the
@@ -148,3 +263,8 @@ expanding interval \((-s,s)\), with a one-sided forbidden interval
 path, but a growing target does not by itself force a particular
 deterministic orbit to hit it. No pointwise decreasing potential follows
 from this coordinate change.
+
+Theorem 50 isolates the escape hatch in the backward argument: at a
+zero-slack state, increasing the starting quotient by one terminates rather
+than reproducing the infinite path. Excluding infinite paths through these
+exact boundary states would eliminate the even-index least-failure case.

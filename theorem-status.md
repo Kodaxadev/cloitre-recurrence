@@ -63,6 +63,8 @@ classification is the point: nothing is promoted without a proof.
 | **T46** | Safe-map termination at checkpoint $N+1$ implies termination at $N$; failure is upward-closed in the starting index | `safe-map-checkpoint-analysis.md` | **Theorem - new; fresh audit pending** |
 | **L47** | The safe map is centered doubling in a signed-distance coordinate with terminating hole $1\le x\le U+2$ | `safe-map-checkpoint-analysis.md` | **Lemma - new; fresh audit pending** |
 | **C48** | Every witness at a least failing safe-map index has odd $e$; at an odd least index it is unreachable from $b_1=m$ | `safe-map-checkpoint-analysis.md` | **Corollary - new; fresh audit pending** |
+| **L49** | Initial quotient $Q$ preserves a safe prefix exactly while every zero-step slack is at least $Q$ | `safe-map-checkpoint-analysis.md` | **Lemma - new; fresh audit pending** |
+| **T50** | An even least safe-map failure must start below the midpoint and later hit exact zero quotient slack | `safe-map-checkpoint-analysis.md` | **Theorem - new; fresh audit pending** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**

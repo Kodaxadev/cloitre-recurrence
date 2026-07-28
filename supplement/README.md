@@ -33,10 +33,11 @@ project code: `independent/verify_small_spectrum.py` regenerates the complete
 \(m<260\) spectrum, and `independent/verify_safe_certificate.py` regenerates
 the \(N=10^6\) safe-map certificate using sorted image lists rather than the
 Rust ordered-map implementation. The bounded regression verifier
-`independent/verify_safe_checkpoint.py` checks Theorem 46's local dominance
-step, Lemma 47's signed coordinates, and Corollary 48's even-witness
-predecessor directly from raw \((n,q,e)\) thresholds; it is not a substitute
-for their symbolic proofs.
+`independent/verify_safe_checkpoint.py` checks Theorem 46's local dominance,
+Lemma 47's signed coordinates, Corollary 48's even-witness predecessor,
+Lemma 49's quotient clearance, and Theorem 50's complementary-residue
+constructions directly from raw \((n,q,e)\) thresholds; it is not a
+substitute for their symbolic proofs.
 
 ## Files
 
