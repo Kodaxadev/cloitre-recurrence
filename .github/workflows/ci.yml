@@ -78,6 +78,9 @@ jobs:
         uses: leanprover/lean-action@v1
         with:
           auto-config: false
+          build: true
+          test: false
+          lint: false
           use-mathlib-cache: false
       - name: Compile the formalization
         run: lean lean/Conjecture.lean

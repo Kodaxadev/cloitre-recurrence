@@ -2,6 +2,7 @@
 .gitattributes text eol=lf
 LICENSE text eol=lf
 lean-toolchain text eol=lf
+lake-manifest.json text eol=lf
 *.cff text eol=lf
 *.csv text eol=lf
 *.txt text eol=lf

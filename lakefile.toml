@@ -1,0 +1,7 @@
+name = "cloitre_recurrence"
+version = "0.1.0"
+defaultTargets = ["Conjecture"]
+
+[[lean_lib]]
+name = "Conjecture"
+srcDir = "lean"

@@ -4,6 +4,7 @@
 # Reproducible build and interpreter caches
 **/target/
 **/__pycache__/
+.lake/
 *.py[cod]
 
 # Large generated row-by-row scans. Their hashes belong in the evidence
