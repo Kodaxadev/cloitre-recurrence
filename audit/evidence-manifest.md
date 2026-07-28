@@ -1,20 +1,27 @@
 # Frozen evidence manifest
 
-This manifest binds the computational artifacts present at the audit freeze to
-their exact bytes. Hashes are lowercase SHA-256.
+This manifest binds the tracked computational artifacts in the immutable audit
+release to their exact Git-archive bytes. Hashes are lowercase SHA-256.
 
-## Source snapshot
+## Release identity
 
 ```text
-Git commit: f19ffcd75d04a05529878ce0226088f2f3221c0b
-Commit message: Freeze recurrence research snapshot for audit
+Audit tag:          v0.1.0-audit
+Audit tag commit:   46e4780dc4955c1fd21110aebcbc6da688794668
+Research snapshot:  f19ffcd75d04a05529878ce0226088f2f3221c0b
 ```
 
-The two large row-by-row scans are intentionally ignored by Git, but remain on
-disk and are covered below. Build directories, Python bytecode, `.claude/`, and
-platform cache files are reproducible or local state and are not evidence.
+The research snapshot is the parent content freeze. The audit commit adds this
+manifest, the dependency graph, and the independent certificate verifiers; the
+tagged audit commit is therefore the release identity. This post-tag correction
+on `main` replaces hashes that had inadvertently described Windows
+checkout-transformed bytes.
 
-## Artifact hashes
+## Tagged artifact hashes
+
+These sizes and hashes were computed after extracting
+`git archive v0.1.0-audit`, so they are reproducible regardless of checkout
+line-ending configuration.
 
 | Bytes | Path | SHA-256 |
 |---:|---|---|
@@ -24,21 +31,35 @@ platform cache files are reproducible or local state and are not evidence.
 | 2,282 | `independent/verify_small_spectrum.py` | `a0b60e6d229e56adbba04808130218a807817d5471edfc2f659c253b47370e4b` |
 | 90,030 | `computational-results.csv` | `1fa4073cfad904230ee93ca28f84351dcc78604c16b6d09d2448b182c4d25b63` |
 | 253,778 | `data/census_10M.csv` | `c973869fa708dfa5be5b599fe7409ca66652c2ee7ee4e6dc52cacb31325a15c3` |
-| 5,427 | `data/census_10M.log` | `47513962bf45c781c845e2d7bda3943b402609f0ba365244385e5234a77e1c8c` |
+| 5,322 | `data/census_10M.log` | `ad8623885344ee3f3c9100c1c975a5cf219032e841abfa1954c831b86211bc3f` |
 | 1,145 | `data/epochs_m11489.csv` | `333ed5ebd2a0dd3742ef6738004ab9cc7d1a32e6c3bab07ac9b25ca2b4f19fe1` |
-| 854 | `data/excluded_increments.txt` | `a7fbec7571e5e9b1557d83bbc20811891d886ad52a7203b708354880a8b9562d` |
-| 438 | `data/records_top10.csv` | `7df59fd10b102c782ae63f32a7e7b840299984d5b833ab724e9d4476542c4f91` |
-| 41 | `data/scan_1M.ckpt` | `ddb5bbcf6b044a9e1c11c2a58a2e51e1e87d788683c0dfd96fc8e8566b1970df` |
-| 24,828,970 | `data/scan_1M.csv` (ignored) | `fa9024cd0a925192ea16f0d109d4ffc3849136829365af704c0b05a839570be1` |
-| 2,306 | `data/scan_1M.log` | `f157da1333a73c513ed10f42c3fdb492157fe7c88450ff0d7579f26ae6394f02` |
-| 40 | `data/scan_200k.ckpt` | `4b86f5f301b680fa011f1b56aff1b0d679b73669070f86ade94ceadfc5042986` |
-| 4,703,773 | `data/scan_200k.csv` (ignored) | `2eb9ccae103f1084fa4f5e1107bcc87d9ef33b5392534bb477db9344ec25bab3` |
-| 1,328 | `data/scan_200k.log` | `7fd9c01aa940866d6e2103c2e7135b774dc04ccf179ef9067c7d754eb7fea0a9` |
-| 69,197 | `data/sweep_10M.log` | `c21b88ebf68794342a24450a0b35c10d133ae0d6b6dd5157b9bf5fce0cb7d0c4` |
+| 744 | `data/excluded_increments.txt` | `bae489a5c404f86f9ef4e19ea820ba87e0decaee885c3963000695e5ac94890f` |
+| 437 | `data/records_top10.csv` | `d041f8ed3996028e24cb0ec1aff3510c5cc7f949bd1c756e96a4bcf9356d97fe` |
+| 42 | `data/scan_1M.ckpt` | `49d7abe2de1c7e2821e674fb3f73daa539f4da867d39ca4cb7691c25704baa27` |
+| 2,271 | `data/scan_1M.log` | `1209fff78e84fcc74e2bd2a80797e34823392d48f83bc95f3314086932615be1` |
+| 41 | `data/scan_200k.ckpt` | `58f9d5c6eee3957ded6c119f3e29af7afe48303a35b1bf6b242ad77ee142c61c` |
+| 1,305 | `data/scan_200k.log` | `2d46e178e0a12c86cc8bd8677a81e325e27d2c40a54186dc04b13dcd0a4a579d` |
+| 67,542 | `data/sweep_10M.log` | `1e5896447b79f69155af4c149e95c05bdeab8fd5000d467f8ecd4e49cd061402` |
 | 314,324 | `data/sweep_profile_10M.csv` | `9ce4b952f989a459297d0b5e0ed5fb97ee9e10d43ddb580d1db1e158444bd9b9` |
 | 302,880 | `data/sweep_profile_200k.csv` | `709fa2ca08a4903e12a87f0028dd0c0795711dd6755d03b32e6024ce93ba568c` |
-| 866 | `data/verify_200k.log` | `c713810a1ad93e5e897501ac1e2f6b2489d4c82fc5833593b2301ecc1905fcfa` |
-| 577 | `data/verify_python_200k.log` | `cc31c9f5a31d5f880be046599042bf6d05cb3056f390006d148d687b7fe971cf` |
+| 845 | `data/verify_200k.log` | `2f71795a14ea29729ed53dae1c04cfb3002bab456fa3baec38bf2f4a6e73813a` |
+| 555 | `data/verify_python_200k.log` | `d86a72da97fee3df1f40deb9c0c37318e9031487722fbbd5ba70f29412fd2556` |
+
+## External ignored artifacts
+
+The following row-by-row scans were present in the audit working directory but
+are intentionally ignored by Git. They are not contained in the tag, cannot be
+recovered from a fresh clone, and are not required to verify the release's
+certified claims. Their hashes are recorded only to identify separately
+supplied copies.
+
+| Bytes | Path | SHA-256 |
+|---:|---|---|
+| 24,828,970 | `data/scan_1M.csv` | `fa9024cd0a925192ea16f0d109d4ffc3849136829365af704c0b05a839570be1` |
+| 4,703,773 | `data/scan_200k.csv` | `2eb9ccae103f1084fa4f5e1107bcc87d9ef33b5392534bb477db9344ec25bab3` |
+
+Build directories, Python bytecode, `.claude/`, and platform cache files are
+reproducible or local state and are not evidence.
 
 ## Logical certificate digests
 
@@ -72,10 +93,20 @@ increments 5 and 7 and gives explicit witnesses for 1, 2, 3, 4, and 6.
 
 ## Verification
 
-From the repository root:
+To verify tagged files without checkout line-ending transformations:
 
 ```powershell
-Get-FileHash -Algorithm SHA256 -LiteralPath <path>
+$auditDir = Join-Path $env:TEMP 'cloitre-v0.1.0-audit'
+New-Item -ItemType Directory -Path $auditDir
+git archive --format=tar --output="$auditDir\audit.tar" v0.1.0-audit
+tar -xf "$auditDir\audit.tar" -C $auditDir
+Get-FileHash -Algorithm SHA256 -LiteralPath "$auditDir\<path>"
+git cat-file -t 46e4780dc4955c1fd21110aebcbc6da688794668
+```
+
+To rerun the logical certificate from a repository checkout:
+
+```powershell
 python scripts\periodic_phase_blocks.py --max-denominator 501
-git cat-file -t f19ffcd75d04a05529878ce0226088f2f3221c0b
+python independent\verify_small_spectrum.py
 ```

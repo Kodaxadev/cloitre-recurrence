@@ -155,6 +155,10 @@ quotient-change word.
 
 ### Proof
 
+For a word of period \(p\), the quotient at period boundaries satisfies
+\(q_{N+kp}=q_N+kp\mu\). Since quotients are nonnegative, \(\mu\ge0\);
+Theorem 5 gives \(\mu\le1/2\).
+
 First consider integral phase slopes. If \(0<\mu\le1/2\), the window
 \([-\mu,1-\mu]\) contains only the integer \(0\), contradicting the mean
 identity in (3.4). If \(\mu=0\), the same identity forces every phase

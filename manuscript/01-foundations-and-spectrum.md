@@ -72,6 +72,26 @@ Put \(d=2r_n-q_n\). If \(q_n\le n\), then
 Equation (1.1) therefore makes its quotient correction one of
 \(-1,0,1\), and \(q_{n+1}\le q_n+1\le n+1\). \(\square\)
 
+## Theorem 5 (growth ceiling)
+
+Every orbit satisfies
+
+\[
+\limsup_{n\to\infty}\frac{q_n}{n}\le\frac12.
+\]
+
+### Proof
+
+Since \(b_{n+1}-b_n=r_n\le n-1\),
+
+\[
+b_n\le m+\sum_{k=2}^{n-1}(k-1)
+   =m+\frac{(n-2)(n-1)}2.
+\]
+
+Also \(q_n=\lfloor b_n/n\rfloor\le b_n/n\). Divide the displayed bound
+by \(n^2\) and take the upper limit. \(\square\)
+
 ## Theorem 6 (exact doubling coordinate)
 
 After entry,

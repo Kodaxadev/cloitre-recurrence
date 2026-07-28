@@ -10,6 +10,7 @@ flowchart TD
   D["Definitions: b, q, r, e"] --> T1["T1 absorption equivalence"]
   D --> L3["L3 bounded-regime entry"]
   D --> L4["L4 quotient transition"]
+  D --> T5["T5 growth ceiling"]
   D --> T6["T6 exact e-doubling"]
 
   T1 --> T2["T2 divisibility criterion"]
@@ -37,6 +38,7 @@ flowchart TD
   T32 --> L33["L33 exact boundary multiplicity"]
   L33 --> T36["T36 base-2^L subset equation"]
   T36 --> T38["T38 no nonzero eventually periodic digit orbit"]
+  T5 --> T38
   K11["K11 denominator certificate d <= 501"] -.-> T36
 
   T6 --> T39["T39 future-digit identity"]
@@ -68,7 +70,7 @@ flowchart TD
   classDef compute fill:#e5efff,stroke:#3566a8,color:#13243d;
   classDef open fill:#fff1d6,stroke:#ad6b00,color:#422900;
   classDef formal fill:#eee4ff,stroke:#6542a6,color:#261642;
-  class D,T1,T2,L3,L4,T6,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45 proof;
+  class D,T1,T2,L3,L4,T5,T6,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45 proof;
   class K1,K11,K13 compute;
   class O1,O2,U,CJ open;
   class F formal;
@@ -103,7 +105,7 @@ flowchart TD
 | Priority | Chain | Evidence required |
 |---:|---|---|
 | 1 | T13 -> T14 -> T18 -> C20 | Line-by-line inequality and endpoint audit; independent census verification |
-| 2 | T32 -> T36 -> T38 | Exhaustive boundary-case proof, including integral slopes and rotations |
+| 2 | T5 -> T32 -> T36 -> T38 | Growth-ceiling premise and exhaustive boundary-case proof, including integral slopes and rotations |
 | 3 | T22 -> C23 -> T24 -> T27 | Quantifier audit at every sufficiently large index |
 | 4 | L40 -> L41 -> L42 | Exact necessity direction and explicit limitation to no-down tails |
 | 5 | L43 -> L44 -> T45 | Fresh audit because these entered immediately before the freeze |

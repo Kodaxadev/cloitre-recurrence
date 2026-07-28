@@ -168,7 +168,7 @@ The Lean development compiles without `sorry`, but it does **not** formalize the
 
 ## Recommended reading path
 
-1. **[`audit/evidence-manifest.md`](audit/evidence-manifest.md)** — frozen artifacts, hashes, and evidence boundaries
+1. **[`audit/evidence-manifest.md`](audit/evidence-manifest.md)** — audit release identity, canonical artifact hashes, and evidence boundaries
 2. **[`manuscript/README.md`](manuscript/README.md)** — compact statement-and-proof dossier
 3. **[`audit/theorem-dependency.md`](audit/theorem-dependency.md)** — theorem dependency graph and critical cuts
 4. **[`theorem-status.md`](theorem-status.md)** — complete claim ledger
