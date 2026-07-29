@@ -77,6 +77,8 @@ classification is the point: nothing is promoted without a proof.
 | **L60** | On every finite interval, the total logarithmic rebound weight of down-steps is bounded by the up-step count plus one logarithmic endpoint loss | `sparse-downstep-analysis.md` | **Lemma - new; fresh audit pending** |
 | **C61** | A sublinear infinite-down counterexample requires increasingly long post-down segments with up-step fraction tending to zero along a subsequence | `sparse-downstep-analysis.md` | **Corollary - new; fresh audit pending** |
 | **L62** | Every finite post-down no-down segment satisfies an exact dyadic budget for all of its zero digits | `sparse-downstep-analysis.md` | **Lemma - new; fresh audit pending** |
+| **L63** | The terminal negative suffix before a down-step is an exact dyadic remainder map | `ridge-segment-analysis.md` | **Lemma - new; fresh audit pending** |
+| **C64** | A sublinear infinite-down counterexample has unbounded pure-zero runs inside its post-down segments | `ridge-segment-analysis.md` | **Corollary - new; fresh audit pending** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**

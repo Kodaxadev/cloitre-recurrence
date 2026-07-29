@@ -79,6 +79,9 @@ flowchart TD
   T58 --> C61["C61 post-down ridge dilution"]
   T6 --> L62["L62 post-down dyadic zero budget"]
   T22 --> L62
+  T6 --> L63["L63 terminal negative-suffix map"]
+  C61 --> C64["C64 unbounded zero plateaus"]
+  L26 --> C64
 
   T24 --> O1["Open branch A: infinitely many down-steps"]
   T38 --> O1
@@ -101,7 +104,7 @@ flowchart TD
   classDef compute fill:#e5efff,stroke:#3566a8,color:#13243d;
   classDef open fill:#fff1d6,stroke:#ad6b00,color:#422900;
   classDef formal fill:#eee4ff,stroke:#6542a6,color:#261642;
-  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62 proof;
+  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64 proof;
   class K1,K11,K13,C46 compute;
   class O1,O2,U,CJ open;
   class F formal;
@@ -149,3 +152,4 @@ flowchart TD
 | 12 | T22 -> L60 | Integer floor choice, disjoint variable-length charges, and the single right-endpoint loss |
 | 13 | T58 -> C61 | Segment partition endpoints, zero-density conversion, weighted-average limit, and rebound subsequence |
 | 14 | T6 and T22 -> L62 | Post-down coordinate endpoints, finite all-up sum, terminal sign, and dyadic scaling |
+| 15 | T6 -> L63 and C61 -> C64 | Unique sign-changing up-step, exact suffix thresholds, run partition, and state-window bound |

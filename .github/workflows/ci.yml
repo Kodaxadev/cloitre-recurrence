@@ -49,6 +49,7 @@ jobs:
           independent/verify_safe_certificate.py
           independent/verify_safe_checkpoint.py
           independent/verify_sharp_growth.py
+          independent/verify_ridge_segments.py
           scripts/periodic_phase_blocks.py
       - name: Verify published OEIS terms
         run: python verification-framework/verify.py --oeis
@@ -62,6 +63,8 @@ jobs:
         run: python independent/verify_safe_checkpoint.py
       - name: Check parameterized rebounds and sharp growth
         run: python independent/verify_sharp_growth.py
+      - name: Check post-down ridge segments
+        run: python independent/verify_ridge_segments.py
       - name: Regenerate the denominator-family certificate
         run: python scripts/periodic_phase_blocks.py --max-denominator 501
       - name: Verify committed audit artifact hashes

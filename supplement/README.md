@@ -56,6 +56,11 @@ observed up-step fraction above a requested length. It is an exploratory
 falsification tool for Corollary 61's remaining ridge-density target, not
 evidence for a universal positive-density theorem.
 
+`independent/verify_ridge_segments.py` separately checks Lemma 63's
+sign-changing last up-step, negative zero suffix, and next-ridge remainder
+using raw transitions. The native `ridge_segments` Rust test checks the
+same identities over a distinct finite grid.
+
 ## Files
 
 - [`01-search-and-census.md`](01-search-and-census.md): algorithms and
