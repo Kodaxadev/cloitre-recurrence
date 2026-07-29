@@ -82,13 +82,45 @@ fn candidate_count(m: u64, wraps: u64, k: u32, r: u32) -> usize {
         .count()
 }
 
+fn unit_conditions(n: u64, quotient: u64, returned: u64) -> bool {
+    let n = i128::from(n);
+    let quotient = i128::from(quotient);
+    let returned = i128::from(returned);
+    let gap_coordinate = n - 2 * quotient;
+    (n + 3 + returned).rem_euclid(4) == 0
+        && returned >= 1
+        && returned <= gap_coordinate - 3
+        && 4 * returned <= n + gap_coordinate + 2
+}
+
 #[test]
 fn exact_gate_multiplicity_matches_both_headrooms() {
     let mut histogram = BTreeMap::new();
     let mut upper_nonunique = 0u64;
+    let mut unit_states = 0u64;
+    let mut critical_pairs = 0u64;
     for n in 2..=120u64 {
         for e in 1..n {
             let blocks = zero_blocks(SafeState { e, w: n, wraps: 0 });
+            for block in &blocks {
+                if block.wraps == 1 {
+                    if let Some(returned) = block.next_zero {
+                        let start_n = i128::from(block.start.n());
+                        let quotient = i128::from(block.start.wraps);
+                        let returned_e = i128::from(returned.e);
+                        let gap_coordinate = start_n - 2 * quotient;
+                        let defect = start_n - quotient - 2 * i128::from(block.start.e);
+                        assert!(unit_conditions(
+                            block.start.n(),
+                            block.start.wraps,
+                            returned.e
+                        ));
+                        assert_eq!(i128::from(block.start.e), (start_n + 3 + returned_e) / 4);
+                        assert_eq!(defect, (gap_coordinate - 3 - returned_e) / 2);
+                        unit_states += 1;
+                    }
+                }
+            }
             let positive: Vec<_> = blocks
                 .iter()
                 .enumerate()
@@ -97,6 +129,7 @@ fn exact_gate_multiplicity_matches_both_headrooms() {
                 })
                 .map(|(index, _)| index)
                 .collect();
+            let mut previous_pure_unit_gap = None;
             for pair in positive.windows(2) {
                 let [left, right] = pair else {
                     unreachable!()
@@ -158,6 +191,20 @@ fn exact_gate_multiplicity_matches_both_headrooms() {
                     );
                     upper_nonunique += 1;
                 }
+                let pure_unit = k == 1
+                    && child_k == 1
+                    && translate == 0
+                    && parent_d >= 2
+                    && 2 * u128::from(child_d) >= spacing;
+                if pure_unit {
+                    if let Some(previous_gap) = previous_pure_unit_gap {
+                        assert!(u128::from(block.start.n()) < 1u128 << (previous_gap + r + 6));
+                        critical_pairs += 1;
+                    }
+                    previous_pure_unit_gap = Some(r);
+                } else {
+                    previous_pure_unit_gap = None;
+                }
                 *histogram.entry(actual).or_insert(0u64) += 1;
             }
         }
@@ -170,6 +217,125 @@ fn exact_gate_multiplicity_matches_both_headrooms() {
         ])
     );
     assert_eq!(upper_nonunique, 12_021);
+    assert_eq!(unit_states, 18_852);
+    assert_eq!(critical_pairs, 580);
+}
+
+#[test]
+fn returning_unit_conditions_are_an_iff_on_bounded_states() {
+    let mut literal = 0u64;
+    let mut reconstructed = 0u64;
+    for n in 2..=120u64 {
+        for quotient in 0..n {
+            for e in 1..n - quotient {
+                let start = SafeState {
+                    e,
+                    w: n - quotient,
+                    wraps: quotient,
+                };
+                let SafeOutcome::Continue {
+                    state: after_zero,
+                    digit: SafeDigit::Zero,
+                } = safe_step(start)
+                else {
+                    continue;
+                };
+                let SafeOutcome::Continue {
+                    state: returned,
+                    digit: SafeDigit::Wrap,
+                } = safe_step(after_zero)
+                else {
+                    continue;
+                };
+                let SafeOutcome::Continue {
+                    digit: SafeDigit::Zero,
+                    ..
+                } = safe_step(returned)
+                else {
+                    continue;
+                };
+                assert!(unit_conditions(n, quotient, returned.e));
+                assert_eq!(e, (n + 3 + returned.e) / 4);
+                literal += 1;
+            }
+            for returned in 1..=n {
+                if !unit_conditions(n, quotient, returned) {
+                    continue;
+                }
+                let e = (n + 3 + returned) / 4;
+                let start = SafeState {
+                    e,
+                    w: n - quotient,
+                    wraps: quotient,
+                };
+                let SafeOutcome::Continue {
+                    state: after_zero,
+                    digit: SafeDigit::Zero,
+                } = safe_step(start)
+                else {
+                    panic!("reconstructed state did not start with zero");
+                };
+                let SafeOutcome::Continue {
+                    state: returned_state,
+                    digit: SafeDigit::Wrap,
+                } = safe_step(after_zero)
+                else {
+                    panic!("reconstructed state did not wrap");
+                };
+                assert_eq!(returned_state.e, returned);
+                assert!(matches!(
+                    safe_step(returned_state),
+                    SafeOutcome::Continue {
+                        digit: SafeDigit::Zero,
+                        ..
+                    }
+                ));
+                reconstructed += 1;
+            }
+        }
+    }
+    assert_eq!((literal, reconstructed), (24_140, 24_140));
+}
+
+#[test]
+fn quotient_erasure_preserves_bounded_safe_words() {
+    let mut transitions = 0u64;
+    for n in 2..=60u64 {
+        for quotient in 0..n - 1 {
+            for e in 1..n - quotient {
+                let mut original = SafeState {
+                    e,
+                    w: n - quotient,
+                    wraps: quotient,
+                };
+                let mut lowered = SafeState { e, w: n, wraps: 0 };
+                for _ in 0..80 {
+                    let SafeOutcome::Continue {
+                        state: next_original,
+                        digit: original_digit,
+                    } = safe_step(original)
+                    else {
+                        break;
+                    };
+                    let SafeOutcome::Continue {
+                        state: next_lowered,
+                        digit: lowered_digit,
+                    } = safe_step(lowered)
+                    else {
+                        panic!("lowered path terminated before original path");
+                    };
+                    assert_eq!(lowered_digit, original_digit);
+                    assert_eq!(next_lowered.n(), next_original.n());
+                    assert_eq!(next_lowered.e, next_original.e);
+                    assert_eq!(next_lowered.wraps, next_original.wraps - quotient);
+                    original = next_original;
+                    lowered = next_lowered;
+                    transitions += 1;
+                }
+            }
+        }
+    }
+    assert_eq!(transitions, 166_156);
 }
 
 #[test]

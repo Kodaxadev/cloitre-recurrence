@@ -130,6 +130,9 @@ classification is the point: nothing is promoted without a proof.
 | **L113** | The child excess determines the child block's returned residue exactly; for a unit child the returned residue equals the parent gate excess | `gate-transfer-analysis.md` | **Lemma - new; fresh audit pending; exact inter-gate transfer** |
 | **C114** | Consecutive unit positive blocks obey an exact affine recurrence in $(n,U,D,f)$ and the zero-only gap | `gate-transfer-analysis.md` | **Corollary - new; fresh audit pending; finite-word reduction, not termination** |
 | **C115** | Pure-upper unit gates have an exact three-inequality test and satisfy $2^{r+4}\le D'-4$ | `gate-transfer-analysis.md` | **Corollary - new; fresh audit pending; scale ceiling, not a chain bound** |
+| **L116** | Lowering the initial accumulated quotient to zero preserves every safe digit, index, and residue while increasing both gate defects | `unit-pure-upper-analysis.md` | **Lemma - new; fresh audit pending; safe-word normalization, not original-orbit reachability** |
+| **L117** | A returning unit block is reconstructed exactly from $(n,U,f)$ by four congruence/inequality conditions | `unit-pure-upper-analysis.md` | **Lemma - new; fresh audit pending; exact local state test** |
+| **T118** | A hypothetical infinite all-unit pure-upper tail has adjacent gaps satisfying $n_i<2^{r_{i-1}+r_i+6}$, block starts between the half-critical and critical $J\log_2J$ scales, and quotient ratio in $[1,2]$ | `unit-pure-upper-analysis.md` | **Theorem - new; fresh audit pending; critical-scale restriction, not exclusion** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**

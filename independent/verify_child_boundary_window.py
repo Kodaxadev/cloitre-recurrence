@@ -16,6 +16,7 @@ from runpy import run_path
 RAW = run_path(str(Path(__file__).with_name("verify_general_gate_boundaries.py")))
 State = RAW["State"]
 candidates = RAW["candidates"]
+step = RAW["step"]
 zero_blocks = RAW["zero_blocks"]
 
 
@@ -42,7 +43,93 @@ def canonical_origin(n: int, k: int, r: int) -> tuple[int, int]:
     return residue or spacing, spacing
 
 
-def check_raw_gates() -> tuple[int, int, int, int, int, int, int, dict[int, int]]:
+def unit_conditions(n: int, quotient: int, returned_residue: int) -> bool:
+    gap_coordinate = n - 2 * quotient
+    return (
+        (n + 3 + returned_residue) % 4 == 0
+        and returned_residue >= 1
+        and returned_residue <= gap_coordinate - 3
+        and 4 * returned_residue <= n + gap_coordinate + 2
+    )
+
+
+def check_unit_state(block: object) -> None:
+    """Verify Lemma 117 directly on one returning unit block."""
+    returned = block.next_zero
+    assert block.wraps == 1 and returned is not None
+    n = block.start.n
+    quotient = block.start.q
+    returned_residue = returned.e
+    gap_coordinate = n - 2 * quotient
+    defect = n - quotient - 2 * block.start.e
+
+    assert unit_conditions(n, quotient, returned_residue)
+    assert block.start.e == (n + 3 + returned_residue) // 4
+    assert defect == (gap_coordinate - 3 - returned_residue) // 2
+
+
+def check_unit_reconstruction() -> tuple[int, int]:
+    """Exhaust both directions of Lemma 117 on arbitrary bounded states."""
+    literal = 0
+    reconstructed = 0
+    for n in range(2, 121):
+        for quotient in range(n):
+            for residue in range(1, n - quotient):
+                first = step(State(n, quotient, residue))
+                if first is None or first[0] != "zero":
+                    continue
+                second = step(first[1])
+                if second is None or second[0] != "wrap":
+                    continue
+                third = step(second[1])
+                if third is None or third[0] != "zero":
+                    continue
+                returned_residue = second[1].e
+                assert unit_conditions(n, quotient, returned_residue)
+                assert residue == (n + 3 + returned_residue) // 4
+                literal += 1
+            for returned_residue in range(1, n + 1):
+                if not unit_conditions(n, quotient, returned_residue):
+                    continue
+                residue = (n + 3 + returned_residue) // 4
+                first = step(State(n, quotient, residue))
+                assert first is not None and first[0] == "zero"
+                second = step(first[1])
+                assert second is not None and second[0] == "wrap"
+                assert second[1].e == returned_residue
+                third = step(second[1])
+                assert third is not None and third[0] == "zero"
+                reconstructed += 1
+    assert literal == reconstructed
+    return literal, reconstructed
+
+
+def check_quotient_erasure() -> int:
+    """Compare Lemma 116 with literal safe steps on a bounded corpus."""
+    transitions = 0
+    for n in range(2, 61):
+        for quotient in range(n - 1):
+            for residue in range(1, n - quotient):
+                original = State(n, quotient, residue)
+                lowered = State(n, 0, residue)
+                for _ in range(80):
+                    original_outcome = step(original)
+                    if original_outcome is None:
+                        break
+                    lowered_outcome = step(lowered)
+                    assert lowered_outcome is not None
+                    original_digit, original = original_outcome
+                    lowered_digit, lowered = lowered_outcome
+                    assert lowered_digit == original_digit
+                    assert lowered.n == original.n
+                    assert lowered.e == original.e
+                    assert lowered.q == original.q - quotient
+                    transitions += 1
+    return transitions
+
+
+def check_raw_gates(
+) -> tuple[int, int, int, int, int, int, int, int, int, dict[int, int]]:
     checked = 0
     band_checked = 0
     interior = 0
@@ -51,9 +138,16 @@ def check_raw_gates() -> tuple[int, int, int, int, int, int, int, dict[int, int]
     multiplicities: dict[int, int] = {}
     upper_nonunique = 0
     unit_transfers = 0
+    unit_states = 0
+    critical_pairs = 0
     for initial_n in range(2, 121):
         for initial_e in range(1, initial_n):
             blocks = zero_blocks(State(initial_n, 0, initial_e))
+            for block in blocks:
+                if block.wraps == 1 and block.next_zero is not None:
+                    check_unit_state(block)
+                    unit_states += 1
+            previous_pure_unit_gap: int | None = None
             for left, right in positive_pairs(blocks):
                 block = blocks[left]
                 returned = block.next_zero
@@ -109,6 +203,22 @@ def check_raw_gates() -> tuple[int, int, int, int, int, int, int, dict[int, int]
                         1 << (k + r + child_k + 2)
                     ) < child.n + child_k + 4
                     upper_nonunique += 1
+                pure_unit = (
+                    k == 1
+                    and child_k == 1
+                    and translate == 0
+                    and parent_d >= 2
+                    and 2 * child_d >= spacing
+                )
+                if pure_unit:
+                    if previous_pure_unit_gap is not None:
+                        assert block.start.n < (
+                            1 << (previous_pure_unit_gap + r + 6)
+                        )
+                        critical_pairs += 1
+                    previous_pure_unit_gap = r
+                else:
+                    previous_pure_unit_gap = None
                 if len(gate) == 1:
                     assert 2 * child_a == child.n + 5 - rho
                     assert (
@@ -144,6 +254,8 @@ def check_raw_gates() -> tuple[int, int, int, int, int, int, int, dict[int, int]
         interior_nonunique,
         upper_nonunique,
         unit_transfers,
+        unit_states,
+        critical_pairs,
         multiplicities,
     )
 
@@ -210,8 +322,12 @@ def main() -> None:
         nonunique,
         upper_nonunique,
         unit_transfers,
+        unit_states,
+        critical_pairs,
         multiplicities,
     ) = check_raw_gates()
+    quotient_erasure_steps = check_quotient_erasure()
+    literal_units, reconstructed_units = check_unit_reconstruction()
     permutations = check_residue_permutations()
     pure_upper_run = check_pure_upper_witness()
     assert (checked, band_checked) == (27_030, 8_411)
@@ -219,6 +335,10 @@ def main() -> None:
     assert permutations == 30
     assert upper_nonunique == 12_021
     assert unit_transfers > 10_000
+    assert unit_states == 18_852
+    assert critical_pairs == 580
+    assert quotient_erasure_steps == 166_156
+    assert (literal_units, reconstructed_units) == (24_140, 24_140)
     assert pure_upper_run == 6
     assert multiplicities == {
         1: 8_411,
@@ -239,11 +359,19 @@ def main() -> None:
     print(f"exact gate multiplicity histogram: {multiplicities}")
     print(f"upper-nonunique two-block ceilings checked: {upper_nonunique}")
     print(f"unit-child residue transfers checked: {unit_transfers}")
+    print(f"returning unit states checked: {unit_states}")
+    print(f"consecutive pure-unit critical pairs checked: {critical_pairs}")
+    print(f"quotient-erasure safe steps checked: {quotient_erasure_steps}")
+    print(
+        "arbitrary-state unit iff checks: "
+        f"{literal_units} literal / {reconstructed_units} reconstructed"
+    )
     print(f"consecutive pure-upper witness length: {pure_upper_run}")
     print(
         "VERDICT: bounded raw gates agree with Lemma 103 and "
         "Corollaries 104--105, Lemmas 106/110/113, and "
-        "Corollaries 107/111--112/114--115."
+        "Corollaries 107/111--112/114--115, Lemmas 116--117, and "
+        "the local inequality in Theorem 118."
     )
 
 

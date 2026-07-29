@@ -165,8 +165,9 @@ branch, where Theorem 58 forces initial runs to grow.
 
 ## Gate transfer and pure-upper exploration
 
-The ordinary Python and Rust regressions check the exact residue transfer
-and the six-gate witness:
+The ordinary Python and Rust regressions check the exact residue transfer,
+the six-gate witness, quotient erasure, returning-unit reconstruction, and
+the local two-gap inequality used in Theorem 118:
 
 ```powershell
 python independent\verify_child_boundary_window.py

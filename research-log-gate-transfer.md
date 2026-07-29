@@ -78,10 +78,34 @@ including 15,342 unit-child gates. The native Rust test checks the same
 identity through the primary safe-map implementation. Both pin the
 six-gate witness explicitly.
 
+## Critical-scale consequence
+
+The unit recurrence gives more than the one-gate ceiling. Pure upper at the
+preceding gate bounds \(f_i\), while the next recurrence reconstructs \(n_i\);
+together they give
+
+\[
+n_i<2^{r_{i-1}+r_i+6}.
+\]
+
+Summing this overlapping two-gap inequality gives a half-critical lower
+bound on the block-start scale. Summing the pure-upper headroom ceiling gives
+the matching critical upper bound. These are recorded as Theorem 118:
+
+\[
+\frac12\le\liminf\frac{n_J}{J\log_2J}
+\le\limsup\frac{n_J}{J\log_2J}\le1.
+\]
+
+The independent Python and Rust checks verify quotient erasure on 166,156
+literal transitions, both directions of the exact returning-unit state test
+on 24,140 arbitrary bounded states, and the local two-gap inequality on 580
+consecutive pure-unit pairs.
+
 ## Remaining target
 
-There is no evidence for a fixed pure-upper chain bound. The defensible next
-question is whether the unit-block affine recurrence admits pure-upper words
-of unbounded length. Either an unbounded construction or a proof that every
-sufficiently long word forces a longer child block would materially simplify
-the surviving nonunique branch.
+There is still no evidence for a fixed pure-upper chain bound. Theorem 118
+forces any infinite all-unit pure-upper word onto a narrow asymptotic scale
+but does not contradict that scale. The next useful target is a genuine
+three-gap or congruence obstruction, or an explicit construction of
+arbitrarily long valid words.

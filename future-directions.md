@@ -311,11 +311,23 @@ The pure-upper subcase has an exact inequality test, but a literal safe path
 already contains six consecutive pure-upper gates. Fixed short-transience
 and simple defect monotonicity are therefore false.
 
-**Do next:** analyze the affine unit-block recurrence as a finite-word
-integer system. Either prove that every sufficiently long pure-upper word
-forces a longer child block, or construct words of unbounded length. In the
-mixed-block case, treat near-maximal unique gaps as renewal points and
-accumulate both headroom terms from Lemma 110.
+Theorem 118 now controls the asymptotic scale of the hypothetical infinite
+all-unit pure-upper case:
+
+\[
+\frac12\le\liminf\frac{n_J}{J\log_2J}
+\le\limsup\frac{n_J}{J\log_2J}\le1.
+\]
+
+Equivalently, adjacent gaps must repeatedly supply logarithmic size, while
+the quotient ratio stays in the nondegenerate window \([1,2]\). This matches
+the critical safe-map scale rather than contradicting it.
+
+**Do next:** use the exact returning-unit test of Lemma 117 to eliminate
+\((e,d)\) and analyze the remaining integer recurrence in \((n,U,f,r)\).
+The target is a second-order obstruction coupling three or more gaps, not
+another one-gap ceiling. In the mixed-block case, treat near-maximal unique
+gaps as renewal points and accumulate both headroom terms from Lemma 110.
 
 ## 7. Resolve the low-order mixed-ridge defect
 

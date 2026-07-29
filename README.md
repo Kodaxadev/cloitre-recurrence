@@ -136,6 +136,7 @@ Stabilization is exactly the event \(e_n=0\). This exposes the dynamics as a dou
 | Interior gates occupy one canonical moving window | New internal proof | Lemmas 103/106 and Corollaries 104/105/107--109 rewrite the two surviving interior conditions as one exact window \(D'-3\in[\rho,\rho+H)\); every infinite safe path has infinitely many nonunique gates or zero-density longer-child resets with \(r/\log_2n'\to1\), and neither alternative is excluded |
 | Nonunique gates have exact finite multiplicity | New internal proof | Lemma 110 and Corollaries 111/112 count every lattice translate: each missed canonical window contributes one lower candidate, while upper ambiguity is defect-truncated and forces a two-block exponential ceiling |
 | Gate excess transfers exactly to the child residue | New internal proof | Lemma 113 and Corollaries 114/115 eliminate quotient and defect from one inter-gate transfer; unit-block chains obey an exact affine recurrence, while a verified six-gate pure-upper run rules out a short-transience argument |
+| All-unit pure-upper tails are forced onto a critical scale | New internal proof | Lemmas 116/117 and Theorem 118 normalize the quotient, characterize unit states exactly, and force \(n_J/(J\log_2J)\) into \([1/2,1]\) and \(U_J\log_2n_J/n_J\) into \([1,2]\); this does not exclude such a tail |
 | No eventually periodic quotient-change sequence | Internally proved | Complete proof; awaiting external mathematical review |
 | Two-counter termination for every valid entry state | **Open** | Only the eventually-no-down branch is reduced |
 | Safe-map instance at \(N=10^6\) | Certified finite result | Independent Rust/Python agreement |
@@ -223,6 +224,7 @@ The Lean development compiles without `sorry`, but it does **not** formalize the
 | [`child-boundary-window.md`](child-boundary-window.md) | canonical residue decomposition and exact interior uniqueness window |
 | [`gate-multiplicity-analysis.md`](gate-multiplicity-analysis.md) | exact candidate count and upper-ambiguity two-block ceiling |
 | [`gate-transfer-analysis.md`](gate-transfer-analysis.md) | exact child-residue transfer and unit-block pure-upper recurrence |
+| [`unit-pure-upper-analysis.md`](unit-pure-upper-analysis.md) | quotient normalization, exact unit-state test, and critical-scale theorem |
 | [`symbolic-analysis.md`](symbolic-analysis.md) | doubling model, heuristics, and failures |
 | [`compressed-orbit-analysis.md`](compressed-orbit-analysis.md) | compression design and rejected approaches |
 | [`invariant-search.md`](invariant-search.md) | negative invariant and potential searches |

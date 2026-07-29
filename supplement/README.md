@@ -119,6 +119,13 @@ gates; 15,342 have unit children and satisfy the exact equality \(g=x\).
 The Rust and Python checks both pin the six-gate pure-upper witness from
 \((n,U,e)=(971,5,482)\). It is a valid safe-map state; original-orbit
 reachability is not claimed.
+The same two implementations now check Lemma 116 on 166,156 literal
+safe-step transitions and Lemma 117 on 18,852 returning blocks in the gate
+census. A separate arbitrary-state exhaustion verifies both directions of
+Lemma 117 on 24,140 literal/reconstructed states. Both implementations also
+check the local adjacent-gap inequality of Theorem 118 on 580 consecutive
+pure-unit gate pairs. The asymptotic summation and limit statements in
+Theorem 118 remain symbolic.
 
 The exploratory Rust binary `gate_chain` searches these chains without
 assuming that the accumulated quotient is zero. Exhausting all 20,771,000

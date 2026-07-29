@@ -156,6 +156,10 @@ flowchart TD
   L103 --> C115["C115 pure-upper unit criterion"]
   L110 --> C115
   L113 --> C115
+  L42 --> L116["L116 quotient erasure"]
+  L42 --> L117["L117 returning-unit state test"]
+  C114 --> T118["T118 all-unit pure-upper critical scale"]
+  C115 --> T118
 
   T24 --> O1["Open branch A: infinitely many down-steps"]
   T38 --> O1
@@ -184,6 +188,7 @@ flowchart TD
   T90 --> O2
   T91 --> O2
   C115 --> O2
+  T118 --> O2
   U["Uniform termination of the safe map"] -->|would eliminate| O2
   O1 --> CJ["Original stabilization conjecture remains open"]
   O2 --> CJ
@@ -196,7 +201,7 @@ flowchart TD
   classDef compute fill:#e5efff,stroke:#3566a8,color:#13243d;
   classDef open fill:#fff1d6,stroke:#ad6b00,color:#422900;
   classDef formal fill:#eee4ff,stroke:#6542a6,color:#261642;
-  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64,L65,P66,L67,L68,T69,L70,C71,T72,L73,C74,T75,L76,T77,L78,C79,L80,C81,C82,L83,C84,L85,C86,L87,C88,C89,T90,T91,L110,C111,C112,L113,C114,C115 proof;
+  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64,L65,P66,L67,L68,T69,L70,C71,T72,L73,C74,T75,L76,T77,L78,C79,L80,C81,C82,L83,C84,L85,C86,L87,C88,C89,T90,T91,L110,C111,C112,L113,C114,C115,L116,L117,T118 proof;
   class K1,K11,K13,C46 compute;
   class O1,O2,U,CJ open;
   class F formal;
@@ -330,6 +335,13 @@ flowchart TD
     pure-upper gates. Neither the recurrence nor its scale ceiling currently
     excludes arbitrarily long finite words or an infinite aperiodic word.
 
+26. **Theorem 118 fixes a scale but does not close the pure-upper branch.**
+    An all-unit pure-upper tail would have adjacent gaps whose sum is
+    logarithmic and block starts of order \(J\log J\). The quotient ratio
+    remains inside a nondegenerate interval rather than reaching a
+    contradiction. Mixed block lengths and lower-window translations are
+    outside this theorem.
+
 ## Audit priority
 
 | Priority | Chain | Evidence required |
@@ -375,3 +387,4 @@ flowchart TD
 | 39 | T91 and C107 -> C108 | Exact negation of eventual nonuniqueness, conversion of non-eventual unit length to infinitely many longer child blocks, and application at each preceding unique gate |
 | 40 | C107 -> C109 | Uniform late ratio bound, split at child index \(\sqrt N\), disjointness of adjacent zero-only gaps, and conversion from total gap length to a counting bound |
 | 41 | L83 and L103 -> L113 -> C114/C115, with L110 | Child overshoot elimination, returned-residue indexing, unit-child specialization, exact \(D\)-update, canonical-window endpoint, upper-headroom test, and six-gate anti-transience witness |
+| 42 | L42 -> L116/L117; C114 and C115 -> T118 | Quotient-lowering digit preservation, returning-unit congruence endpoints, adjacent-gap logarithmic bound, both summations over overlapping gaps, implicit \(n\le J\log n+O(J)\) inversion, and quotient-window constants |
