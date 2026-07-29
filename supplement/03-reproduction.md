@@ -170,7 +170,8 @@ branch, where Theorem 58 forces initial runs to grow.
 
 The ordinary Python and Rust regressions check the exact residue transfer,
 the six-gate witness, quotient erasure, returning-unit reconstruction, and
-the local two-gap inequality used in Theorem 118:
+the local two-gap inequality used in Theorem 118, plus the fixed-word
+endpoint identity in Lemma 123:
 
 ```powershell
 python independent\verify_child_boundary_window.py
@@ -179,6 +180,9 @@ cargo test --release --manifest-path search-framework\Cargo.toml `
 python independent\verify_unit_pure_upper.py
 cargo test --release --manifest-path search-framework\Cargo.toml `
   --test unit_pure_upper
+python independent\verify_unit_word_rigidity.py
+cargo test --release --manifest-path search-framework\Cargo.toml `
+  --test unit_word_rigidity
 ```
 
 The optional symbolic finite-word tools use a pinned Z3 package:

@@ -342,13 +342,27 @@ Theorem 122 excludes the densest fixed-ladder recurrence: the same
 succession. Any surviving ladder mechanism must insert at least two other
 gates in one of every two successive renewal intervals.
 
+Lemma 123 handles arbitrary return spacing at the word level. A prescribed
+gap word and its two endpoint residues determine at most one start index.
+Thus successive visits to one fixed \((R,a)\) pair must use pairwise
+distinct intervening words. Since Theorem 118 bounds the gap alphabet by
+\(O(\log J)\), Corollary 124 gives
+
+\[
+M_{R,a}(J)
+\le(1+o(1))\frac{J\log_2\log_2J}{\log_2J}.
+\]
+
+Every fixed ladder pair therefore has zero block density, although it may
+still recur infinitely often.
+
 **Do next:** attack the two cases separately. In the growing-modulus branch,
 combine nested congruences across overlapping triples with the state-window
-bounds. In the fixed-ladder branch, extend Theorem 122 from strict
-alternation to arbitrary return spacings by comparing the composed affine
-transfer between successive visits. In the mixed-block case, treat
-near-maximal unique gaps as renewal points and accumulate both headroom
-terms from Lemma 110.
+bounds. In the fixed-ladder branch, combine Lemma 123's exact start formula
+with Lemma 119's dyadic congruences to reduce the number of admissible
+distinct words below Corollary 124's remaining entropy allowance. In the
+mixed-block case, treat near-maximal unique gaps as renewal points and
+accumulate both headroom terms from Lemma 110.
 
 ## 7. Resolve the low-order mixed-ridge defect
 

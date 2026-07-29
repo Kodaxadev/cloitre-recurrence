@@ -137,6 +137,8 @@ classification is the point: nothing is promoted without a proof.
 | **C120** | Two consecutive pure-upper unit gates force their intermediate returned residue to be at least $5$ and satisfy an exact quotient/headroom inequality | `unit-pure-upper-analysis.md` | **Corollary - new; fresh audit pending; excludes ladder coefficients $1,\ldots,4$ only** |
 | **T121** | Every hypothetical infinite all-unit pure-upper tail either has all gaps tending to infinity with growing congruence modulus, or returns infinitely often to one fixed dyadic ladder with coefficient at least $5$ through isolated bounded gaps | `unit-pure-upper-analysis.md` | **Theorem - new; fresh audit pending; exhaustive renewal dichotomy, neither branch excluded** |
 | **T122** | Three identical bounded-gap/unit-residue renewals cannot occur in strict alternation with exactly one intervening gate between successive renewals | `unit-renewal-exclusion.md` | **Theorem - new; fresh audit pending; irregular or more widely spaced ladder returns remain** |
+| **L123** | A fixed nonempty unit-block gap word and its two endpoint residues determine at most one integer start index | `unit-word-rigidity.md` | **Lemma - new; fresh audit pending; exact endpoint rigidity** |
+| **C124** | On an all-unit pure-upper tail, occurrences of any fixed renewal pair satisfy $\limsup M(J)\log_2J/(J\log_2\log_2J)\le1$ and therefore have zero block density | `unit-word-rigidity.md` | **Corollary - new; fresh audit pending; sparse infinite aperiodic returns remain possible** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**

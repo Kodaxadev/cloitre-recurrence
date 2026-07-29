@@ -135,6 +135,10 @@ The same verifiers find 167 six-unit windows, none with Theorem 122's
 forbidden renewal pattern, and separately check the exponential-versus-linear
 inequality on 1,280 Python and 192 Rust parameter tuples. These are bounded
 regressions for Theorem 122's symbolic proof.
+`independent/verify_unit_word_rigidity.py` checks Lemma 123 on 531,960
+algebraic words and 13,214 raw unit-block windows, comprising 907 distinct
+endpoint-word keys. The separate Rust test reproduces all 531,960 algebraic
+cases. Corollary 124's word count and asymptotic limit remain symbolic.
 
 The exploratory Rust binary `gate_chain` searches these chains without
 assuming that the accumulated quotient is zero. Exhausting all 20,771,000

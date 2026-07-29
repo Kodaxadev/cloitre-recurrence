@@ -1,9 +1,8 @@
 # Theorem dependency and claim-boundary graph
 
 This graph records logical dependence, not chronology. A solid arrow means the
-target uses the source symbolically. A dashed arrow marks a finite
-computational input. Node colors distinguish proof, computation, open
-statements, and formalized fragments.
+target uses the source symbolically. A dashed arrow marks a finite computational
+input. Node colors distinguish proof, computation, open statements, and formalized fragments.
 
 ```mermaid
 flowchart TD
@@ -13,7 +12,6 @@ flowchart TD
   D --> T5["T5 growth ceiling"]
   D --> T6["T6 exact e-doubling"]
   T6 --> C9["C9 odd-index parity"]
-
   T1 --> T2["T2 divisibility criterion"]
   L3 --> T18["T18 m < (c+3)(3c+5)"]
   L4 --> L12["L12 consecutive-step bounds"]
@@ -23,7 +21,6 @@ flowchart TD
   T18 --> C19["C19 finite candidate set for each c"]
   C19 --> C20["C20 missing increments, beginning 5 and 7"]
   K1["K1 finite census m <= 10^7"] -.-> C20
-
   L3 --> L21["L21 entry ridge"]
   L4 --> T22["T22 rebound cascade"]
   T13 --> T22
@@ -32,7 +29,6 @@ flowchart TD
   T6 --> L26["L26 zero-run bound"]
   T22 --> T27["T27 q = Omega(n/log n) before absorption"]
   L26 --> T27
-
   T6 --> T25["T25 periodic-word integrality obstruction"]
   T25 --> L28["L28 finite slope-cycle reduction"]
   L28 --> T32["T32 periodic slope lies on a boundary"]
@@ -41,7 +37,6 @@ flowchart TD
   T36 --> T38["T38 no nonzero eventually periodic digit orbit"]
   T5 --> T38
   K11["K11 denominator certificate d <= 501"] -.-> T36
-
   T6 --> T39["T39 future-digit identity"]
   T6 --> L40["L40 no-down tail is safe moving-modulus doubling"]
   L40 --> L41["L41 quotient-zero dominance"]
@@ -168,6 +163,8 @@ flowchart TD
   L119 --> T121
   C120 --> T121
   C114 --> T122["T122 no strict alternating renewals"]
+  C114 --> L123["L123 fixed unit-word endpoint rigidity"]
+  L123 & T118 & C115 --> C124["C124 fixed-pair renewal sparsity"]
   T24 --> O1["Open branch A: infinitely many down-steps"]
   T38 --> O1
   T56 --> O1
@@ -198,6 +195,7 @@ flowchart TD
   T118 --> O2
   T121 --> O2
   T122 --> O2
+  C124 --> O2
   U["Uniform termination of the safe map"] -->|would eliminate| O2
   O1 --> CJ["Original stabilization conjecture remains open"]
   O2 --> CJ
@@ -208,7 +206,7 @@ flowchart TD
   classDef compute fill:#e5efff,stroke:#3566a8,color:#13243d;
   classDef open fill:#fff1d6,stroke:#ad6b00,color:#422900;
   classDef formal fill:#eee4ff,stroke:#6542a6,color:#261642;
-  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64,L65,P66,L67,L68,T69,L70,C71,T72,L73,C74,T75,L76,T77,L78,C79,L80,C81,C82,L83,C84,L85,C86,L87,C88,C89,T90,T91,L110,C111,C112,L113,C114,C115,L116,L117,T118,L119,C120,T121,T122 proof;
+  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64,L65,P66,L67,L68,T69,L70,C71,T72,L73,C74,T75,L76,T77,L78,C79,L80,C81,C82,L83,C84,L85,C86,L87,C88,C89,T90,T91,L110,C111,C112,L113,C114,C115,L116,L117,T118,L119,C120,T121,T122,L123,C124 proof;
   class K1,K11,K13,C46 compute;
   class O1,O2,U,CJ open;
   class F formal;
@@ -348,8 +346,8 @@ flowchart TD
     contradiction. Mixed block lengths and lower-window translations are
     outside this theorem.
 27. **Theorem 121 is exhaustive only inside the all-unit pure-upper branch.**
-    It gives growing dyadic congruence moduli or visits to one fixed ladder.
-    Neither is excluded, and mixed block lengths and lower translates remain.
+    It gives growing dyadic moduli or visits to one fixed ladder. Corollary 124
+    makes each fixed pair zero-density, but neither branch is excluded.
 ## Audit priority
 
 | Priority | Chain | Evidence required |
@@ -398,3 +396,4 @@ flowchart TD
 | 42 | L42 -> L116/L117; C114 and C115 -> T118 | Quotient-lowering digit preservation, returning-unit congruence endpoints, adjacent-gap logarithmic bound, both summations over overlapping gaps, implicit \(n\le J\log n+O(J)\) inversion, and quotient-window constants |
 | 43 | C114 -> L119; C115 and L119 -> C120; then T118, C115, L119, and C120 -> T121 | Subtraction indices, smaller-power congruence, valuation endpoints, two-gate headroom substitution, coefficient lower bound, negation of gap divergence, neighboring-gap applications of T118, finite residue pigeonhole, and exact fixed-ladder indexing |
 | 44 | C114 -> T122 | Renewal indexing, divisibility of both large gaps by the bounded-gap scale, derivation of \(F(L)\), monotonicity on one residue class, and exponential-versus-linear contradiction |
+| 45 | C114 -> L123; then L123, T118, and C115 -> C124 | Affine coefficient induction, positivity of the start-index coefficient, interval-word injectivity, short-word pigeonhole count, proof that \(K/J\to0\), and the positive-limsup logarithm conversion |
