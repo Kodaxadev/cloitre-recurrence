@@ -139,6 +139,8 @@ classification is the point: nothing is promoted without a proof.
 | **T122** | Three identical bounded-gap/unit-residue renewals cannot occur in strict alternation with exactly one intervening gate between successive renewals | `unit-renewal-exclusion.md` | **Theorem - new; fresh audit pending; irregular or more widely spaced ladder returns remain** |
 | **L123** | A fixed nonempty unit-block gap word and its two endpoint residues determine at most one integer start index | `unit-word-rigidity.md` | **Lemma - new; fresh audit pending; exact endpoint rigidity** |
 | **C124** | On an all-unit pure-upper tail, occurrences of any fixed renewal pair satisfy $\limsup M(J)\log_2J/(J\log_2\log_2J)\le1$ and therefore have zero block density | `unit-word-rigidity.md` | **Corollary - new; fresh audit pending; sparse infinite aperiodic returns remain possible** |
+| **L125** | Every equal-endpoint unit word obeys an exact sparse-binary subset equation; successive occurrences of $(R,a)$ have span divisible by $2^{R+2}$ and a forced terminal exponent | `unit-word-arithmetic.md` | **Lemma - new; fresh audit pending; necessary word arithmetic, not a finiteness theorem** |
+| **P126** | For every $7\le a\le32$ not divisible by $3$, infinitely many literal four-block pure-upper safe-map segments contain two occurrences of $(R,a)=(1,a)$ at unbounded spans | `unit-word-arithmetic.md` | **Proposition - new exact construction; fresh audit pending; sharpens T122 but does not concatenate or prove original-orbit reachability** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**

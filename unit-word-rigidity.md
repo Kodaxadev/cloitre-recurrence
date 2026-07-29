@@ -225,6 +225,8 @@ ladder pair appears at most
 times among the first \(J\) gates.
 
 This does not exclude a sparse aperiodic renewal sequence, and it does not
-touch the growing-modulus branch. The next target is to combine endpoint
-rigidity with the dyadic congruence in Lemma 119, so that distinct words
-cannot proliferate at the rate still allowed by (124.2).
+touch the growing-modulus branch. Lemma 125 carries out the next arithmetic
+step by combining endpoint rigidity with the dyadic renewal congruence.
+Proposition 126 then shows why this alone cannot close the branch:
+arbitrarily long literal two-renewal segments survive. The remaining target
+is compatibility between successive distinct return words.

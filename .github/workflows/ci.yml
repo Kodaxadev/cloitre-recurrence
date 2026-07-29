@@ -54,6 +54,7 @@ jobs:
           independent/verify_child_boundary_window.py
           independent/verify_unit_pure_upper.py
           independent/verify_unit_word_rigidity.py
+          independent/verify_unit_word_arithmetic.py
           independent/verify_sharp_growth.py
           independent/verify_ridge_segments.py
           independent/verify_mixed_ridges.py
@@ -80,6 +81,8 @@ jobs:
         run: python independent/verify_unit_pure_upper.py
       - name: Check fixed unit-word rigidity
         run: python independent/verify_unit_word_rigidity.py
+      - name: Check sparse unit-word arithmetic
+        run: python independent/verify_unit_word_arithmetic.py
       - name: Check parameterized rebounds and sharp growth
         run: python independent/verify_sharp_growth.py
       - name: Check post-down ridge segments

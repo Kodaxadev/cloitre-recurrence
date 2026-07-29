@@ -106,4 +106,6 @@ the parenthesized logarithm divided by \(\log_2J\) tends to one. The
 limsup is at most every \(\lambda>1\), hence at most one. \(\square\)
 
 The result permits infinitely many sparse, aperiodic returns and does not
-exclude the growing-modulus alternative of Theorem 121.
+exclude the growing-modulus alternative of Theorem 121. Lemma 125 adds the
+exact dyadic span congruence; Proposition 126 shows that individual
+two-renewal words nevertheless have unbounded valid spans.

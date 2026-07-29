@@ -356,13 +356,26 @@ M_{R,a}(J)
 Every fixed ladder pair therefore has zero block density, although it may
 still recur infinitely often.
 
+Lemma 125 rewrites every equal-endpoint word as the sparse-binary equation
+
+\[
+B(n_p+3)=(2^S-1)a+W
+\]
+
+and shows that a fixed-ladder return has
+\(S\equiv0\pmod {2^{R+2}}\). This does not collapse the word set:
+Proposition 126 gives, for every \(7\le a\le32\) with \(3\nmid a\),
+infinitely many literal pure-upper segments with two occurrences of
+\((R,a)=(1,a)\) and unbounded intervening span. Thus Theorem 122 is sharp
+in the number of renewals, and single-interval integrality is not enough.
+
 **Do next:** attack the two cases separately. In the growing-modulus branch,
 combine nested congruences across overlapping triples with the state-window
-bounds. In the fixed-ladder branch, combine Lemma 123's exact start formula
-with Lemma 119's dyadic congruences to reduce the number of admissible
-distinct words below Corollary 124's remaining entropy allowance. In the
-mixed-block case, treat near-maximal unique gaps as renewal points and
-accumulate both headroom terms from Lemma 110.
+bounds. In the fixed-ladder branch, impose exact compatibility between the
+terminal index of one sparse-binary word and the uniquely forced start of
+the next; Proposition 126 shows that checking either word in isolation
+cannot work. In the mixed-block case, treat near-maximal unique gaps as
+renewal points and accumulate both headroom terms from Lemma 110.
 
 ## 7. Resolve the low-order mixed-ridge defect
 

@@ -139,6 +139,13 @@ regressions for Theorem 122's symbolic proof.
 algebraic words and 13,214 raw unit-block windows, comprising 907 distinct
 endpoint-word keys. The separate Rust test reproduces all 531,960 algebraic
 cases. Corollary 124's word count and asymptotic limit remain symbolic.
+`independent/verify_unit_word_arithmetic.py` additionally checks Lemma 125's
+sparse-binary coefficient identity on 218,400 word/start combinations. It
+checks 180 Proposition 126 parameter instances both algebraically and by
+literal arbitrary-precision safe-map stepping. The native Rust test checks
+all 5,460 gap words through length six and one exact family member for each
+of the 18 allowed coefficients. Infinitude and the displayed inequalities
+remain symbolic consequences of the proof.
 
 The exploratory Rust binary `gate_chain` searches these chains without
 assuming that the accumulated quotient is zero. Exhausting all 20,771,000

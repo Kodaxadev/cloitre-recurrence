@@ -147,11 +147,35 @@ single disjunctive SMT model and a reduced two-variable incremental model
 both timed out at six gates over small bounded gap alphabets. Those timeouts
 are tooling results and provide no negative mathematical evidence.
 
+Lemma 123 subsequently gave a global word-level restriction: a fixed gap
+word and two endpoint residues determine at most one start. Its entropy
+consequence, Corollary 124, forces each fixed renewal pair to zero block
+density.
+
+Unrolling the same coefficients one step further produced Lemma 125. If
+\(S\) is the word span and \(d_j\) are its suffix exponents, then
+
+\[
+B(n_p+3)=(2^S-1)a+W,\qquad
+B=\sum2^{d_j},\quad W=\sum d_j2^{d_j}.
+\]
+
+Successive occurrences of \((R,a)\) also force
+\(S\equiv0\pmod {2^{R+2}}\). An initial unrestricted subset search timed
+out and supplied no evidence. A targeted exact search then found an
+infinite family rather than a finiteness obstruction. For
+\(7\le a\le32\), \(3\nmid a\), and \(q\equiv4a\pmod {12}\), the gap word
+\((8q-5,1)\) sits between two occurrences of \((1,a)\) in a literal
+four-block pure-upper safe-map segment. Proposition 126 proves the family
+symbolically. It makes Theorem 122 sharp and rejects any strategy based
+only on one return word's integrality or local headroom.
+
 ## Remaining target
 
 There is still no evidence for a fixed pure-upper chain bound. Theorem 118
 forces the critical scale, while Theorem 121 reduces the all-unit branch to
 growing congruence moduli or recurrent visits to one fixed dyadic ladder.
-Theorem 122 removes strict alternating returns. The next useful target is to
-extend that obstruction to arbitrary return spacing, exclude the
-growing-modulus mechanism, or construct arbitrarily long valid words.
+Theorem 122 removes three strict alternating returns, while Proposition 126
+shows that two occur at arbitrarily large spans. The next useful target is
+therefore exact compatibility between successive *different* return words,
+or exclusion of the growing-modulus mechanism.

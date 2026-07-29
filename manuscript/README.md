@@ -84,6 +84,7 @@ files in order:
 22. [`22-unit-pure-upper.md`](22-unit-pure-upper.md)
 23. [`23-unit-renewal-exclusion.md`](23-unit-renewal-exclusion.md)
 24. [`24-unit-word-rigidity.md`](24-unit-word-rigidity.md)
+25. [`25-unit-word-arithmetic.md`](25-unit-word-arithmetic.md)
 
 Only definitions, statements, proofs, and explicit claim boundaries belong
 here. Algorithms, benchmarks, certificates, and reproduction instructions

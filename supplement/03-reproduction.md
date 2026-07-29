@@ -183,6 +183,9 @@ cargo test --release --manifest-path search-framework\Cargo.toml `
 python independent\verify_unit_word_rigidity.py
 cargo test --release --manifest-path search-framework\Cargo.toml `
   --test unit_word_rigidity
+python independent\verify_unit_word_arithmetic.py
+cargo test --release --manifest-path search-framework\Cargo.toml `
+  --test unit_word_arithmetic
 ```
 
 The optional symbolic finite-word tools use a pinned Z3 package:
