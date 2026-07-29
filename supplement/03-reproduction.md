@@ -1,6 +1,7 @@
 # Reproduction commands
 
-Commands assume PowerShell, Rust 1.94.0, Python 3, and Lean 4.32.1.
+Commands assume PowerShell, Rust 1.94.0, Python 3, Lean 4.32.2, and Git Bash
+for the independent Lean checker.
 
 ## Source identity
 
@@ -24,11 +25,13 @@ cargo run --release -- --selftest
 python verify.py --oeis
 
 Set-Location ..
-lean lean\Conjecture.lean
+lake build --wfail
+lake env leanchecker Conjecture
+& 'C:\Program Files\Git\bin\bash.exe' scripts/check_lean_nanoda.sh
 ```
 
-Expected at the freeze: all Rust tests pass, OEIS checks pass, and Lean exits
-zero without `sorryAx`.
+Expected: all Rust tests and OEIS checks pass; Lean compiles with warnings as
+errors; both checkers exit zero; nanoda reports no typechecker errors.
 
 ## Complete \(10^7\) census
 

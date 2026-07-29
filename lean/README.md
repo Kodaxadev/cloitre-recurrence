@@ -1,18 +1,26 @@
 # Lean 4 formalization
 
-**Status: compiles clean, no `sorry`, no external dependencies.**
+**Status: compiles clean, no `sorry`, no proof-library dependencies.**
 
 ```bash
-lean lean/Conjecture.lean     # exit 0
+lake build --wfail                     # compile; warnings are errors
+lake env leanchecker Conjecture        # Lean's bundled checker
+bash scripts/check_lean_nanoda.sh       # independent Rust checker
 ```
 
-Checked with **Lean 4.32.1**. The file is deliberately **mathlib-free** so it can
+Checked with **Lean 4.32.2**. The file is deliberately **mathlib-free** so it can
 be verified by a bare `lean` binary with no `lake` project, no cache download and
 no network. The cost is that `ring`, `linarith` and `push_cast` are unavailable:
 every nonlinear rewrite is supplied by hand (`Nat.add_mul`, `Nat.mul_add`,
 `Int.mul_sub`) and `omega` closes the linear part. `omega` abstracts nonlinear
 subterms as atoms, so the helper lemmas exist to make those atoms match
 syntactically.
+
+The compiler pin matters: Lean 4.32.2 fixes a kernel soundness bug present in
+4.32.1. CI also pins the external-checker revisions instead of following
+mutable branches. The nanoda check permits only `propext`, `Classical.choice`,
+`Quot.sound`, and `Lean.trustCompiler`. Unpermitted prelude axioms are skipped;
+any checked declaration that uses one, including `sorryAx`, fails.
 
 ## Axiom audit
 
@@ -85,7 +93,7 @@ Following the instruction to formalize only non-speculative results:
 
 ## Next steps
 
-1. Port to a `lake` project with mathlib, then formalize Lemma 4 (bounded
+1. Add mathlib as a pinned dependency, then formalize Lemma 4 (bounded
    quotient) and Lemma 12 — both are pure case analysis on `2r − q`.
 2. Theorem 13, then Theorem 14 by the two-clause induction used on paper
    (`q_k ≥ q_n − 1`, and `q_k = q_n − 1 ⟹ Δq_k = +1`).

@@ -179,6 +179,7 @@ before reporting a completed range.
 | `verification-framework/verify.py` | Third implementation using arbitrary-precision Python integers |
 | `independent/` | Independent certificate regenerators |
 | `lean/Conjecture.lean` | Mathlib-free Lean formalization of foundational identities |
+| `scripts/check_lean_nanoda.sh` | Pinned independent-kernel check of the Lean environment |
 | `.github/workflows/ci.yml` | Rust, Python, certificate, hash, OEIS, and Lean checks |
 
 The Lean development compiles without `sorry`, but it does **not** formalize the finite-start theorem, growth bounds, all-period exclusion, or two-counter reduction.
@@ -256,8 +257,9 @@ python independent/verify_small_spectrum.py
 python independent/verify_mixed_ridges.py
 python independent/verify_child_boundary_window.py
 python scripts/periodic_phase_blocks.py --max-denominator 501
-lake build
-lean lean/Conjecture.lean
+lake build --wfail
+lake env leanchecker Conjecture
+bash scripts/check_lean_nanoda.sh
 ```
 
 The full \(10^7\) census and full \(N=10^6\) independent safe-map regeneration are intentionally not run on every push. Exact commands and expected digests are recorded in [`supplement/03-reproduction.md`](supplement/03-reproduction.md).

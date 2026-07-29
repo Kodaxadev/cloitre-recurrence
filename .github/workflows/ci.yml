@@ -96,18 +96,22 @@ jobs:
           HASHES
 
   lean:
-    name: Lean foundational formalization
+    name: Lean formalization and external checking
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
       - name: Install pinned Lean toolchain
-        uses: leanprover/lean-action@v1
+        # leanprover/lean-action v1.5.0
+        uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
         with:
           auto-config: false
           build: true
+          build-args: --wfail
           test: false
           lint: false
           use-mathlib-cache: false
-      - name: Compile the formalization
-        run: lean lean/Conjecture.lean
+      - name: Check compiled declarations with Lean's bundled checker
+        run: lake env leanchecker Conjecture
+      - name: Check compiled declarations with pinned nanoda
+        run: bash scripts/check_lean_nanoda.sh
