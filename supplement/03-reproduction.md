@@ -163,6 +163,33 @@ initial, internal, and terminal consecutive up-run lengths all equal to two.
 This finite stabilizing orbit does not model the sublinear counterexample
 branch, where Theorem 58 forces initial runs to grow.
 
+## Gate transfer and pure-upper exploration
+
+The ordinary Python and Rust regressions check the exact residue transfer
+and the six-gate witness:
+
+```powershell
+python independent\verify_child_boundary_window.py
+cargo test --release --manifest-path search-framework\Cargo.toml `
+  --test gate_multiplicity
+```
+
+The optional symbolic finite-word tools use a pinned Z3 package:
+
+```powershell
+python -m pip install -r independent\requirements-exploratory.txt
+python independent\synthesize_pure_upper.py `
+  --gaps 0,1,3,3,1,5 --blocks 6,1,1,1,1,1,0 `
+  --max-n 1000000 --initial-q 5
+python independent\search_pure_upper_pattern.py `
+  --length 6 --first-block 6 --max-block 6 --max-gap 5 `
+  --max-n 1000000 --node-limit 200000
+```
+
+Both commands reproduce a six-gate word. Any unsuccessful symbolic search
+is bounded by the supplied block, gap, index, and solver-node limits and is
+not a proof of nonexistence outside that finite search.
+
 ## Artifact hashing
 
 ```powershell

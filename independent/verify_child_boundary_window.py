@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bounded raw checks of Lemma 103 and Corollaries 104--105.
+"""Bounded raw checks of canonical gates, multiplicity, and residue transfer.
 
 The transition and candidate routines are loaded from the independent raw
 gate verifier, not from project dynamics code. The finite census checks the
@@ -42,7 +42,7 @@ def canonical_origin(n: int, k: int, r: int) -> tuple[int, int]:
     return residue or spacing, spacing
 
 
-def check_raw_gates() -> tuple[int, int, int, int, int, int, dict[int, int]]:
+def check_raw_gates() -> tuple[int, int, int, int, int, int, int, dict[int, int]]:
     checked = 0
     band_checked = 0
     interior = 0
@@ -50,6 +50,7 @@ def check_raw_gates() -> tuple[int, int, int, int, int, int, dict[int, int]]:
     interior_nonunique = 0
     multiplicities: dict[int, int] = {}
     upper_nonunique = 0
+    unit_transfers = 0
     for initial_n in range(2, 121):
         for initial_e in range(1, initial_n):
             blocks = zero_blocks(State(initial_n, 0, initial_e))
@@ -76,6 +77,22 @@ def check_raw_gates() -> tuple[int, int, int, int, int, int, dict[int, int]]:
                 child = blocks[right].start
                 child_gap = child.n - 2 * child.q
                 child_d = child.n - child.q - 2 * child.e
+                child_block = blocks[right]
+                child_k = child_block.wraps
+                child_returned = child_block.next_zero
+                assert child_returned is not None
+                child_a = child.n + 4 - 2 * child.e
+                assert 2 * child_a == child.n + 5 - excess
+                expected_returned = (
+                    child.n
+                    + child_k
+                    + 4
+                    - (1 << (child_k - 1)) * (child.n + 5 - excess)
+                )
+                assert child_returned.e == expected_returned
+                if child_k == 1:
+                    assert child_returned.e == excess
+                    unit_transfers += 1
                 assert child_gap - 3 == (
                     rho + translate * spacing + 2 * child_d
                 )
@@ -88,14 +105,11 @@ def check_raw_gates() -> tuple[int, int, int, int, int, int, dict[int, int]]:
                 assert (len(gate) - 1) * spacing <= child_gap - 3 - rho
                 multiplicities[len(gate)] = multiplicities.get(len(gate), 0) + 1
                 if parent_d >= 2 and 2 * child_d >= spacing:
-                    child_k = blocks[right].wraps
                     assert (
                         1 << (k + r + child_k + 2)
                     ) < child.n + child_k + 4
                     upper_nonunique += 1
                 if len(gate) == 1:
-                    child_a = child.n + 4 - 2 * child.e
-                    child_k = blocks[right].wraps
                     assert 2 * child_a == child.n + 5 - rho
                     assert (
                         (1 << (child_k - 1)) * (child.n + 5 - rho)
@@ -129,8 +143,46 @@ def check_raw_gates() -> tuple[int, int, int, int, int, int, dict[int, int]]:
         interior_unique,
         interior_nonunique,
         upper_nonunique,
+        unit_transfers,
         multiplicities,
     )
+
+
+def check_pure_upper_witness() -> int:
+    blocks = zero_blocks(State(971, 5, 482))
+    pairs = positive_pairs(blocks)
+    expected = [
+        (971, 5, 482, 6, 0, 2, 413),
+        (978, 11, 277, 1, 1, 413, 461),
+        (981, 12, 254, 1, 3, 461, 461),
+        (986, 13, 256, 1, 3, 461, 417),
+        (991, 14, 280, 1, 1, 417, 475),
+        (994, 15, 252, 1, 5, 475, 281),
+    ]
+    for (left, right), wanted in zip(pairs[:6], expected, strict=True):
+        parent = blocks[left]
+        returned = parent.next_zero
+        assert returned is not None
+        child = blocks[right].start
+        k = parent.wraps
+        r = right - left - 1
+        spacing = 1 << (k + r + 3)
+        excess = (1 << (r + 2)) * returned.e - returned.n - r - 3
+        parent_d = parent.start.n - parent.start.q - 2 * parent.start.e
+        child_d = child.n - child.q - 2 * child.e
+        assert (
+            parent.start.n,
+            parent.start.q,
+            parent.start.e,
+            k,
+            r,
+            parent_d,
+            child_d,
+        ) == wanted
+        assert 1 <= excess <= spacing
+        assert parent_d >= 2
+        assert 2 * child_d >= spacing
+    return len(expected)
 
 
 def check_residue_permutations() -> int:
@@ -157,13 +209,17 @@ def main() -> None:
         unique,
         nonunique,
         upper_nonunique,
+        unit_transfers,
         multiplicities,
     ) = check_raw_gates()
     permutations = check_residue_permutations()
+    pure_upper_run = check_pure_upper_witness()
     assert (checked, band_checked) == (27_030, 8_411)
     assert (interior, unique, nonunique) == (25_646, 7_380, 18_266)
     assert permutations == 30
     assert upper_nonunique == 12_021
+    assert unit_transfers > 10_000
+    assert pure_upper_run == 6
     assert multiplicities == {
         1: 8_411,
         2: 5_776,
@@ -182,9 +238,12 @@ def main() -> None:
     print(f"complete bounded residue permutations checked: {permutations}")
     print(f"exact gate multiplicity histogram: {multiplicities}")
     print(f"upper-nonunique two-block ceilings checked: {upper_nonunique}")
+    print(f"unit-child residue transfers checked: {unit_transfers}")
+    print(f"consecutive pure-upper witness length: {pure_upper_run}")
     print(
         "VERDICT: bounded raw gates agree with Lemma 103 and "
-        "Corollaries 104--105, Lemmas 106/110, and Corollaries 107/111--112."
+        "Corollaries 104--105, Lemmas 106/110/113, and "
+        "Corollaries 107/111--112/114--115."
     )
 
 

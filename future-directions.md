@@ -299,11 +299,23 @@ Thus every later-window translate creates a lower candidate. Only
 displacement stored in the child defect can be absorbed by finite parent
 defect headroom.
 
-**Do next:** treat those near-maximal gaps as renewal points. Derive the
-state map from one such reset to the next across the intervening unit blocks,
-while keeping the nonunique alternative as the exact complementary event.
-For nonunique gates, accumulate the two headroom consumptions in Lemma 110,
-not only the canonical displacement.
+Lemma 113 now supplies the missing inter-gate transfer: the child excess
+determines its returned residue, and equals it for a unit child. Consecutive
+unit blocks therefore obey
+
+\[
+f_{i+1}=2^{r_i+2}f_i-n_i-r_i-5.
+\]
+
+The pure-upper subcase has an exact inequality test, but a literal safe path
+already contains six consecutive pure-upper gates. Fixed short-transience
+and simple defect monotonicity are therefore false.
+
+**Do next:** analyze the affine unit-block recurrence as a finite-word
+integer system. Either prove that every sufficiently long pure-upper word
+forces a longer child block, or construct words of unbounded length. In the
+mixed-block case, treat near-maximal unique gaps as renewal points and
+accumulate both headroom terms from Lemma 110.
 
 ## 7. Resolve the low-order mixed-ridge defect
 

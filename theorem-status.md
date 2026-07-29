@@ -127,6 +127,9 @@ classification is the point: nothing is promoted without a proof.
 | **L110** | Every arbitrary gate has exactly $1+j+\min(\lfloor d/2\rfloor,\lfloor2d'/H\rfloor)$ locally valid parent states; every missed canonical window contributes a lower candidate | `gate-multiplicity-analysis.md` | **Lemma - new; fresh audit pending; exact nonuniqueness depth, not termination** |
 | **C111** | Gate multiplicity consumes canonical displacement: $(|\mathcal F|-1)H\le D'-3-\rho$ | `gate-multiplicity-analysis.md` | **Corollary - new; fresh audit pending; truncated by parent headrooms** |
 | **C112** | An upper-nonunique gate with child block length $\ell$ satisfies $2^{k+r+\ell+2}<n'+\ell+4$ | `gate-multiplicity-analysis.md` | **Corollary - new; fresh audit pending; two-block ceiling, not termination** |
+| **L113** | The child excess determines the child block's returned residue exactly; for a unit child the returned residue equals the parent gate excess | `gate-transfer-analysis.md` | **Lemma - new; fresh audit pending; exact inter-gate transfer** |
+| **C114** | Consecutive unit positive blocks obey an exact affine recurrence in $(n,U,D,f)$ and the zero-only gap | `gate-transfer-analysis.md` | **Corollary - new; fresh audit pending; finite-word reduction, not termination** |
+| **C115** | Pure-upper unit gates have an exact three-inequality test and satisfy $2^{r+4}\le D'-4$ | `gate-transfer-analysis.md` | **Corollary - new; fresh audit pending; scale ceiling, not a chain bound** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**
@@ -151,6 +154,7 @@ This is unconditional: it does not assume the stabilization conjecture.
 | K11 | No nonzero eventually periodic slope orbit has reduced denominator $d\le501$ | all periods; 250 odd denominators, 463 boundary families | Theorems 32 and 36 + exact base-digit certificates |
 | K12 | Longest arbitrary-state no-down segments are 75, 223, and 822 steps at indices 100, 1000, and 10000 | all positive-$e$ states at each index | exact exhaustive `monotone` scan |
 | K13 | No valid positive state at any index $2\le N\le10^6$ has an infinite no-down continuation; at the checkpoint $N=10^6$ the compressed safe set empties at $1{,}009{,}019$ | all $999{,}999$ positive $e$ values at the checkpoint + Lemma 41 + Theorem 46 | Rust and independent Python generators; matching trajectory digest |
+| K14 | A valid safe path has six consecutive pure-upper gates, five with unit parent blocks | explicit state $(n,U,e)=(971,5,482)$ | Exact Rust safe-map trace and independent symbolic finite-word reconstruction |
 
 K8 answers MathOverflow Q2 ("what is special about 316?"): **essentially nothing**;
 it wins by a margin of one over its immediate neighbours.
@@ -182,6 +186,7 @@ it wins by a margin of one over its immediate neighbours.
 | R5 | Non-absorbing orbit with $e_n$ affine in $n$ | P16 — killed by the admissibility window |
 | R6 | A uniform positive lower bound for the up-step fraction of all sufficiently long valid post-down segments | P66 gives exact words $-1,1^K,0^{K^2},-1$ with fraction $1/(K+1)$ |
 | R7 | Monotonicity of $K$, $v$, $z$, terminal scale $2^zv$, or next-ridge width along arbitrary-terminal pure chains | bounded exact chains refute every listed monotonicity; one valid chain already has length eight |
+| R8 | Pure-upper gate ambiguity is a transient of length at most five | the exact K14 witness contains six consecutive pure-upper gates |
 
 ---
 

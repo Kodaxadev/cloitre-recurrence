@@ -150,6 +150,12 @@ flowchart TD
   L110 --> C111["C111 displacement budget"]
   L53 --> C112["C112 upper-nonunique two-block ceiling"]
   L110 --> C112
+  L83 --> L113["L113 exact child-residue transfer"]
+  L103 --> L113
+  L113 --> C114["C114 unit-block gate recurrence"]
+  L103 --> C115["C115 pure-upper unit criterion"]
+  L110 --> C115
+  L113 --> C115
 
   T24 --> O1["Open branch A: infinitely many down-steps"]
   T38 --> O1
@@ -177,6 +183,7 @@ flowchart TD
   C89 --> O2
   T90 --> O2
   T91 --> O2
+  C115 --> O2
   U["Uniform termination of the safe map"] -->|would eliminate| O2
   O1 --> CJ["Original stabilization conjecture remains open"]
   O2 --> CJ
@@ -189,7 +196,7 @@ flowchart TD
   classDef compute fill:#e5efff,stroke:#3566a8,color:#13243d;
   classDef open fill:#fff1d6,stroke:#ad6b00,color:#422900;
   classDef formal fill:#eee4ff,stroke:#6542a6,color:#261642;
-  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64,L65,P66,L67,L68,T69,L70,C71,T72,L73,C74,T75,L76,T77,L78,C79,L80,C81,C82,L83,C84,L85,C86,L87,C88,C89,T90,T91,L110,C111,C112 proof;
+  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64,L65,P66,L67,L68,T69,L70,C71,T72,L73,C74,T75,L76,T77,L78,C79,L80,C81,C82,L83,C84,L85,C86,L87,C88,C89,T90,T91,L110,C111,C112,L113,C114,C115 proof;
   class K1,K11,K13,C46 compute;
   class O1,O2,U,CJ open;
   class F formal;
@@ -317,6 +324,12 @@ flowchart TD
     of this size. Corollary 109 gives zero density in absolute time, but
     neither finiteness nor a contradiction follows.
 
+25. **Corollary 115 is a criterion, not a chain bound.** Lemma 113 closes
+    the residue transfer exactly, and unit-block gates obey one affine
+    recurrence. A valid safe path nevertheless contains six consecutive
+    pure-upper gates. Neither the recurrence nor its scale ceiling currently
+    excludes arbitrarily long finite words or an infinite aperiodic word.
+
 ## Audit priority
 
 | Priority | Chain | Evidence required |
@@ -361,3 +374,4 @@ flowchart TD
 | 38 | L53, L83, and L103 -> L106 -> C107, with C81 | Child overshoot collapse, both stopping-test endpoints, unit-versus-long dichotomy, canonical-origin lower scale, general gate upper endpoint, index-safe substitution of the wrap ceiling, and the resulting ratio squeeze |
 | 39 | T91 and C107 -> C108 | Exact negation of eventual nonuniqueness, conversion of non-eventual unit length to infinitely many longer child blocks, and application at each preceding unique gate |
 | 40 | C107 -> C109 | Uniform late ratio bound, split at child index \(\sqrt N\), disjointness of adjacent zero-only gaps, and conversion from total gap length to a counting bound |
+| 41 | L83 and L103 -> L113 -> C114/C115, with L110 | Child overshoot elimination, returned-residue indexing, unit-child specialization, exact \(D\)-update, canonical-window endpoint, upper-headroom test, and six-gate anti-transience witness |

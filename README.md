@@ -135,6 +135,7 @@ Stabilization is exactly the event \(e_n=0\). This exposes the dynamics as a dou
 | A persistent parent-boundary safe tail is impossible | New internal proof | Lemmas 92/94/96/98/100 and Theorem 101 first reduce the tail to fixed block length, then force its gaps both to increase strictly and to have bounded mean; every infinite safe path must instead use infinitely many nonunique or unique child-boundary gates |
 | Interior gates occupy one canonical moving window | New internal proof | Lemmas 103/106 and Corollaries 104/105/107--109 rewrite the two surviving interior conditions as one exact window \(D'-3\in[\rho,\rho+H)\); every infinite safe path has infinitely many nonunique gates or zero-density longer-child resets with \(r/\log_2n'\to1\), and neither alternative is excluded |
 | Nonunique gates have exact finite multiplicity | New internal proof | Lemma 110 and Corollaries 111/112 count every lattice translate: each missed canonical window contributes one lower candidate, while upper ambiguity is defect-truncated and forces a two-block exponential ceiling |
+| Gate excess transfers exactly to the child residue | New internal proof | Lemma 113 and Corollaries 114/115 eliminate quotient and defect from one inter-gate transfer; unit-block chains obey an exact affine recurrence, while a verified six-gate pure-upper run rules out a short-transience argument |
 | No eventually periodic quotient-change sequence | Internally proved | Complete proof; awaiting external mathematical review |
 | Two-counter termination for every valid entry state | **Open** | Only the eventually-no-down branch is reduced |
 | Safe-map instance at \(N=10^6\) | Certified finite result | Independent Rust/Python agreement |
@@ -220,6 +221,8 @@ The Lean development compiles without `sorry`, but it does **not** formalize the
 | [`parent-boundary-gate-analysis.md`](parent-boundary-gate-analysis.md) | affine parent-layer compatibility and nonincreasing block lengths |
 | [`parent-gap-exclusion.md`](parent-gap-exclusion.md) | strict gap growth and exclusion of the persistent parent boundary |
 | [`child-boundary-window.md`](child-boundary-window.md) | canonical residue decomposition and exact interior uniqueness window |
+| [`gate-multiplicity-analysis.md`](gate-multiplicity-analysis.md) | exact candidate count and upper-ambiguity two-block ceiling |
+| [`gate-transfer-analysis.md`](gate-transfer-analysis.md) | exact child-residue transfer and unit-block pure-upper recurrence |
 | [`symbolic-analysis.md`](symbolic-analysis.md) | doubling model, heuristics, and failures |
 | [`compressed-orbit-analysis.md`](compressed-orbit-analysis.md) | compression design and rejected approaches |
 | [`invariant-search.md`](invariant-search.md) | negative invariant and potential searches |
@@ -230,6 +233,7 @@ The Lean development compiles without `sorry`, but it does **not** formalize the
 | [`research-log-mixed-ridges.md`](research-log-mixed-ridges.md) | mixed-ridge derivation, bounded falsification, and surviving low-bit target |
 | [`research-log-parent-gaps.md`](research-log-parent-gaps.md) | fixed-length parent-gap exclusion and surviving child-boundary target |
 | [`research-log-child-window.md`](research-log-child-window.md) | child-window derivation and orbitwise-equidistribution warning |
+| [`research-log-gate-transfer.md`](research-log-gate-transfer.md) | pure-upper persistence falsification and exact residue-transfer derivation |
 | [`research-log-safe-wraps.md`](research-log-safe-wraps.md) | safe-wrap balance dead end, log-log ceiling, and quantitative block recurrence |
 | [`future-directions.md`](future-directions.md) | ranked unresolved directions |
 

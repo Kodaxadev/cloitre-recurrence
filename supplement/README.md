@@ -114,6 +114,11 @@ pinning the exact multiplicity histogram
 \(1,\ldots,8\). The native `gate_multiplicity` Rust test independently
 reproduces the same formula and histogram. Both implementations also check
 Corollary 112 on all 12,021 upper-nonunique gates in the bounded census.
+They additionally check Lemma 113's residue-transfer identity on all 27,030
+gates; 15,342 have unit children and satisfy the exact equality \(g=x\).
+The Rust and Python checks both pin the six-gate pure-upper witness from
+\((n,U,e)=(971,5,482)\). It is a valid safe-map state; original-orbit
+reachability is not claimed.
 
 The exploratory Rust binary `gate_chain` searches these chains without
 assuming that the accumulated quotient is zero. Exhausting all 20,771,000
@@ -125,6 +130,13 @@ chain. This is bounded evidence, not a uniform chain bound. From
 ```powershell
 cargo run --release --bin gate_chain -- --min-n 2 --max-n 1000 --all-quotients
 ```
+
+The exploratory `gate_mechanism_chain` binary classifies pure-upper runs.
+The symbolic scripts accept prescribed finite block/gap words and require
+the optional pinned dependency in
+`independent/requirements-exploratory.txt`. These searches produce or refute
+only bounded finite-word witnesses; they are not termination certificates.
+
 `independent/verify_sharp_growth.py` separately checks Theorem 56's
 parameterized rebound implication on arbitrary states and its finite
 inequality on literal starting orbits. It also tests Corollary 57's
