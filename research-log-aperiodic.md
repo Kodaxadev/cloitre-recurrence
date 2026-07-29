@@ -269,3 +269,22 @@ liminf q_n log2(n)/n >= 1
 for every counterexample, regardless of whether down-steps occur infinitely
 often. This is Theorem 56. It makes Theorem 45's leading constant
 unconditional but does not improve the logarithmic order itself.
+
+The parameterized finite bound is uniform in `s`, so it can be optimized at
+each index. With
+
+```text
+H = floor(log2 n),
+L = floor(log2(H+1)),
+s = L-2,
+```
+
+one has `2^(s+2)=2^L<=H+1`, and therefore
+
+```text
+q_n >= (1 - 2/(L-1)) n/(H+1) - n0 - 5.
+```
+
+This is Corollary 57's explicit
+`1-O(1/log log n)` approach to the unit leading constant. It makes no
+optimality claim for the recurrence.

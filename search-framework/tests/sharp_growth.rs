@@ -61,3 +61,30 @@ fn finite_sharp_growth_bound_holds_on_literal_orbits() {
     }
     assert!(checked > 100_000, "growth test too weak: {checked}");
 }
+
+#[test]
+fn explicit_unit_leading_rate_holds_on_record_orbit() {
+    let mut state = enter(31_873);
+    let entry_n = state.n;
+    let mut checked = 0u64;
+    for _ in 0..100_000 {
+        assert!(
+            !state.absorbed(),
+            "record orbit absorbed before test horizon"
+        );
+        let scale = u128::from(64 - state.n.leading_zeros());
+        let log_scale = 127 - scale.leading_zeros() as u128;
+        if log_scale >= 4 {
+            assert!(
+                (log_scale - 1) * scale * u128::from(state.q + entry_n + 5)
+                    >= (log_scale - 3) * u128::from(state.n),
+                "n={} q={} n0={entry_n} L={log_scale}",
+                state.n,
+                state.q
+            );
+            checked += 1;
+        }
+        state = step(state);
+    }
+    assert!(checked > 50_000, "explicit-rate test too weak: {checked}");
+}

@@ -122,7 +122,7 @@ Stabilization is exactly the event \(e_n=0\). This exposes the dynamics as a dou
 | Eventual increments 5 and 7 are omitted | Certified | Independent complete finite certificate |
 | 106 omissions among \(1,\dots,1823\) | Census result | Primary compressed census; full independent census pending |
 | Counterexample growth bounds | Internally proved | Complete proof; awaiting external mathematical review |
-| Unit-leading bound \(\liminf q_n\log_2(n)/n\ge1\) | New internal proof | Theorem 56; post-freeze and awaiting fresh audit; optimality for the recurrence is not claimed |
+| Unit-leading bound with explicit \(1-O(1/\log\log n)\) rate | New internal proof | Theorem 56 and Corollary 57; post-freeze and awaiting fresh audit; optimality for the recurrence is not claimed |
 | No eventually periodic quotient-change sequence | Internally proved | Complete proof; awaiting external mathematical review |
 | Two-counter termination for every valid entry state | **Open** | Only the eventually-no-down branch is reduced |
 | Safe-map instance at \(N=10^6\) | Certified finite result | Independent Rust/Python agreement |

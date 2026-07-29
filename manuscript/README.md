@@ -51,8 +51,8 @@ corollary. Theorem numbering follows `../theorem-status.md` to preserve
 traceability to the frozen research snapshot
 `f19ffcd75d04a05529878ce0226088f2f3221c0b`.
 Theorems 46, 50, 55, and 56; Lemmas 47, 49, 51, and 53; and Corollaries
-48, 52, and 54 are post-freeze additions and have not yet received the
-fresh-context audit applied to the frozen theorem chain.
+48, 52, 54, and 57 are post-freeze additions and have not yet received
+the fresh-context audit applied to the frozen theorem chain.
 
 ## Formalization boundary
 

@@ -58,3 +58,22 @@ to infinity gives one. The bound for \(b_n\) follows from
 
 This theorem applies whether quotient down-steps occur finitely or
 infinitely often. It does not by itself force capture.
+
+## Corollary 57 (explicit convergence rate)
+
+Put \(L=\lfloor\log_2(H+1)\rfloor\). If \(L\ge4\), then
+
+\[
+q_n\ge
+\left(1-\frac2{L-1}\right)\frac{n}{H+1}-n_0-5. \tag{7.3}
+\]
+
+Indeed, choose \(s=L-2\) in Theorem 56. Then
+\(M_s=2^L\le H+1\), so its threshold holds, and
+\(\alpha_s=(L-3)/(L-1)\). Thus every counterexample satisfies
+
+\[
+q_n\ge
+\left(1-O\!\left(\frac1{\log\log n}\right)\right)
+\frac{n}{\log_2n}-O_m(1).
+\]

@@ -42,7 +42,8 @@ autonomous overshoot and Theorem 55's positive-block bound; it is not a
 substitute for their symbolic proofs.
 `independent/verify_sharp_growth.py` separately checks Theorem 56's
 parameterized rebound implication on arbitrary states and its finite
-inequality on literal starting orbits.
+inequality on literal starting orbits. It also tests Corollary 57's
+optimized floor choice on two long record orbits.
 
 ## Files
 

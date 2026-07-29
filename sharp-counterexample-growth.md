@@ -138,6 +138,51 @@ This holds for every fixed \(s\ge2\), and
 \(\sup_s\alpha_s=1\), proving (56.3). Finally
 \(b_n=nq_n+r_n\ge nq_n\), which proves (56.4). \(\square\)
 
+## Corollary 57: explicit approach to the unit leading constant
+
+Retain \(H=\lfloor\log_2n\rfloor\), and put
+
+\[
+L=\lfloor\log_2(H+1)\rfloor.
+\]
+
+At every nonabsorbed index with \(L\ge4\),
+
+\[
+\boxed{\displaystyle
+q_n\ge
+\left(1-\frac{2}{L-1}\right)\frac{n}{H+1}-n_0-5.}
+\tag{57.1}
+\]
+
+Consequently,
+
+\[
+q_n\ge
+\left(1-O\!\left(\frac1{\log\log n}\right)\right)
+\frac{n}{\log_2n}-O_m(1) \tag{57.2}
+\]
+
+along every counterexample.
+
+### Proof
+
+In Theorem 56 choose \(s=L-2\). Then \(s\ge2\),
+
+\[
+M_s=2^{s+2}=2^L\le H+1,
+\]
+
+so condition (56.1) holds. Moreover
+
+\[
+\alpha_s=\frac{s-1}{s+1}
+=\frac{L-3}{L-1}=1-\frac2{L-1}.
+\]
+
+Substitution in (56.2) proves (57.1), and (57.2) follows from
+\(H+1\sim\log_2n\) and \(L\sim\log_2\log_2n\). \(\square\)
+
 ## Significance and limitation
 
 Theorem 56 removes the factor-three loss from Theorem 27 and makes the
