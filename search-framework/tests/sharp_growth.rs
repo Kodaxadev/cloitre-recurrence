@@ -88,3 +88,40 @@ fn explicit_unit_leading_rate_holds_on_record_orbit() {
     }
     assert!(checked > 50_000, "explicit-rate test too weak: {checked}");
 }
+
+#[test]
+fn low_window_downstep_charge_holds_on_arbitrary_states() {
+    let mut checked = 0u64;
+    for initial_n in [128u64, 256, 512] {
+        let stride = initial_n / 32;
+        for initial_q in 1..=8 {
+            for initial_r in (0..initial_n).step_by(stride as usize) {
+                let mut state = State {
+                    n: initial_n,
+                    q: initial_q,
+                    r: initial_r,
+                };
+                let mut counts = [(0u64, 0u64); 6];
+                for _ in 0..500 {
+                    let change = dq(state);
+                    for (offset, count) in counts.iter_mut().enumerate() {
+                        let length = offset as u64 + 2;
+                        if state.n < (1u64 << (length + 2)) * state.q {
+                            *count = (0, 0);
+                            continue;
+                        }
+                        count.0 += u64::from(change != 0);
+                        count.1 += u64::from(change == -1);
+                        assert!(
+                            (length + 1) * count.1 <= count.0 + length,
+                            "state={state:?} length={length} counts={count:?}"
+                        );
+                        checked += 1;
+                    }
+                    state = step(state);
+                }
+            }
+        }
+    }
+    assert!(checked > 100_000, "window test too weak: {checked}");
+}

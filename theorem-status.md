@@ -72,6 +72,8 @@ classification is the point: nothing is promoted without a proof.
 | **T55** | A positive-wrap block run has the explicit bound (55.1); every infinite safe path has infinitely many $00$ pairs and eventually $U\le(n-4)/2$ | `zero-epoch-overshoot-analysis.md` | **Theorem - new; fresh audit pending** |
 | **T56** | Every counterexample, with or without infinitely many down-steps, has $\liminf q_n\log_2(n)/n\ge1$ and the same normalized lower bound for $b_n$ | `sharp-counterexample-growth.md` | **Theorem - new; fresh audit pending** |
 | **C57** | Every counterexample has the explicit unit-leading rate $q_n\ge(1-O(1/\log\log n))n/\log_2n-O_m(1)$ | `sharp-counterexample-growth.md` | **Corollary - new; fresh audit pending** |
+| **T58** | In every sublinear counterexample, down-steps have zero density in time and among quotient changes, while $q_n/C(n)\to1$ | `sparse-downstep-analysis.md` | **Theorem - new; fresh audit pending** |
+| **C59** | Every counterexample either has positive $\limsup q_n/n$, or belongs to the sparse-downstep sublinear class of T58 | `sparse-downstep-analysis.md` | **Corollary - new; fresh audit pending** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**

@@ -288,3 +288,35 @@ q_n >= (1 - 2/(L-1)) n/(H+1) - n0 - 5.
 This is Corollary 57's explicit
 `1-O(1/log log n)` approach to the unit leading constant. It makes no
 optimality claim for the recurrence.
+
+## 9. Sparse down-steps in the sublinear branch
+
+The same parameterized rebound charge also classifies any counterexample
+with `q_n=o(n)`. For a fixed charge length `s`, sublinearity eventually makes
+
+```text
+2^(s+2) q_k <= k
+```
+
+hold at every later index. If `P_s,D_s,C_s` count up-steps, down-steps, and
+all quotient changes on that tail, disjoint rebound blocks give
+
+```text
+P_s >= s D_s - s,
+D_s <= (C_s+s)/(s+1).
+```
+
+Theorem 24 supplies `q_n -> infinity`, hence `C_s -> infinity`. Removing the
+fixed prefix and then letting the fixed integer `s` grow proves
+
+```text
+D/C -> 0,   P/C -> 1,   q/C -> 1,   D/n -> 0.
+```
+
+Combining these ratios with Theorem 56 preserves the unit-leading lower
+bound for both `C` and `P`. Thus every counterexample has a clean dichotomy:
+either `limsup q_n/n>0`, or it is sublinear and its down-steps are
+asymptotically negligible.
+
+This is cumulative sparsity only. It neither proves that down-steps are
+finite nor that every individual gap between them tends to infinity.

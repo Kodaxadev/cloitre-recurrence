@@ -72,10 +72,14 @@ flowchart TD
   T22 --> T56["T56 universal unit-leading logarithmic growth"]
   L26 --> T56
   T56 --> C57["C57 explicit unit-leading rate"]
+  T24 --> T58["T58 sublinear down-step sparsity"]
+  T56 --> T58
+  T58 --> C59["C59 counterexample growth dichotomy"]
 
   T24 --> O1["Open branch A: infinitely many down-steps"]
   T38 --> O1
   T56 --> O1
+  C59 --> O1
   T24 --> O2["Open branch B: eventually no down-steps"]
   T38 --> O2
   L42 --> O2
@@ -93,7 +97,7 @@ flowchart TD
   classDef compute fill:#e5efff,stroke:#3566a8,color:#13243d;
   classDef open fill:#fff1d6,stroke:#ad6b00,color:#422900;
   classDef formal fill:#eee4ff,stroke:#6542a6,color:#261642;
-  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57 proof;
+  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59 proof;
   class K1,K11,K13,C46 compute;
   class O1,O2,U,CJ open;
   class F formal;
@@ -137,3 +141,4 @@ flowchart TD
 | 8 | L43 -> L44 -> L51 -> C52 | Wrap-run acceleration, threshold endpoints, equality family, and boundary-return limitation |
 | 9 | L51 -> L53 -> C54 and T55 | Autonomous-coordinate endpoints, telescoping limit, and quantitative positive-block bound |
 | 10 | T22 -> L26 -> T56 -> C57 | Arbitrary cascade length, endpoint loss, final low-quotient window, order of limits, and optimized floor choice |
+| 11 | T24 -> T56 -> T58 -> C59 | Tail quantifiers for each fixed charge length, fixed-prefix removal, count-ratio limits, and the exact dichotomy |

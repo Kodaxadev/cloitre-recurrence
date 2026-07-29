@@ -24,7 +24,9 @@ quotient \(q_n=\Omega_m(n/\log n)\), hence
 eventually periodic. For the special case of an eventually nondecreasing
 quotient, we derive an exact two-counter termination system. The latter
 reduction does not cover hypothetical counterexamples with infinitely many
-quotient down-steps.
+quotient down-steps. We nevertheless show that in the sublinear-quotient
+branch, such down-steps must have zero density both in time and among quotient
+changes.
 
 ## Manuscript assembly
 
@@ -38,6 +40,7 @@ files in order:
 5. [`05-zero-epoch-boundary.md`](05-zero-epoch-boundary.md)
 6. [`06-autonomous-zero-epoch-map.md`](06-autonomous-zero-epoch-map.md)
 7. [`07-sharp-growth.md`](07-sharp-growth.md)
+8. [`08-sparse-downsteps.md`](08-sparse-downsteps.md)
 
 Only definitions, statements, proofs, and explicit claim boundaries belong
 here. Algorithms, benchmarks, certificates, and reproduction instructions
@@ -50,8 +53,8 @@ result is the finite-start bound and its computer-assisted nonsurjectivity
 corollary. Theorem numbering follows `../theorem-status.md` to preserve
 traceability to the frozen research snapshot
 `f19ffcd75d04a05529878ce0226088f2f3221c0b`.
-Theorems 46, 50, 55, and 56; Lemmas 47, 49, 51, and 53; and Corollaries
-48, 52, 54, and 57 are post-freeze additions and have not yet received
+Theorems 46, 50, 55, 56, and 58; Lemmas 47, 49, 51, and 53; and Corollaries
+48, 52, 54, 57, and 59 are post-freeze additions and have not yet received
 the fresh-context audit applied to the frozen theorem chain.
 
 ## Formalization boundary

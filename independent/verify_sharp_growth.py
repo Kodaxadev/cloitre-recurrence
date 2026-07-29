@@ -140,20 +140,49 @@ def check_floor_endpoints() -> int:
     return checked
 
 
+def check_low_window_counts() -> int:
+    checked = 0
+    for initial_n in (128, 256, 512):
+        stride = initial_n // 32
+        for initial_q in range(1, 9):
+            for initial_r in range(0, initial_n, stride):
+                state = State(initial_n, initial_q, initial_r)
+                counts = {length: [0, 0] for length in range(2, 8)}
+                for _ in range(500):
+                    change = digit(state)
+                    for length, (changes, downs) in counts.items():
+                        if state.n < (1 << (length + 2)) * state.q:
+                            counts[length] = [0, 0]
+                            continue
+                        changes += change != 0
+                        downs += change == -1
+                        assert (length + 1) * downs <= changes + length
+                        counts[length] = [changes, downs]
+                        checked += 1
+                    state = step(state)
+    return checked
+
+
 def main() -> None:
     cascades = check_parameterized_cascades()
     growth = check_finite_growth()
     explicit = check_explicit_rate()
     endpoints = check_floor_endpoints()
+    windows = check_low_window_counts()
     assert cascades > 1_000
     assert growth > 100_000
     assert explicit > 100_000
     assert endpoints > 900_000
+    assert windows > 100_000
     print(f"parameterized rebound cascades checked: {cascades}")
     print(f"finite sharp-growth inequalities checked: {growth}")
     print(f"explicit unit-leading rate checks: {explicit}")
     print(f"floor-threshold endpoints checked: {endpoints}")
-    print("VERDICT: bounded raw checks agree with Theorem 56 and Corollary 57.")
+    print(f"low-window counting prefixes checked: {windows}")
+    print(
+        "VERDICT: bounded raw checks agree with Theorems 56/58 "
+        "and Corollaries 57/59."
+    )
 
 
 if __name__ == "__main__":
