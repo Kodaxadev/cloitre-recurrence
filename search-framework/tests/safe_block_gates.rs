@@ -301,3 +301,49 @@ fn three_parent_boundary_starts_force_the_terminal_pattern() {
         Some((0, None))
     );
 }
+
+#[test]
+fn constant_length_parent_boundary_gaps_increase() {
+    let mut checked = 0u64;
+    for n in 2..=500u64 {
+        for wraps in 0..n {
+            let width = n - wraps;
+            for defect in [0u64, 1] {
+                if width < defect || (width - defect) % 2 == 1 {
+                    continue;
+                }
+                let e = (width - defect) / 2;
+                if e == 0 || e >= width {
+                    continue;
+                }
+                let blocks = zero_blocks(SafeState { e, w: width, wraps });
+                let positive: Vec<_> = blocks
+                    .iter()
+                    .enumerate()
+                    .filter(|(_, block)| {
+                        block.wraps > 0 && block.next_zero.is_some()
+                    })
+                    .map(|(index, _)| index)
+                    .collect();
+                for triple in positive.windows(3) {
+                    let [first, second, third] = triple else {
+                        unreachable!()
+                    };
+                    let starts = [
+                        blocks[*first].start,
+                        blocks[*second].start,
+                        blocks[*third].start,
+                    ];
+                    if starts.iter().any(|state| state.w - 2 * state.e > 1)
+                        || blocks[*first].wraps != blocks[*second].wraps
+                    {
+                        continue;
+                    }
+                    assert!(*third - *second > *second - *first);
+                    checked += 1;
+                }
+            }
+        }
+    }
+    assert_eq!(checked, 5);
+}

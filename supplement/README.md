@@ -83,6 +83,13 @@ consecutive parent-boundary starts with the same positive block length.
 This is evidence for the fixed-length target after Corollary 97, not a
 uniform exclusion theorem.
 
+`independent/verify_parent_gap_dynamics.py` checks Lemma 100 on arbitrary
+bounded-quotient parent-boundary starts through \(n\le500\), finding five
+constant-length triples and confirming strict gap increase in each. It also
+rejects the two formal decreasing-gap exceptions by their exact state-bound
+and parity failures. The native Rust test independently reproduces the same
+five transitions. Theorem 101 itself is symbolic.
+
 The exploratory Rust binary `gate_chain` searches these chains without
 assuming that the accumulated quotient is zero. Exhausting all 20,771,000
 valid positive-block zero epochs with \(2\le n\le1000\) found seven

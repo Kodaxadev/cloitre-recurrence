@@ -136,6 +136,14 @@ flowchart TD
   L94 --> L98
   L98 --> T99["T99 sparse logarithmic parent-layer gaps"]
   C95 --> T99
+  L98 --> L100["L100 fixed-length parent gaps increase"]
+  C95 --> L100
+  C97 --> T101["T101 no persistent parent-boundary tail"]
+  L100 --> T101
+  T99 --> T101
+  T101 --> C102["C102 surviving interior gate alternatives"]
+  L92 --> C102
+  C93 --> C102
 
   T24 --> O1["Open branch A: infinitely many down-steps"]
   T38 --> O1
@@ -155,6 +163,7 @@ flowchart TD
   C93 --> O2
   C97 --> O2
   T99 --> O2
+  C102 --> O2
   C82 --> O2
   C84 --> O2
   C86 --> O2
@@ -285,6 +294,10 @@ flowchart TD
     the mean stays bounded. An aperiodic sequence with rare logarithmic spikes
     is still compatible with these restrictions.
 
+22. **Theorem 101 removes only the eventual parent boundary.** Corollary 102
+    forces infinitely many interior starts, but their gates may be nonunique
+    or may use the child boundary. Neither surviving mechanism is excluded.
+
 ## Audit priority
 
 | Priority | Chain | Evidence required |
@@ -324,3 +337,4 @@ flowchart TD
 | 33 | L94 -> C95 | Determinant ratio monotonicity, identical-parameter reduction, binary-defect cases, and the final parity obstruction |
 | 34 | L53 and L94 -> L96 -> C97 | Returned-residue identity, sharp bound on returned residue plus gap, stopping test at the preceding block length, and the nonincreasing-integer tail argument |
 | 35 | C97 and L94 -> L98, then L98 and C95 -> T99 | Telescoping defect bits, bounded-gap slope separation, equal-gap singular obstruction, logarithmic gap ceiling, and Cesaro endpoint control |
+| 36 | L98 and C95 -> L100, then C97, L100, and T99 -> T101 -> C102 | Power-of-two divisibility for decreasing gaps, both zero-gap exceptional cases, strict-growth versus bounded-mean contradiction, and exact surviving gate alternatives |

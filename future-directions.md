@@ -243,6 +243,24 @@ divides that residue by \(2^{r_j+1}-1\). A contradiction must compare a
 large gap with the accumulated budget before and after it, rather than use
 only its pointwise logarithmic ceiling.
 
+Lemma 100 and Theorem 101 complete that comparison: equal gaps are singular,
+decreasing gaps violate an exact power-of-two divisibility, and strictly
+increasing gaps contradict Theorem 99's bounded mean. The parent boundary
+cannot persist.
+
+**Do:** work only with the exhaustive alternatives in Corollary 102. At
+infinitely many interior starts \(d\ge2\), either the gate is nonunique or
+uniqueness forces the child boundary
+
+\[
+2d'<2^{k+r+3}.
+\]
+
+The next target is to show that child-boundary resets cannot recur
+indefinitely without producing the nonunique lower-neighbor condition
+\(x>2^{k+r+3}\), then accumulate the latter across Corollary 82's frequent
+positive blocks.
+
 ## 7. Resolve the low-order mixed-ridge defect
 
 Lemma 73 now encodes every zero in an arbitrary ridge by

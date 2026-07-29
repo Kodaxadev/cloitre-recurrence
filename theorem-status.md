@@ -114,6 +114,9 @@ classification is the point: nothing is promoted without a proof.
 | **C97** | If every sufficiently late positive start lies in the parent layer, its positive block lengths are eventually constant | `parent-boundary-gate-analysis.md` | **Corollary - new; fresh audit pending; zero-only gaps may still vary** |
 | **L98** | A fixed-length parent-layer tail obeys exact returned-residue and telescoping gap-budget identities | `parent-boundary-gate-analysis.md` | **Lemma - new; fresh audit pending; identity, not termination** |
 | **T99** | A hypothetical persistent parent-layer tail has unbounded but at most logarithmic zero-only gaps whose Cesaro means lie between $K$ and $2K+1$ | `parent-boundary-gate-analysis.md` | **Theorem - new; fresh audit pending; sparse gap excursions remain possible** |
+| **L100** | For four consecutive parent-boundary starts with one fixed block length, the second zero-only gap is strictly larger than the first | `parent-gap-exclusion.md` | **Lemma - new; fresh audit pending; exact divisibility exclusion** |
+| **T101** | No infinite safe path can eventually remain entirely in the parent defect layer $d\le1$ | `parent-gap-exclusion.md` | **Theorem - new; fresh audit pending; child-boundary and nonunique gates remain** |
+| **C102** | Every hypothetical infinite safe path has infinitely many interior starts whose outgoing gate is nonunique or unique in the child boundary layer | `parent-gap-exclusion.md` | **Corollary - new; fresh audit pending; exhaustive surviving safe alternatives** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**
