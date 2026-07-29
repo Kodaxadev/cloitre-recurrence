@@ -24,8 +24,13 @@ Furthermore,
 If \(d_1<d_2<\cdots\) are the down-step indices, then
 
 \[
-d_{j+1}-d_j\to\infty. \tag{8.3}
+d_{j+1}-d_j
+\ge
+\left\lfloor\log_2\frac{d_j}{q_{d_j}}\right\rfloor-1
+\to\infty \tag{8.3}
 \]
+
+for all sufficiently large \(j\).
 
 ### Proof
 
@@ -40,6 +45,10 @@ D_s(n)\le\frac{C_s(n)+s}{s+1}. \tag{8.4}
 The same rebound implication makes every down-step after \(N_s\) followed
 by \(s\) up-steps. Hence \(d_{j+1}-d_j\ge s+1\) eventually. Letting the
 fixed integer \(s\) grow proves (8.3).
+
+More explicitly, at a down-step \(k\ge16q_k\), choose
+\(s=\lfloor\log_2(k/q_k)\rfloor-2\). Then \(2^{s+2}q_k\le k\), so the same
+argument forces \(s\) up-steps and gives the displayed lower bound.
 
 Theorem 24 gives \(q_n\to\infty\). Since
 \(\lvert q_n-q_{N_s}\rvert\le C_s(n)\), we have \(C_s(n)\to\infty\).

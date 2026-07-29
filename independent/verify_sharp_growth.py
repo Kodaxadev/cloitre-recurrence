@@ -75,6 +75,23 @@ def check_parameterized_cascades() -> int:
     return checked
 
 
+def check_explicit_rebound_lengths() -> int:
+    checked = 0
+    for n in range(16, 1_025):
+        for q in range(1, min(n // 16, 32) + 1):
+            length = (n // q).bit_length() - 3
+            assert length >= 2
+            for r in range((q + 1) // 2):
+                state = State(n=n, q=q, r=r)
+                assert digit(state) == -1
+                current = step(state)
+                for _ in range(length):
+                    assert digit(current) == 1
+                    current = step(current)
+                checked += 1
+    return checked
+
+
 def check_finite_growth() -> int:
     checked = 0
     for start in range(1, 1001):
@@ -166,16 +183,19 @@ def check_low_window_counts() -> int:
 
 def main() -> None:
     cascades = check_parameterized_cascades()
+    explicit_rebounds = check_explicit_rebound_lengths()
     growth = check_finite_growth()
     explicit = check_explicit_rate()
     endpoints = check_floor_endpoints()
     windows = check_low_window_counts()
     assert cascades > 1_000
+    assert explicit_rebounds > 100_000
     assert growth > 100_000
     assert explicit > 100_000
     assert endpoints > 900_000
     assert windows > 100_000
     print(f"parameterized rebound cascades checked: {cascades}")
+    print(f"explicit rebound-length states checked: {explicit_rebounds}")
     print(f"finite sharp-growth inequalities checked: {growth}")
     print(f"explicit unit-leading rate checks: {explicit}")
     print(f"floor-threshold endpoints checked: {endpoints}")

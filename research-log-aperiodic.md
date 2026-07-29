@@ -316,7 +316,15 @@ D/C -> 0,   P/C -> 1,   q/C -> 1,   D/n -> 0.
 There is also a pointwise consequence. Every down-step in the same late
 tail is followed immediately by `s` up-steps. Since this holds eventually
 for every fixed `s`, the individual gaps between successive down-steps
-tend to infinity when down-steps are infinite.
+tend to infinity when down-steps are infinite. Quantitatively, a down-step
+at `k>=16q_k` is followed by at least
+
+```text
+floor(log2(k/q_k))-2
+```
+
+up-steps, so the next down-step is at least
+`floor(log2(k/q_k))-1` indices away.
 
 Combining these ratios with Theorem 56 preserves the unit-leading lower
 bound for both `C` and `P`. Thus every counterexample has a clean dichotomy:

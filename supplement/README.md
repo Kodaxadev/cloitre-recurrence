@@ -44,8 +44,9 @@ substitute for their symbolic proofs.
 parameterized rebound implication on arbitrary states and its finite
 inequality on literal starting orbits. It also tests Corollary 57's
 optimized floor choice on two long record orbits and Theorem 58's finite
-low-window down-step charge on arbitrary states. These bounded checks support
-the algebra and endpoint handling; they do not prove the asymptotic limits.
+low-window down-step charge and explicit rebound-length bound on arbitrary
+states. These bounded checks support the algebra and endpoint handling; they
+do not prove the asymptotic limits.
 
 ## Files
 

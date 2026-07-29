@@ -47,11 +47,22 @@ and
 \liminf_{n\to\infty}\frac{P(n)\log_2n}{n}\ge1. \tag{58.3}
 \]
 
-If down-steps occur at the infinite sequence of digit indices
+At a down-step \(q_k\ge1\). For any such index \(k\) with
+\(k\ge16q_k\), put
+
+\[
+R_k=\left\lfloor\log_2\frac{k}{q_k}\right\rfloor-2.
+\]
+
+Then \(R_k\ge2\) and the next \(R_k\) digits are all up-steps. In
+particular, if down-steps occur at the infinite sequence of digit indices
 \(d_1<d_2<\cdots\), then
 
 \[
-d_{j+1}-d_j\longrightarrow\infty. \tag{58.4}
+d_{j+1}-d_j
+\ge
+\left\lfloor\log_2\frac{d_j}{q_{d_j}}\right\rfloor-1
+\longrightarrow\infty. \tag{58.4}
 \]
 
 More precisely, for every fixed \(s\ge2\), all sufficiently late down-steps
@@ -74,7 +85,14 @@ M_sq_k\le k\qquad(k\ge N_s). \tag{58.5}
 At any down-step \(k\ge N_s\), the parameterized rebound implication used
 in Theorem 56 therefore forces \(a_{k+1}=\cdots=a_{k+s}=1\). If down-steps
 are infinite, this gives \(d_{j+1}-d_j\ge s+1\) for all sufficiently large
-\(j\). Since \(s\) is arbitrary, (58.4) follows.
+\(j\). Since \(s\) is arbitrary, the limit assertion in (58.4) follows.
+
+For the explicit bound, let
+\(h=\lfloor\log_2(k/q_k)\rfloor\) and \(s=h-2\). The premise \(k\ge16q_k\)
+gives \(s\ge2\), while \(2^{s+2}q_k\le k\). The same rebound implication
+forces \(s=R_k\) up-steps and therefore places the next down-step at least
+\(s+1=h-1\) indices later. Finally \(q_{d_j}/d_j\to0\), so this explicit
+lower bound also tends to infinity.
 
 Count digits on \([N_s,n)\), writing \(P_s,D_s,C_s\) for the corresponding
 counts. The parameterized rebound argument in Theorem 56 applies to the
