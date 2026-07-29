@@ -205,6 +205,7 @@ The Lean development compiles without `sorry`, but it does **not** formalize the
 | [`safe-wrap-run-analysis.md`](safe-wrap-run-analysis.md) | exact state-window inequality and log-log ceiling for safe-map wrap blocks |
 | [`safe-block-gate-analysis.md`](safe-block-gate-analysis.md) | exact dyadic compatibility gate between adjacent positive safe-map blocks |
 | [`unit-wrap-gate-analysis.md`](unit-wrap-gate-analysis.md) | induced unit-wrap coordinates and exact uniqueness-boundary test |
+| [`unit-wrap-chain-analysis.md`](unit-wrap-chain-analysis.md) | persistence obstruction and critical-scale bounds for unique unit-wrap chains |
 | [`symbolic-analysis.md`](symbolic-analysis.md) | doubling model, heuristics, and failures |
 | [`compressed-orbit-analysis.md`](compressed-orbit-analysis.md) | compression design and rejected approaches |
 | [`invariant-search.md`](invariant-search.md) | negative invariant and potential searches |

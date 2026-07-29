@@ -101,9 +101,9 @@ classification is the point: nothing is promoted without a proof.
 | **C84** | Every adjacent positive-block gate either determines both endpoint states uniquely or satisfies $2^{k+r+3}<G+r-3$ | `safe-block-gate-analysis.md` | **Corollary - new; fresh audit pending; dichotomy, not termination** |
 | **L85** | Every unit-wrap gate has an exact induced map on $(n,D,s)$ and an exact candidate interval in one class modulo $4$ | `unit-wrap-gate-analysis.md` | **Lemma - new; fresh audit pending** |
 | **C86** | A unit-wrap gate is unique exactly when its successor lies in the stated lower boundary layer and either the child or parent upper boundary layer | `unit-wrap-gate-analysis.md` | **Corollary - new; fresh audit pending; boundary localization, not termination** |
-| **L87** | Three consecutive unit-wrap starts in the parent boundary layer force the unique pattern $(12,8,5)\to(14,8,3)\to(17,9,4)$, which then terminates | `unit-wrap-gate-analysis.md` | **Lemma - new; fresh audit pending** |
-| **C88** | At least one gate in every three of a continuing unique unit-wrap chain satisfies $D+r-3<2^{r+5}$ | `unit-wrap-gate-analysis.md` | **Corollary - new; fresh audit pending; gap frequency, not termination** |
-| **C89** | An infinite all-unique unit-wrap chain has $\liminf D_j/(j\log_2j)\ge1/3$ and quotient scale between constants 1 and 3 times $n/\log_2n$ | `unit-wrap-gate-analysis.md` | **Corollary - new; fresh audit pending; conditional subcase, not termination** |
+| **L87** | Three consecutive unit-wrap starts in the parent boundary layer force the unique pattern $(12,8,5)\to(14,8,3)\to(17,9,4)$, which then terminates | `unit-wrap-chain-analysis.md` | **Lemma - new; fresh audit pending** |
+| **C88** | At least one gate in every three of a continuing unique unit-wrap chain satisfies $D+r-3<2^{r+5}$ | `unit-wrap-chain-analysis.md` | **Corollary - new; fresh audit pending; gap frequency, not termination** |
+| **C89** | An infinite all-unique unit-wrap chain has $\liminf D_j/(j\log_2j)\ge1/3$ and quotient scale between constants 1 and 3 times $n/\log_2n$ | `unit-wrap-chain-analysis.md` | **Corollary - new; fresh audit pending; conditional subcase, not termination** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**
