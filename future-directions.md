@@ -143,6 +143,13 @@ not only the displayed weaker congruence. In the nonunique case, exploit
 \(2^{k+r+3}<G+r-3\) across the quantitatively frequent blocks from
 Corollary 82, rather than treating each gate independently.
 
+For the unit-wrap case, Lemma 85 replaces the gate by the affine
+coordinates \((n,D,s)\), and Corollary 86 makes uniqueness equivalent to
+explicit lower and upper boundary layers. The bounded search already finds
+seven consecutive unique unit-wrap gates, so a useful next argument must
+show that those boundary layers cannot be followed indefinitely; a small
+constant-chain assumption is not justified.
+
 ## 7. Resolve the low-order mixed-ridge defect
 
 Lemma 73 now encodes every zero in an arbitrary ridge by

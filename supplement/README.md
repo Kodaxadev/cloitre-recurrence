@@ -45,9 +45,22 @@ symbolic proofs.
 parent equation and interval, plus Corollary 84's lattice count and strict
 multiple-candidate alternative, on 29,630 bounded raw gates. It reconstructs
 and executes every alternative candidate to check that the gate is exact.
-It also reproduces a valid chain of five consecutive unique gates.
+It also checks Lemma 85 and Corollary 86 on every unit-wrap gate in that
+census, on 9,682 additional gates with arbitrary bounded accumulated quotient,
+and reproduces a valid chain of seven consecutive unique gates.
 The native `safe_block_gates` Rust test repeats the same census and
 reconstruction through the safe-map implementation.
+
+The exploratory Rust binary `gate_chain` searches these chains without
+assuming that the accumulated quotient is zero. Exhausting all 20,771,000
+valid positive-block zero epochs with \(2\le n\le1000\) found seven
+consecutive unique unit-wrap gates from \((n,U,e)=(36,9,13)\), and no longer
+chain. This is bounded evidence, not a uniform chain bound. From
+`search-framework/`, reproduce it with:
+
+```powershell
+cargo run --release --bin gate_chain -- --min-n 2 --max-n 1000 --all-quotients
+```
 `independent/verify_sharp_growth.py` separately checks Theorem 56's
 parameterized rebound implication on arbitrary states and its finite
 inequality on literal starting orbits. It also tests Corollary 57's

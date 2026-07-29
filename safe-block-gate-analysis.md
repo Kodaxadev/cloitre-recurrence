@@ -135,7 +135,7 @@ Consequently every adjacent pair of positive blocks has one of two forms:
 
 1. **unique gate:** if
    \[
-   2^{k+r+3}>G+r-3,
+   2^{k+r+3}\ge G+r-3,
    \]
    then \(f\), and hence the preceding zero epoch, is uniquely determined;
 2. **short combined gap:** if at least two gate values are admissible, then

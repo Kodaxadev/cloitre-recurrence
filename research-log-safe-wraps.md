@@ -128,3 +128,29 @@ Unique gates are not isolated. The valid quotient-zero start
 \]
 Thus a proof must control chains of exact gates; it cannot assume that the
 nonunique alternative occurs between every two positive blocks.
+
+## 8. Unit-wrap induced coordinates and chain correction
+
+The first quotient-zero search made a five-gate chain look potentially
+extremal. That was a sampling artifact: allowing nonzero accumulated quotient
+finds seven consecutive unique gates from the valid state
+\((n,U,e)=(36,9,13)\). An exhaustive native scan of all 20,771,000 valid
+positive-block zero epochs with \(2\le n\le1000\) found no longer chain, but
+this finite result is not a theorem.
+
+For a unit-wrap block, the coordinates
+
+\[
+D=n-2U,\qquad s=4e-n-3
+\]
+
+give the exact successor excess
+
+\[
+s'=2^{r+2}s-n-r-5,\qquad D'=D+r.
+\]
+
+Lemma 85 gives the exact candidate set in one residue class modulo \(4\).
+Corollary 86 then identifies uniqueness with two explicit boundary layers.
+This is a sharper target for a chain argument, but both alternatives remain
+possible and the original conjecture remains open.

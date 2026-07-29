@@ -37,7 +37,8 @@ terminal runs are themselves bounded by \(\log_2\log_2 n+o(1)\). In the
 eventually-no-down branch, safe-map wrap blocks obey the same
 double-logarithmic ceiling. Adjacent positive blocks also obey an exact
 dyadic gate that either fixes the intermediate residue uniquely or bounds
-their combined wrap/zero-only scale.
+their combined wrap/zero-only scale. For unit-wrap blocks, an induced affine
+map gives an exact two-boundary characterization of gate uniqueness.
 
 ## Manuscript assembly
 
@@ -58,6 +59,7 @@ files in order:
 12. [`12-terminal-run-ceiling.md`](12-terminal-run-ceiling.md)
 13. [`13-safe-wrap-ceiling.md`](13-safe-wrap-ceiling.md)
 14. [`14-safe-block-gates.md`](14-safe-block-gates.md)
+15. [`15-unit-wrap-gates.md`](15-unit-wrap-gates.md)
 
 Only definitions, statements, proofs, and explicit claim boundaries belong
 here. Algorithms, benchmarks, certificates, and reproduction instructions
@@ -71,8 +73,8 @@ corollary. Theorem numbering follows `../theorem-status.md` to preserve
 traceability to the frozen research snapshot
 `f19ffcd75d04a05529878ce0226088f2f3221c0b`.
 Theorems 46, 50, 55, 56, 58, 69, 72, 75, and 77; Proposition 66; Lemmas
-47, 49, 51, 53, 60, 62, 63, 65, 67, 68, 70, 73, 76, 78, 80, and 83; and
-Corollaries 48, 52, 54, 57, 59, 61, 64, 71, 74, 79, 81, 82, and 84 are post-freeze
+47, 49, 51, 53, 60, 62, 63, 65, 67, 68, 70, 73, 76, 78, 80, 83, and 85; and
+Corollaries 48, 52, 54, 57, 59, 61, 64, 71, 74, 79, 81, 82, 84, and 86 are post-freeze
 additions
 and have not yet received the fresh-context audit applied to the frozen
 theorem chain.

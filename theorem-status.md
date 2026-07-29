@@ -99,6 +99,8 @@ classification is the point: nothing is promoted without a proof.
 | **C82** | Along an infinite safe path the number $B(n)$ of completed positive wrap blocks satisfies $\liminf B(n)\log_2n\log_2\log_2n/n\ge1$ at zero epochs | `safe-wrap-run-analysis.md` | **Corollary - new; fresh audit pending; recurrence rate, not termination** |
 | **L83** | Adjacent positive safe-map blocks obey the exact parent equation $m+3-f=2^kA$, a lifted congruence modulo $2^{k+1}$, and a sharp interval | `safe-block-gate-analysis.md` | **Lemma - new; fresh audit pending** |
 | **C84** | Every adjacent positive-block gate either determines both endpoint states uniquely or satisfies $2^{k+r+3}<G+r-3$ | `safe-block-gate-analysis.md` | **Corollary - new; fresh audit pending; dichotomy, not termination** |
+| **L85** | Every unit-wrap gate has an exact induced map on $(n,D,s)$ and an exact candidate interval in one class modulo $4$ | `unit-wrap-gate-analysis.md` | **Lemma - new; fresh audit pending** |
+| **C86** | A unit-wrap gate is unique exactly when its successor lies in the stated lower boundary layer and either the child or parent upper boundary layer | `unit-wrap-gate-analysis.md` | **Corollary - new; fresh audit pending; boundary localization, not termination** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**

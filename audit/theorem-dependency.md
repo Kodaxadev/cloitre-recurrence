@@ -113,6 +113,9 @@ flowchart TD
   T45 --> C82
   L53 --> L83["L83 adjacent positive-block dyadic gate"]
   L83 --> C84["C84 unique-state or short-gap dichotomy"]
+  L53 --> L85["L85 unit-wrap induced gate"]
+  L83 --> L85
+  L85 --> C86["C86 exact unit-wrap boundary test"]
 
   T24 --> O1["Open branch A: infinitely many down-steps"]
   T38 --> O1
@@ -131,6 +134,7 @@ flowchart TD
   C81 --> O2
   C82 --> O2
   C84 --> O2
+  C86 --> O2
   U["Uniform termination of the safe map"] -->|would eliminate| O2
   O1 --> CJ["Original stabilization conjecture remains open"]
   O2 --> CJ
@@ -143,7 +147,7 @@ flowchart TD
   classDef compute fill:#e5efff,stroke:#3566a8,color:#13243d;
   classDef open fill:#fff1d6,stroke:#ad6b00,color:#422900;
   classDef formal fill:#eee4ff,stroke:#6542a6,color:#261642;
-  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64,L65,P66,L67,L68,T69,L70,C71,T72,L73,C74,T75,L76,T77,L78,C79,L80,C81,C82,L83,C84 proof;
+  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64,L65,P66,L67,L68,T69,L70,C71,T72,L73,C74,T75,L76,T77,L78,C79,L80,C81,C82,L83,C84,L85,C86 proof;
   class K1,K11,K13,C46 compute;
   class O1,O2,U,CJ open;
   class F formal;
@@ -213,6 +217,11 @@ flowchart TD
     arithmetically rigid but can still be valid. The multiple-candidate
     alternative only bounds the combined preceding-wrap and zero-only scale.
 
+14. **Corollary 86 localizes unit-wrap uniqueness but does not bound its
+    duration.** Both boundary-layer alternatives remain dynamically possible.
+    A valid local path already contains seven consecutive unique unit-wrap
+    gates.
+
 ## Audit priority
 
 | Priority | Chain | Evidence required |
@@ -242,3 +251,4 @@ flowchart TD
 | 23 | L53 -> L80, then T45 -> C81 | Minimality at the preceding wrap threshold, strict endpoint, accumulated-quotient lower bound, and asymptotic order |
 | 24 | T45 and C81 -> C82 | Uniform late-block ceiling, finite-prefix removal, zero-epoch wrap accounting, and order of limits |
 | 25 | L53 -> L83 -> C84 | Returned-epoch indexing, exact parent equation, parity lift, parent-state reconstruction, strict next-wrap endpoint, interval width, and half-open lattice count |
+| 26 | L53 and L83 -> L85 -> C86 | Unit-wrap return indexing, gap/excess bounds, exact converse reconstruction, affine lattice spacing, and both parent/child boundary alternatives |

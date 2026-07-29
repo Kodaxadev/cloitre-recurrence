@@ -152,11 +152,33 @@ def check_gate(blocks: list[Block], index: int) -> tuple[bool, int]:
     assert len(gate) <= bound
     if len(gate) >= 2:
         assert denominator < numerator
+    if block.wraps == 1:
+        start = block.start
+        gap = start.n - 2 * start.q
+        excess = 4 * start.e - start.n - 3
+        next_excess = (
+            (1 << (r + 2)) * excess - start.n - r - 5
+        )
+        spacing = 1 << (r + 4)
+        reduced = [
+            value
+            for value in range(1, gap - 2)
+            if value % 4 == (1 - start.n) % 4
+            and (1 << (r + 2)) * value > start.n + r + 5
+            and (1 << (r + 2)) * value
+            <= start.n + gap + 2 * r + 2
+        ]
+        assert reduced == gate
+        boundary_unique = next_excess <= spacing and (
+            next_excess + spacing > gap + r - 3
+            or excess > gap - 7
+        )
+        assert boundary_unique == (len(gate) == 1)
     return True, len(gate)
 
 
-def check_unique_chain() -> None:
-    blocks = zero_blocks(State(61, 0, 49))
+def unique_chain(start: State) -> list[tuple[int, int, int]]:
+    blocks = zero_blocks(start)
     positive = [
         index
         for index, block in enumerate(blocks)
@@ -174,12 +196,50 @@ def check_unique_chain() -> None:
             r,
         )
         observed.append((block.wraps, r, len(gate)))
+    return observed
 
-    target = [(2, 1, 1), (1, 2, 1), (2, 3, 1), (1, 2, 1), (1, 4, 1)]
+
+def check_unique_chains() -> None:
+    observed = unique_chain(State(61, 0, 49))
+    target = [
+        (2, 1, 1),
+        (1, 2, 1),
+        (2, 3, 1),
+        (1, 2, 1),
+        (1, 4, 1),
+    ]
     assert any(
         observed[index : index + len(target)] == target
         for index in range(len(observed) - len(target) + 1)
     )
+
+    observed = unique_chain(State(36, 9, 13))
+    assert observed == [
+        (1, 0, 1),
+        (1, 0, 1),
+        (1, 4, 1),
+        (1, 0, 1),
+        (1, 1, 1),
+        (1, 0, 1),
+        (1, 0, 1),
+    ]
+
+
+def check_arbitrary_unit_gates() -> int:
+    checked = 0
+    for n in range(6, 101):
+        for q in range(n - 1):
+            width = n - q
+            for e in range(1, width):
+                if 2 * e > width or 4 * e <= n + 3:
+                    continue
+                blocks = zero_blocks(State(n, q, e), limit=500)
+                if not blocks or blocks[0].wraps != 1:
+                    continue
+                realized, _ = check_gate(blocks, 0)
+                if realized:
+                    checked += 1
+    return checked
 
 
 def main() -> None:
@@ -202,12 +262,18 @@ def main() -> None:
     assert gates == 29_630
     assert unique == 9_718
     assert multiple == 19_912
-    check_unique_chain()
+    arbitrary_unit = check_arbitrary_unit_gates()
+    assert arbitrary_unit == 9_682
+    check_unique_chains()
     print(f"adjacent positive-block gates checked: {gates}")
     print(f"unique gates: {unique}")
     print(f"multiple-candidate gates: {multiple}")
-    print("consecutive unique-gate chain reproduced: 5")
-    print("VERDICT: bounded raw checks agree with Lemma 83 and Corollary 84.")
+    print(f"arbitrary unit-wrap gates checked: {arbitrary_unit}")
+    print("consecutive unique-gate chain reproduced: 7")
+    print(
+        "VERDICT: bounded raw checks agree with Lemmas 83/85 "
+        "and Corollaries 84/86."
+    )
 
 
 if __name__ == "__main__":

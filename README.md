@@ -130,6 +130,7 @@ Stabilization is exactly the event \(e_n=0\). This exposes the dynamics as a dou
 | Arbitrary mixed ridges reduce to two exact escape modes | New internal proof | Lemmas 73/76/78 and Theorems 75/77: either terminal runs grow, necessarily no faster than \(\log_2\log_2 n+o(1)\), or one fixed dyadic boundary ladder is shadowed infinitely often; neither mode is yet excluded |
 | Safe-map wrap blocks are short but quantitatively recurrent | New internal proof | Lemma 80 and Corollaries 81/82 give \(2^kU<n\), \(k\le\log_2\log_2n+o(1)\), and at least \((1-o(1))n/(\log_2n\log_2\log_2n)\) completed positive blocks by a zero epoch; these are restrictions, not termination |
 | Adjacent safe-map blocks pass through an exact dyadic gate | New internal proof | Lemma 83 and Corollary 84 give \(m+3-f=2^kA\), a lifted class modulo \(2^{k+1}\), and a sharp interval; the gate either fixes both endpoints uniquely or forces \(2^{k+r+3}<G+r-3\), but neither alternative is excluded |
+| Unit-wrap gates have an exact boundary test | New internal proof | Lemma 85 and Corollary 86 give an affine map on \((n,D,s)\) and characterize uniqueness by two explicit boundary layers; a valid seven-gate chain shows that uniqueness alone is not termination |
 | No eventually periodic quotient-change sequence | Internally proved | Complete proof; awaiting external mathematical review |
 | Two-counter termination for every valid entry state | **Open** | Only the eventually-no-down branch is reduced |
 | Safe-map instance at \(N=10^6\) | Certified finite result | Independent Rust/Python agreement |
@@ -203,6 +204,7 @@ The Lean development compiles without `sorry`, but it does **not** formalize the
 | [`terminal-run-analysis.md`](terminal-run-analysis.md) | exact state-window inequality and log-log ceiling for terminal positive up-runs |
 | [`safe-wrap-run-analysis.md`](safe-wrap-run-analysis.md) | exact state-window inequality and log-log ceiling for safe-map wrap blocks |
 | [`safe-block-gate-analysis.md`](safe-block-gate-analysis.md) | exact dyadic compatibility gate between adjacent positive safe-map blocks |
+| [`unit-wrap-gate-analysis.md`](unit-wrap-gate-analysis.md) | induced unit-wrap coordinates and exact uniqueness-boundary test |
 | [`symbolic-analysis.md`](symbolic-analysis.md) | doubling model, heuristics, and failures |
 | [`compressed-orbit-analysis.md`](compressed-orbit-analysis.md) | compression design and rejected approaches |
 | [`invariant-search.md`](invariant-search.md) | negative invariant and potential searches |
