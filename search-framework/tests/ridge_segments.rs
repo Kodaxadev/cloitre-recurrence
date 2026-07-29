@@ -82,3 +82,56 @@ fn terminal_negative_suffix_matches_next_ridge_gap() {
         "defect recurrence test too weak: {defect_checked}"
     );
 }
+
+#[test]
+fn explicit_ridge_family_has_vanishing_up_fraction() {
+    for k in 1u32..=7 {
+        let quotient = 1u64 << (k * k);
+        let gap = 3u64;
+        let start_n = (1u64 << k) * (quotient + gap + 3) - u64::from(k) - 4;
+        let mut current = State {
+            n: start_n - 1,
+            q: quotient + 1,
+            r: (quotient + 1 - gap) / 2,
+        };
+        assert_eq!(dq(current), -1);
+        current = step(current);
+
+        for _ in 0..k {
+            assert_eq!(dq(current), 1);
+            current = step(current);
+        }
+        assert_eq!(current.q, quotient + u64::from(k));
+        assert_eq!(i128::from(current.r) - i128::from(current.q), -1);
+
+        for zero_offset in 0..(k * k) {
+            assert_eq!(dq(current), 0);
+            assert_eq!(
+                i128::from(current.r) - i128::from(current.q),
+                -(1i128 << zero_offset)
+            );
+            current = step(current);
+        }
+        assert_eq!(dq(current), -1);
+        assert_eq!(
+            i128::from(current.r) - i128::from(current.q),
+            -(1i128 << (k * k))
+        );
+    }
+}
+
+#[test]
+fn three_unit_terminal_ridges_have_incompatible_scales() {
+    for first_ups in 1u32..=12 {
+        for first_zeros in 1u32..=12 {
+            let left_scale = (1u128 << first_ups) * ((1u128 << (first_zeros + 1)) + 2);
+            for next_ups in 1u32..=12 {
+                for next_zeros in first_zeros..=12 {
+                    let left = left_scale + u128::from(next_zeros + next_ups + 1);
+                    let right = (1u128 << next_ups) * ((1u128 << (next_zeros + 1)) + 2);
+                    assert_ne!(left, right);
+                }
+            }
+        }
+    }
+}

@@ -216,3 +216,130 @@ digits contribute. The digit at \(d'\) contributes twice, and the remaining
 tail is \(2^{-(d'-d)}B_{d'}\), proving (65.2). Iteration and positivity
 allow passage to the limit; \(B_{d_\ell}=O(d_\ell)\) makes the terminal
 remainder vanish. Dividing by \(2^{d_j}\) gives (65.3). \(\square\)
+
+## Proposition 66: exact arbitrarily diluted ridge segments
+
+The local positive-density route suggested after Corollary 61 is false for
+valid states. More precisely, let \(K\ge1\), let \(Q\ge2\), and choose an
+integer \(h\) such that
+
+\[
+1\le h\le Q+1,\qquad h\equiv Q+1\pmod2.
+\]
+
+Put
+
+\[
+A=Q+h+3,\qquad N=2^KA-K-4,
+\]
+
+and consider the state at index \(N-1\)
+
+\[
+\left(q_{N-1},r_{N-1}\right)
+=\left(Q+1,\frac{Q+1-h}{2}\right). \tag{66.1}
+\]
+
+This is a valid down-step. If
+
+\[
+z=\left\lfloor\log_2(Q+K)\right\rfloor,
+\]
+
+then the complete digit word from this down-step through the next one is
+
+\[
+\boxed{\displaystyle -1,\;1^K,\;0^z,\;-1.} \tag{66.2}
+\]
+
+Thus the \(L=K+z\) intervening digits have exactly \(U=K\) up-steps.
+In particular, take
+
+\[
+Q_K=2^{K^2},\qquad h=3.
+\]
+
+Then \(z=K^2\), so
+
+\[
+L_K=K+K^2,\qquad
+\frac{U_K}{L_K}=\frac1{K+1}\longrightarrow0. \tag{66.3}
+\]
+
+Moreover \(Q_K/N_K\sim2^{-K}\to0\), while the initial up-run length
+\(K\to\infty\). Hence all three local features demanded by Corollary 61
+-- a sublinear quotient ratio, a diverging rebound, and a vanishing up-step
+fraction -- are simultaneously compatible with exact finite dynamics.
+
+### Proof
+
+At (66.1),
+
+\[
+2r_{N-1}-q_{N-1}=-h,
+\]
+
+and \(0<h<N\), so the digit is \(-1\). Its image at index \(N\) has
+
+\[
+q_N=Q,\qquad r_N=N-h,\qquad e_N=N-Q-h=N+3-A.
+\]
+
+The parity assumption makes \(r_{N-1}\) integral, while
+\(1\le h\le Q+1\) gives \(r_{N-1}\ge0\). Also
+\(Q+1\le N-1\), so both the parent and its image lie in the valid
+post-entry state window.
+
+If the following digits are up-steps, induction in the exact doubling
+coordinate gives, for \(0\le j\le K\),
+
+\[
+e_{N+j}=N+j+3-2^jA
+       =(2^K-2^j)A+j-K-1. \tag{66.4}
+\]
+
+For \(j<K\), the candidate coordinate after the next up-step is
+
+\[
+\widetilde e_{N+j+1}
+=(2^K-2^{j+1})A+j-K.
+\]
+
+It is positive when \(j<K-1\), and it equals \(-1\) when \(j=K-1\).
+In either case it is at least \(-q_{N+j+1}\), which is exactly the lower
+threshold for an up-step. Therefore all \(K\) up-steps occur, and
+
+\[
+q_{N+K}=Q+K,\qquad e_{N+K}=-1. \tag{66.5}
+\]
+
+From (66.5), a zero-step doubles the negative coordinate while leaving the
+quotient fixed. At the state with \(e=-2^\ell\), the lower zero threshold
+is
+
+\[
+Q+K-2^{\ell+1}\ge0.
+\]
+
+It holds for \(0\le\ell<z\) and fails at \(\ell=z\). This proves (66.2).
+
+For \(Q_K=2^{K^2}\), one has
+\(Q_K\le Q_K+K<2Q_K\), hence \(z=K^2\). Formula (66.3) follows, and
+
+\[
+N_K=2^K(Q_K+6)-K-4\sim2^KQ_K
+\]
+
+gives both \(Q_K/N_K\to0\) and
+\((Q_K+1)/(N_K-1)\to0\). The logarithmic forced-rebound lower bound at
+the parent is asymptotic to \(K\). \(\square\)
+
+## Consequence and limitation
+
+Proposition 66 rules out any proof of the sublinear infinite-down branch
+based only on a uniform positive lower bound for the up-step density of
+all valid post-down segments. It does **not** construct a nonstabilizing
+orbit: the parent states (66.1) are valid local states, but no claim is made
+that one original start reaches infinitely many of them. Theorem 69 proves
+that this exact unit-terminal mechanism cannot occur on three consecutive
+ridge segments; more general concatenations remain open.

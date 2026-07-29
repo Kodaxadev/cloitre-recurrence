@@ -83,11 +83,17 @@ flowchart TD
   C61 --> C64["C64 unbounded zero plateaus"]
   L26 --> C64
   T39 --> L65["L65 nonnegative down-epoch defect coding"]
+  T6 --> P66["P66 exact diluted ridge family"]
+  T6 --> L67["L67 unit-terminal compatibility"]
+  L63 --> L67
+  L67 --> T69["T69 no three unit-terminal ridges"]
+  L68["L68 incompatible dyadic scales"] --> T69
 
   T24 --> O1["Open branch A: infinitely many down-steps"]
   T38 --> O1
   T56 --> O1
   C59 --> O1
+  T69 --> O1
   T24 --> O2["Open branch B: eventually no down-steps"]
   T38 --> O2
   L42 --> O2
@@ -105,7 +111,7 @@ flowchart TD
   classDef compute fill:#e5efff,stroke:#3566a8,color:#13243d;
   classDef open fill:#fff1d6,stroke:#ad6b00,color:#422900;
   classDef formal fill:#eee4ff,stroke:#6542a6,color:#261642;
-  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64,L65 proof;
+  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64,L65,P66,L67,L68,T69 proof;
   class K1,K11,K13,C46 compute;
   class O1,O2,U,CJ open;
   class F formal;
@@ -135,6 +141,12 @@ flowchart TD
    congruence/parity, pair merging, and e-doubling. It does not formalize
    Theorem 18, the growth theorems, periodic exclusion, or the two-counter map.
 
+6. **Proposition 66 is local, not an orbit construction.** It gives valid
+   down-to-down states with arbitrarily diluted exact ridge words. It refutes
+   a uniform state-level density bound, but neither proves global reachability
+   from \(b_1=m\) nor constructs an infinite orbit. Theorem 69 proves that
+   three consecutive copies of its unit-terminal mechanism are impossible.
+
 ## Audit priority
 
 | Priority | Chain | Evidence required |
@@ -155,3 +167,5 @@ flowchart TD
 | 14 | T6 and T22 -> L62 | Post-down coordinate endpoints, finite all-up sum, terminal sign, and dyadic scaling |
 | 15 | T6 -> L63 and C61 -> C64 | Unique sign-changing up-step, exact suffix thresholds, run partition, and state-window bound |
 | 16 | T39 -> L65 | Down-step sign, all-up tail sum, consecutive-down split, and vanishing terminal remainder |
+| 17 | T6 -> P66 | Parent-state validity, every up threshold, terminal zero count, and the explicit asymptotic specialization |
+| 18 | T6 and L63 -> L67 -> T69, with L68 | Unit-terminal indexing, quotient monotonicity, all three exponent-order cases, and the terminal-quotient hypothesis |

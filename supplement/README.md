@@ -53,14 +53,18 @@ the asymptotic limits.
 The exact Rust probe `search-framework/src/bin/ridge.rs` exhausts selected
 post-down ridge states and reports the longest segment and the smallest
 observed up-step fraction above a requested length. It is an exploratory
-falsification tool for Corollary 61's remaining ridge-density target, not
-evidence for a universal positive-density theorem.
+falsification tool. Proposition 66 now refutes the universal positive-density
+target exactly; the probe remains useful for testing stronger
+reachability-sensitive replacements.
 
 `independent/verify_ridge_segments.py` separately checks Lemma 63's
 sign-changing last up-step, negative zero suffix, and next-ridge remainder,
 plus Lemma 65's consecutive-down defect recurrence, using raw transitions.
-The native `ridge_segments` Rust test checks the same identities over a
-distinct finite grid.
+It also checks Proposition 66's arbitrary-precision diluted family through
+\(K=12\), plus a bounded grid of Lemma 68's incompatible scale equation.
+The native `ridge_segments` Rust test checks the same identities, the special
+family through the largest listed parameters fitting `u64`, and a distinct
+bounded scale grid.
 
 ## Files
 

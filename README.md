@@ -124,6 +124,8 @@ Stabilization is exactly the event \(e_n=0\). This exposes the dynamics as a dou
 | Counterexample growth bounds | Internally proved | Complete proof; awaiting external mathematical review |
 | Unit-leading bound with explicit \(1-O(1/\log\log n)\) rate | New internal proof | Theorem 56 and Corollary 57; post-freeze and awaiting fresh audit; optimality for the recurrence is not claimed |
 | Sublinear counterexamples have sparse down-steps | New internal proof | Theorem 58 and Corollaries 59/61/64; zero density, divergent spacing, diluted ridge segments, and unbounded zero plateaus, but not finite occurrence |
+| Uniform local ridge density is false | New exact construction | Proposition 66 gives valid words \(-1,1^K,0^{K^2},-1\), with up-step fraction \(1/(K+1)\); global reachability and general mixed concatenation remain open |
+| Pure diluted ridges cannot repeat indefinitely | New internal proof | Theorem 69 excludes three consecutive unit-terminal ridges; mixed positive words and terminal magnitude \(v>1\) remain open |
 | No eventually periodic quotient-change sequence | Internally proved | Complete proof; awaiting external mathematical review |
 | Two-counter termination for every valid entry state | **Open** | Only the eventually-no-down branch is reduced |
 | Safe-map instance at \(N=10^6\) | Certified finite result | Independent Rust/Python agreement |
@@ -191,7 +193,8 @@ The Lean development compiles without `sorry`, but it does **not** formalize the
 | [`aperiodic-tail-analysis.md`](aperiodic-tail-analysis.md) | future-digit identity and monotone-tail safe map |
 | [`safe-map-checkpoint-analysis.md`](safe-map-checkpoint-analysis.md) | checkpoint monotonicity and signed-distance safe map |
 | [`sparse-downstep-analysis.md`](sparse-downstep-analysis.md) | down-step density, spacing, weighted rebound budget, and ridge dilution |
-| [`ridge-segment-analysis.md`](ridge-segment-analysis.md) | terminal negative suffix and unbounded zero plateaus |
+| [`ridge-segment-analysis.md`](ridge-segment-analysis.md) | terminal negative suffix, down-epoch defect coding, and exact diluted ridge families |
+| [`ridge-chain-analysis.md`](ridge-chain-analysis.md) | compatibility map and three-segment exclusion for unit-terminal ridges |
 | [`symbolic-analysis.md`](symbolic-analysis.md) | doubling model, heuristics, and failures |
 | [`compressed-orbit-analysis.md`](compressed-orbit-analysis.md) | compression design and rejected approaches |
 | [`invariant-search.md`](invariant-search.md) | negative invariant and potential searches |

@@ -42,6 +42,7 @@ files in order:
 7. [`07-sharp-growth.md`](07-sharp-growth.md)
 8. [`08-sparse-downsteps.md`](08-sparse-downsteps.md)
 9. [`09-ridge-segments.md`](09-ridge-segments.md)
+10. [`10-ridge-chains.md`](10-ridge-chains.md)
 
 Only definitions, statements, proofs, and explicit claim boundaries belong
 here. Algorithms, benchmarks, certificates, and reproduction instructions
@@ -54,8 +55,9 @@ result is the finite-start bound and its computer-assisted nonsurjectivity
 corollary. Theorem numbering follows `../theorem-status.md` to preserve
 traceability to the frozen research snapshot
 `f19ffcd75d04a05529878ce0226088f2f3221c0b`.
-Theorems 46, 50, 55, 56, and 58; Lemmas 47, 49, 51, 53, 60, 62, 63, and 65;
-and Corollaries 48, 52, 54, 57, 59, 61, and 64 are post-freeze additions
+Theorems 46, 50, 55, 56, 58, and 69; Proposition 66; Lemmas 47, 49, 51,
+53, 60, 62, 63, 65, 67, and 68; and Corollaries 48, 52, 54, 57, 59, 61,
+and 64 are post-freeze additions
 and have not yet received the fresh-context audit applied to the frozen
 theorem chain.
 

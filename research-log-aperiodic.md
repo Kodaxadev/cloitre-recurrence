@@ -368,3 +368,33 @@ the sparsest long segment it finds. Its role is adversarial: search for
 finite counterexamples to any proposed positive-density lemma before trying
 to prove one. Finite success of the probe is not evidence that such a
 universal lemma is true.
+
+## 10. Exact failure of uniform ridge density
+
+The universal local-density target is now refuted symbolically. For `K,Q,h`, set
+
+```text
+A = Q+h+3,            N = 2^K A-K-4,
+(q,r) at N-1 = (Q+1,(Q+1-h)/2).
+```
+
+With the required parity, this valid parent state has exact word
+
+```text
+-1, 1^K, 0^floor(log2(Q+K)), -1.
+```
+
+The last up-step leaves `e=-1`; terminal zeros double it to the next down. Choosing
+
+```text
+Q=2^(K^2), h=3
+```
+
+gives `K` up-steps and `K^2` zero-steps, hence up fraction `1/(K+1)`.
+At the same time `Q/N ~ 2^(-K)` and the initial rebound length diverges.
+Thus exact finite local dynamics reproduce all dilution features required
+by Corollary 61.
+
+This is Proposition 66, not a counterexample. No original start is proved to
+reach these parents, and no infinite concatenation is known. The target now
+requires global reachability or inter-segment compatibility, not local density.

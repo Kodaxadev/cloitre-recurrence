@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Independent bounded checks for Lemmas 63 and 65.
+"""Independent bounded checks for Lemmas 63, 65, and Proposition 66.
 
 This script uses raw `(n,q,r)` transitions and imports no project code.
 It checks the exact negative suffix, next-ridge remainder, and consecutive
-down-epoch defect recurrence. These finite checks are regressions, not proofs.
+down-epoch defect recurrence. It also checks the explicit diluted family with
+arbitrary-precision integers. These finite checks are regressions, not proofs.
 """
 
 from __future__ import annotations
@@ -99,6 +100,54 @@ def check_segment(parent: State) -> tuple[int, int] | None:
     return len(changes), zeros
 
 
+def check_diluted_family(max_k: int) -> int:
+    checked = 0
+    for k in range(1, max_k + 1):
+        quotient = 1 << (k * k)
+        gap = 3
+        start_n = (1 << k) * (quotient + gap + 3) - k - 4
+        parent = State(
+            n=start_n - 1,
+            q=quotient + 1,
+            r=(quotient + 1 - gap) // 2,
+        )
+        assert digit(parent) == -1
+
+        current = step(parent)
+        for _ in range(k):
+            assert digit(current) == 1
+            current = step(current)
+        assert current.q == quotient + k
+        assert current.r - current.q == -1
+
+        for zero_offset in range(k * k):
+            assert digit(current) == 0
+            assert current.r - current.q == -(1 << zero_offset)
+            current = step(current)
+        assert digit(current) == -1
+        assert current.r - current.q == -(1 << (k * k))
+        checked += 1
+    return checked
+
+
+def check_unit_chain_obstruction(bound: int) -> int:
+    checked = 0
+    for first_ups in range(1, bound + 1):
+        for first_zeros in range(1, bound + 1):
+            left_scale = (1 << first_ups) * (
+                (1 << (first_zeros + 1)) + 2
+            )
+            for next_ups in range(1, bound + 1):
+                for next_zeros in range(first_zeros, bound + 1):
+                    left = left_scale + next_zeros + next_ups + 1
+                    right = (1 << next_ups) * (
+                        (1 << (next_zeros + 1)) + 2
+                    )
+                    assert left != right
+                    checked += 1
+    return checked
+
+
 def main() -> None:
     checked = 0
     suffix_zeros = 0
@@ -110,11 +159,18 @@ def main() -> None:
                     continue
                 checked += 1
                 suffix_zeros += result[1]
+    diluted_checked = check_diluted_family(12)
+    chain_equations_checked = check_unit_chain_obstruction(16)
     assert checked > 1_000
     print(f"terminal ridge segments checked: {checked}")
     print(f"terminal negative zero digits covered: {suffix_zeros}")
     print(f"consecutive down-epoch recurrences checked: {checked}")
-    print("VERDICT: bounded raw checks agree with Lemmas 63 and 65.")
+    print(f"exact diluted-family parameters checked: {diluted_checked}")
+    print(f"unit-chain incompatibilities checked: {chain_equations_checked}")
+    print(
+        "VERDICT: bounded raw checks agree with Lemmas 63, 65, 68, "
+        "and Proposition 66."
+    )
 
 
 if __name__ == "__main__":
