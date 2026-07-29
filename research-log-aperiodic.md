@@ -345,3 +345,26 @@ The corresponding forced up-blocks are disjoint, and only the final block
 can cross the right endpoint. Therefore their total weight is at most the
 number of up-steps plus `floor(log2 n)`. This is Lemma 60's weighted rebound
 budget; it is unconditional and does not assume `q=o(n)`.
+
+There is a sharper target for excluding the sublinear infinite-down branch.
+Theorem 58 also gives `P(n)/n,D(n)/n -> 0`, so zero digits have density one.
+If `L_j` is the gap between consecutive down-steps and `U_j` counts its
+intervening up-steps, then
+
+```text
+L_j -> infinity,
+sum U_j / sum L_j -> 0.
+```
+
+Consequently some increasingly long post-down ridge segments must satisfy
+`U_j/L_j -> 0`. Their forced initial rebound lengths still tend to infinity,
+but occupy a vanishing fraction of those segments. Corollary 61 records this
+necessary dilution. A uniform positive lower bound for the up-step fraction
+of sufficiently long ridge segments would therefore eliminate the entire
+sublinear infinite-down branch.
+
+The exact `ridge` Rust binary exhausts selected post-down states and reports
+the sparsest long segment it finds. Its role is adversarial: search for
+finite counterexamples to any proposed positive-density lemma before trying
+to prove one. Finite success of the probe is not evidence that such a
+universal lemma is true.

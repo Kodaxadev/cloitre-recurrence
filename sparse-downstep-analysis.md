@@ -13,10 +13,11 @@ D(n)=\#\{k\in[n_0,n):a_k=-1\},
 and let
 
 \[
-C(n)=P(n)+D(n)
+C(n)=P(n)+D(n),\qquad
+Z(n)=\#\{k\in[n_0,n):a_k=0\}
 \]
 
-be the number of quotient-changing digits.
+be the numbers of quotient-changing and zero digits.
 
 ## Theorem 58: down-step sparsity under sublinear quotient growth
 
@@ -37,7 +38,10 @@ Then
 Moreover,
 
 \[
-\frac{D(n)}n\longrightarrow0, \tag{58.2}
+\frac{C(n)}n\longrightarrow0,\qquad
+\frac{P(n)}n\longrightarrow0,\qquad
+\frac{D(n)}n\longrightarrow0,\qquad
+\frac{Z(n)}n\longrightarrow1, \tag{58.2}
 \]
 
 and
@@ -138,7 +142,9 @@ gives \(q_n/C(n)\to1\). Since \(D\le C\le n-n_0\),
 0\le\frac{D(n)}n\le\frac{D(n)}{C(n)}\to0,
 \]
 
-which proves (58.2). Finally combine \(C(n)/q_n\to1\) and
+and \(C/n=(C/q_n)(q_n/n)\to0\). Hence \(P/n\to0\), while
+\(Z=n-n_0-C\) gives \(Z/n\to1\). This proves (58.2). Finally combine
+\(C(n)/q_n\to1\) and
 \(P(n)/C(n)\to1\) with Theorem 56 to obtain (58.3). \(\square\)
 
 ## Corollary 59: counterexample growth dichotomy
@@ -219,3 +225,53 @@ and there can be no second crossing block. Its omitted length is at most
 \]
 
 Adding this single endpoint allowance proves (60.1). \(\square\)
+
+## Corollary 61: necessary dilution of post-down ridge segments
+
+Assume the sublinear counterexample has infinitely many down-steps
+\(d_1<d_2<\cdots\). Put
+
+\[
+L_j=d_{j+1}-d_j-1
+\]
+
+and let \(U_j\) count up-steps at the intervening digit indices
+\((d_j,d_{j+1})\). Then
+
+\[
+L_j\longrightarrow\infty,\qquad
+\frac{\sum_{j<J}U_j}{\sum_{j<J}L_j}\longrightarrow0. \tag{61.1}
+\]
+
+Consequently there is a subsequence \(j_\nu\) such that
+
+\[
+\frac{U_{j_\nu}}{L_{j_\nu}}\longrightarrow0. \tag{61.2}
+\]
+
+If \(R_j=\lfloor\log_2(d_j/q_{d_j})\rfloor-2\) is the forced rebound
+length from Theorem 58, then along the same sufficiently late subsequence,
+
+\[
+R_j\le U_j,\qquad \frac{R_j}{L_j}\longrightarrow0. \tag{61.3}
+\]
+
+Thus a sublinear infinite-down counterexample would require arbitrarily
+long post-down ridge segments whose up-step fraction tends to zero, despite
+an initial forced up-run whose length tends to infinity.
+
+### Proof
+
+Theorem 58 gives \(L_j\to\infty\). Up to a fixed initial and terminal
+prefix,
+
+\[
+\sum_{j<J}L_j=d_J-d_1-(J-1),\qquad
+\sum_{j<J}U_j\le P(d_J).
+\]
+
+Because \(D(d_J)/d_J\to0\), the first sum is asymptotic to \(d_J\);
+because \(P(d_J)/d_J\to0\), their ratio tends to zero. This proves (61.1).
+A weighted average of nonnegative ratios can tend to zero only if some
+subsequence of the ratios tends to zero, proving (61.2). Theorem 58 gives
+\(R_j\le U_j\) eventually, so (61.3) follows. \(\square\)

@@ -49,6 +49,12 @@ states. It also checks Lemma 60's weighted budget on arbitrary finite
 prefixes. These bounded checks support the algebra and endpoint handling;
 they do not prove the asymptotic limits.
 
+The exact Rust probe `search-framework/src/bin/ridge.rs` exhausts selected
+post-down ridge states and reports the longest segment and the smallest
+observed up-step fraction above a requested length. It is an exploratory
+falsification tool for Corollary 61's remaining ridge-density target, not
+evidence for a universal positive-density theorem.
+
 ## Files
 
 - [`01-search-and-census.md`](01-search-and-census.md): algorithms and

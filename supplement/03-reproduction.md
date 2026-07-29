@@ -109,6 +109,20 @@ python independent\verify_safe_certificate.py `
 
 Both outputs must report trajectory digest `0xffe3df00b02fcb2d`.
 
+## Post-down ridge probe
+
+To exhaust every down-step state with \(q\le752\) at index \(10^4\), then
+measure the positive no-down segment beginning immediately afterward:
+
+```powershell
+cargo run --release --manifest-path search-framework\Cargo.toml `
+  --bin ridge -- --n 10000 --max-q 752 `
+  --min-steps 50 --max-steps 20000
+```
+
+Use `--max-r 0` for a deliberately restricted boundary-residue probe. Output
+from this command is exploratory and is not a certificate or theorem.
+
 ## Artifact hashing
 
 ```powershell

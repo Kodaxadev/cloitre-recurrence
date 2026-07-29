@@ -11,8 +11,12 @@ If a counterexample satisfies \(q_n=o(n)\), then
 \frac{D(n)}{C(n)}\to0,\qquad
 \frac{P(n)}{C(n)}\to1,\qquad
 \frac{q_n}{C(n)}\to1,\qquad
+\frac{C(n)}n\to0,\qquad
 \frac{D(n)}n\to0. \tag{8.1}
 \]
+
+In particular, up- and down-steps both have zero time density, while zero
+digits have density one.
 
 Furthermore,
 
@@ -93,3 +97,29 @@ Indeed, Theorem 22 forces \(\rho_k\) up-steps immediately after the
 down-step. These charged blocks are disjoint. All are counted by \(P_{u,n}\)
 except possibly the final block crossing the right endpoint, whose length is
 at most \(\lfloor\log_2n\rfloor\). \(\square\)
+
+## Corollary 61 (post-down ridge dilution)
+
+Suppose down-steps are infinite, at indices \(d_1<d_2<\cdots\). Let
+\(L_j=d_{j+1}-d_j-1\), and let \(U_j\) count up-steps strictly between
+these two down-steps. Then
+
+\[
+L_j\to\infty,\qquad
+\frac{\sum_{j<J}U_j}{\sum_{j<J}L_j}\to0. \tag{8.6}
+\]
+
+Hence some subsequence satisfies \(U_j/L_j\to0\). Along that subsequence,
+the forced initial rebound length
+
+\[
+R_j=\left\lfloor\log_2\frac{d_j}{q_{d_j}}\right\rfloor-2
+\]
+
+obeys \(R_j\to\infty\) but \(R_j/L_j\to0\).
+
+Indeed, Theorem 58 gives \(P(n)/n,D(n)/n\to0\). The completed intervening
+segments have total length asymptotic to their final index and contain at
+most \(P(n)=o(n)\) up-steps. The weighted average in (8.6) follows, and a
+nonnegative weighted average tending to zero has a subsequence of component
+ratios tending to zero. \(\square\)
