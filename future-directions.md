@@ -292,12 +292,12 @@ Lemma 110 now counts every locally valid gate state exactly:
 
 \[
 |\mathcal F|
-=1+\min(e-1,j)
-+\min\!\left(\lfloor d/2\rfloor,\lfloor2d'/H\rfloor\right).
+=1+j+\min\!\left(\lfloor d/2\rfloor,\lfloor2d'/H\rfloor\right).
 \]
 
-Thus a later-window displacement can be absorbed by finite parent residue
-or defect headroom without producing proportional multiplicity.
+Thus every later-window translate creates a lower candidate. Only
+displacement stored in the child defect can be absorbed by finite parent
+defect headroom.
 
 **Do next:** treat those near-maximal gaps as renewal points. Derive the
 state map from one such reset to the next across the intervening unit blocks,

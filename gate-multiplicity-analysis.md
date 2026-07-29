@@ -23,7 +23,6 @@ candidate set from Corollary 84.
 Put
 
 \[
-\lambda=\min\{e-1,j\},\qquad
 \mu=\min\left\{\left\lfloor\frac d2\right\rfloor,
 \left\lfloor\frac{2d'}H\right\rfloor\right\}.
 \]
@@ -33,15 +32,14 @@ Then
 \[
 \boxed{
 \mathcal F=
-\{f+t2^{k+1}:-\lambda\le t\le\mu\},
+\{f+t2^{k+1}:-j\le t\le\mu\},
 \qquad
-|\mathcal F|=1+\lambda+\mu.
+|\mathcal F|=1+j+\mu.
 } \tag{110.1}
 \]
 
-Thus the lower-candidate depth is limited independently by the canonical
-window translate \(j\) and the parent residue headroom \(e-1\). The
-upper-candidate depth is limited independently by the parent defect
+Thus every missed canonical window contributes one lower candidate. Only
+the upper-candidate depth is truncated: independently by the parent defect
 headroom \(d/2\) and child defect headroom \(2d'/H\).
 
 ### Proof
@@ -90,12 +88,23 @@ t\le\left\lfloor\frac{G+r-3-x}{H}\right\rfloor
 Intersecting the two integer intervals gives
 
 \[
--\min\{e-1,j\}\le t\le
+\max\{1-e,-j\}\le t\le
 \min\left\{\left\lfloor\frac d2\right\rfloor,
 \left\lfloor\frac{2d'}H\right\rfloor\right\},
 \]
 
-which proves (110.1). \(\square\)
+It remains to compare the two lower endpoints. Substituting
+\(A=n+4-2e\), \(m=n+k+1\), and
+\(f=m+3-2^kA\) into \(x\) gives
+
+\[
+eH-x=
+2^{r+2}\bigl((2^k-1)n+2^{k+2}-k-4\bigr)
++n+k+r+4>0. \tag{110.3}
+\]
+
+Therefore \(x\le eH\). Since \(x=\rho+jH\) with \(\rho\ge1\), this forces
+\(j\le e-1\), so \(\max\{1-e,-j\}=-j\). This proves (110.1). \(\square\)
 
 ## Corollary 111 (multiplicity consumes window displacement)
 
@@ -113,10 +122,10 @@ Every gate satisfies
 Lemma 110 gives
 
 \[
-\bigl(|\mathcal F|-1\bigr)H=(\lambda+\mu)H.
+\bigl(|\mathcal F|-1\bigr)H=(j+\mu)H.
 \]
 
-Here \(\lambda\le j\) and \(\mu H\le2d'\). Lemma 103 gives
+Here \(\mu H\le2d'\). Lemma 103 gives
 
 \[
 D'-3-\rho=jH+2d',
@@ -126,13 +135,49 @@ so (111.1) follows. \(\square\)
 
 ## Consequence and limitation
 
-The first later-window miss contributes one lower alternative unless the
-parent residue has no headroom; positive blocks in fact have \(e\ge2\).
-Additional missed windows need not create additional candidates because
-the parent state window can truncate them. Likewise a large child defect
-creates upper alternatives only while the parent defect remains available.
+Every later-window miss contributes exactly one lower alternative. Thus
+unbounded canonical translate \(j\) forces unbounded gate multiplicity.
+A large child defect, however, creates upper alternatives only while the
+parent defect remains available.
 
-This exact truncation explains why canonical-window displacement alone
-cannot force arbitrarily large gate multiplicity. A closing argument still
-needs an inter-gate budget showing that repeated displacement cannot be
-continually absorbed by the two parent headrooms.
+The unresolved escape is consequently narrower: displacement stored in
+\(2d'\), rather than in \(jH\), can still be truncated by the parent defect
+headroom. A closing argument needs an inter-gate budget showing that this
+defect storage cannot be continually replenished.
+
+## Corollary 112 (upper nonuniqueness forces a two-block ceiling)
+
+Suppose the upper-candidate mechanism is active:
+
+\[
+d\ge2,\qquad 2d'\ge H.
+\]
+
+If the child positive block has length \(\ell\ge1\) and starts at index
+\(n'\), then
+
+\[
+\boxed{
+2^{k+r+\ell+2}<n'+\ell+4.
+} \tag{112.1}
+\]
+
+### Proof
+
+At the child start put \(A'=U'+d'+4\). Lemma 53's failed stopping test
+immediately before its length-\(\ell\) block gives
+
+\[
+2^\ell A'<n'+\ell+4.
+\]
+
+The upper-candidate hypothesis gives \(d'\ge H/2\), so
+
+\[
+2^{\ell-1}H\le2^\ell d'<2^\ell A'<n'+\ell+4.
+\]
+
+Since \(H=2^{k+r+3}\), this is (112.1). \(\square\)
+
+This ceiling couples two consecutive positive blocks, but remains
+compatible with logarithmic total block/gap complexity.

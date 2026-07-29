@@ -112,7 +112,8 @@ Corollary 111 on all 27,030 gates,
 pinning the exact multiplicity histogram
 \((8411,5776,4578,3021,1127,1370,2204,543)\) for multiplicities
 \(1,\ldots,8\). The native `gate_multiplicity` Rust test independently
-reproduces the same formula and histogram.
+reproduces the same formula and histogram. Both implementations also check
+Corollary 112 on all 12,021 upper-nonunique gates in the bounded census.
 
 The exploratory Rust binary `gate_chain` searches these chains without
 assuming that the accumulated quotient is zero. Exhausting all 20,771,000

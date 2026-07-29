@@ -85,6 +85,7 @@ fn candidate_count(m: u64, wraps: u64, k: u32, r: u32) -> usize {
 #[test]
 fn exact_gate_multiplicity_matches_both_headrooms() {
     let mut histogram = BTreeMap::new();
+    let mut upper_nonunique = 0u64;
     for n in 2..=120u64 {
         for e in 1..n {
             let blocks = zero_blocks(SafeState { e, w: n, wraps: 0 });
@@ -124,7 +125,8 @@ fn exact_gate_multiplicity_matches_both_headrooms() {
                 let parent_d =
                     block.start.n() - block.start.wraps - 2 * block.start.e;
                 let child_d = child.n() - child.wraps - 2 * child.e;
-                let lower = u128::from(block.start.e - 1).min(translate);
+                assert!(translate <= u128::from(block.start.e - 1));
+                let lower = translate;
                 let upper = u128::from(parent_d / 2)
                     .min(u128::from(2 * child_d) / spacing);
                 let actual =
@@ -132,6 +134,14 @@ fn exact_gate_multiplicity_matches_both_headrooms() {
                 assert_eq!(actual as u128, 1 + lower + upper);
                 let child_gap = u128::from(child.n() - 2 * child.wraps);
                 assert!((actual as u128 - 1) * spacing <= child_gap - 3 - rho);
+                if parent_d >= 2 && 2 * child_d >= spacing as u64 {
+                    let child_k = blocks[*right].wraps;
+                    assert!(
+                        1u128 << (k + r + child_k + 2)
+                            < u128::from(child.n() + u64::from(child_k) + 4)
+                    );
+                    upper_nonunique += 1;
+                }
                 *histogram.entry(actual).or_insert(0u64) += 1;
             }
         }
@@ -143,4 +153,5 @@ fn exact_gate_multiplicity_matches_both_headrooms() {
             (5, 1_127), (6, 1_370), (7, 2_204), (8, 543),
         ])
     );
+    assert_eq!(upper_nonunique, 12_021);
 }

@@ -13,7 +13,6 @@ and let \(\mathcal F\) be the exact candidate set.
 Put
 
 \[
-\lambda=\min\{e-1,j\},\qquad
 \mu=\min\left\{\left\lfloor\frac d2\right\rfloor,
 \left\lfloor\frac{2d'}H\right\rfloor\right\}.
 \]
@@ -21,8 +20,8 @@ Put
 Then
 
 \[
-\mathcal F=\{f+t2^{k+1}:-\lambda\le t\le\mu\},
-\qquad |\mathcal F|=1+\lambda+\mu. \tag{20.1}
+\mathcal F=\{f+t2^{k+1}:-j\le t\le\mu\},
+\qquad |\mathcal F|=1+j+\mu. \tag{20.1}
 \]
 
 Indeed, replacing \(f\) by \(f+t2^{k+1}\) replaces
@@ -44,7 +43,18 @@ The child bounds \(1\le x+tH\le G+r-3\), using
 -j\le t\le\lfloor2d'/H\rfloor.
 \]
 
-Intersecting these integer intervals proves (20.1). \(\square\)
+Their intersection initially has lower endpoint
+\(\max\{1-e,-j\}\). Moreover,
+
+\[
+eH-x=
+2^{r+2}\bigl((2^k-1)n+2^{k+2}-k-4\bigr)
++n+k+r+4>0.
+\]
+
+Hence \(x=\rho+jH\le eH\), so \(j\le e-1\); the parent residue bound never
+truncates the lower candidates. This completes the stated interval.
+\(\square\)
 
 ## Corollary 111 (displacement budget)
 
@@ -52,9 +62,22 @@ Intersecting these integer intervals proves (20.1). \(\square\)
 \bigl(|\mathcal F|-1\bigr)H\le D'-3-\rho. \tag{20.2}
 \]
 
-Indeed, \(\lambda\le j\), \(\mu H\le2d'\), and
+Indeed, \(\mu H\le2d'\), and
 \(D'-3-\rho=jH+2d'\). \(\square\)
 
-This quantifies both nonuniqueness mechanisms exactly. It does not exclude
-repeated nonunique gates because the parent residue and defect windows can
-truncate arbitrarily large canonical displacement.
+Every missed canonical window creates one actual lower candidate, so
+unbounded \(j\) forces unbounded multiplicity. Only the upper part can be
+truncated, by the parent defect.
+
+## Corollary 112 (upper-nonunique two-block ceiling)
+
+If \(d\ge2\), \(2d'\ge H\), and the child block has length \(\ell\), then
+
+\[
+2^{k+r+\ell+2}<n'+\ell+4. \tag{20.3}
+\]
+
+Indeed, at the child start \(A'=U'+d'+4\), while the failed stopping test
+before its length-\(\ell\) block gives
+\(2^\ell A'<n'+\ell+4\). Since \(d'\ge H/2\),
+\(2^{\ell-1}H< n'+\ell+4\), which is (20.3). \(\square\)
