@@ -82,3 +82,49 @@ those positive blocks both frequent, on the
 \(n/(\log n\log\log n)\) scale, and individually short, on the
 \(\log\log n\) scale. The remaining problem is to control the residues of
 these blocks relative to the moving terminating strip.
+
+## 6. Boundary recurrence and backward clearance
+
+A bounded search does not support the claim that a path hitting zero slack
+must revisit it. Among quotient-zero starts with \(N\le1000\), paths occur
+that survive more than 180 further transitions after their only boundary
+hit. Arbitrary boundary states show the same behavior.
+
+The exact backward-clearance calculation also recovers the existing
+logarithmic budget rather than improving it. A reverse zero preimage keeps
+clearance but halves the residue, while a reverse wrap preimage consumes one
+unit of clearance. Thus logarithmically many reverse zero steps can be paid
+for by one wrap, dual to Theorem 45's forward zero-run count.
+
+## 7. The adjacent-block gate
+
+A positive block of length \(k\) returning to \((m,V,f)\) satisfies
+
+\[
+m+3-f=2^kA.
+\]
+
+If \(r\) zero-only blocks precede the next positive block, the return residue
+also lies in
+
+\[
+\frac{m+r+3}{2^{r+2}}<f\le\frac{m-V+r}{2^{r+1}}.
+\]
+
+The interval has length \((G+r-3)/2^{r+2}\). The parent equation first puts
+\(f\) in one class modulo \(2^k\); the parity \(A\equiv n\pmod2\) lifts this
+to one class modulo \(2^{k+1}\). This yields Lemma 83 and Corollary 84:
+the gate is unique unless \(2^{k+r+3}<G+r-3\).
+
+The independent raw verifier and native Rust test agree on 29,630 bounded
+gates, of which 9,718 are unique and 19,912 admit multiple candidates.
+These counts are regression evidence, not an asymptotic distribution claim.
+
+Unique gates are not isolated. The valid quotient-zero start
+\((n,U,e)=(61,0,49)\) contains five consecutive unique gates with
+\((k,r)\) pairs
+\[
+(2,1),(1,2),(2,3),(1,2),(1,4).
+\]
+Thus a proof must control chains of exact gates; it cannot assume that the
+nonunique alternative occurs between every two positive blocks.

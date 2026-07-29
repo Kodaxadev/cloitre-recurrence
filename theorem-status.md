@@ -97,6 +97,8 @@ classification is the point: nothing is promoted without a proof.
 | **L80** | A positive safe-map wrap block satisfies the exact state-window bounds $2^k(U+4)<n+k+4$ and $2^kU<n$ | `safe-wrap-run-analysis.md` | **Lemma - new; fresh audit pending** |
 | **C81** | Along an infinite safe path every sufficiently late wrap block has $k\le\log_2\log_2n+o(1)$ | `safe-wrap-run-analysis.md` | **Corollary - new; fresh audit pending; ceiling, not termination** |
 | **C82** | Along an infinite safe path the number $B(n)$ of completed positive wrap blocks satisfies $\liminf B(n)\log_2n\log_2\log_2n/n\ge1$ at zero epochs | `safe-wrap-run-analysis.md` | **Corollary - new; fresh audit pending; recurrence rate, not termination** |
+| **L83** | Adjacent positive safe-map blocks obey the exact parent equation $m+3-f=2^kA$, a lifted congruence modulo $2^{k+1}$, and a sharp interval | `safe-block-gate-analysis.md` | **Lemma - new; fresh audit pending** |
+| **C84** | Every adjacent positive-block gate either determines both endpoint states uniquely or satisfies $2^{k+r+3}<G+r-3$ | `safe-block-gate-analysis.md` | **Corollary - new; fresh audit pending; dichotomy, not termination** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**

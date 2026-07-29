@@ -128,6 +128,21 @@ The remaining target must therefore control the residues of these frequent
 aperiodic bounded or slowly growing blocks, rather than force one block to
 exceed the state window.
 
+Lemma 83 now supplies the first exact residue gate for that target. If a
+positive block of length \(k\) returns with residue \(f\), and \(r\)
+zero-only blocks precede the next positive block, then
+
+\[
+f\equiv m+3\pmod{2^k},\qquad
+\frac{m+r+3}{2^{r+2}}<f\le\frac{m-V+r}{2^{r+1}}.
+\]
+
+**Do:** determine whether infinitely many unique gates can be compatible
+with the autonomous overshoot map. Use the lifted class modulo \(2^{k+1}\),
+not only the displayed weaker congruence. In the nonunique case, exploit
+\(2^{k+r+3}<G+r-3\) across the quantitatively frequent blocks from
+Corollary 82, rather than treating each gate independently.
+
 ## 7. Resolve the low-order mixed-ridge defect
 
 Lemma 73 now encodes every zero in an arbitrary ridge by

@@ -48,6 +48,7 @@ jobs:
           independent/verify_small_spectrum.py
           independent/verify_safe_certificate.py
           independent/verify_safe_checkpoint.py
+          independent/verify_safe_block_gates.py
           independent/verify_sharp_growth.py
           independent/verify_ridge_segments.py
           independent/verify_mixed_ridges.py
@@ -62,6 +63,8 @@ jobs:
           --n 10000 --max-steps 20000
       - name: Check checkpoint monotonicity and signed safe coordinates
         run: python independent/verify_safe_checkpoint.py
+      - name: Check adjacent safe-map block gates
+        run: python independent/verify_safe_block_gates.py
       - name: Check parameterized rebounds and sharp growth
         run: python independent/verify_sharp_growth.py
       - name: Check post-down ridge segments
