@@ -79,6 +79,7 @@ classification is the point: nothing is promoted without a proof.
 | **L62** | Every finite post-down no-down segment satisfies an exact dyadic budget for all of its zero digits | `sparse-downstep-analysis.md` | **Lemma - new; fresh audit pending** |
 | **L63** | The terminal negative suffix before a down-step is an exact dyadic remainder map | `ridge-segment-analysis.md` | **Lemma - new; fresh audit pending** |
 | **C64** | A sublinear infinite-down counterexample has unbounded pure-zero runs inside its post-down segments | `ridge-segment-analysis.md` | **Corollary - new; fresh audit pending** |
+| **L65** | At every down-step, all future zero- and down-step defects form an exact nonnegative dyadic expansion with an exact consecutive-down recurrence | `ridge-segment-analysis.md` | **Lemma - new; fresh audit pending** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**

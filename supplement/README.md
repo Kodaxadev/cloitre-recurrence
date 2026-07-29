@@ -57,9 +57,10 @@ falsification tool for Corollary 61's remaining ridge-density target, not
 evidence for a universal positive-density theorem.
 
 `independent/verify_ridge_segments.py` separately checks Lemma 63's
-sign-changing last up-step, negative zero suffix, and next-ridge remainder
-using raw transitions. The native `ridge_segments` Rust test checks the
-same identities over a distinct finite grid.
+sign-changing last up-step, negative zero suffix, and next-ridge remainder,
+plus Lemma 65's consecutive-down defect recurrence, using raw transitions.
+The native `ridge_segments` Rust test checks the same identities over a
+distinct finite grid.
 
 ## Files
 

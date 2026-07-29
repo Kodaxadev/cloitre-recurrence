@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Independent bounded checks for Lemma 63.
+"""Independent bounded checks for Lemmas 63 and 65.
 
 This script uses raw `(n,q,r)` transitions and imports no project code.
-It checks the exact negative suffix and next-ridge remainder on arbitrary
-post-down segments. These finite checks are regressions, not a proof.
+It checks the exact negative suffix, next-ridge remainder, and consecutive
+down-epoch defect recurrence. These finite checks are regressions, not proofs.
 """
 
 from __future__ import annotations
@@ -85,6 +85,17 @@ def check_segment(parent: State) -> tuple[int, int] | None:
     next_gap = quotient - 2 * current.r
     assert next_gap == (1 << (zeros + 1)) * value - quotient
     assert 1 <= next_gap <= quotient
+
+    parent_gap = parent.q - 2 * parent.r
+    parent_budget = parent.q + parent_gap + 2
+    next_budget = current.q + next_gap + 2
+    distance = current.n - parent.n
+    scaled_right = 2 * (current.n + 2) + next_budget
+    for offset, change in enumerate(changes):
+        if change == 0:
+            index = parent.n + offset + 1
+            scaled_right += (index + 2) << (distance - offset - 1)
+    assert parent_budget << distance == scaled_right
     return len(changes), zeros
 
 
@@ -102,7 +113,8 @@ def main() -> None:
     assert checked > 1_000
     print(f"terminal ridge segments checked: {checked}")
     print(f"terminal negative zero digits covered: {suffix_zeros}")
-    print("VERDICT: bounded raw checks agree with Lemma 63.")
+    print(f"consecutive down-epoch recurrences checked: {checked}")
+    print("VERDICT: bounded raw checks agree with Lemmas 63 and 65.")
 
 
 if __name__ == "__main__":

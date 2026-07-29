@@ -137,3 +137,82 @@ Lemma 63 completely determines the negative suffix, but the long zero
 plateau supplied by Corollary 64 may occur earlier while \(e>0\). A
 contradiction still requires controlling how a small positive integer
 created after an up-step can survive long enough to feed the next ridge.
+
+## Lemma 65: nonnegative defect coding at down epochs
+
+At any down-step index \(d\), put
+
+\[
+h_d=q_d-2r_d,\qquad B_d=q_d+h_d+2=2-2e_d.
+\]
+
+Then the entire future digit tail satisfies
+
+\[
+\boxed{\displaystyle
+B_d=
+\sum_{k=d+1}^{\infty}
+\frac{(1-a_k)(k+2)}{2^{k-d}}.} \tag{65.1}
+\]
+
+Every summand is nonnegative: an up-step contributes zero, a zero-step
+contributes one copy of its weight, and a later down-step contributes two.
+
+If \(d<d'\) are consecutive down-step indices and
+
+\[
+\mathcal Z(d,d')=\{k:d<k<d',\ a_k=0\},
+\]
+
+then
+
+\[
+B_d=
+\sum_{k\in\mathcal Z(d,d')}
+\frac{k+2}{2^{k-d}}
++\frac{2(d'+2)+B_{d'}}{2^{d'-d}}. \tag{65.2}
+\]
+
+For an infinite sequence \(d_1<d_2<\cdots\) of down-steps, iteration gives
+
+\[
+\frac{B_{d_j}}{2^{d_j}}
+=
+\sum_{\substack{k>d_j\\a_k=0}}\frac{k+2}{2^k}
++2\sum_{\ell>j}\frac{d_\ell+2}{2^{d_\ell}}. \tag{65.3}
+\]
+
+Thus the post-down zero budgets and terminal remainder maps are consecutive
+pieces of one globally nonnegative dyadic expansion.
+
+### Proof
+
+The future-digit identity at a down-step, where \(a_d=-1\), gives
+
+\[
+2e_d=-(d+2)+
+\sum_{k=d+1}^{\infty}\frac{a_k(k+2)}{2^{k-d}}.
+\]
+
+The all-up tail has the closed form
+
+\[
+\sum_{k=d+1}^{\infty}\frac{k+2}{2^{k-d}}=d+4.
+\]
+
+Subtracting the actual tail from the all-up tail yields
+
+\[
+\sum_{k=d+1}^{\infty}
+\frac{(1-a_k)(k+2)}{2^{k-d}}
+=2-2e_d.
+\]
+
+Since \(h_d=q_d-2r_d\) and \(e_d=r_d-q_d\), the right side is
+\(q_d+h_d+2=B_d\), proving (65.1).
+
+Split (65.1) at the next down-step. Between \(d\) and \(d'\), only zero
+digits contribute. The digit at \(d'\) contributes twice, and the remaining
+tail is \(2^{-(d'-d)}B_{d'}\), proving (65.2). Iteration and positivity
+allow passage to the limit; \(B_{d_\ell}=O(d_\ell)\) makes the terminal
+remainder vanish. Dividing by \(2^{d_j}\) gives (65.3). \(\square\)

@@ -55,3 +55,36 @@ absolute value. \(\square\)
 
 The long zero run need not be the terminal negative suffix of Lemma 63; it
 may occur earlier with positive \(e\). This is the unresolved case.
+
+## Lemma 65 (down-epoch defect coding)
+
+At a down-step \(d\), set
+
+\[
+h_d=q_d-2r_d,\qquad B_d=q_d+h_d+2=2-2e_d.
+\]
+
+Then
+
+\[
+B_d=\sum_{k>d}\frac{(1-a_k)(k+2)}{2^{k-d}}. \tag{9.5}
+\]
+
+All terms are nonnegative: up-, zero-, and down-steps have coefficients
+zero, one, and two. For consecutive down-steps \(d<d'\),
+
+\[
+B_d=
+\sum_{\substack{d<k<d'\\a_k=0}}\frac{k+2}{2^{k-d}}
++\frac{2(d'+2)+B_{d'}}{2^{d'-d}}. \tag{9.6}
+\]
+
+Indeed, multiply Theorem 39's future-digit identity at \(d\) by two and
+subtract it from the all-up sum
+
+\[
+\sum_{k>d}\frac{k+2}{2^{k-d}}=d+4.
+\]
+
+This proves (9.5); splitting its nonnegative series at \(d'\) proves
+(9.6). \(\square\)
