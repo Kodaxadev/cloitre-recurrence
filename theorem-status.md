@@ -84,6 +84,9 @@ classification is the point: nothing is promoted without a proof.
 | **L67** | A unit-terminal ridge has an exact parent equation and sends the next ridge width to $2^{z+1}+2$ | `ridge-chain-analysis.md` | **Lemma - new; fresh audit pending** |
 | **L68** | Two nondecreasing positive dyadic ridge scales cannot satisfy the three-segment compatibility equation | `ridge-chain-analysis.md` | **Lemma - new; fresh audit pending** |
 | **T69** | Once the first terminal quotient is at least two, three consecutive unit-terminal ridges are impossible | `ridge-chain-analysis.md` | **Theorem - new; fresh audit pending; not a general ridge-chain exclusion** |
+| **L70** | A pure ridge with arbitrary terminal magnitude has an exact transition and consecutive-ridge compatibility equation | `ridge-chain-analysis.md` | **Lemma - new; fresh audit pending** |
+| **C71** | Adjacent pure ridges obey an exact congruence modulo $2^{\min(K,K')}$, with strict terminal-magnitude descent below that scale | `ridge-chain-analysis.md` | **Corollary - new; fresh audit pending** |
+| **T72** | An infinite pure ridge tail in a sublinear counterexample must have exponentially large local complexity infinitely often | `ridge-chain-analysis.md` | **Theorem - new; fresh audit pending; conditional on an eventually pure tail** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**
@@ -138,6 +141,7 @@ it wins by a margin of one over its immediate neighbours.
 | R4 | Modular invariant: $b_{n+1}\bmod M$ a function of $(n\bmod M, b\bmod M)$ | fails for every $M\in[2,64]$, explicit witnesses |
 | R5 | Non-absorbing orbit with $e_n$ affine in $n$ | P16 — killed by the admissibility window |
 | R6 | A uniform positive lower bound for the up-step fraction of all sufficiently long valid post-down segments | P66 gives exact words $-1,1^K,0^{K^2},-1$ with fraction $1/(K+1)$ |
+| R7 | Monotonicity of $K$, $v$, $z$, terminal scale $2^zv$, or next-ridge width along arbitrary-terminal pure chains | bounded exact chains refute every listed monotonicity; one valid chain already has length eight |
 
 ---
 

@@ -158,3 +158,148 @@ exclude a chain whose positive portion contains interspersed zero- and
 up-steps, or whose sign-changing final up-step creates \(e=-v\) with
 \(v>1\). Those more general inter-segment compatibility problems remain
 open.
+
+## Lemma 70: arbitrary terminal magnitude
+
+Call a ridge **pure** if its intervening word is \(1^K0^z\), \(K\ge1\).
+Suppose its last up-step creates \(e=-v\). With
+
+\[
+A=Q+h+3,\qquad S=Q+K,
+\]
+
+its parameters satisfy
+
+\[
+1\le v\le S,\qquad
+N=2^KA-K-3-v,\qquad
+z=\left\lfloor\log_2\frac Sv\right\rfloor. \tag{70.1}
+\]
+
+The next post-down ridge has
+
+\[
+\begin{aligned}
+N'&=N+K+z+1,\\
+Q'&=S-1,\\
+h'&=2^{z+1}v-S,\\
+A'=Q'+h'+3&=2^{z+1}v+2.
+\end{aligned} \tag{70.2}
+\]
+
+If the next ridge is also pure, with parameters \(K',v',z'\), then
+
+\[
+\boxed{\displaystyle
+2^KA+z+K'+1+v'-v=2^{K'}A'.} \tag{70.3}
+\]
+
+### Proof
+
+The up-run formula is
+
+\[
+e_{N+K}=N+K+3-2^KA.
+\]
+
+Setting it equal to \(-v\) proves the middle identity in (70.1), while
+the up threshold gives \(v\le S\). Lemma 63 gives the zero count and
+terminal gap, and the down-step gives the first two updates in (70.2).
+Their substitution gives the last update.
+
+Finally,
+
+\[
+N'=2^KA+z-2-v.
+\]
+
+Applying the middle identity of (70.1) to the next pure ridge and equating
+the two expressions for \(N'\) proves (70.3). \(\square\)
+
+## Corollary 71: adjacent dyadic congruence
+
+For consecutive pure ridges, put \(m=\min(K,K')\). Then
+
+\[
+\boxed{\displaystyle
+2^m\mid z+K'+1+v'-v.} \tag{71.1}
+\]
+
+In particular, if
+
+\[
+z+K'+1+v+v'<2^m, \tag{71.2}
+\]
+
+then
+
+\[
+v'=v-z-K'-1\le v-2. \tag{71.3}
+\]
+
+### Proof
+
+Both power-weighted terms in (70.3) are divisible by \(2^m\), proving
+(71.1). Under (71.2), the absolute value of the divisible integer is
+strictly smaller than \(2^m\), so it is zero. This is (71.3). \(\square\)
+
+## Theorem 72: complexity forced on an infinite pure tail
+
+Suppose a sublinear counterexample has infinitely many down-steps and,
+from some point onward, every ridge is pure. Index those ridges by \(j\)
+and use \(K_j,v_j,z_j\) as above. Put
+
+\[
+m_j=\min(K_j,K_{j+1}).
+\]
+
+Then \(m_j\to\infty\), and for infinitely many \(j\),
+
+\[
+\boxed{\displaystyle
+\max\{z_j,\ K_{j+1}+1,\ v_j,\ v_{j+1}\}
+\ge 2^{m_j-2}.} \tag{72.1}
+\]
+
+Thus an infinite pure-tail counterexample cannot keep its zero counts,
+adjacent up-run lengths, and terminal magnitudes all subexponential in the
+smaller adjacent up-run length.
+
+### Proof
+
+Theorem 58 forces a rebound of length tending to infinity after every late
+down-step. Since a pure ridge contains no later up-step, its total up-run
+length satisfies \(K_j\to\infty\), hence \(m_j\to\infty\).
+
+Let
+
+\[
+E_j=z_j+K_{j+1}+1+v_{j+1}-v_j.
+\]
+
+Corollary 71 makes \(E_j\) divisible by \(2^{m_j}\). The equality
+\(E_j=0\) implies
+
+\[
+v_{j+1}=v_j-z_j-K_{j+1}-1\le v_j-2.
+\]
+
+Positive integers cannot decrease this way on every sufficiently late
+step, so \(E_j\ne0\) infinitely often. At each such index,
+
+\[
+2^{m_j}\le |E_j|
+\le z_j+(K_{j+1}+1)+v_j+v_{j+1}.
+\]
+
+One of the four nonnegative summands is at least one quarter of the left
+side, proving (72.1). \(\square\)
+
+## General limitation
+
+Arbitrary terminal magnitudes destroy all simple monotonicity visible in
+the unit case. Exact valid examples have \(v,z,K\), the terminal dyadic
+scale \(2^zv\), and the next width \(A'\) each moving in both directions;
+pure chains of length eight already occur. Theorem 72 is therefore a
+complexity obstruction, not termination. Mixed positive words remain
+outside even this generalized pure-ridge map.

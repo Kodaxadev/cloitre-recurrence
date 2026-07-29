@@ -26,7 +26,10 @@ quotient, we derive an exact two-counter termination system. The latter
 reduction does not cover hypothetical counterexamples with infinitely many
 quotient down-steps. We nevertheless show that in the sublinear-quotient
 branch, such down-steps must have zero density both in time and among quotient
-changes, and that their individual spacings must diverge.
+changes, and that their individual spacings must diverge. Exact finite ridges
+can nevertheless have vanishing up-step density. We derive their pure-chain
+compatibility law and show that any infinite arbitrary-terminal pure tail
+would require exponentially large local parameters infinitely often.
 
 ## Manuscript assembly
 
@@ -55,9 +58,9 @@ result is the finite-start bound and its computer-assisted nonsurjectivity
 corollary. Theorem numbering follows `../theorem-status.md` to preserve
 traceability to the frozen research snapshot
 `f19ffcd75d04a05529878ce0226088f2f3221c0b`.
-Theorems 46, 50, 55, 56, 58, and 69; Proposition 66; Lemmas 47, 49, 51,
-53, 60, 62, 63, 65, 67, and 68; and Corollaries 48, 52, 54, 57, 59, 61,
-and 64 are post-freeze additions
+Theorems 46, 50, 55, 56, 58, 69, and 72; Proposition 66; Lemmas 47, 49,
+51, 53, 60, 62, 63, 65, 67, 68, and 70; and Corollaries 48, 52, 54, 57,
+59, 61, 64, and 71 are post-freeze additions
 and have not yet received the fresh-context audit applied to the frozen
 theorem chain.
 

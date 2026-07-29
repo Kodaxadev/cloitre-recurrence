@@ -62,9 +62,12 @@ sign-changing last up-step, negative zero suffix, and next-ridge remainder,
 plus Lemma 65's consecutive-down defect recurrence, using raw transitions.
 It also checks Proposition 66's arbitrary-precision diluted family through
 \(K=12\), plus a bounded grid of Lemma 68's incompatible scale equation.
-The native `ridge_segments` Rust test checks the same identities, the special
-family through the largest listed parameters fitting `u64`, and a distinct
-bounded scale grid.
+The arbitrary-terminal checks validate 518 pure ridges and 171 adjacent
+instances of Lemmas 70--71 on bounded raw states, and reproduce an exact
+valid chain of eight pure ridges. The native
+`ridge_segments` Rust test checks the same identities, the special family
+through the largest listed parameters fitting `u64`, and distinct bounded
+scale and arbitrary-terminal grids.
 
 ## Files
 
