@@ -333,3 +333,15 @@ asymptotically negligible.
 
 Even divergent individual spacing does not prove that down-steps are
 finite, so the infinite-down branch remains open.
+
+The pointwise lengths can also be summed without overlap. On any interval,
+assign each down-step the weight
+
+```text
+max(0, floor(log2(k/q_k))-2).
+```
+
+The corresponding forced up-blocks are disjoint, and only the final block
+can cross the right endpoint. Therefore their total weight is at most the
+number of up-steps plus `floor(log2 n)`. This is Lemma 60's weighted rebound
+budget; it is unconditional and does not assume `q=o(n)`.

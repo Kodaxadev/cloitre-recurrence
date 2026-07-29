@@ -71,3 +71,25 @@ Every counterexample either has \(\limsup q_n/n>0\), and hence
 
 Divergent spacing and zero density still do not imply eventual absence of
 down-steps.
+
+## Lemma 60 (weighted rebound budget)
+
+On a pre-absorption interval \([u,n)\), let \(P_{u,n}\) count up-steps and,
+for each down-step \(k\), put
+
+\[
+\rho_k=\max\left\{0,
+\left\lfloor\log_2\frac{k}{q_k}\right\rfloor-2\right\}.
+\]
+
+Then
+
+\[
+\sum_{\substack{u\le k<n\\a_k=-1}}\rho_k
+\le P_{u,n}+\lfloor\log_2n\rfloor. \tag{8.5}
+\]
+
+Indeed, Theorem 22 forces \(\rho_k\) up-steps immediately after the
+down-step. These charged blocks are disjoint. All are counted by \(P_{u,n}\)
+except possibly the final block crossing the right endpoint, whose length is
+at most \(\lfloor\log_2n\rfloor\). \(\square\)

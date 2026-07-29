@@ -74,6 +74,7 @@ classification is the point: nothing is promoted without a proof.
 | **C57** | Every counterexample has the explicit unit-leading rate $q_n\ge(1-O(1/\log\log n))n/\log_2n-O_m(1)$ | `sharp-counterexample-growth.md` | **Corollary - new; fresh audit pending** |
 | **T58** | In every sublinear counterexample, down-steps have zero density in time and among quotient changes, their individual spacings diverge, and $q_n/C(n)\to1$ | `sparse-downstep-analysis.md` | **Theorem - new; fresh audit pending** |
 | **C59** | Every counterexample either has positive $\limsup q_n/n$, or belongs to the sparse-downstep sublinear class of T58 | `sparse-downstep-analysis.md` | **Corollary - new; fresh audit pending** |
+| **L60** | On every finite interval, the total logarithmic rebound weight of down-steps is bounded by the up-step count plus one logarithmic endpoint loss | `sparse-downstep-analysis.md` | **Lemma - new; fresh audit pending** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**

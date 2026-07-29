@@ -125,3 +125,39 @@ fn low_window_downstep_charge_holds_on_arbitrary_states() {
     }
     assert!(checked > 100_000, "window test too weak: {checked}");
 }
+
+#[test]
+fn weighted_rebound_budget_holds_on_arbitrary_prefixes() {
+    let mut checked = 0u64;
+    for initial_n in [128u64, 256, 512] {
+        let stride = initial_n / 32;
+        for initial_q in 1..=8 {
+            for initial_r in (0..initial_n).step_by(stride as usize) {
+                let mut state = State {
+                    n: initial_n,
+                    q: initial_q,
+                    r: initial_r,
+                };
+                let mut ups = 0u64;
+                let mut weight = 0u64;
+                for _ in 0..500 {
+                    let change = dq(state);
+                    if change == 1 {
+                        ups += 1;
+                    } else if change == -1 {
+                        assert!(state.q >= 1);
+                        weight += (state.n / state.q).ilog2().saturating_sub(2) as u64;
+                    }
+                    let endpoint_log = (state.n + 1).ilog2() as u64;
+                    assert!(
+                        weight <= ups + endpoint_log,
+                        "state={state:?} weight={weight} ups={ups}"
+                    );
+                    checked += 1;
+                    state = step(state);
+                }
+            }
+        }
+    }
+    assert!(checked > 300_000, "weighted test too weak: {checked}");
+}

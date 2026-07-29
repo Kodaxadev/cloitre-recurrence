@@ -168,3 +168,54 @@ infinite-down counterexample to sparse interruptions separated by
 increasingly long one-sided segments. The current safe-map theorem does not
 give a uniform termination time for those segments, so divergent spacing
 still does not imply that down-steps occur only finitely often.
+
+## Lemma 60: weighted rebound budget
+
+On any pre-absorption digit interval \([u,n)\) after entry, let \(P_{u,n}\)
+be the number of up-steps. For every down-step index \(k\in[u,n)\), put
+
+\[
+\rho_k=
+\max\left\{0,\left\lfloor\log_2\frac{k}{q_k}\right\rfloor-2\right\}.
+\]
+
+Then
+
+\[
+\boxed{\displaystyle
+\sum_{\substack{u\le k<n\\a_k=-1}}\rho_k
+\le P_{u,n}+\lfloor\log_2n\rfloor.} \tag{60.1}
+\]
+
+Thus deep down-steps consume a quantitatively disjoint budget of subsequent
+up-steps; only the final charged block can cross the right endpoint.
+
+### Proof
+
+At a down-step \(q_k\ge1\). If \(\rho_k\ge1\), then
+
+\[
+2^{\rho_k+2}q_k\le k.
+\]
+
+For \(s=\rho_k\), the difference between this lower bound for \(k+1\) and
+Theorem 22's sufficient right side is at least
+
+\[
+(2^{s+1}+1)q_k-2^{s+1}+2s+3\ge2s+4.
+\]
+
+Thus Theorem 22 applies, so
+\(a_{k+1},\ldots,a_{k+\rho_k}\) are all up-steps. Charged blocks belonging
+to distinct down-steps are disjoint, because no down-step can occur inside
+one of them.
+
+Every block contained in \([u,n)\) is therefore counted by \(P_{u,n}\).
+If a block crosses \(n\), it belongs to the last down-step in the interval,
+and there can be no second crossing block. Its omitted length is at most
+
+\[
+\rho_k\le\lfloor\log_2 k\rfloor\le\lfloor\log_2n\rfloor.
+\]
+
+Adding this single endpoint allowance proves (60.1). \(\square\)

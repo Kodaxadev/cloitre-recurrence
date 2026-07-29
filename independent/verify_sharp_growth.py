@@ -181,6 +181,32 @@ def check_low_window_counts() -> int:
     return checked
 
 
+def check_weighted_rebound_budget() -> int:
+    checked = 0
+    for initial_n in (128, 256, 512):
+        stride = initial_n // 32
+        for initial_q in range(1, 9):
+            for initial_r in range(0, initial_n, stride):
+                state = State(initial_n, initial_q, initial_r)
+                ups = 0
+                weight = 0
+                for _ in range(500):
+                    change = digit(state)
+                    if change == 1:
+                        ups += 1
+                    elif change == -1:
+                        assert state.q >= 1
+                        weight += max(
+                            0,
+                            (state.n // state.q).bit_length() - 3,
+                        )
+                    endpoint_log = (state.n + 1).bit_length() - 1
+                    assert weight <= ups + endpoint_log
+                    checked += 1
+                    state = step(state)
+    return checked
+
+
 def main() -> None:
     cascades = check_parameterized_cascades()
     explicit_rebounds = check_explicit_rebound_lengths()
@@ -188,21 +214,24 @@ def main() -> None:
     explicit = check_explicit_rate()
     endpoints = check_floor_endpoints()
     windows = check_low_window_counts()
+    weighted = check_weighted_rebound_budget()
     assert cascades > 1_000
     assert explicit_rebounds > 100_000
     assert growth > 100_000
     assert explicit > 100_000
     assert endpoints > 900_000
     assert windows > 100_000
+    assert weighted > 300_000
     print(f"parameterized rebound cascades checked: {cascades}")
     print(f"explicit rebound-length states checked: {explicit_rebounds}")
     print(f"finite sharp-growth inequalities checked: {growth}")
     print(f"explicit unit-leading rate checks: {explicit}")
     print(f"floor-threshold endpoints checked: {endpoints}")
     print(f"low-window counting prefixes checked: {windows}")
+    print(f"weighted rebound-budget prefixes checked: {weighted}")
     print(
-        "VERDICT: bounded raw checks agree with Theorems 56/58 "
-        "and Corollaries 57/59."
+        "VERDICT: bounded raw checks agree with Theorems 56/58, "
+        "Lemma 60, and Corollaries 57/59."
     )
 
 
