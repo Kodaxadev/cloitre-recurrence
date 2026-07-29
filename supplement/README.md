@@ -38,8 +38,9 @@ Lemma 47's signed coordinates, Corollary 48's even-witness predecessor,
 Lemma 49's quotient clearance, Theorem 50's complementary-residue
 constructions, and Lemma 51--Corollary 52's accelerated zero-epoch formulas
 directly from raw \((n,q,e)\) thresholds. It also checks Lemma 53's
-autonomous overshoot and Theorem 55's positive-block bound; it is not a
-substitute for their symbolic proofs.
+autonomous overshoot, Theorem 55's positive-block bound, and Lemma 80's
+wrap-block state-window inequalities; it is not a substitute for their
+symbolic proofs.
 `independent/verify_sharp_growth.py` separately checks Theorem 56's
 parameterized rebound implication on arbitrary states and its finite
 inequality on literal starting orbits. It also tests Corollary 57's

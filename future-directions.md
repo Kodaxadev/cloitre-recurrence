@@ -120,6 +120,14 @@ satisfy `U_n+2e_n>=n+1`, or that the pure orbit captures. The compressed
 index and shows an apparent `O(sqrt(n))` lifetime. A uniform upper bound of any
 finite form would rule out eventual monotone escape.
 
+Lemma 80 and Corollary 81 now rule out long wrap blocks as the missing
+mechanism: every positive block satisfies \(2^kU<n\), and an infinite safe
+path has \(k\le\log_2\log_2n+o(1)\). Corollary 82 also forces at least
+\((1-o(1))n/(\log n\log\log n)\) completed positive blocks by a zero epoch.
+The remaining target must therefore control the residues of these frequent
+aperiodic bounded or slowly growing blocks, rather than force one block to
+exceed the state window.
+
 ## 7. Resolve the low-order mixed-ridge defect
 
 Lemma 73 now encodes every zero in an arbitrary ridge by

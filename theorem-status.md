@@ -94,6 +94,9 @@ classification is the point: nothing is promoted without a proof.
 | **T77** | A sublinear infinite-down counterexample either has growing terminal runs and Theorem 75 complexity, or shadows one fixed dyadic boundary ladder infinitely often | `mixed-ridge-analysis.md` | **Theorem - new; fresh audit pending; exhaustive dichotomy, not termination** |
 | **L78** | Every terminal positive up-run satisfies an exact endpoint equation and the finite state-window bound $2^R(Q+4)\le t+Q+2R+3$ | `terminal-run-analysis.md` | **Lemma - new; fresh audit pending** |
 | **C79** | In a sublinear counterexample every terminal run has $2^R\le(1+o(1))\log_2t$ and $R\le\log_2\log_2t+o(1)$ | `terminal-run-analysis.md` | **Corollary - new; fresh audit pending; ceiling, not termination** |
+| **L80** | A positive safe-map wrap block satisfies the exact state-window bounds $2^k(U+4)<n+k+4$ and $2^kU<n$ | `safe-wrap-run-analysis.md` | **Lemma - new; fresh audit pending** |
+| **C81** | Along an infinite safe path every sufficiently late wrap block has $k\le\log_2\log_2n+o(1)$ | `safe-wrap-run-analysis.md` | **Corollary - new; fresh audit pending; ceiling, not termination** |
+| **C82** | Along an infinite safe path the number $B(n)$ of completed positive wrap blocks satisfies $\liminf B(n)\log_2n\log_2\log_2n/n\ge1$ at zero epochs | `safe-wrap-run-analysis.md` | **Corollary - new; fresh audit pending; recurrence rate, not termination** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**

@@ -33,7 +33,9 @@ would require exponentially large local parameters infinitely often. An exact
 defect expansion extends the compatibility law to arbitrary mixed ridges and
 reduces the sublinear infinite-down branch to growing terminal complexity or
 infinitely many shadows of one fixed dyadic boundary ladder. The growing
-terminal runs are themselves bounded by \(\log_2\log_2 n+o(1)\).
+terminal runs are themselves bounded by \(\log_2\log_2 n+o(1)\). In the
+eventually-no-down branch, safe-map wrap blocks obey the same
+double-logarithmic ceiling.
 
 ## Manuscript assembly
 
@@ -52,6 +54,7 @@ files in order:
 10. [`10-ridge-chains.md`](10-ridge-chains.md)
 11. [`11-mixed-ridges.md`](11-mixed-ridges.md)
 12. [`12-terminal-run-ceiling.md`](12-terminal-run-ceiling.md)
+13. [`13-safe-wrap-ceiling.md`](13-safe-wrap-ceiling.md)
 
 Only definitions, statements, proofs, and explicit claim boundaries belong
 here. Algorithms, benchmarks, certificates, and reproduction instructions
@@ -65,8 +68,8 @@ corollary. Theorem numbering follows `../theorem-status.md` to preserve
 traceability to the frozen research snapshot
 `f19ffcd75d04a05529878ce0226088f2f3221c0b`.
 Theorems 46, 50, 55, 56, 58, 69, 72, 75, and 77; Proposition 66; Lemmas
-47, 49, 51, 53, 60, 62, 63, 65, 67, 68, 70, 73, 76, and 78; and
-Corollaries 48, 52, 54, 57, 59, 61, 64, 71, 74, and 79 are post-freeze
+47, 49, 51, 53, 60, 62, 63, 65, 67, 68, 70, 73, 76, 78, and 80; and
+Corollaries 48, 52, 54, 57, 59, 61, 64, 71, 74, 79, 81, and 82 are post-freeze
 additions
 and have not yet received the fresh-context audit applied to the frozen
 theorem chain.

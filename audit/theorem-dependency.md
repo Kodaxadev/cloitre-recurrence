@@ -106,6 +106,11 @@ flowchart TD
   L63 --> L78
   L78 --> C79["C79 log-log terminal-run ceiling"]
   T56 --> C79
+  L53 --> L80["L80 safe wrap-block state-window bound"]
+  L80 --> C81["C81 log-log safe wrap-block ceiling"]
+  T45 --> C81
+  C81 --> C82["C82 quantitative positive-block recurrence"]
+  T45 --> C82
 
   T24 --> O1["Open branch A: infinitely many down-steps"]
   T38 --> O1
@@ -121,6 +126,8 @@ flowchart TD
   L42 --> O2
   T55 --> O2
   T56 --> O2
+  C81 --> O2
+  C82 --> O2
   U["Uniform termination of the safe map"] -->|would eliminate| O2
   O1 --> CJ["Original stabilization conjecture remains open"]
   O2 --> CJ
@@ -133,7 +140,7 @@ flowchart TD
   classDef compute fill:#e5efff,stroke:#3566a8,color:#13243d;
   classDef open fill:#fff1d6,stroke:#ad6b00,color:#422900;
   classDef formal fill:#eee4ff,stroke:#6542a6,color:#261642;
-  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64,L65,P66,L67,L68,T69,L70,C71,T72,L73,C74,T75,L76,T77,L78,C79 proof;
+  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64,L65,P66,L67,L68,T69,L70,C71,T72,L73,C74,T75,L76,T77,L78,C79,L80,C81,C82 proof;
   class K1,K11,K13,C46 compute;
   class O1,O2,U,CJ open;
   class F formal;
@@ -191,6 +198,14 @@ flowchart TD
     only logarithmic-sized local parameters, so the two results do not
     contradict one another.
 
+11. **Corollary 81 is also only a ceiling.** It improves the safe-map
+    wrap-run bound to the log-log scale by using accumulated quotient growth.
+    It does not exclude bounded or aperiodic wrap-block sequences.
+
+12. **Corollary 82 is recurrence, not capture.** It forces positive blocks
+    on the \(n/(\log n\log\log n)\) scale, but does not control their residues
+    relative to the moving terminating strip.
+
 ## Audit priority
 
 | Priority | Chain | Evidence required |
@@ -217,3 +232,5 @@ flowchart TD
 | 20 | T6 and L63 -> L73 -> C74 -> T75 | Mixed-zero weights and indices, last-zero divisibility, adjacent cancellation, positive-integer descent, and the distinction between initial and terminal up-runs |
 | 21 | L73 -> L76, then T58, L63, T75 -> T77 | Last-positive-zero indexing, endpoint constants, fixed-value subsequence, pure-ridge exclusion from growing initial rebounds, and every normalized ladder limit |
 | 22 | T6 and L63 -> L78, then T56 -> C79 | Terminal-run start/end indices, state-window lower bound, terminal-magnitude upper bound, preliminary logarithmic run bound, and order of the two asymptotic substitutions |
+| 23 | L53 -> L80, then T45 -> C81 | Minimality at the preceding wrap threshold, strict endpoint, accumulated-quotient lower bound, and asymptotic order |
+| 24 | T45 and C81 -> C82 | Uniform late-block ceiling, finite-prefix removal, zero-epoch wrap accounting, and order of limits |

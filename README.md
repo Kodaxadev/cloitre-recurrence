@@ -128,6 +128,7 @@ Stabilization is exactly the event \(e_n=0\). This exposes the dynamics as a dou
 | Pure unit-terminal ridges cannot repeat indefinitely | New internal proof | Theorem 69 excludes three consecutive \(v=1\) ridges; arbitrary \(v\) requires Theorem 72, while mixed positive words remain open |
 | Infinite arbitrary-\(v\) pure tails require exponential local complexity | New internal proof | Theorem 72; conditional on every sufficiently late ridge having word \(1^K0^z\), while mixed positive words remain open |
 | Arbitrary mixed ridges reduce to two exact escape modes | New internal proof | Lemmas 73/76/78 and Theorems 75/77: either terminal runs grow, necessarily no faster than \(\log_2\log_2 n+o(1)\), or one fixed dyadic boundary ladder is shadowed infinitely often; neither mode is yet excluded |
+| Safe-map wrap blocks are short but quantitatively recurrent | New internal proof | Lemma 80 and Corollaries 81/82 give \(2^kU<n\), \(k\le\log_2\log_2n+o(1)\), and at least \((1-o(1))n/(\log_2n\log_2\log_2n)\) completed positive blocks by a zero epoch; these are restrictions, not termination |
 | No eventually periodic quotient-change sequence | Internally proved | Complete proof; awaiting external mathematical review |
 | Two-counter termination for every valid entry state | **Open** | Only the eventually-no-down branch is reduced |
 | Safe-map instance at \(N=10^6\) | Certified finite result | Independent Rust/Python agreement |
@@ -199,6 +200,7 @@ The Lean development compiles without `sorry`, but it does **not** formalize the
 | [`ridge-chain-analysis.md`](ridge-chain-analysis.md) | unit and arbitrary-terminal pure-ridge compatibility, dyadic congruence, and conditional complexity obstruction |
 | [`mixed-ridge-analysis.md`](mixed-ridge-analysis.md) | arbitrary mixed-ridge defect, terminal-run congruence, and exhaustive dyadic boundary-ladder dichotomy |
 | [`terminal-run-analysis.md`](terminal-run-analysis.md) | exact state-window inequality and log-log ceiling for terminal positive up-runs |
+| [`safe-wrap-run-analysis.md`](safe-wrap-run-analysis.md) | exact state-window inequality and log-log ceiling for safe-map wrap blocks |
 | [`symbolic-analysis.md`](symbolic-analysis.md) | doubling model, heuristics, and failures |
 | [`compressed-orbit-analysis.md`](compressed-orbit-analysis.md) | compression design and rejected approaches |
 | [`invariant-search.md`](invariant-search.md) | negative invariant and potential searches |
@@ -207,6 +209,7 @@ The Lean development compiles without `sorry`, but it does **not** formalize the
 | [`research-log-aperiodic.md`](research-log-aperiodic.md) | continuation chronology |
 | [`research-log-ridge-chains.md`](research-log-ridge-chains.md) | arbitrary-terminal ridge-chain derivation and rejected monotonicity routes |
 | [`research-log-mixed-ridges.md`](research-log-mixed-ridges.md) | mixed-ridge derivation, bounded falsification, and surviving low-bit target |
+| [`research-log-safe-wraps.md`](research-log-safe-wraps.md) | safe-wrap balance dead end, log-log ceiling, and quantitative block recurrence |
 | [`future-directions.md`](future-directions.md) | ranked unresolved directions |
 
 </details>

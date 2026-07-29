@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Independent checks for Theorems 46/50/55 and Lemmas 47/49/51/53.
+"""Independent checks for Theorems 46/50/55 and Lemmas 47/49/51/53/80.
 
 This verifier uses raw `(n,q,e)` inequalities and imports no project code.
 It is a finite regression check, not the proof of either symbolic statement.
@@ -207,6 +207,11 @@ def check_autonomous_overshoot(state: State) -> int:
     assert (1 << (wraps + 1)) * overshoot == (
         next_overshoot + current.n + 2
     )
+    if wraps:
+        assert (1 << wraps) * (state.q + 4) < (
+            state.n + wraps + 4
+        )
+        assert (1 << wraps) * state.q < state.n
     if outcome is None:
         assert next_overshoot <= current.q + 3
     else:
@@ -347,7 +352,7 @@ def main() -> None:
     print(f"boundary equality cases checked: {equality_cases_checked}")
     print(
         "VERDICT: bounded raw checks agree with Theorems 46/50/55, "
-        "Lemmas 47/49/51/53, and Corollaries 48/52/54."
+        "Lemmas 47/49/51/53/80, and Corollaries 48/52/54."
     )
 
 

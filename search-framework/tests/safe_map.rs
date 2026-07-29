@@ -132,6 +132,11 @@ fn accelerated_zero_epoch_matches_safe_map() {
                     assert!(scale(j) < u128::from(w + wraps + u64::from(j) + 5));
                 }
                 assert!(scale(run) >= u128::from(w + wraps + u64::from(run) + 5));
+                if run > 0 {
+                    let prior = (1u128 << run) * u128::from(wraps + slack + 4);
+                    assert!(prior < u128::from(w + wraps + u64::from(run) + 4));
+                    assert!((1u128 << run) * u128::from(wraps) < u128::from(w + wraps));
+                }
 
                 let candidate = i128::try_from(scale(run)).unwrap()
                     - i128::from(w)
