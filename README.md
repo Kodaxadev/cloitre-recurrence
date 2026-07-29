@@ -133,6 +133,7 @@ Stabilization is exactly the event \(e_n=0\). This exposes the dynamics as a dou
 | Unit-wrap gates have an exact boundary test | New internal proof | Lemmas 85/87, Corollaries 86/88/89, and Theorem 90 give an affine map on \((n,D,s)\), isolate non-short gates, and force every infinite all-unit/all-unique chain onto the exact critical scale \(D_j\sim j\log_2j\) and \(U_j\log_2n_j/n_j\to1\); this is not termination |
 | An eventual all-unit, all-unique safe tail is impossible | New internal proof | Theorem 91 turns the critical scale into bounded excess and a six-value dyadic offset; the resulting finite affine-dyadic forms cannot support two starts in one large dyadic epoch, although \(O(\log n)\) index advances force such pairs |
 | A persistent parent-boundary safe tail is impossible | New internal proof | Lemmas 92/94/96/98/100 and Theorem 101 first reduce the tail to fixed block length, then force its gaps both to increase strictly and to have bounded mean; every infinite safe path must instead use infinitely many nonunique or unique child-boundary gates |
+| Interior gates occupy one canonical moving window | New internal proof | Lemmas 103/106 and Corollaries 104/105/107--109 rewrite the two surviving interior conditions as one exact window \(D'-3\in[\rho,\rho+H)\); every infinite safe path has infinitely many nonunique gates or zero-density longer-child resets with \(r/\log_2n'\to1\), and neither alternative is excluded |
 | No eventually periodic quotient-change sequence | Internally proved | Complete proof; awaiting external mathematical review |
 | Two-counter termination for every valid entry state | **Open** | Only the eventually-no-down branch is reduced |
 | Safe-map instance at \(N=10^6\) | Certified finite result | Independent Rust/Python agreement |
@@ -212,6 +213,7 @@ The Lean development compiles without `sorry`, but it does **not** formalize the
 | [`general-gate-boundary-analysis.md`](general-gate-boundary-analysis.md) | exact two-boundary uniqueness test for positive blocks of arbitrary length |
 | [`parent-boundary-gate-analysis.md`](parent-boundary-gate-analysis.md) | affine parent-layer compatibility and nonincreasing block lengths |
 | [`parent-gap-exclusion.md`](parent-gap-exclusion.md) | strict gap growth and exclusion of the persistent parent boundary |
+| [`child-boundary-window.md`](child-boundary-window.md) | canonical residue decomposition and exact interior uniqueness window |
 | [`symbolic-analysis.md`](symbolic-analysis.md) | doubling model, heuristics, and failures |
 | [`compressed-orbit-analysis.md`](compressed-orbit-analysis.md) | compression design and rejected approaches |
 | [`invariant-search.md`](invariant-search.md) | negative invariant and potential searches |
@@ -221,6 +223,7 @@ The Lean development compiles without `sorry`, but it does **not** formalize the
 | [`research-log-ridge-chains.md`](research-log-ridge-chains.md) | arbitrary-terminal ridge-chain derivation and rejected monotonicity routes |
 | [`research-log-mixed-ridges.md`](research-log-mixed-ridges.md) | mixed-ridge derivation, bounded falsification, and surviving low-bit target |
 | [`research-log-parent-gaps.md`](research-log-parent-gaps.md) | fixed-length parent-gap exclusion and surviving child-boundary target |
+| [`research-log-child-window.md`](research-log-child-window.md) | child-window derivation and orbitwise-equidistribution warning |
 | [`research-log-safe-wraps.md`](research-log-safe-wraps.md) | safe-wrap balance dead end, log-log ceiling, and quantitative block recurrence |
 | [`future-directions.md`](future-directions.md) | ranked unresolved directions |
 
@@ -237,6 +240,7 @@ cargo run --release --manifest-path verification-framework/Cargo.toml -- --selft
 python verification-framework/verify.py --oeis
 python independent/verify_small_spectrum.py
 python independent/verify_mixed_ridges.py
+python independent/verify_child_boundary_window.py
 python scripts/periodic_phase_blocks.py --max-denominator 501
 lake build
 lean lean/Conjecture.lean

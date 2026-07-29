@@ -90,6 +90,20 @@ rejects the two formal decreasing-gap exceptions by their exact state-bound
 and parity failures. The native Rust test independently reproduces the same
 five transitions. Theorem 101 itself is symbolic.
 
+`independent/verify_child_boundary_window.py` reuses the independent raw
+transition enumerator, but not project dynamics code, to check Lemma 103 on
+27,030 gates and Corollary 104 on 25,646 interior gates. It finds 7,380 first-window unique
+gates and 18,266 later-window nonunique gates, with exact agreement in both
+directions. It also exhausts all residues for 30 bounded \((k,r)\) pairs to
+check Corollary 105's permutation statement. The native Rust gate census
+independently checks the canonical residue, translate decomposition, and
+window iff condition through the primary safe-map implementation. These
+finite checks support the identities; they do not prove orbitwise
+equidistribution or termination. Python checks Lemma 106's exact next-block
+band and Corollary 107's unit-versus-long threshold on all 8,411 unique
+gates in its raw census; the native Rust census independently checks the
+same statements on its 9,718 unique gates.
+
 The exploratory Rust binary `gate_chain` searches these chains without
 assuming that the accumulated quotient is zero. Exhausting all 20,771,000
 valid positive-block zero epochs with \(2\le n\le1000\) found seven

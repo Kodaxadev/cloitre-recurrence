@@ -298,6 +298,19 @@ flowchart TD
     forces infinitely many interior starts, but their gates may be nonunique
     or may use the child boundary. Neither surviving mechanism is excluded.
 
+23. **Corollary 104 combines alternatives but does not give orbitwise
+    randomness.** Lemma 103 turns every interior gate into one canonical
+    window, and Corollary 105 permutes residues only when \(k,r\) are fixed
+    and \(n\) ranges freely. A single safe orbit supplies a dependent sequence
+    with changing parameters, so no equidistribution or capture conclusion
+    follows.
+
+24. **Corollary 107 forces scale, not scarcity.** A unique gate
+    leading to a longer child block has an almost-logarithmic zero-only gap.
+    Corollary 82's lower block-frequency bound still permits sparse events
+    of this size. Corollary 109 gives zero density in absolute time, but
+    neither finiteness nor a contradiction follows.
+
 ## Audit priority
 
 | Priority | Chain | Evidence required |
@@ -338,3 +351,7 @@ flowchart TD
 | 34 | L53 and L94 -> L96 -> C97 | Returned-residue identity, sharp bound on returned residue plus gap, stopping test at the preceding block length, and the nonincreasing-integer tail argument |
 | 35 | C97 and L94 -> L98, then L98 and C95 -> T99 | Telescoping defect bits, bounded-gap slope separation, equal-gap singular obstruction, logarithmic gap ceiling, and Cesaro endpoint control |
 | 36 | L98 and C95 -> L100, then C97, L100, and T99 -> T101 -> C102 | Power-of-two divisibility for decreasing gaps, both zero-gap exceptional cases, strict-growth versus bounded-mean contradiction, and exact surviving gate alternatives |
+| 37 | L83 and L92 -> L103 -> C104 and C105 | Parent parity lift, least-positive residue convention, nonnegative translate, successor-defect identity, exact first-window equivalence, and odd-coefficient invertibility modulo a power of two |
+| 38 | L53, L83, and L103 -> L106 -> C107, with C81 | Child overshoot collapse, both stopping-test endpoints, unit-versus-long dichotomy, canonical-origin lower scale, general gate upper endpoint, index-safe substitution of the wrap ceiling, and the resulting ratio squeeze |
+| 39 | T91 and C107 -> C108 | Exact negation of eventual nonuniqueness, conversion of non-eventual unit length to infinitely many longer child blocks, and application at each preceding unique gate |
+| 40 | C107 -> C109 | Uniform late ratio bound, split at child index \(\sqrt N\), disjointness of adjacent zero-only gaps, and conversion from total gap length to a counting bound |

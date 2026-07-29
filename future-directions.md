@@ -256,10 +256,41 @@ uniqueness forces the child boundary
 2d'<2^{k+r+3}.
 \]
 
-The next target is to show that child-boundary resets cannot recur
-indefinitely without producing the nonunique lower-neighbor condition
-\(x>2^{k+r+3}\), then accumulate the latter across Corollary 82's frequent
-positive blocks.
+Lemma 103 and Corollary 104 combine these into one exact test. With
+\(H=2^{k+r+3}\) and the explicit canonical origin \(\rho_{k,r}(n)\), an
+interior gate is unique exactly when
+
+\[
+\rho\le D'-3<\rho+H;
+\]
+
+a miss into any later translate is exactly nonuniqueness. Corollary 105 says
+the origin permutes all dyadic residues for fixed \(k,r\), but it does not
+give equidistribution along the dependent orbit.
+
+**Do:** derive an inter-gate law for the window displacement
+\(D'-3-\rho\). Show either that repeated first-window hits force a forbidden
+parameter repetition/periodicity, or that later-window misses occur with a
+frequency that can be accumulated across Corollary 82's frequent positive
+blocks.
+
+Lemma 106 supplies the first inter-gate law:
+\(2A'=n'+5-\rho\), so the child block is unit exactly when
+\(2\rho\le n'+4\). Corollaries 107--108 sharpen the exhaustive frontier.
+Every infinite safe path has infinitely many nonunique gates, or infinitely
+many unique longer-child gates whose gaps satisfy
+
+\[
+\frac r{\log_2n'}\longrightarrow1.
+\]
+
+Corollary 109 shows that the latter reset gates number only
+\(O(N/\log N)\) through index \(N\). Their zero density in absolute time does
+not make them finite or sparse among positive blocks.
+
+**Do next:** treat those near-maximal gaps as renewal points. Derive the
+state map from one such reset to the next across the intervening unit blocks,
+while keeping the nonunique alternative as the exact complementary event.
 
 ## 7. Resolve the low-order mixed-ridge defect
 

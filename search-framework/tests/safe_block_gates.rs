@@ -174,6 +174,48 @@ fn adjacent_positive_blocks_obey_the_dyadic_gate() {
                     || (parent_d >= 2
                         && 2 * u128::from(child_d) >= spacing);
                 assert_eq!(candidates.len() >= 2, boundary_multiple);
+                let parent_n = block.start.n();
+                let canonical_expression = (1i128 << (r + 2))
+                    * i128::from(parent_n + u64::from(block.wraps) + 4)
+                    - (1i128 << (block.wraps + r + 2)) * i128::from(parent_n)
+                    - i128::from(parent_n + u64::from(block.wraps) + u64::from(r) + 4);
+                let spacing_signed = 1i128 << (block.wraps + r + 3);
+                let residue = canonical_expression.rem_euclid(spacing_signed);
+                let rho =
+                    if residue == 0 { spacing } else { u128::try_from(residue).unwrap() };
+                assert_eq!((excess - 1) % spacing + 1, rho);
+                let translate = (excess - rho) / spacing;
+                assert_eq!(
+                    u128::from(numerator),
+                    rho + translate * spacing + 2 * u128::from(child_d)
+                );
+                if parent_d >= 2 {
+                    let numerator128 = u128::from(numerator);
+                    let window_unique = rho <= numerator128 && numerator128 < rho + spacing;
+                    assert_eq!(candidates.len() == 1, window_unique);
+                    assert_eq!(candidates.len() >= 2, numerator128 >= rho + spacing);
+                }
+                if candidates.len() == 1 {
+                    let child_a = next_start.n() + 4 - 2 * next_start.e;
+                    let child_k = blocks[next_positive].wraps;
+                    let child_base = u128::from(next_start.n() + 5) - rho;
+                    assert_eq!(2 * u128::from(child_a), child_base);
+                    let prior = (1u128 << (child_k - 1)) * child_base;
+                    let stop = (1u128 << child_k) * child_base;
+                    assert!(prior < u128::from(
+                        next_start.n() + u64::from(child_k) + 4
+                    ));
+                    assert!(stop >= u128::from(
+                        next_start.n() + u64::from(child_k) + 5
+                    ));
+                    assert_eq!(
+                        child_k == 1,
+                        2 * rho <= u128::from(next_start.n() + 4)
+                    );
+                    if child_k >= 2 {
+                        assert!(2 * spacing > u128::from(next_start.n() + 4));
+                    }
+                }
                 if parent_d <= 1 && child_d <= 1 {
                     assert!(blocks[next_positive].wraps <= block.wraps);
                 }
