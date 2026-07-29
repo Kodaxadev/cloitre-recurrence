@@ -206,8 +206,11 @@ x>H\quad\text{or}\quad(d\ge2\text{ and }2d'\ge H).
 **Do:** classify consecutive unique gates in the parent layer \(d\le1\)
 for arbitrary \(k\). A bounded affine search through
 \(k,k',r,r'\le16\) finds only three patterns, but no uniform parameter
-bound is proved. In the complementary interior layer, accumulate the sharp
-inequality \(G+r-3<2^{k+r+4}\) together with the block-count lower bound.
+bound is proved. Corollary 95 eliminates a hidden singular family: every
+fixed tuple has at most one rational start. The task is therefore to bound
+the unbounded parameters themselves. In the complementary interior layer,
+accumulate the sharp inequality \(G+r-3<2^{k+r+4}\) together with the
+block-count lower bound.
 
 ## 7. Resolve the low-order mixed-ridge defect
 

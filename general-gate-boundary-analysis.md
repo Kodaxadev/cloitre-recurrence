@@ -224,3 +224,86 @@ For the parent-boundary classification target, all three defects lie in
 \(\{0,1\}\). Thus Lemma 94 reduces any fixed pair of block/gap parameters
 to one divisibility and validity check. The parameters themselves remain
 unbounded, so this reduction is not a finite proof.
+
+## Corollary 95 (no singular parent-boundary family)
+
+Suppose three consecutive positive-block starts have
+
+\[
+d,d',d''\in\{0,1\}.
+\]
+
+Then their two block/gap parameter pairs
+\((k,r)\) and \((\ell,r')\) determine at most one rational starting pair
+\((n,U)\). In particular, the determinant-zero case of Lemma 94 contains no
+valid integral state.
+
+### Proof
+
+For one parameter pair define
+
+\[
+R(k,r)=
+\frac{2^{k+r+1}-1}{2^{r+1}-1}
+=2^k+\frac{2^k-1}{2^{r+1}-1}.
+\]
+
+For fixed \(k\), this is strictly decreasing in \(r\). If \(\ell<k\), then
+
+\[
+R(\ell,r')\le2^{\ell+1}-1\le2^k-1<R(k,r).
+\]
+
+Thus the determinant in (94.2) vanishes exactly when
+
+\[
+(k,r)=(\ell,r'). \tag{95.1}
+\]
+
+Assume (95.1), put \(a=2^{r+1}\), and equate the two right sides after the
+known index and quotient increments are moved across. Direct simplification
+gives
+
+\[
+a(M-r-1)=d''-d'-(r+1), \tag{95.2}
+\]
+
+where
+
+\[
+M=k(2^k-1)-2^k(d-d').
+\]
+
+If \(r\ge1\), the right side of (95.2) has absolute value at most \(r+2\),
+whereas every nonzero left side has absolute value at least
+\(2^{r+1}>r+2\). A zero left side is also impossible because the right side
+is then at most \(-r<0\).
+
+Let \(r=0\). Equation (95.2) becomes
+
+\[
+2(M-1)=d''-d'-1.
+\]
+
+Checking the three possible right-side values shows that compatibility
+forces
+
+\[
+(k,r,d,d',d'')=(1,0,0,0,1).
+\]
+
+For these values, (94.1) is
+
+\[
+3U-n=-7.
+\]
+
+Hence \(n-U-d=2U+7\) is odd, contradicting the parity needed for the
+integral residue
+
+\[
+e=(n-U-d)/2.
+\]
+
+Therefore no valid state lies in the singular case. Lemma 94 now gives the
+claimed uniqueness for every fixed parameter tuple. \(\square\)

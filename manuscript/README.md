@@ -84,7 +84,7 @@ traceability to the frozen research snapshot
 `f19ffcd75d04a05529878ce0226088f2f3221c0b`.
 Theorems 46, 50, 55, 56, 58, 69, 72, 75, 77, 90, and 91; Proposition 66; Lemmas
 47, 49, 51, 53, 60, 62, 63, 65, 67, 68, 70, 73, 76, 78, 80, 83, 85, 87, 92, and 94; and
-Corollaries 48, 52, 54, 57, 59, 61, 64, 71, 74, 79, 81, 82, 84, 86, 88, 89, and 93 are post-freeze
+Corollaries 48, 52, 54, 57, 59, 61, 64, 71, 74, 79, 81, 82, 84, 86, 88, 89, 93, and 95 are post-freeze
 additions
 and have not yet received the fresh-context audit applied to the frozen
 theorem chain.

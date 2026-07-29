@@ -67,7 +67,9 @@ census by the exact lower-neighbor or paired-upper-boundary alternative.
 Separately, a bounded affine parameter scan through
 \(k,k',r,r'\le16\) finds three consecutive unique parent-boundary patterns.
 That last count is exploratory finite evidence, not a theorem or a claim
-that the three patterns are globally exhaustive.
+that the three patterns are globally exhaustive. The checker also isolates
+the sole determinant-zero binary-defect tuple within that grid and verifies
+the parity obstruction used symbolically in Corollary 95.
 
 The exploratory Rust binary `gate_chain` searches these chains without
 assuming that the accumulated quotient is zero. Exhausting all 20,771,000

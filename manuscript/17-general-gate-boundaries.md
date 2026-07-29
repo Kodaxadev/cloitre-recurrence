@@ -142,3 +142,47 @@ Substitution proves (17.5). Apply it again at
 When \(d,d',d''\in\{0,1\}\), this reduces every fixed parent-boundary
 parameter tuple to one rational state and its integral validity checks.
 It does not bound the parameters.
+
+## Corollary 95 (no singular parent-boundary family)
+
+If three consecutive positive-block starts have
+\(d,d',d''\in\{0,1\}\), then every fixed pair of block/gap parameters
+\((k,r),(\ell,r')\) determines at most one rational start.
+
+### Proof
+
+Put
+
+\[
+R(k,r)=\frac{2^{k+r+1}-1}{2^{r+1}-1}
+=2^k+\frac{2^k-1}{2^{r+1}-1}.
+\]
+
+This decreases strictly with \(r\). If \(\ell<k\), then
+\(R(\ell,r')\le2^{\ell+1}-1<2^k<R(k,r)\). Hence the determinant in
+(17.6) vanishes exactly when \((k,r)=(\ell,r')\).
+
+In that case compatibility of the two affine equations simplifies to
+
+\[
+2^{r+1}(M-r-1)=d''-d'-(r+1), \tag{17.7}
+\]
+
+\[
+M=k(2^k-1)-2^k(d-d').
+\]
+
+For \(r\ge1\), a nonzero left side has magnitude greater than \(r+2\), and
+a zero left side cannot equal the strictly negative right side. For \(r=0\),
+the binary defect cases leave only
+
+\[
+(k,r,d,d',d'')=(1,0,0,0,1).
+\]
+
+Equation (17.5) then reads \(3U-n=-7\), so
+\(n-U-d=2U+7\) is odd and \(e=(n-U-d)/2\) is not integral. Thus no valid
+state lies in the singular case. \(\square\)
+
+The unbounded block and gap parameters, not a singular affine family, are
+the remaining obstruction.

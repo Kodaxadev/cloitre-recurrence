@@ -109,6 +109,7 @@ classification is the point: nothing is promoted without a proof.
 | **L92** | Every arbitrary-length adjacent-block gate is unique iff its child excess is below one lattice spacing and either its parent or child defect is in the exact boundary layer | `general-gate-boundary-analysis.md` | **Lemma - new; fresh audit pending; exact localization, not termination** |
 | **C93** | Nonuniqueness occurs iff the lower child neighbor survives or both upper defects clear their boundary; an interior unique gate satisfies $G+r-3<2^{k+r+4}$ | `general-gate-boundary-analysis.md` | **Corollary - new; fresh audit pending; exact alternative, not termination** |
 | **L94** | Every arbitrary adjacent-block gate obeys an exact affine equation in $(n,U)$; two fixed consecutive parameter tuples determine at most one rational start unless their explicit determinant vanishes | `general-gate-boundary-analysis.md` | **Lemma - new; fresh audit pending; parameter reduction, not a uniform bound** |
+| **C95** | For three consecutive parent-boundary starts the affine determinant-zero case has no valid integral state, so every fixed block/gap tuple determines at most one rational start | `general-gate-boundary-analysis.md` | **Corollary - new; fresh audit pending; parameters remain unbounded** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**

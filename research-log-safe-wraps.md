@@ -283,6 +283,19 @@ Applying it to two consecutive gates produces a two-by-two linear system.
 Except when its explicit determinant vanishes, every fixed parameter tuple
 determines at most one rational start. This is Lemma 94.
 
+The determinant ratio is
+
+\[
+\frac{2^{k+r+1}-1}{2^{r+1}-1}
+=2^k+\frac{2^k-1}{2^{r+1}-1}.
+\]
+
+Its parameter ranges are disjoint for distinct \(k\), and it is strictly
+decreasing in \(r\). Thus singularity requires identical block/gap pairs.
+The remaining binary-defect equation has one formal solution, but it makes
+the starting residue half-integral. Corollary 95 therefore removes the
+singular case entirely for three parent-boundary starts.
+
 A bounded affine search for two consecutive unique gates whose three starts
 all have \(d\le1\) finds only three parameter patterns through
 \(k,k',r,r'\le16\), including the terminal unit-wrap pattern and two

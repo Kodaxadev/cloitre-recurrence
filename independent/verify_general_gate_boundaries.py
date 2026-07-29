@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bounded raw checks of Lemma 92 and Corollary 93.
+"""Bounded raw checks of Lemmas 92/94 and Corollaries 93/95.
 
 This verifier imports no project implementation. It compares the exact
 boundary test with literal gate enumeration and performs a bounded parameter
@@ -312,8 +312,8 @@ def main() -> None:
     print("unique parent-boundary triples checked for parameters <=16")
     print(f"bounded triple patterns: {len(triples)}")
     print(
-        "VERDICT: bounded raw gates agree with Lemma 92 "
-        "and Corollary 93."
+        "VERDICT: bounded raw gates agree with Lemmas 92/94 "
+        "and Corollaries 93/95."
     )
 
 

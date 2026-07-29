@@ -128,6 +128,7 @@ flowchart TD
   C84 --> L92
   L92 --> C93["C93 exact nonunique alternative"]
   L83 --> L94["L94 affine defect compatibility"]
+  L94 --> C95["C95 no singular parent-boundary family"]
 
   T24 --> O1["Open branch A: infinitely many down-steps"]
   T38 --> O1
@@ -301,3 +302,4 @@ flowchart TD
 | 30 | T90 -> T91 | Eventual gap-offset bound, uniform excess bound, finite affine-dyadic forms, same-epoch incompatibility, and forced same-epoch pairs after crossings |
 | 31 | L83 and C84 -> L92 -> C93 | Child-excess endpoints, defect identity, both adjacent lattice neighbors, parent upper-bound preservation, exact reconstruction, and logical complement |
 | 32 | L83 -> L94 | Returned-residue indexing, child-defect substitution, shifted second start, coefficient determinant, and the singular case boundary |
+| 33 | L94 -> C95 | Determinant ratio monotonicity, identical-parameter reduction, binary-defect cases, and the final parity obstruction |
