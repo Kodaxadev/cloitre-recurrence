@@ -69,7 +69,7 @@ flowchart TD
   L53 --> C54["C54 sparse dyadic coding"]
   L51 --> T55["T55 forced double-zero recurrence"]
   L44 --> T55
-  T22 --> T56["T56 universal sharp logarithmic growth"]
+  T22 --> T56["T56 universal unit-leading logarithmic growth"]
   L26 --> T56
 
   T24 --> O1["Open branch A: infinitely many down-steps"]

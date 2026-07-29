@@ -1,10 +1,10 @@
-# Sharp growth without a monotonicity hypothesis
+# Unit-leading growth without a monotonicity hypothesis
 
 Theorem 27 used two forced up-steps after each sufficiently deep
 down-step and obtained a leading constant \(1/3\). The exact rebound
 cascade permits any fixed number of charged up-steps.
 
-## Theorem 56 (universal sharp logarithmic growth)
+## Theorem 56 (universal unit-leading logarithmic growth)
 
 Let \(n_0\) be the entry index and \(n\) a nonabsorbed index. For
 \(s\ge2\), put

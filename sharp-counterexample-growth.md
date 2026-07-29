@@ -1,4 +1,4 @@
-# Sharp logarithmic growth for every counterexample
+# Unit-leading logarithmic growth for every counterexample
 
 Theorem 27 proved \(q_n=\Omega_m(n/\log n)\) with explicit leading
 constant \(1/3\). The factor came from charging each down-step against
@@ -6,7 +6,7 @@ only two forced rebound steps. The exact cascade in Theorem 22 permits
 arbitrarily long fixed charges, which sharpens the limiting constant to
 one without assuming that down-steps eventually stop.
 
-## Theorem 56: universal sharp logarithmic growth
+## Theorem 56: universal unit-leading logarithmic growth
 
 Let \(n_0\) be the entry index and let \(n\ge\max(n_0,4)\) be reached
 before absorption. Fix an integer \(s\ge2\), and put
@@ -141,6 +141,7 @@ This holds for every fixed \(s\ge2\), and
 ## Significance and limitation
 
 Theorem 56 removes the factor-three loss from Theorem 27 and makes the
-sharp monotone-tail constant of Theorem 45 unconditional for every
-counterexample. It still does not force absorption: growth on the
-\(n/\log n\) scale is compatible with both unresolved branches.
+unit leading constant from Theorem 45 unconditional for every
+counterexample. This is optimal for the present zero-run counting
+argument, not proved optimal for the recurrence. It still does not force
+absorption: \(n/\log n\) growth is compatible with both open branches.
