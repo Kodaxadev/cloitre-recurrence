@@ -90,7 +90,7 @@ heuristic predicts a *positive limiting density* of unattained values.
 Proving the set is infinite is probably as hard as the main conjecture; measuring
 it is not.
 
-## 6. Equidistribution of $e_n mod (n+2)$ — the actual obstruction
+## 6. Equidistribution of $e_n \bmod (n+2)$ — the actual obstruction
 
 This section is now
 [`future-directions-safe-map.md`](future-directions-safe-map.md): the safe-map

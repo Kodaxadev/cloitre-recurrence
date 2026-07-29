@@ -232,6 +232,7 @@ The Lean development compiles without `sorry`, but it does **not** formalize the
 | [`unit-word-arithmetic.md`](unit-word-arithmetic.md) | sparse-binary endpoint equation and sharp two-renewal families |
 | [`unit-word-composition.md`](unit-word-composition.md) | exact word composition, dyadic windows, and termination of the explicit family |
 | [`unit-chain-determinism.md`](unit-chain-determinism.md) | forced-gate determinism, inert wrap count, exhaustive chain ceiling, and heuristic count |
+| [`general-gate-determinism.md`](general-gate-determinism.md) | forced pure-upper gap at arbitrary block length |
 | [`symbolic-analysis.md`](symbolic-analysis.md) | doubling model, heuristics, and failures |
 | [`compressed-orbit-analysis.md`](compressed-orbit-analysis.md) | compression design and rejected approaches |
 | [`invariant-search.md`](invariant-search.md) | negative invariant and potential searches |

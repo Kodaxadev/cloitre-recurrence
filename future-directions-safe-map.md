@@ -4,7 +4,7 @@ Extracted from [`future-directions.md`](future-directions.md) so each file
 stays inside the repository's per-file length gate. This is section 6 of that
 document, unchanged apart from this header and the section title below.
 
-## 6. Equidistribution of $e_n \bmod (n+2)$ — the actual obstruction
+## Equidistribution of $e_n \bmod (n+2)$ — the actual obstruction
 
 By Theorem 2 the conjecture is exactly "every orbit meets a multiple of $n+1$",
 and by Theorem 6 the motion between hits is doubling with a **moving modulus**.

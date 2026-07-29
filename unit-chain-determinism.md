@@ -142,10 +142,17 @@ $\mathrm{U}_{h}$ with $\mathrm{L}_h$ gives $g\le D'-3-2^{h+2}\le D'-3$, and
 $\mathrm{M}_h$ together with $\mathrm{U}_h$ gives $2g\le D'-3$, whence
 $4g\le2D'-6\le n'+D'+2$. $\square$
 
-The uniqueness half of Theorem 130 is machine-checked. The Lean theorem
-`Conjecture.gate_exponent_unique` in `lean/Conjecture.lean` proves exactly the
-statement "$D\le n$, $f\ge1$, and both windows at $h$ and at $h'$ imply
+The uniqueness half of Theorem 130 is machine-checked. The Lean theorems
+`Conjecture.gate_exponent_unique` and its unit specialization
+`Conjecture.unit_gate_exponent_unique` in `lean/Conjecture.lean` prove exactly
+the statement "$D\le n$, $f\ge1$, and both windows at $h$ and at $h'$ imply
 $h=h'$", with an axiom audit showing no `sorryAx`.
+
+The uniqueness argument does not use the unit hypothesis at all. Theorem 133 in
+[`general-gate-determinism.md`](general-gate-determinism.md) forces the gap of
+a pure-upper gate at every block length. What the unit case adds is closure:
+only for $k=1$ does the reduced data $(n,U,f)$ map into itself, which is what
+makes (130.3) a self-contained map on three integers.
 
 ## Lemma 131 (the wrap count is inert)
 
