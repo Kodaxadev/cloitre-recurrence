@@ -345,9 +345,9 @@ fn three_parent_boundary_starts_force_the_terminal_pattern() {
 }
 
 #[test]
-fn constant_length_parent_boundary_gaps_increase() {
+fn three_start_parent_boundary_gaps_increase() {
     let mut checked = 0u64;
-    for n in 2..=500u64 {
+    for n in 2..=700u64 {
         for wraps in 0..n {
             let width = n - wraps;
             for defect in [0u64, 1] {

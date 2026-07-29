@@ -120,7 +120,7 @@ Stabilization is exactly the event \(e_n=0\). This exposes the dynamics as a dou
 | Universal stabilization | **Open** | No proof claimed |
 | \(m<(c+3)(3c+5)\) | Internally proved | Complete proof; awaiting external mathematical review |
 | Eventual increments 5 and 7 are omitted | Certified | Independent complete finite certificate |
-| 106 omissions among \(1,\dots,1823\) | Census result | Primary compressed census; full independent census pending |
+| 106 omissions among \(1,\dots,1823\) | Independently reproduced census result | Primary compressed census and an independent auditor's full scratch enumeration agree exactly; the scratch implementation is not yet tracked |
 | Counterexample growth bounds | Internally proved | Complete proof; awaiting external mathematical review |
 | Unit-leading bound with explicit \(1-O(1/\log\log n)\) rate | New internal proof | Theorem 56 and Corollary 57; post-freeze and awaiting fresh audit; optimality for the recurrence is not claimed |
 | Sublinear counterexamples have sparse down-steps | New internal proof | Theorem 58 and Corollaries 59/61/64; zero density, divergent spacing, diluted ridge segments, and unbounded zero plateaus, but not finite occurrence |
@@ -187,6 +187,9 @@ The Lean development compiles without `sorry`, but it does **not** formalize the
 4. **[`theorem-status.md`](theorem-status.md)** — complete claim ledger
 5. **[`supplement/README.md`](supplement/README.md)** — algorithms, certificates, and reproduction
 6. **[`audit/fresh-proof-review.md`](audit/fresh-proof-review.md)** — fresh-context internal audit
+7. **[`audit/opus-pr2-audit.md`](audit/opus-pr2-audit.md)** — independent AI audit of the post-freeze gate and ridge cuts, with residual evidence limits
+8. **[`audit/continuation-t58-l63.md`](audit/continuation-t58-l63.md)** — dependency-closing audit for the sublinear down-step and terminal-suffix theorems
+9. **[`audit/continuation-c89-t90.md`](audit/continuation-c89-t90.md)** — quantified asymptotic audit of the critical unit-wrap scale
 
 <details>
 <summary><strong>Research notes and specialized analyses</strong></summary>

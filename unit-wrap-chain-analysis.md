@@ -109,7 +109,10 @@ J\in
 \right\}. \tag{87.7}
 \]
 
-The only positive integral possibility is \(r=1,\delta_0=3,J=1\), but
+The last expression in (87.7) also has the formal value \(3\) at \(r=1\),
+but that expression belongs to the even-\(r\), \(\delta_0=5\) case and is
+therefore incompatible with \(r=1\). After enforcing the parity labels, the
+only positive integral possibility is \(r=1,\delta_0=3,J=1\), but
 (87.4) then gives \(n_0=0<D_0\), so it is not a valid state.
 
 Finally suppose \(r<r'\). Set \(d=r'-r\), \(M=2^d-1\), and
@@ -256,14 +259,16 @@ D_{2t+2}-D_{2t}
 
 For every \(\varepsilon>0\), the right side is at least
 \((1-\varepsilon)\log_2D_{2t}\) for all large \(t\). The resulting sequence
-eventually increases by more than one, so \(D_{2t}\gg t\). Summing (89.4)
-and using
+eventually increases by more than one, so \(D_{2t}\ge t-O(1)\). Therefore
+\(\log_2D_{2u}\ge\log_2u-O(1)\), and summing (89.4) gives
 
 \[
-\sum_{u\le t}\log_2u=t\log_2t-O(t)
+D_{2t}\ge(1-\varepsilon)
+\sum_{u\le t}\bigl(\log_2u-O(1)\bigr)
+=(1-\varepsilon)t\log_2t-O_\varepsilon(t).
 \]
 
-gives
+Hence, after letting \(\varepsilon\downarrow0\),
 
 \[
 \liminf_{t\to\infty}
@@ -352,8 +357,10 @@ For every sufficiently late \(j\), (90.1) gives
 D_{j+1}-D_j=r_j>\log_2(D_j-3)-5. \tag{90.8}
 \]
 
-The same summation used in Corollary 89, now at every gate rather than once
-per pair, proves
+For fixed \(\varepsilon>0\), (90.8) is eventually at least
+\((1-\varepsilon)\log_2D_j\). It first gives \(D_j\ge j-O(1)\), hence
+\(\log_2D_u\ge\log_2u-O(1)\). Summing over every late gate and then letting
+\(\varepsilon\downarrow0\) proves
 
 \[
 \liminf_{j\to\infty}\frac{D_j}{j\log_2j}\ge1. \tag{90.9}

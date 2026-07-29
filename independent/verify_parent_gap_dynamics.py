@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bounded raw checks for Lemma 100 and the formal exceptional cases.
+"""Bounded raw checks for the three-start Lemma 100 and formal exceptions.
 
 The raw safe-map implementation is loaded from the independent gate verifier,
 not from project code. Finite checks support but do not prove Theorem 101.
@@ -21,7 +21,7 @@ def defect(state: object) -> int:
 
 def check_raw_increases() -> int:
     checked = 0
-    for n in range(2, 501):
+    for n in range(2, 701):
         for quotient in range(n):
             width = n - quotient
             for initial_defect in range(2):
@@ -83,7 +83,8 @@ def check_formal_exceptions() -> None:
 def main() -> None:
     checked = check_raw_increases()
     check_formal_exceptions()
-    print(f"constant-length parent gap increases checked: {checked}")
+    assert checked == 5
+    print(f"three-start parent gap increases checked: {checked}")
     print("two formal decreasing-gap exceptions rejected exactly")
     print("VERDICT: bounded raw states agree with Lemma 100.")
 

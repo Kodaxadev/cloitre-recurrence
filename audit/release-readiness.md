@@ -68,10 +68,12 @@ itself. The equivalence and its boundary are stated in
 ## Remaining publication blockers
 
 1. No human specialist has independently refereed the proofs.
-2. The full \(m\le10^7\) compressed census has cross-checks but no wholly
-   independent reimplementation of its compression/completeness algorithm.
-   Therefore the reported 106 omissions through 1823 remains a computational
-   report, not part of the minimal independently closed theorem claim.
+2. An independent AI auditor reports a complete scratch re-enumeration of all
+   \(m\le10^7\), with zero unresolved starts and an exact match to the 106
+   omissions through 1823. The scratch implementation and full output were not
+   archived in this repository, so the numerical agreement is independently
+   reported but repository-local reproducibility remains open; see
+   [`opus-pr2-audit.md`](opus-pr2-audit.md).
 3. Lean checks only the statements actually present in
    [`lean/Conjecture.lean`](../lean/Conjecture.lean). The finite-start theorem,
    all-period exclusion, growth theorem, and safe-map equivalence are not

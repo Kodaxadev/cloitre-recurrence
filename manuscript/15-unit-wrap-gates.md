@@ -74,7 +74,9 @@ The candidates in (15.3) form one class modulo \(4\). The realized \(s\) is
 unique exactly when both neighboring class members \(s-4,s+4\) fail.
 Under \(x\mapsto2^{r+2}x-n-r-5\), their images differ by \(H\), and the
 child interval is \([1,D+r-3]\). The lower neighbor fails exactly when
-\(s'\le H\). The upper neighbor fails exactly when it crosses either the
+\(s'\le H\): indeed, \(s'>H\) implies
+\(2^{r+2}(s-4)>n+r+5\), so the parent lower bound \(s-4\ge1\) is then
+automatic. The upper neighbor fails exactly when it crosses either the
 child upper boundary or the parent boundary \(x\le D-3\), which is (15.4).
 When the parent boundary is inactive, (15.5) follows.
 
@@ -134,7 +136,9 @@ modulo \(a'\) forces \(r'=0\); the four cases from (15.8) reduce to
 \frac{r-3}{2^r-1},\quad\frac{r+2}{2^r-1},
 \]
 
-and their only positive integral case gives the invalid index \(n_0=0\).
+The formal value \(3\) from the last expression at \(r=1\) belongs to its
+even-\(r\) case and is incompatible with \(r=1\). The only
+parity-compatible positive integral case gives the invalid index \(n_0=0\).
 If \(r<r'\), put \(d=r'-r\), \(M=2^d-1\), and
 
 \[
@@ -219,7 +223,9 @@ D_{2t+2}-D_{2t}>\log_2(D_{2t}-3)-5. \tag{15.14}
 \]
 
 For any \(\varepsilon>0\), this is eventually at least
-\((1-\varepsilon)\log_2D_{3t}\). Summing and using
+\((1-\varepsilon)\log_2D_{2t}\). It first gives
+\(D_{2t}\ge t-O(1)\); summing again with
+\(\log_2D_{2u}\ge\log_2u-O(1)\) and using
 \(\sum_{u\le t}\log_2u=t\log_2t-O(t)\) proves (15.12). Theorem 45 gives
 the lower bound in (15.13); (15.12), \(U_j=U_0+j\), and
 \(n_j=D_j+2U_j\) give the upper bound.
@@ -270,7 +276,9 @@ gates fail (15.15). Therefore
 D_{j+1}-D_j>\log_2(D_j-3)-5
 \]
 
-at every sufficiently late gate. Summation gives
+at every sufficiently late gate. For fixed \(\varepsilon>0\), this first
+gives \(D_j\ge j-O(1)\), and a second summation using
+\(\log_2D_j\ge\log_2j-O(1)\) gives
 \(\liminf D_j/(j\log_2j)\ge1\), hence
 \(\limsup U_j\log_2n_j/n_j\le1\). Theorem 45 supplies the reverse lower
 limit. Since \(n_j/D_j\to1\), this yields

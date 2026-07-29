@@ -146,7 +146,14 @@ x\longmapsto 2^{r+2}x-n-r-5,
 \]
 
 adjacent lattice values differ by \(H\), and the child interval becomes
-\([1,D+r-3]\). Thus \(s-4\) is absent exactly when \(s'\le H\).
+\([1,D+r-3]\). If \(s'>H\), then
+
+\[
+2^{r+2}(s-4)>n+r+5,
+\]
+
+so \(s-4\ge1\) and the parent lower bound is automatic. Thus \(s-4\) is
+absent exactly when \(s'\le H\).
 The value \(s+4\) is absent exactly when it exceeds either the child upper
 boundary, giving \(s'+H>D+r-3\), or the parent upper boundary \(D-3\),
 giving \(s>D-7\). This proves (86.1). If the parent boundary is inactive,

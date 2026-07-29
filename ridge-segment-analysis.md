@@ -33,7 +33,7 @@ e_{t+1+j}=-2^jv\qquad(0\le j\le z), \tag{63.2}
 z=\left\lfloor\log_2\frac Qv\right\rfloor. \tag{63.3}
 \]
 
-At the terminal down-step, if
+At the terminal pre-down state, if
 
 \[
 h_{\mathrm{next}}=q-2r,
@@ -59,9 +59,9 @@ q+2e<0
 \]
 
 and hence negative \(e\). A zero-step doubles \(e\) and cannot change its
-sign. Therefore an up-step changes the sign. Once \(e<0\), another up-step
-is impossible because \(q+2e<q\le n<n+1\). Thus the sign-changing up-step
-is unique and is the last up-step.
+sign. Therefore at least one up-step changes the sign. Once \(e<0\),
+another up-step is impossible because \(q+2e<q\le n<n+1\). Thus the
+sign-changing up-step is unique and is the last up-step.
 
 At index \(t\),
 
@@ -82,7 +82,7 @@ Q-2^{j+1}v\ge0.
 
 The upper zero threshold is automatic because \(Q\le n\). The digit becomes
 a down-step at \(j=z\). The last safe state and the terminal failure
-therefore give (63.3). At that terminal state,
+therefore give (63.3). At that terminal pre-down state,
 
 \[
 r=Q-2^zv,

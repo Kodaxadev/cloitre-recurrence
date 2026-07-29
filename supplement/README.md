@@ -83,12 +83,14 @@ consecutive parent-boundary starts with the same positive block length.
 This is evidence for the fixed-length target after Corollary 97, not a
 uniform exclusion theorem.
 
-`independent/verify_parent_gap_dynamics.py` checks Lemma 100 on arbitrary
-bounded-quotient parent-boundary starts through \(n\le500\), finding five
-constant-length triples and confirming strict gap increase in each. It also
+`independent/verify_parent_gap_dynamics.py` checks the strengthened local
+form of Lemma 100 on arbitrary bounded-quotient parent-boundary starts
+through \(n\le700\). Among 30 three-start parent-boundary runs, five have
+equal first-two block lengths and satisfy the lemma's full hypothesis; all
+five have strict gap increase. The verifier also
 rejects the two formal decreasing-gap exceptions by their exact state-bound
 and parity failures. The native Rust test independently reproduces the same
-five transitions. Theorem 101 itself is symbolic.
+five theorem-applicable transitions. Theorem 101 itself is symbolic.
 
 `independent/verify_child_boundary_window.py` reuses the independent raw
 transition enumerator, but not project dynamics code, to check Lemma 103 on

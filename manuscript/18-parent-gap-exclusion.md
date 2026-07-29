@@ -10,13 +10,18 @@ K=2^kk-k-1,\qquad\delta_j=d_{j+1}-d_j.
 
 ## Lemma 100 (fixed-length parent gaps increase)
 
-For four consecutive parent-boundary starts of the same block length,
+For three consecutive parent-boundary starts, if the positive blocks at the
+first two starts have the same length,
 
 \[
 \boxed{r_{j+1}>r_j.} \tag{18.1}
 \]
 
 ### Proof
+
+The local derivation of Lemma 98's identities at \(j,j+1\) uses only these
+three defects and the equality of the first two block lengths. It does not
+use a fourth start or the third block length.
 
 Equality is excluded by Corollary 95. Suppose \(r'=r_{j+1}<r_j=r\).
 Write \(f=f_j\), \(f'=f_{j+1}\),
@@ -43,7 +48,8 @@ If \(r'\ge1\), the right side lies strictly between zero and
 
 Let \(r'=0\). If \(\delta'=0\), the right side is odd. If
 \(\delta'=-1\), then \(Q=(2^r-1)f+1\), but
-\(\delta\in\{0,1\}\) gives \(Q\le r<2^r\).
+\(d_{j+1}=1\), hence \(\delta=1-d_j\in\{0,1\}\), and this gives
+\(Q\le r<2^r\).
 
 If \(\delta'=1\), then \(Q=(2^r-1)f\) and
 \(\delta=-d_j\). For \(d_j=0\), the only formal possibility is

@@ -57,3 +57,8 @@ theorem.
   second compressed implementation.
 - Lean does not formalize Theorem 18, Theorems 23–45, or Corollary 20.
 - The two-counter map covers the eventually no-down branch only.
+
+Subsequent evidence: the later independent AI audit
+[`opus-pr2-audit.md`](opus-pr2-audit.md) reports a complete scratch
+re-enumeration through \(10^7\) with exact agreement, but the scratch
+implementation and full output were not supplied to this repository.

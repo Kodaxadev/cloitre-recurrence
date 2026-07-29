@@ -17,15 +17,16 @@ e_{t+1+j}=-2^jv,\qquad
 2^zv\le Q<2^{z+1}v. \tag{9.1}
 \]
 
-Consequently
+Consequently, with \(h_{\rm next}=q-2r\) evaluated at the terminal
+pre-down state,
 
 \[
 z=\left\lfloor\log_2\frac Qv\right\rfloor,\qquad
 h_{\rm next}=2^{z+1}v-Q\in[1,Q]. \tag{9.2}
 \]
 
-Indeed, only an up-step can take \(e\) from positive to negative, and no
-later up-step is possible. The up threshold gives \(v\le Q\). Each
+Indeed, at least one up-step must take \(e\) from positive to negative, and
+no later up-step is possible. The up threshold gives \(v\le Q\). Each
 subsequent zero doubles the negative coordinate until
 \(Q+2e<0\), which gives (9.1); substituting the terminal remainder into
 \(h=q-2r\) gives (9.2). \(\square\)

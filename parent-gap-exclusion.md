@@ -17,14 +17,20 @@ K=2^kk-k-1,\qquad
 
 ## Lemma 100 (fixed-length parent gaps increase)
 
-Whenever four consecutive parent-boundary starts have the same positive
-block length \(k\), their first two zero-only gaps satisfy
+Suppose three consecutive positive-block starts are in the parent boundary
+layer, and the positive blocks at the first two starts have the same length
+\(k\). Then their two zero-only gaps satisfy
 
 \[
 \boxed{r_{j+1}>r_j.} \tag{100.1}
 \]
 
 ### Proof
+
+The derivations of (98.2)--(98.3) are local: at indices \(j,j+1\) they use
+only the three displayed defects and equality of the first two block
+lengths. Hence those identities apply under the present hypotheses; no
+fourth start or assumption on the third block length is needed.
 
 Corollary 95 excludes \(r_{j+1}=r_j\). Suppose
 
