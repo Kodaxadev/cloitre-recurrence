@@ -170,12 +170,40 @@ four-block pure-upper safe-map segment. Proposition 126 proves the family
 symbolically. It makes Theorem 122 sharp and rejects any strategy based
 only on one return word's integrality or local headroom.
 
+The correct next object is composition. Lemma 127 normalizes a word by its
+prefix weights and shows that two return words \(w,v\) must satisfy
+
+\[
+\Phi_a(v)=\Phi_a(w)+S_w,
+\]
+
+equivalently one exact cross-multiplied equation in their sparse integer
+data. A bounded search over \(R\le2\), \(a\le32\), word lengths at most five,
+and gaps at most twelve found 35 positive equal-endpoint candidates and no
+compatible pair. This is recorded only as bounded evidence.
+
+The pure-upper inequalities yield a proof-quality restriction independent
+of that search. Lemma 128 places an outgoing exponent \(h=r+2\) at returned
+residue \(a\) in the disjoint window
+
+\[
+(a+4)2^{h-1}+U-h+1\le n\le a2^h-h-4.
+\]
+
+Thus outgoing exponents at later occurrences of the same residue are
+nondecreasing, and a repeated exponent decreases the child residue by the
+exact index difference. Applying the window to Proposition 126 gives
+Proposition 129: its endpoint has one forced continuation gap \(S-5\), and
+the following unit block has no pure-upper exit. The infinite algebraic
+family is therefore not an infinite-tail mechanism.
+
 ## Remaining target
 
 There is still no evidence for a fixed pure-upper chain bound. Theorem 118
 forces the critical scale, while Theorem 121 reduces the all-unit branch to
 growing congruence moduli or recurrent visits to one fixed dyadic ladder.
 Theorem 122 removes three strict alternating returns, while Proposition 126
-shows that two occur at arbitrarily large spans. The next useful target is
-therefore exact compatibility between successive *different* return words,
-or exclusion of the growing-modulus mechanism.
+shows that two occur at arbitrarily large spans and Proposition 129 proves
+that family then exits. The next useful target is to combine Lemma 127's
+successive-word equation with Lemma 128's monotone dyadic epochs, or exclude
+the growing-modulus mechanism.

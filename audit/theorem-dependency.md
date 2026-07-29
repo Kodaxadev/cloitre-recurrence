@@ -167,6 +167,9 @@ flowchart TD
   L123 & T118 & C115 --> C124["C124 fixed-pair renewal sparsity"]
   L123 & C114 --> L125["L125 sparse-binary renewal equation"]
   L117 & C115 & L125 --> P126["P126 unbounded two-renewal segments"]
+  L125 --> L127["L127 exact word composition"]
+  C114 & C115 --> L128["L128 disjoint outgoing dyadic windows"]
+  P126 & L117 & C115 & L128 --> P129["P129 explicit family exits pure-upper"]
   T24 --> O1["Open branch A: infinitely many down-steps"]
   T38 --> O1
   T56 --> O1
@@ -200,6 +203,9 @@ flowchart TD
   C124 --> O2
   L125 --> O2
   P126 --> O2
+  L127 --> O2
+  L128 --> O2
+  P129 --> O2
   U["Uniform termination of the safe map"] -->|would eliminate| O2
   O1 --> CJ["Original stabilization conjecture remains open"]
   O2 --> CJ
@@ -210,7 +216,7 @@ flowchart TD
   classDef compute fill:#e5efff,stroke:#3566a8,color:#13243d;
   classDef open fill:#fff1d6,stroke:#ad6b00,color:#422900;
   classDef formal fill:#eee4ff,stroke:#6542a6,color:#261642;
-  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64,L65,P66,L67,L68,T69,L70,C71,T72,L73,C74,T75,L76,T77,L78,C79,L80,C81,C82,L83,C84,L85,C86,L87,C88,C89,T90,T91,L110,C111,C112,L113,C114,C115,L116,L117,T118,L119,C120,T121,T122,L123,C124,L125,P126 proof;
+  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64,L65,P66,L67,L68,T69,L70,C71,T72,L73,C74,T75,L76,T77,L78,C79,L80,C81,C82,L83,C84,L85,C86,L87,C88,C89,T90,T91,L110,C111,C112,L113,C114,C115,L116,L117,T118,L119,C120,T121,T122,L123,C124,L125,P126,L127,L128,P129 proof;
   class K1,K11,K13,C46 compute;
   class O1,O2,U,CJ open;
   class F formal;
@@ -219,32 +225,25 @@ flowchart TD
 
 1. **Corollary 20 is hybrid.** Theorem 18 makes the candidate set finite; K1
    supplies the enumeration. The symbolic theorem alone does not establish that 5 and 7 are missing.
-
 2. **K11 is not needed for the universal claim T38.** It is a finite cross-check
    of the boundary machinery; T38 stands on its two-digit contradiction for every denominator.
-
 3. **The two-counter map is not the whole remaining conjecture.** Lemma 40 assumes
    an eventually no-down tail. Uniform termination of Lemma 42's map would force
    infinitely many down-steps in every nonstabilizing orbit, not prove stabilization.
-
 4. **Dominance is one-way.** Lemma 41 turns a larger-quotient safe path into a
    quotient-zero path of at least the same duration. It licenses elimination
    certificates, not reconstruction of original orbits from quotient-zero survivors.
-
 5. **Lean coverage is foundational only.** The formal file covers absorption,
    congruence/parity, pair merging, and e-doubling. It does not formalize
    Theorem 18, the growth theorems, periodic exclusion, or the two-counter map.
-
 6. **Proposition 66 is local, not an orbit construction.** It gives valid
    down-to-down states with arbitrarily diluted exact ridge words. It refutes
    a uniform state-level density bound, but neither proves global reachability
    from \(b_1=m\) nor constructs an infinite orbit. Theorem 69 proves that
    three consecutive copies of its unit-terminal mechanism are impossible.
-
 7. **Theorem 72 is conditional on an eventually pure ridge tail.** Its
    congruence is exact for every adjacent pure pair, but a general
    counterexample may have mixed zero/up positive portions between down-steps.
-
 8. **Theorem 75 covers mixed words but does not force a growing modulus.**
    Lemma 73 exactly encodes every positive-prefix zero, and Corollary 74 is
    unconditional for adjacent ridges. Its modulus is the smaller terminal
@@ -398,3 +397,4 @@ flowchart TD
 | 44 | C114 -> T122 | Renewal indexing, divisibility of both large gaps by the bounded-gap scale, derivation of \(F(L)\), monotonicity on one residue class, and exponential-versus-linear contradiction |
 | 45 | C114 -> L123; then L123, T118, and C115 -> C124 | Affine coefficient induction, positivity of the start-index coefficient, interval-word injectivity, short-word pigeonhole count, proof that \(K/J\to0\), and the positive-limsup logarithm conversion |
 | 46 | L123 and C114 -> L125; then L117, C115, and L125 -> P126 | Suffix-exponent indexing, weighted binary coefficient, endpoint-span congruence, integrality classes modulo \(9,8,32\), all unit-state inequalities, all pure-upper headroom inequalities, and the distinction between a literal safe-map segment and original-orbit reachability |
+| 47 | L125 -> L127; C114 and C115 -> L128; then P126, L117, C115, and L128 -> P129 | Normalized prefix weights, cross-word endpoint matching, exact dyadic-window endpoints, ordering across changing quotients, repeated-exponent residue descent, the unique continuation of the explicit family, and its exhaustive gap split \(r\le1\) versus \(r\ge2\) |

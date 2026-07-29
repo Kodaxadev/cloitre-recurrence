@@ -129,3 +129,5 @@ Lemma 117 and Corollary 115 reconstruct the segment. \(\square\)
 
 This construction makes Theorem 122 sharp in the number of renewals. It
 does not provide an infinite chain or establish reachability from \(b_1=m\).
+Proposition 129 proves that the family exits pure-upper after one further
+gate.

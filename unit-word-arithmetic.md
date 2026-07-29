@@ -330,7 +330,8 @@ renewals. Theorem 122 is therefore sharp: two strict alternating occurrences
 exist at unbounded scales, while three consecutive occurrences do not.
 
 These segments are valid states of the reduced safe map. They are not claimed
-to be reachable from an original initial value \(b_1=m\), and they cannot be
-concatenated indefinitely because Theorem 122 forbids a third occurrence.
-The remaining fixed-ladder problem is inter-word compatibility across return
-intervals of varying block lengths, not single-word integrality.
+to be reachable from an original initial value \(b_1=m\). Proposition 129
+shows more than the non-concatenation implied by Theorem 122: each segment
+has one forced continuation gate and then leaves the pure-upper mechanism.
+The remaining fixed-ladder problem is compatibility among other return words
+of varying block lengths, not single-word integrality.

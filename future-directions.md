@@ -369,13 +369,23 @@ infinitely many literal pure-upper segments with two occurrences of
 \((R,a)=(1,a)\) and unbounded intervening span. Thus Theorem 122 is sharp
 in the number of renewals, and single-interval integrality is not enough.
 
+Lemma 127 now gives the exact cross-word equation required at successive
+return intervals. Lemma 128 independently puts every outgoing gate from a
+fixed returned residue into one disjoint dyadic window. Along chronological
+returns, the selected exponents are nondecreasing; if an exponent repeats,
+the child residue decreases by the exact index difference. Proposition 129
+then eliminates every Proposition 126 segment as an infinite-tail seed:
+there is one forced continuation gate and no pure-upper gate after it.
+
 **Do next:** attack the two cases separately. In the growing-modulus branch,
 combine nested congruences across overlapping triples with the state-window
 bounds. In the fixed-ladder branch, impose exact compatibility between the
-terminal index of one sparse-binary word and the uniquely forced start of
-the next; Proposition 126 shows that checking either word in isolation
-cannot work. In the mixed-block case, treat near-maximal unique gaps as
-renewal points and accumulate both headroom terms from Lemma 110.
+terminal index of one sparse-binary word and the forced start of the next
+using Lemma 127, while accumulating the exponent/residue descent from
+Lemma 128. A bounded search found no compatible pair among 35 positive
+equal-endpoint candidates, but that empty search is not a proof. In the
+mixed-block case, treat near-maximal unique gaps as renewal points and
+accumulate both headroom terms from Lemma 110.
 
 ## 7. Resolve the low-order mixed-ridge defect
 

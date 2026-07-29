@@ -146,6 +146,14 @@ literal arbitrary-precision safe-map stepping. The native Rust test checks
 all 5,460 gap words through length six and one exact family member for each
 of the 18 allowed coefficients. Infinitude and the displayed inequalities
 remain symbolic consequences of the proof.
+`independent/verify_unit_word_composition.py` checks Lemma 127's normalized
+identity on 43,680 word/coefficient pairs, Lemma 128 on 103,456 bounded unit
+states and 10,560 ordered-window comparisons, and all 180 Proposition 129
+family continuations. Its bounded composition search finds 35 positive
+equal-endpoint candidates and no compatible pair; that last result is
+explicitly not promoted to a theorem. The native Rust test independently
+checks 27,113 unit states, 7,698 pure windows, and the minimal family member
+in all 18 coefficient classes.
 
 The exploratory Rust binary `gate_chain` searches these chains without
 assuming that the accumulated quotient is zero. Exhausting all 20,771,000
