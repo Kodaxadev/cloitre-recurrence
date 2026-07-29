@@ -48,8 +48,13 @@ and executes every alternative candidate to check that the gate is exact.
 It also checks Lemma 85 and Corollary 86 on every unit-wrap gate in that
 census, on 9,682 additional gates with arbitrary bounded accumulated quotient,
 and reproduces a valid chain of seven consecutive unique gates.
+It also checks Lemma 87's two-gap Diophantine compatibility through
+\(0\le r,r'\le64\) and executes the unique surviving terminal path directly.
+Corollaries 88--89 are symbolic consequences and are not inferred from the
+bounded enumeration.
 The native `safe_block_gates` Rust test repeats the same census and
-reconstruction through the safe-map implementation.
+reconstruction through the safe-map implementation and independently checks
+the parent-boundary compatibility grid and terminal path.
 
 The exploratory Rust binary `gate_chain` searches these chains without
 assuming that the accumulated quotient is zero. Exhausting all 20,771,000

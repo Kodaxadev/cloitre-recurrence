@@ -154,3 +154,46 @@ Lemma 85 gives the exact candidate set in one residue class modulo \(4\).
 Corollary 86 then identifies uniqueness with two explicit boundary layers.
 This is a sharper target for a chain argument, but both alternatives remain
 possible and the original conjecture remains open.
+
+## 9. The parent-boundary branch cannot persist
+
+For a unit-wrap start, put \(\delta=D-s\). The parent-boundary alternative
+in Corollary 86 is exactly \(\delta<7\). Parity reduces this to
+\(\delta\in\{3,5\}\).
+
+Eliminating the intermediate state between two transitions gives
+
+\[
+(2^{r+2}-2^{r'+2})D
+=2^{r'+2}r+2^{r+2}\delta
+-(2^{r'+2}+1)\delta'-2r'-2+\delta''.
+\]
+
+The cases \(r=r'\), \(r>r'\), and \(r<r'\) can all be solved exactly.
+Only
+
+\[
+(n,D,s):(12,8,5)\to(14,8,3)\to(17,9,4)
+\]
+
+survives, with \((r,r')=(0,1)\), and that path immediately enters the
+terminating strip. Thus three consecutive parent-boundary starts are
+impossible on an infinite path.
+
+Corollary 88 combines this with the exact uniqueness test: at least one gate
+in every three of a continuing unique unit-wrap chain satisfies
+\(D+r-3<2^{r+5}\). This forces frequent logarithmic zero-only gaps, but their
+frequency remains compatible with the known \(n/\log n\) quotient scale.
+
+Summing those gaps gives Corollary 89. If an infinite tail were both
+all-unit-wrap and all-unique, then
+
+\[
+\liminf_j\frac{D_j}{j\log_2j}\ge\frac13,
+\qquad
+1\le\liminf_j\frac{U_j\log_2n_j}{n_j}
+\le\limsup_j\frac{U_j\log_2n_j}{n_j}\le3.
+\]
+
+This pins the subcase to the same critical scale as Theorem 45, within a
+factor of three, but does not close it.

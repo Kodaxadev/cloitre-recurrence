@@ -168,3 +168,111 @@ fn adjacent_positive_blocks_obey_the_dyadic_gate() {
     assert_eq!(unique, 9_718);
     assert_eq!(multiple, 19_912);
 }
+
+#[test]
+fn three_parent_boundary_starts_force_the_terminal_pattern() {
+    let mut solutions = Vec::new();
+    for r in 0..=64u32 {
+        let scale = 1i128 << (r + 2);
+        for next_r in 0..=64u32 {
+            let next_scale = 1i128 << (next_r + 2);
+            for delta in [3i128, 5] {
+                let next_delta = if r % 2 == 1 { delta } else { 8 - delta };
+                let final_delta = if next_r % 2 == 1 {
+                    next_delta
+                } else {
+                    8 - next_delta
+                };
+                let numerator = next_scale * i128::from(r) + scale * delta
+                    - (next_scale + 1) * next_delta
+                    - 2 * i128::from(next_r)
+                    - 2
+                    + final_delta;
+                let denominator = scale - next_scale;
+                if denominator == 0 {
+                    assert_ne!(numerator, 0);
+                    continue;
+                }
+                if numerator % denominator != 0 {
+                    continue;
+                }
+                let gap = numerator / denominator;
+                let n = (scale - 1) * gap - scale * delta - 2 * i128::from(r) - 5 + next_delta;
+                if gap < delta + 1 || n < gap || (n - gap) % 2 != 0 {
+                    continue;
+                }
+                solutions.push((r, next_r, delta, next_delta, final_delta, gap, n));
+            }
+        }
+    }
+
+    assert_eq!(solutions, vec![(0, 1, 3, 5, 5, 8, 12)]);
+    assert_eq!(
+        accelerate_zero(SafeState {
+            e: 5,
+            w: 10,
+            wraps: 2,
+        }),
+        Some((
+            1,
+            Some(SafeState {
+                e: 5,
+                w: 11,
+                wraps: 3,
+            })
+        ))
+    );
+    assert_eq!(
+        accelerate_zero(SafeState {
+            e: 5,
+            w: 11,
+            wraps: 3,
+        }),
+        Some((
+            1,
+            Some(SafeState {
+                e: 3,
+                w: 12,
+                wraps: 4,
+            })
+        ))
+    );
+    assert_eq!(
+        accelerate_zero(SafeState {
+            e: 3,
+            w: 12,
+            wraps: 4,
+        }),
+        Some((
+            0,
+            Some(SafeState {
+                e: 6,
+                w: 13,
+                wraps: 4,
+            })
+        ))
+    );
+    assert_eq!(
+        accelerate_zero(SafeState {
+            e: 6,
+            w: 13,
+            wraps: 4,
+        }),
+        Some((
+            1,
+            Some(SafeState {
+                e: 4,
+                w: 14,
+                wraps: 5,
+            })
+        ))
+    );
+    assert_eq!(
+        accelerate_zero(SafeState {
+            e: 4,
+            w: 14,
+            wraps: 5,
+        }),
+        Some((0, None))
+    );
+}

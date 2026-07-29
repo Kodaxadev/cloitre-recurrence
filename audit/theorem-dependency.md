@@ -116,6 +116,11 @@ flowchart TD
   L53 --> L85["L85 unit-wrap induced gate"]
   L83 --> L85
   L85 --> C86["C86 exact unit-wrap boundary test"]
+  L85 --> L87["L87 parent-boundary triple is terminal"]
+  C86 --> C88["C88 frequent non-parent dyadic gates"]
+  L87 --> C88
+  C88 --> C89["C89 critical scale of unique unit-wrap chains"]
+  T45 --> C89
 
   T24 --> O1["Open branch A: infinitely many down-steps"]
   T38 --> O1
@@ -135,6 +140,8 @@ flowchart TD
   C82 --> O2
   C84 --> O2
   C86 --> O2
+  C88 --> O2
+  C89 --> O2
   U["Uniform termination of the safe map"] -->|would eliminate| O2
   O1 --> CJ["Original stabilization conjecture remains open"]
   O2 --> CJ
@@ -147,7 +154,7 @@ flowchart TD
   classDef compute fill:#e5efff,stroke:#3566a8,color:#13243d;
   classDef open fill:#fff1d6,stroke:#ad6b00,color:#422900;
   classDef formal fill:#eee4ff,stroke:#6542a6,color:#261642;
-  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64,L65,P66,L67,L68,T69,L70,C71,T72,L73,C74,T75,L76,T77,L78,C79,L80,C81,C82,L83,C84,L85,C86 proof;
+  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64,L65,P66,L67,L68,T69,L70,C71,T72,L73,C74,T75,L76,T77,L78,C79,L80,C81,C82,L83,C84,L85,C86,L87,C88,C89 proof;
   class K1,K11,K13,C46 compute;
   class O1,O2,U,CJ open;
   class F formal;
@@ -222,6 +229,17 @@ flowchart TD
     A valid local path already contains seven consecutive unique unit-wrap
     gates.
 
+15. **Corollary 88 gives frequency, not capture.** It prevents the
+    parent-boundary escape from occurring three times consecutively and forces
+    a logarithmic-size zero-only gap at least once every three unique
+    unit-wrap gates. Such gaps remain compatible with Theorem 45's
+    \(n/\log n\) quotient scale.
+
+16. **Corollary 89 is conditional on an all-unit, all-unique tail.** Its
+    constants bracket the critical quotient scale but do not contradict
+    Theorem 45. General safe paths may also contain longer wrap blocks or
+    nonunique gates.
+
 ## Audit priority
 
 | Priority | Chain | Evidence required |
@@ -252,3 +270,5 @@ flowchart TD
 | 24 | T45 and C81 -> C82 | Uniform late-block ceiling, finite-prefix removal, zero-epoch wrap accounting, and order of limits |
 | 25 | L53 -> L83 -> C84 | Returned-epoch indexing, exact parent equation, parity lift, parent-state reconstruction, strict next-wrap endpoint, interval width, and half-open lattice count |
 | 26 | L53 and L83 -> L85 -> C86 | Unit-wrap return indexing, gap/excess bounds, exact converse reconstruction, affine lattice spacing, and both parent/child boundary alternatives |
+| 27 | L85 -> L87, then C86 and L87 -> C88 | Deficit parity, two-transition elimination, all three exponent-order cases, the unique terminal raw path, and the disjoint-triple count |
+| 28 | C88 and T45 -> C89 | Divergence of the gap coordinate, triple-block summation, conversion from block count to index, and both quotient-scale constants |

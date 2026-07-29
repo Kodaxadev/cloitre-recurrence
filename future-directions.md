@@ -150,6 +150,22 @@ seven consecutive unique unit-wrap gates, so a useful next argument must
 show that those boundary layers cannot be followed indefinitely; a small
 constant-chain assumption is not justified.
 
+Lemma 87 now eliminates three consecutive uses of the parent boundary:
+the only compatible triple is an explicit terminal path. Corollary 88
+therefore forces
+
+\[
+D+r-3<2^{r+5}
+\]
+
+at least once every three gates of a continuing unique unit-wrap chain.
+**Do:** combine these frequent logarithmic zero-only gaps with the exact
+successor residues, rather than only their lengths. Their frequency alone
+still permits the \(n/\log n\) quotient scale required by Theorem 45.
+Corollary 89 makes this compatibility quantitative: a hypothetical
+all-unit, all-unique tail must have \(D_j\ge(1/3-o(1))j\log_2j\) and quotient
+scale between constants \(1\) and \(3\) times \(n/\log_2n\).
+
 ## 7. Resolve the low-order mixed-ridge defect
 
 Lemma 73 now encodes every zero in an arbitrary ridge by

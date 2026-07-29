@@ -242,6 +242,70 @@ def check_arbitrary_unit_gates() -> int:
     return checked
 
 
+def check_parent_boundary_compatibility() -> None:
+    solutions = []
+    for r in range(65):
+        scale = 1 << (r + 2)
+        for next_r in range(65):
+            next_scale = 1 << (next_r + 2)
+            for delta in (3, 5):
+                next_delta = delta if r % 2 else 8 - delta
+                final_delta = (
+                    next_delta if next_r % 2 else 8 - next_delta
+                )
+                numerator = (
+                    next_scale * r
+                    + scale * delta
+                    - (next_scale + 1) * next_delta
+                    - 2 * next_r
+                    - 2
+                    + final_delta
+                )
+                denominator = scale - next_scale
+                if denominator == 0 or numerator % denominator:
+                    continue
+                gap = numerator // denominator
+                n = (
+                    (scale - 1) * gap
+                    - scale * delta
+                    - 2 * r
+                    - 5
+                    + next_delta
+                )
+                if gap < delta + 1 or n < gap or (n - gap) % 2:
+                    continue
+                solutions.append(
+                    (
+                        r,
+                        next_r,
+                        delta,
+                        next_delta,
+                        final_delta,
+                        gap,
+                        n,
+                    )
+                )
+
+    assert solutions == [(0, 1, 3, 5, 5, 8, 12)]
+    assert accelerate_zero(State(12, 2, 5)) == (
+        1,
+        State(14, 3, 5),
+    )
+    assert accelerate_zero(State(14, 3, 5)) == (
+        1,
+        State(16, 4, 3),
+    )
+    assert accelerate_zero(State(16, 4, 3)) == (
+        0,
+        State(17, 4, 6),
+    )
+    assert accelerate_zero(State(17, 4, 6)) == (
+        1,
+        State(19, 5, 4),
+    )
+    assert accelerate_zero(State(19, 5, 4)) == (0, None)
+
+
 def main() -> None:
     gates = 0
     unique = 0
@@ -264,15 +328,17 @@ def main() -> None:
     assert multiple == 19_912
     arbitrary_unit = check_arbitrary_unit_gates()
     assert arbitrary_unit == 9_682
+    check_parent_boundary_compatibility()
     check_unique_chains()
     print(f"adjacent positive-block gates checked: {gates}")
     print(f"unique gates: {unique}")
     print(f"multiple-candidate gates: {multiple}")
     print(f"arbitrary unit-wrap gates checked: {arbitrary_unit}")
+    print("parent-boundary compatibility checked through r,r'<=64")
     print("consecutive unique-gate chain reproduced: 7")
     print(
-        "VERDICT: bounded raw checks agree with Lemmas 83/85 "
-        "and Corollaries 84/86."
+        "VERDICT: bounded raw checks agree with Lemmas 83/85/87 "
+        "and Corollaries 84/86/88."
     )
 
 
