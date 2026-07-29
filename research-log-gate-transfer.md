@@ -122,9 +122,25 @@ coefficients below five by combining that exact identity with the next
 pure-upper headroom ceiling. The resulting exhaustive alternative is
 Theorem 121.
 
+The strict alternating specialization can be eliminated completely. If the
+same \((R,a)\) renewal occurs at gaps \(0,2,4\), the intervening large gaps
+belong to one residue class modulo \(A=2^{R+2}\). The compatible incoming
+residue is an explicit function \(F(L)\), but
+
+\[
+F(L+A)-F(L)
+=\frac{a2^{L+2}(2^A-1)}{A+1}-1
+\]
+
+is exponentially larger than the linear residue change forced between the
+renewals. This contradiction is Theorem 122. It excludes strict
+alternation, not irregular returns.
+
 Python and Rust check the compatibility identity on 3,250 arbitrary
 three-unit transitions and the local ladder identity on all 580 pure-unit
-triples in the bounded raw census.
+triples in the bounded raw census. They also inspect 167 six-unit windows
+and check Theorem 122's exponential inequality on 1,280 Python and 192 Rust
+parameter tuples.
 
 Two attempted search improvements were rejected rather than committed. A
 single disjunctive SMT model and a reduced two-variable incremental model
@@ -136,5 +152,6 @@ are tooling results and provide no negative mathematical evidence.
 There is still no evidence for a fixed pure-upper chain bound. Theorem 118
 forces the critical scale, while Theorem 121 reduces the all-unit branch to
 growing congruence moduli or recurrent visits to one fixed dyadic ladder.
-The next useful target is to exclude one of those exact mechanisms, or to
-construct arbitrarily long valid words within it.
+Theorem 122 removes strict alternating returns. The next useful target is to
+extend that obstruction to arbitrary return spacing, exclude the
+growing-modulus mechanism, or construct arbitrarily long valid words.

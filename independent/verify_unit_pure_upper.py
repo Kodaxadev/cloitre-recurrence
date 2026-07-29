@@ -56,9 +56,10 @@ def is_pure_unit(
     )
 
 
-def check() -> tuple[int, int]:
+def check() -> tuple[int, int, int]:
     unit_triples = 0
     pure_triples = 0
+    six_unit_windows = 0
     for initial_n in range(2, 121):
         for initial_e in range(1, initial_n):
             blocks = zero_blocks(State(initial_n, 0, initial_e))
@@ -108,17 +109,67 @@ def check() -> tuple[int, int]:
                         == (1 << (next_gap + 2)) * f1
                     )
                     pure_triples += 1
-    return unit_triples, pure_triples
+
+            for window in zip(
+                positive,
+                positive[1:],
+                positive[2:],
+                positive[3:],
+                positive[4:],
+                positive[5:],
+            ):
+                parents = [blocks[index] for index in window]
+                if any(block.wraps != 1 for block in parents):
+                    continue
+                gaps = [
+                    window[index + 1] - window[index] - 1
+                    for index in range(5)
+                ]
+                residues = [
+                    block.next_zero.e for block in parents
+                ]
+                assert not (
+                    gaps[0] == gaps[2] == gaps[4]
+                    and residues[1] == residues[3] == residues[5]
+                )
+                six_unit_windows += 1
+    return unit_triples, pure_triples, six_unit_windows
+
+
+def check_alternating_growth() -> int:
+    checked = 0
+    for renewal_gap in range(5):
+        scale = 1 << (renewal_gap + 2)
+        assert scale >= renewal_gap + 4
+        for residue in range(1, 33):
+            for quotient in range(1, 9):
+                large_gap = scale * quotient - renewal_gap - 4
+                numerator = (
+                    residue
+                    * (1 << (large_gap + 2))
+                    * ((1 << scale) - 1)
+                )
+                assert numerator > (quotient + 1) * (scale + 1)
+                checked += 1
+    return checked
 
 
 def main() -> None:
-    unit_triples, pure_triples = check()
-    assert (unit_triples, pure_triples) == (3_250, 580)
+    unit_triples, pure_triples, six_unit_windows = check()
+    alternating_growth = check_alternating_growth()
+    assert (unit_triples, pure_triples, six_unit_windows) == (
+        3_250,
+        580,
+        167,
+    )
+    assert alternating_growth == 1_280
     print(f"three-unit compatibility checks: {unit_triples}")
     print(f"pure-unit local ladder checks: {pure_triples}")
+    print(f"six-unit alternating-renewal exclusions: {six_unit_windows}")
+    print(f"alternating-growth inequalities checked: {alternating_growth}")
     print(
         "VERDICT: bounded raw states agree with Lemma 119, Corollary "
-        "120, and the local identity used in Theorem 121."
+        "120, Theorem 121's local identity, and Theorem 122."
     )
 
 

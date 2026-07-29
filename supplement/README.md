@@ -131,6 +131,10 @@ arbitrary three-unit transitions, and Corollary 120 plus the fixed-ladder
 identity used by Theorem 121 on all 580 pure-unit triples. The native
 `unit_pure_upper` Rust test independently reproduces both counts.
 Theorem 121's infinite-subsequence dichotomy is symbolic.
+The same verifiers find 167 six-unit windows, none with Theorem 122's
+forbidden renewal pattern, and separately check the exponential-versus-linear
+inequality on 1,280 Python and 192 Rust parameter tuples. These are bounded
+regressions for Theorem 122's symbolic proof.
 
 The exploratory Rust binary `gate_chain` searches these chains without
 assuming that the accumulated quotient is zero. Exhausting all 20,771,000

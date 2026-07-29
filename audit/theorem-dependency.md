@@ -167,6 +167,7 @@ flowchart TD
   C115 --> T121
   L119 --> T121
   C120 --> T121
+  C114 --> T122["T122 no strict alternating renewals"]
   T24 --> O1["Open branch A: infinitely many down-steps"]
   T38 --> O1
   T56 --> O1
@@ -196,24 +197,22 @@ flowchart TD
   C115 --> O2
   T118 --> O2
   T121 --> O2
+  T122 --> O2
   U["Uniform termination of the safe map"] -->|would eliminate| O2
   O1 --> CJ["Original stabilization conjecture remains open"]
   O2 --> CJ
-
   F["Lean formalization: T1, T6, L8, C9, T10 fragments"]
   F -.-> T1
   F -.-> T6
-
   classDef proof fill:#dff4df,stroke:#237a3b,color:#102d18;
   classDef compute fill:#e5efff,stroke:#3566a8,color:#13243d;
   classDef open fill:#fff1d6,stroke:#ad6b00,color:#422900;
   classDef formal fill:#eee4ff,stroke:#6542a6,color:#261642;
-  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64,L65,P66,L67,L68,T69,L70,C71,T72,L73,C74,T75,L76,T77,L78,C79,L80,C81,C82,L83,C84,L85,C86,L87,C88,C89,T90,T91,L110,C111,C112,L113,C114,C115,L116,L117,T118,L119,C120,T121 proof;
+  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64,L65,P66,L67,L68,T69,L70,C71,T72,L73,C74,T75,L76,T77,L78,C79,L80,C81,C82,L83,C84,L85,C86,L87,C88,C89,T90,T91,L110,C111,C112,L113,C114,C115,L116,L117,T118,L119,C120,T121,T122 proof;
   class K1,K11,K13,C46 compute;
   class O1,O2,U,CJ open;
   class F formal;
 ```
-
 ## Critical logical boundaries
 
 1. **Corollary 20 is hybrid.** Theorem 18 makes the candidate set finite;
@@ -398,3 +397,4 @@ flowchart TD
 | 41 | L83 and L103 -> L113 -> C114/C115, with L110 | Child overshoot elimination, returned-residue indexing, unit-child specialization, exact \(D\)-update, canonical-window endpoint, upper-headroom test, and six-gate anti-transience witness |
 | 42 | L42 -> L116/L117; C114 and C115 -> T118 | Quotient-lowering digit preservation, returning-unit congruence endpoints, adjacent-gap logarithmic bound, both summations over overlapping gaps, implicit \(n\le J\log n+O(J)\) inversion, and quotient-window constants |
 | 43 | C114 -> L119; C115 and L119 -> C120; then T118, C115, L119, and C120 -> T121 | Subtraction indices, smaller-power congruence, valuation endpoints, two-gate headroom substitution, coefficient lower bound, negation of gap divergence, neighboring-gap applications of T118, finite residue pigeonhole, and exact fixed-ladder indexing |
+| 44 | C114 -> T122 | Renewal indexing, divisibility of both large gaps by the bounded-gap scale, derivation of \(F(L)\), monotonicity on one residue class, and exponential-versus-linear contradiction |

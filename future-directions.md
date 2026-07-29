@@ -337,12 +337,18 @@ bounded returned residue recur infinitely often. The renewal starts then
 occupy one fixed residue class, and their exits lie on one fixed dyadic
 ladder after isolated logarithmic gaps.
 
+Theorem 122 excludes the densest fixed-ladder recurrence: the same
+\((R,a)\) renewal cannot occur at every other gate three times in
+succession. Any surviving ladder mechanism must insert at least two other
+gates in one of every two successive renewal intervals.
+
 **Do next:** attack the two cases separately. In the growing-modulus branch,
 combine nested congruences across overlapping triples with the state-window
-bounds. In the fixed-ladder branch, compare successive visits to the same
-\(a2^{L+2}\) ladder and use the intervening quotient growth. In the
-mixed-block case, treat near-maximal unique gaps as renewal points and
-accumulate both headroom terms from Lemma 110.
+bounds. In the fixed-ladder branch, extend Theorem 122 from strict
+alternation to arbitrary return spacings by comparing the composed affine
+transfer between successive visits. In the mixed-block case, treat
+near-maximal unique gaps as renewal points and accumulate both headroom
+terms from Lemma 110.
 
 ## 7. Resolve the low-order mixed-ridge defect
 

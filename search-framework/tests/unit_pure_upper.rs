@@ -83,6 +83,7 @@ fn pure_unit(blocks: &[Block], left: usize, right: usize) -> bool {
 fn three_unit_blocks_obey_residue_compatibility() {
     let mut unit_triples = 0u64;
     let mut pure_triples = 0u64;
+    let mut six_unit_windows = 0u64;
     for n in 2..=120u64 {
         for e in 1..n {
             let blocks = zero_blocks(SafeState { e, w: n, wraps: 0 });
@@ -153,7 +154,53 @@ fn three_unit_blocks_obey_residue_compatibility() {
                     pure_triples += 1;
                 }
             }
+            for window in positive.windows(6) {
+                let parents: Vec<_> =
+                    window.iter().map(|index| blocks[*index]).collect();
+                if parents.iter().any(|block| block.wraps != 1) {
+                    continue;
+                }
+                let gaps: Vec<_> = window
+                    .windows(2)
+                    .map(|pair| pair[1] - pair[0] - 1)
+                    .collect();
+                let residues: Vec<_> = parents
+                    .iter()
+                    .map(|block| block.next_zero.unwrap().e)
+                    .collect();
+                assert!(
+                    gaps[0] != gaps[2]
+                        || gaps[2] != gaps[4]
+                        || residues[1] != residues[3]
+                        || residues[3] != residues[5]
+                );
+                six_unit_windows += 1;
+            }
         }
     }
     assert_eq!((unit_triples, pure_triples), (3_250, 580));
+    assert_eq!(six_unit_windows, 167);
+}
+
+#[test]
+fn strict_alternating_renewal_growth_is_too_large() {
+    let mut checked = 0u64;
+    for renewal_gap in 0..=2u32 {
+        let scale = 1u32 << (renewal_gap + 2);
+        assert!(scale >= renewal_gap + 4);
+        for residue in 1..=16u128 {
+            for quotient in 1..=4u32 {
+                let large_gap = scale * quotient - renewal_gap - 4;
+                let numerator = residue
+                    * (1u128 << (large_gap + 2))
+                    * ((1u128 << scale) - 1);
+                assert!(
+                    numerator
+                        > u128::from((quotient + 1) * (scale + 1))
+                );
+                checked += 1;
+            }
+        }
+    }
+    assert_eq!(checked, 192);
 }
