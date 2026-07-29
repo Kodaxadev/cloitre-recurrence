@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Independent bounded checks for Theorem 56.
+"""Independent bounded checks for Theorems 56 and 58.
 
 This script uses raw `(n,q,r)` transitions and imports no project code.
 It checks the parameterized rebound implication on arbitrary admissible
-states and the finite sharp-growth inequality on literal starting orbits.
-These checks are regressions, not a proof of the asymptotic theorem.
+states, the finite sharp-growth inequality on literal starting orbits, and
+the finite low-window count used for sparse down-steps. These checks are
+regressions, not proofs of the asymptotic theorems.
 """
 
 from __future__ import annotations

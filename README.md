@@ -123,7 +123,7 @@ Stabilization is exactly the event \(e_n=0\). This exposes the dynamics as a dou
 | 106 omissions among \(1,\dots,1823\) | Census result | Primary compressed census; full independent census pending |
 | Counterexample growth bounds | Internally proved | Complete proof; awaiting external mathematical review |
 | Unit-leading bound with explicit \(1-O(1/\log\log n)\) rate | New internal proof | Theorem 56 and Corollary 57; post-freeze and awaiting fresh audit; optimality for the recurrence is not claimed |
-| Sublinear counterexamples have zero-density down-steps | New internal proof | Theorem 58 and Corollary 59; post-freeze and awaiting fresh audit; zero density does not imply finitely many down-steps |
+| Sublinear counterexamples have sparse down-steps | New internal proof | Theorem 58 and Corollary 59; zero density and divergent individual spacing, but not finite occurrence; post-freeze and awaiting fresh audit |
 | No eventually periodic quotient-change sequence | Internally proved | Complete proof; awaiting external mathematical review |
 | Two-counter termination for every valid entry state | **Open** | Only the eventually-no-down branch is reduced |
 | Safe-map instance at \(N=10^6\) | Certified finite result | Independent Rust/Python agreement |

@@ -21,6 +21,12 @@ Furthermore,
 \liminf\frac{P(n)\log_2n}{n}\ge1. \tag{8.2}
 \]
 
+If \(d_1<d_2<\cdots\) are the down-step indices, then
+
+\[
+d_{j+1}-d_j\to\infty. \tag{8.3}
+\]
+
 ### Proof
 
 Fix \(s\ge2\) and \(M_s=2^{s+2}\). Sublinearity gives an index \(N_s\)
@@ -28,12 +34,16 @@ after which \(M_sq_k\le k\). Let \(D_s,C_s\) count down-steps and all
 quotient changes on \([N_s,n)\). Theorem 56's disjoint rebound blocks give
 
 \[
-D_s(n)\le\frac{C_s(n)+s}{s+1}. \tag{8.3}
+D_s(n)\le\frac{C_s(n)+s}{s+1}. \tag{8.4}
 \]
+
+The same rebound implication makes every down-step after \(N_s\) followed
+by \(s\) up-steps. Hence \(d_{j+1}-d_j\ge s+1\) eventually. Letting the
+fixed integer \(s\) grow proves (8.3).
 
 Theorem 24 gives \(q_n\to\infty\). Since
 \(\lvert q_n-q_{N_s}\rvert\le C_s(n)\), we have \(C_s(n)\to\infty\).
-Divide (8.3) by \(C_s(n)\), remove the fixed initial prefix, and take
+Divide (8.4) by \(C_s(n)\), remove the fixed initial prefix, and take
 \(n\to\infty\) with \(s\) fixed. The resulting upper bound is
 \(1/(s+1)\); now let \(s\to\infty\). This proves \(D/C\to0\).
 The remaining limits follow from
@@ -50,5 +60,5 @@ and Theorem 56. \(\square\)
 Every counterexample either has \(\limsup q_n/n>0\), and hence
 \(\limsup b_n/n^2>0\), or has \(q_n=o(n)\) and satisfies Theorem 58.
 
-This does not turn zero down-step density into eventual absence of
+Divergent spacing and zero density still do not imply eventual absence of
 down-steps.

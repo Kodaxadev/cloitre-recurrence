@@ -141,4 +141,4 @@ flowchart TD
 | 8 | L43 -> L44 -> L51 -> C52 | Wrap-run acceleration, threshold endpoints, equality family, and boundary-return limitation |
 | 9 | L51 -> L53 -> C54 and T55 | Autonomous-coordinate endpoints, telescoping limit, and quantitative positive-block bound |
 | 10 | T22 -> L26 -> T56 -> C57 | Arbitrary cascade length, endpoint loss, final low-quotient window, order of limits, and optimized floor choice |
-| 11 | T24 -> T56 -> T58 -> C59 | Tail quantifiers for each fixed charge length, fixed-prefix removal, count-ratio limits, and the exact dichotomy |
+| 11 | T24 -> T56 -> T58 -> C59 | Tail quantifiers for each fixed charge length, pointwise rebound spacing, fixed-prefix removal, count-ratio limits, and the exact dichotomy |

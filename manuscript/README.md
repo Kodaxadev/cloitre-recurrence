@@ -26,7 +26,7 @@ quotient, we derive an exact two-counter termination system. The latter
 reduction does not cover hypothetical counterexamples with infinitely many
 quotient down-steps. We nevertheless show that in the sublinear-quotient
 branch, such down-steps must have zero density both in time and among quotient
-changes.
+changes, and that their individual spacings must diverge.
 
 ## Manuscript assembly
 

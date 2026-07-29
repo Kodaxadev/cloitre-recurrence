@@ -313,10 +313,15 @@ fixed prefix and then letting the fixed integer `s` grow proves
 D/C -> 0,   P/C -> 1,   q/C -> 1,   D/n -> 0.
 ```
 
+There is also a pointwise consequence. Every down-step in the same late
+tail is followed immediately by `s` up-steps. Since this holds eventually
+for every fixed `s`, the individual gaps between successive down-steps
+tend to infinity when down-steps are infinite.
+
 Combining these ratios with Theorem 56 preserves the unit-leading lower
 bound for both `C` and `P`. Thus every counterexample has a clean dichotomy:
 either `limsup q_n/n>0`, or it is sublinear and its down-steps are
 asymptotically negligible.
 
-This is cumulative sparsity only. It neither proves that down-steps are
-finite nor that every individual gap between them tends to infinity.
+Even divergent individual spacing does not prove that down-steps are
+finite, so the infinite-down branch remains open.

@@ -47,9 +47,20 @@ and
 \liminf_{n\to\infty}\frac{P(n)\log_2n}{n}\ge1. \tag{58.3}
 \]
 
+If down-steps occur at the infinite sequence of digit indices
+\(d_1<d_2<\cdots\), then
+
+\[
+d_{j+1}-d_j\longrightarrow\infty. \tag{58.4}
+\]
+
+More precisely, for every fixed \(s\ge2\), all sufficiently late down-steps
+are followed immediately by at least \(s\) consecutive up-steps.
+
 Thus an infinite-down counterexample with sublinear quotient would be an
 asymptotically one-sided quotient process: down-steps may remain infinite,
-but they have zero density both in time and among quotient changes.
+but they have zero density both in time and among quotient changes, and
+their individual spacings diverge.
 
 ### Proof
 
@@ -57,8 +68,13 @@ Fix \(s\ge2\) and put \(M_s=2^{s+2}\). Since \(q_k/k\to0\), there is an
 index \(N_s\ge n_0\) such that
 
 \[
-M_sq_k\le k\qquad(k\ge N_s). \tag{58.4}
+M_sq_k\le k\qquad(k\ge N_s). \tag{58.5}
 \]
+
+At any down-step \(k\ge N_s\), the parameterized rebound implication used
+in Theorem 56 therefore forces \(a_{k+1}=\cdots=a_{k+s}=1\). If down-steps
+are infinite, this gives \(d_{j+1}-d_j\ge s+1\) for all sufficiently large
+\(j\). Since \(s\) is arbitrary, (58.4) follows.
 
 Count digits on \([N_s,n)\), writing \(P_s,D_s,C_s\) for the corresponding
 counts. The parameterized rebound argument in Theorem 56 applies to the
@@ -68,7 +84,7 @@ Therefore
 
 \[
 P_s\ge sD_s-s,\qquad
-D_s\le\frac{C_s+s}{s+1}. \tag{58.5}
+D_s\le\frac{C_s+s}{s+1}. \tag{58.6}
 \]
 
 Theorem 24 gives \(q_n\to\infty\). Since
@@ -77,7 +93,7 @@ Theorem 24 gives \(q_n\to\infty\). Since
 |q_n-q_{N_s}|\le C_s(n),
 \]
 
-we have \(C_s(n)\to\infty\). Divide (58.5) by \(C_s\):
+we have \(C_s(n)\to\infty\). Divide (58.6) by \(C_s\):
 
 \[
 \limsup_{n\to\infty}\frac{D_s(n)}{C_s(n)}
@@ -117,8 +133,9 @@ Every counterexample lies in exactly one of the following classes:
    \]
 2. \(q_n=o(n)\), and all conclusions of Theorem 58 hold.
 
-In the second class, if down-steps are infinite, the cumulative average
-number of quotient changes per down-step tends to infinity.
+In the second class, if down-steps are infinite, both their individual
+spacings and the cumulative average number of quotient changes per down-step
+tend to infinity.
 
 ### Proof
 
@@ -129,8 +146,7 @@ Because \(q_n/n\ge0\), failure of \(q_n=o(n)\) is exactly
 ## Limitation
 
 Zero density is not finite occurrence. Theorem 58 reduces a sublinear
-infinite-down counterexample to sparse interruptions of increasingly long
-one-sided behavior in a cumulative-density sense, but it does not imply
-that every individual gap between down-steps tends to infinity. The current
-safe-map theorem also does not give a uniform termination time for the
-intervening segments.
+infinite-down counterexample to sparse interruptions separated by
+increasingly long one-sided segments. The current safe-map theorem does not
+give a uniform termination time for those segments, so divergent spacing
+still does not imply that down-steps occur only finitely often.
