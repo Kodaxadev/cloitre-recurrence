@@ -151,20 +151,45 @@ show that those boundary layers cannot be followed indefinitely; a small
 constant-chain assumption is not justified.
 
 Lemma 87 now eliminates three consecutive uses of the parent boundary:
-the only compatible triple is an explicit terminal path. Corollary 88
-therefore forces
+the only compatible triple is an explicit terminal path. More strongly,
+Corollary 88 observes that any failure of
 
 \[
 D+r-3<2^{r+5}
 \]
 
-at least once every three gates of a continuing unique unit-wrap chain.
+forces this inequality at the next unique gate. Thus it holds at least once
+every two gates of a continuing unique unit-wrap chain.
 **Do:** combine these frequent logarithmic zero-only gaps with the exact
 successor residues, rather than only their lengths. Their frequency alone
 still permits the \(n/\log n\) quotient scale required by Theorem 45.
 Corollary 89 makes this compatibility quantitative: a hypothetical
-all-unit, all-unique tail must have \(D_j\ge(1/3-o(1))j\log_2j\) and quotient
-scale between constants \(1\) and \(3\) times \(n/\log_2n\).
+all-unit, all-unique tail must have \(D_j\ge(1/2-o(1))j\log_2j\) and quotient
+scale between constants \(1\) and \(2\) times \(n/\log_2n\).
+Theorem 90 closes that constant gap: non-short gates would force
+\(U\ge D/2\), contradicting Corollary 89's \(U/D\to0\). Hence every late
+gate is short and any surviving all-unit/all-unique tail must satisfy
+
+\[
+D_j\sim j\log_2j,\qquad
+\frac{U_j\log_2n_j}{n_j}\to1.
+\]
+
+**Do:** analyze the equality case of Theorem 45. A contradiction can no
+longer come from first-order density in this subcase; it must use the exact
+residues or a second-order loss from the moving logarithmic zero-run ceiling.
+
+Theorem 91 completes that equality-case analysis for an all-unit/all-unique
+tail. It proves \(L-5\le r\le L\), bounds the positive excess by \(47\), and
+uses the resulting finite affine-dyadic forms to contradict unavoidable
+same-epoch pairs. The eventual-no-down branch is therefore reduced further:
+
+> infinitely many blocks have length at least two, or infinitely many gates
+> are nonunique.
+
+**Do:** treat these two alternatives quantitatively. For longer blocks,
+combine the extra wrap count with the exact parent equation. For nonunique
+gates, accumulate \(2^{k+r+3}<G+r-3\) rather than bounding isolated gaps.
 
 ## 7. Resolve the low-order mixed-ridge defect
 

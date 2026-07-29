@@ -180,8 +180,10 @@ survives, with \((r,r')=(0,1)\), and that path immediately enters the
 terminating strip. Thus three consecutive parent-boundary starts are
 impossible on an infinite path.
 
-Corollary 88 combines this with the exact uniqueness test: at least one gate
-in every three of a continuing unique unit-wrap chain satisfies
+Corollary 88 strengthens this with the exact uniqueness test: a failure of
+the short-gap inequality forces the successor parent boundary to be inactive.
+Thus at least one gate in every two of a continuing unique unit-wrap chain
+satisfies
 \(D+r-3<2^{r+5}\). This forces frequent logarithmic zero-only gaps, but their
 frequency remains compatible with the known \(n/\log n\) quotient scale.
 
@@ -189,11 +191,54 @@ Summing those gaps gives Corollary 89. If an infinite tail were both
 all-unit-wrap and all-unique, then
 
 \[
-\liminf_j\frac{D_j}{j\log_2j}\ge\frac13,
+\liminf_j\frac{D_j}{j\log_2j}\ge\frac12,
 \qquad
 1\le\liminf_j\frac{U_j\log_2n_j}{n_j}
-\le\limsup_j\frac{U_j\log_2n_j}{n_j}\le3.
+\le\limsup_j\frac{U_j\log_2n_j}{n_j}\le2.
 \]
 
 This pins the subcase to the same critical scale as Theorem 45, within a
-factor of three, but does not close it.
+factor of two, but does not close it.
+
+Theorem 90 removes that remaining factor. A non-short unique gate must use
+the parent boundary; its exact deficit equation and the failed short-gap
+inequality imply \(U\ge D/2\). Corollary 89 instead gives \(U/D\to0\), so
+every sufficiently late gate is short. Summing at every gate and matching
+Theorem 45 yields the exact equality regime
+
+\[
+D_j\sim j\log_2j,\qquad
+\frac{U_j\log_2n_j}{n_j}\to1.
+\]
+
+This is first-order rigidity, not termination. The unresolved issue is now
+whether the exact integer residues can realize the equality case
+aperiodically.
+
+## 10. The critical unit-wrap tail is impossible
+
+Theorem 91 resolves that equality case. The exact child-zero bound and
+Theorem 90 give, with \(L=\lfloor\log_2n\rfloor\),
+
+\[
+L-5\le r\le L.
+\]
+
+The transition then bounds every late positive excess by \(1\le s<48\).
+Thus the gap offset \(h=L-r\) and consecutive excesses range over finite
+sets. If two starts share one dyadic epoch, their exact formulas imply
+
+\[
+2^{L-3}K=-L+h'+s'-s''-2
+\]
+
+for one integer \(K\). This is impossible for large \(L\): nonzero \(K\)
+makes the left side exponential, while \(K=0\) forces \(L\le49\).
+
+But a positive-block start advances only \(r+2\le L+2\). Every crossing into
+a new large dyadic epoch therefore leaves the following start in that same
+epoch, producing exactly the forbidden pair. Hence an infinite safe path
+cannot be eventually all-unit and all-unique.
+
+The surviving safe-map alternatives are now explicit: infinitely many
+blocks of length at least two, or infinitely many nonunique gates.

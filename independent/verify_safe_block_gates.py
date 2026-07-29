@@ -306,6 +306,32 @@ def check_parent_boundary_compatibility() -> None:
     assert accelerate_zero(State(19, 5, 4)) == (0, None)
 
 
+def check_same_epoch_exclusion() -> None:
+    for exponent in range(50, 65):
+        for offset in range(6):
+            for next_offset in range(6):
+                for excess in range(1, 48):
+                    for next_excess in range(1, 48):
+                        coefficient = (
+                            (1 << (5 - offset)) * excess
+                            - (1 << (5 - next_offset)) * next_excess
+                        )
+                        final_excess = (
+                            -exponent
+                            + next_offset
+                            + next_excess
+                            - 2
+                            - (1 << (exponent - 3)) * coefficient
+                        )
+                        assert not 1 <= final_excess < 48
+
+    for exponent in range(50, 1_000):
+        assert (
+            (1 << (exponent + 1)) + 2 * exponent + 5
+            < 1 << (exponent + 2)
+        )
+
+
 def main() -> None:
     gates = 0
     unique = 0
@@ -329,12 +355,14 @@ def main() -> None:
     arbitrary_unit = check_arbitrary_unit_gates()
     assert arbitrary_unit == 9_682
     check_parent_boundary_compatibility()
+    check_same_epoch_exclusion()
     check_unique_chains()
     print(f"adjacent positive-block gates checked: {gates}")
     print(f"unique gates: {unique}")
     print(f"multiple-candidate gates: {multiple}")
     print(f"arbitrary unit-wrap gates checked: {arbitrary_unit}")
     print("parent-boundary compatibility checked through r,r'<=64")
+    print("same-epoch obstruction checked for 50<=L<65")
     print("consecutive unique-gate chain reproduced: 7")
     print(
         "VERDICT: bounded raw checks agree with Lemmas 83/85/87 "

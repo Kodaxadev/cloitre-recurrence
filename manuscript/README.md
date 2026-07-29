@@ -39,9 +39,12 @@ double-logarithmic ceiling. Adjacent positive blocks also obey an exact
 dyadic gate that either fixes the intermediate residue uniquely or bounds
 their combined wrap/zero-only scale. For unit-wrap blocks, an induced affine
 map gives an exact two-boundary characterization of gate uniqueness. Three
-consecutive parent-boundary starts force one terminal state pattern, so a
-continuing unique unit-wrap chain must enter the complementary dyadic boundary
-layer at least once every three gates.
+consecutive parent-boundary starts force one terminal state pattern.
+Independently, failure of the short-gap inequality activates the complementary
+boundary at the successor, so such failures cannot occur twice consecutively.
+The resulting equality-scale analysis bounds both the dyadic gap offset and
+positive excess, and excludes an eventual tail in which all blocks are unit
+and all gates are unique.
 
 ## Manuscript assembly
 
@@ -63,6 +66,7 @@ files in order:
 13. [`13-safe-wrap-ceiling.md`](13-safe-wrap-ceiling.md)
 14. [`14-safe-block-gates.md`](14-safe-block-gates.md)
 15. [`15-unit-wrap-gates.md`](15-unit-wrap-gates.md)
+16. [`16-unit-wrap-exclusion.md`](16-unit-wrap-exclusion.md)
 
 Only definitions, statements, proofs, and explicit claim boundaries belong
 here. Algorithms, benchmarks, certificates, and reproduction instructions
@@ -75,7 +79,7 @@ result is the finite-start bound and its computer-assisted nonsurjectivity
 corollary. Theorem numbering follows `../theorem-status.md` to preserve
 traceability to the frozen research snapshot
 `f19ffcd75d04a05529878ce0226088f2f3221c0b`.
-Theorems 46, 50, 55, 56, 58, 69, 72, 75, and 77; Proposition 66; Lemmas
+Theorems 46, 50, 55, 56, 58, 69, 72, 75, 77, 90, and 91; Proposition 66; Lemmas
 47, 49, 51, 53, 60, 62, 63, 65, 67, 68, 70, 73, 76, 78, 80, 83, 85, and 87; and
 Corollaries 48, 52, 54, 57, 59, 61, 64, 71, 74, 79, 81, 82, 84, 86, 88, and 89 are post-freeze
 additions

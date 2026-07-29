@@ -160,10 +160,10 @@ In raw safe coordinates, the last start follows
 At the last state, \(15<2e=16\le n+2=22\), so it lies in the terminating
 middle strip. This proves the claim.
 
-## Corollary 88 (frequent non-parent boundary gates)
+## Corollary 88 (non-short unique gates are isolated)
 
 In any chain of \(L\) consecutive unique unit-wrap gates, at least
-\(\lfloor L/3\rfloor\) gates satisfy
+\(\lfloor L/2\rfloor\) gates satisfy
 
 \[
 \boxed{D+r-3<2^{r+5}.} \tag{88.1}
@@ -177,16 +177,31 @@ r>\log_2(D+r-3)-5. \tag{88.2}
 
 ### Proof
 
-By Lemma 87, the parent-boundary alternative \(s>D-7\) cannot occur three
-times consecutively in a continuing chain. At least one gate in every three
-therefore has \(s\le D-7\). For that gate, Corollary 86 gives
+Put \(H=2^{r+4}\). Every unique gate satisfies the lower-boundary condition
 
 \[
-s'\le H,\qquad s'+H>D+r-3,
+s'\le H. \tag{88.3}
 \]
 
-where \(H=2^{r+4}\). Adding the inequalities yields (88.1), and taking
-base-two logarithms gives (88.2).
+If its parent boundary is inactive, Corollary 86 also gives
+
+\[
+s'+H>D+r-3,
+\]
+
+so (88.1) follows. Now suppose instead that a unique gate fails (88.1).
+Writing \(D'=D+r\), failure and (88.3) imply
+
+\[
+D'\ge2H+3,\qquad
+\delta'=D'-s'\ge H+3>7. \tag{88.4}
+\]
+
+Thus the parent boundary is inactive at the successor. If that successor
+has another unique gate, the preceding argument forces (88.1) there.
+Failures of (88.1) therefore cannot be consecutive. At least one gate in
+each disjoint pair satisfies it, proving the count. Taking base-two
+logarithms gives (88.2).
 
 This is a quantitative obstruction, not a termination proof. The lower bound
 on \(r\) remains compatible with quotient growth on the \(n/\log n\) scale.
@@ -199,7 +214,7 @@ coordinates \((n_j,U_j,D_j,s_j)\). Then
 
 \[
 \boxed{
-\liminf_{j\to\infty}\frac{D_j}{j\log_2j}\ge\frac13.
+\liminf_{j\to\infty}\frac{D_j}{j\log_2j}\ge\frac12.
 } \tag{89.1}
 \]
 
@@ -211,7 +226,7 @@ Moreover,
 \liminf_{j\to\infty}\frac{U_j\log_2n_j}{n_j}
 \le
 \limsup_{j\to\infty}\frac{U_j\log_2n_j}{n_j}
-\le3.
+\le2.
 } \tag{89.2}
 \]
 
@@ -230,18 +245,18 @@ eventually have \(r_j=0\). But then \(s_j\le D_j-3\) would stay bounded while
 the next-positive condition \(4s_j>n_j+5\) would fail as
 \(n_j=D_j+2U_j\to\infty\).
 
-Apply Corollary 88 to the three gates beginning at indices \(3t,3t+1,3t+2\).
+Apply Corollary 88 to the two gates beginning at indices \(2t,2t+1\).
 For one of them, monotonicity of \(D\) and (88.2) give
 
 \[
-D_{3t+3}-D_{3t}
+D_{2t+2}-D_{2t}
 >
-\log_2(D_{3t}-3)-5. \tag{89.4}
+\log_2(D_{2t}-3)-5. \tag{89.4}
 \]
 
 For every \(\varepsilon>0\), the right side is at least
-\((1-\varepsilon)\log_2D_{3t}\) for all large \(t\). The resulting sequence
-eventually increases by more than one, so \(D_{3t}\gg t\). Summing (89.4)
+\((1-\varepsilon)\log_2D_{2t}\) for all large \(t\). The resulting sequence
+eventually increases by more than one, so \(D_{2t}\gg t\). Summing (89.4)
 and using
 
 \[
@@ -252,10 +267,10 @@ gives
 
 \[
 \liminf_{t\to\infty}
-\frac{D_{3t}}{t\log_2t}\ge1.
+\frac{D_{2t}}{t\log_2t}\ge1.
 \]
 
-Monotonicity between multiples of three proves (89.1).
+Monotonicity between even indices proves (89.1).
 
 The first inequality in (89.2) is Theorem 45 along this subsequence. For the
 last, (89.1), (89.3), and the eventual decrease of
@@ -263,11 +278,106 @@ last, (89.1), (89.3), and the eventual decrease of
 
 \[
 \limsup_{j\to\infty}
-\frac{(U_0+j)\log_2n_j}{n_j}\le3.
+\frac{(U_0+j)\log_2n_j}{n_j}\le2.
 \]
 
 The middle inequality is tautological.
 
-The constants \(1\) and \(3\) do not contradict one another. Thus this
+The constants \(1\) and \(2\) do not contradict one another. Thus this
 corollary confines an infinite unique unit-wrap chain to a critical
 near-\(n/\log n\) quotient regime but does not exclude it.
+
+## Theorem 90 (critical-scale rigidity)
+
+Under the hypotheses of Corollary 89, every sufficiently late gate satisfies
+
+\[
+\boxed{D_j+r_j-3<2^{r_j+5}.} \tag{90.1}
+\]
+
+Moreover, the two critical ratios have exact limits:
+
+\[
+\boxed{
+\frac{D_j}{j\log_2j}\longrightarrow1,
+\qquad
+\frac{U_j\log_2n_j}{n_j}\longrightarrow1.
+} \tag{90.2}
+\]
+
+### Proof
+
+Let \(a=2^{r+2}\), so \(2^{r+5}=8a\), and put
+\(\delta=D-s\). From the transition in Lemma 85,
+
+\[
+\delta'
+=2U-(a-2)D+a\delta+2r+5. \tag{90.3}
+\]
+
+Suppose a unique gate fails (90.1). The child-boundary alternative in
+Corollary 86 would imply (90.1), so the parent boundary must be active.
+Thus \(\delta\in\{3,5\}\). Failure also gives
+
+\[
+D\ge8a-r+3. \tag{90.4}
+\]
+
+Since \(\delta'\ge3\), equation (90.3) yields
+
+\[
+2U\ge(a-2)D-5a-2r-2. \tag{90.5}
+\]
+
+The lower bound (90.4) implies
+
+\[
+(a-3)D\ge5a+2r+2. \tag{90.6}
+\]
+
+For \(r=0\), its two sides are at least \(35\) and \(22\). For \(r\ge1\),
+\(r\le a/4\), so (90.4) gives \(D>7a\), while \(a-3\ge5\); this is more
+than enough for (90.6). Combining (90.5)--(90.6) gives
+
+\[
+U\ge D/2. \tag{90.7}
+\]
+
+But Corollary 89 and \(U_j=U_0+j\) imply \(U_j/D_j\to0\). Hence only
+finitely many gates can fail (90.1).
+
+For every sufficiently late \(j\), (90.1) gives
+
+\[
+D_{j+1}-D_j=r_j>\log_2(D_j-3)-5. \tag{90.8}
+\]
+
+The same summation used in Corollary 89, now at every gate rather than once
+per pair, proves
+
+\[
+\liminf_{j\to\infty}\frac{D_j}{j\log_2j}\ge1. \tag{90.9}
+\]
+
+Together with \(U_j=U_0+j\), \(n_j=D_j+2U_j\), and the eventual decrease of
+\(\log_2x/x\), this gives
+
+\[
+\limsup_{j\to\infty}\frac{U_j\log_2n_j}{n_j}\le1.
+\]
+
+Theorem 45 supplies the reverse lower limit, proving the second limit in
+(90.2).
+
+Finally, (90.9) gives \(U_j/D_j\to0\), so \(n_j/D_j\to1\). The second
+limit in (90.2) then implies
+
+\[
+\frac{j\log_2D_j}{D_j}\longrightarrow1.
+\]
+
+Taking logarithms shows \(\log D_j/\log j\to1\), and substitution proves
+the first limit in (90.2).
+
+This theorem forces exact critical asymptotics but still permits an aperiodic
+integer trajectory at that scale.

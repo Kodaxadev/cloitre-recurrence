@@ -164,7 +164,7 @@ where \(15<16\le22\), the terminating strip.
 ### Corollary 88
 
 Among any \(L\) consecutive unique unit-wrap gates, at least
-\(\lfloor L/3\rfloor\) satisfy
+\(\lfloor L/2\rfloor\) satisfy
 
 \[
 D+r-3<2^{r+5},
@@ -174,9 +174,17 @@ r>\log_2(D+r-3)-5. \tag{15.11}
 
 #### Proof
 
-Lemma 87 excludes three consecutive continuing parent-boundary starts.
-For at least one gate in every three, \(s\le D-7\). Corollary 86 then gives
-\(s'\le2^{r+4}\) and \(s'+2^{r+4}>D+r-3\), proving (15.11).
+Put \(H=2^{r+4}\). Every unique gate has \(s'\le H\). If
+\(s\le D-7\), Corollary 86 also gives \(s'+H>D+r-3\), proving
+(15.11). If a unique gate fails (15.11), then
+
+\[
+D'=D+r\ge2H+3,\qquad D'-s'\ge H+3>7.
+\]
+
+The successor parent boundary is therefore inactive, so its next unique
+gate must satisfy (15.11). Failures cannot be consecutive, proving the
+pair count.
 
 This remains compatible with \(n/\log n\)-scale quotient growth and is not a
 termination theorem.
@@ -187,14 +195,14 @@ Suppose an infinite safe path consists entirely of unit-wrap positive blocks
 and every gate is unique. At its \(j\)-th positive-block start,
 
 \[
-\liminf_{j\to\infty}\frac{D_j}{j\log_2j}\ge\frac13, \tag{15.12}
+\liminf_{j\to\infty}\frac{D_j}{j\log_2j}\ge\frac12, \tag{15.12}
 \]
 
 and
 
 \[
 1\le\liminf_{j\to\infty}\frac{U_j\log_2n_j}{n_j}
-\le\limsup_{j\to\infty}\frac{U_j\log_2n_j}{n_j}\le3. \tag{15.13}
+\le\limsup_{j\to\infty}\frac{U_j\log_2n_j}{n_j}\le2. \tag{15.13}
 \]
 
 #### Proof
@@ -204,10 +212,10 @@ The transition gives \(U_j=U_0+j\), \(D_{j+1}=D_j+r_j\), and
 \(r_j=0\), while bounded \(s_j\le D_j-3\) cannot satisfy
 \(4s_j>n_j+5\) as \(n_j\to\infty\).
 
-By Corollary 88, one gate in each triple beginning at \(3t\) satisfies
+By Corollary 88, one gate in each pair beginning at \(2t\) satisfies
 
 \[
-D_{3t+3}-D_{3t}>\log_2(D_{3t}-3)-5. \tag{15.14}
+D_{2t+2}-D_{2t}>\log_2(D_{2t}-3)-5. \tag{15.14}
 \]
 
 For any \(\varepsilon>0\), this is eventually at least
@@ -218,3 +226,56 @@ the lower bound in (15.13); (15.12), \(U_j=U_0+j\), and
 
 This confines the subcase to a critical quotient scale but does not exclude
 it.
+
+### Theorem 90
+
+Under the hypotheses of Corollary 89, every sufficiently late gate satisfies
+
+\[
+D_j+r_j-3<2^{r_j+5}, \tag{15.15}
+\]
+
+and
+
+\[
+\frac{D_j}{j\log_2j}\longrightarrow1,\qquad
+\frac{U_j\log_2n_j}{n_j}\longrightarrow1. \tag{15.16}
+\]
+
+#### Proof
+
+Put \(a=2^{r+2}\) and \(\delta=D-s\). The transition gives
+
+\[
+\delta'=2U-(a-2)D+a\delta+2r+5. \tag{15.17}
+\]
+
+If a unique gate fails (15.15), Corollary 86 forces
+\(\delta\in\{3,5\}\), while failure gives \(D\ge8a-r+3\). Since
+\(\delta'\ge3\),
+
+\[
+2U\ge(a-2)D-5a-2r-2.
+\]
+
+The bound \(D\ge8a-r+3\) implies
+\((a-3)D\ge5a+2r+2\): check \(r=0\) directly, while for \(r\ge1\),
+\(r\le a/4\), \(D>7a\), and \(a-3\ge5\). Hence every failing gate has
+\(U\ge D/2\).
+
+Corollary 89 and \(U_j=U_0+j\) give \(U_j/D_j\to0\), so only finitely many
+gates fail (15.15). Therefore
+
+\[
+D_{j+1}-D_j>\log_2(D_j-3)-5
+\]
+
+at every sufficiently late gate. Summation gives
+\(\liminf D_j/(j\log_2j)\ge1\), hence
+\(\limsup U_j\log_2n_j/n_j\le1\). Theorem 45 supplies the reverse lower
+limit. Since \(n_j/D_j\to1\), this yields
+\(j\log_2D_j/D_j\to1\), then \(\log D_j/\log j\to1\), and finally both
+limits in (15.16).
+
+The exact critical scale is still compatible with an aperiodic integer
+trajectory.

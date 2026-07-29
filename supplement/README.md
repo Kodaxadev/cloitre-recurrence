@@ -50,8 +50,12 @@ census, on 9,682 additional gates with arbitrary bounded accumulated quotient,
 and reproduces a valid chain of seven consecutive unique gates.
 It also checks Lemma 87's two-gap Diophantine compatibility through
 \(0\le r,r'\le64\) and executes the unique surviving terminal path directly.
-Corollaries 88--89 are symbolic consequences and are not inferred from the
-bounded enumeration.
+Corollaries 88--89 and Theorem 90 are symbolic consequences and are not
+inferred from the bounded enumeration.
+Theorem 91 is likewise symbolic; the bounded seven-gate search is supporting
+falsification evidence, not its proof. The independent verifier additionally
+checks the finite affine-dyadic obstruction for every \(50\le L<65\) and the
+epoch-crossing inequality through \(L<1000\).
 The native `safe_block_gates` Rust test repeats the same census and
 reconstruction through the safe-map implementation and independently checks
 the parent-boundary compatibility grid and terminal path.
