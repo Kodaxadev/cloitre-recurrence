@@ -42,12 +42,13 @@ def canonical_origin(n: int, k: int, r: int) -> tuple[int, int]:
     return residue or spacing, spacing
 
 
-def check_raw_gates() -> tuple[int, int, int, int, int]:
+def check_raw_gates() -> tuple[int, int, int, int, int, dict[int, int]]:
     checked = 0
     band_checked = 0
     interior = 0
     interior_unique = 0
     interior_nonunique = 0
+    multiplicities: dict[int, int] = {}
     for initial_n in range(2, 121):
         for initial_e in range(1, initial_n):
             blocks = zero_blocks(State(initial_n, 0, initial_e))
@@ -79,6 +80,11 @@ def check_raw_gates() -> tuple[int, int, int, int, int]:
                 )
 
                 gate = candidates(returned.n, returned.q, k, r)
+                lower_depth = min(block.start.e - 1, translate)
+                upper_depth = min(parent_d // 2, (2 * child_d) // spacing)
+                assert len(gate) == 1 + lower_depth + upper_depth
+                assert (len(gate) - 1) * spacing <= child_gap - 3 - rho
+                multiplicities[len(gate)] = multiplicities.get(len(gate), 0) + 1
                 if len(gate) == 1:
                     child_a = child.n + 4 - 2 * child.e
                     child_k = blocks[right].wraps
@@ -114,6 +120,7 @@ def check_raw_gates() -> tuple[int, int, int, int, int]:
         interior,
         interior_unique,
         interior_nonunique,
+        multiplicities,
     )
 
 
@@ -134,20 +141,33 @@ def check_residue_permutations() -> int:
 
 
 def main() -> None:
-    checked, band_checked, interior, unique, nonunique = check_raw_gates()
+    checked, band_checked, interior, unique, nonunique, multiplicities = (
+        check_raw_gates()
+    )
     permutations = check_residue_permutations()
     assert (checked, band_checked) == (27_030, 8_411)
     assert (interior, unique, nonunique) == (25_646, 7_380, 18_266)
     assert permutations == 30
+    assert multiplicities == {
+        1: 8_411,
+        2: 5_776,
+        3: 4_578,
+        4: 3_021,
+        5: 1_127,
+        6: 1_370,
+        7: 2_204,
+        8: 543,
+    }
     print(f"raw gates canonically decomposed: {checked}")
     print(f"unique next-block bands checked: {band_checked}")
     print(f"interior raw gates classified: {interior}")
     print(f"unique first-window hits: {unique}")
     print(f"nonunique later-window hits: {nonunique}")
     print(f"complete bounded residue permutations checked: {permutations}")
+    print(f"exact gate multiplicity histogram: {multiplicities}")
     print(
         "VERDICT: bounded raw gates agree with Lemma 103 and "
-        "Corollaries 104--105, Lemma 106, and Corollary 107."
+        "Corollaries 104--105, Lemmas 106/110, and Corollaries 107/111."
     )
 
 

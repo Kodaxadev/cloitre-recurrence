@@ -124,6 +124,8 @@ classification is the point: nothing is promoted without a proof.
 | **C107** | A unique gate leading to a child block of length at least two has $r/\log_2n'\to1$ along every infinite sequence of such gates on a hypothetical infinite safe path | `child-boundary-window.md` | **Corollary - new; fresh audit pending; sparse long-block resets remain possible** |
 | **C108** | Every hypothetical infinite safe path has infinitely many nonunique gates or infinitely many unique longer-child gates preceded by almost-logarithmic gaps | `child-boundary-window.md` | **Corollary - new; fresh audit pending; exhaustive scale alternative, not termination** |
 | **C109** | Unique longer-child reset gates occur only $O(N/\log N)$ times through child-start index $N$, hence have zero density in absolute time | `child-boundary-window.md` | **Corollary - new; fresh audit pending; zero density does not imply finiteness** |
+| **L110** | Every arbitrary gate has exactly $1+\min(e-1,j)+\min(\lfloor d/2\rfloor,\lfloor2d'/H\rfloor)$ locally valid parent states | `gate-multiplicity-analysis.md` | **Lemma - new; fresh audit pending; exact nonuniqueness depth, not termination** |
+| **C111** | Gate multiplicity consumes canonical displacement: $(|\mathcal F|-1)H\le D'-3-\rho$ | `gate-multiplicity-analysis.md` | **Corollary - new; fresh audit pending; truncated by parent headrooms** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**

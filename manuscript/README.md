@@ -79,6 +79,7 @@ files in order:
 17. [`17-general-gate-boundaries.md`](17-general-gate-boundaries.md)
 18. [`18-parent-gap-exclusion.md`](18-parent-gap-exclusion.md)
 19. [`19-child-boundary-window.md`](19-child-boundary-window.md)
+20. [`20-gate-multiplicity.md`](20-gate-multiplicity.md)
 
 Only definitions, statements, proofs, and explicit claim boundaries belong
 here. Algorithms, benchmarks, certificates, and reproduction instructions
@@ -92,8 +93,8 @@ corollary. Theorem numbering follows `../theorem-status.md` to preserve
 traceability to the frozen research snapshot
 `f19ffcd75d04a05529878ce0226088f2f3221c0b`.
 Theorems 46, 50, 55, 56, 58, 69, 72, 75, 77, 90, 91, 99, and 101; Proposition 66; Lemmas
-47, 49, 51, 53, 60, 62, 63, 65, 67, 68, 70, 73, 76, 78, 80, 83, 85, 87, 92, 94, 96, 98, 100, 103, and 106; and
-Corollaries 48, 52, 54, 57, 59, 61, 64, 71, 74, 79, 81, 82, 84, 86, 88, 89, 93, 95, 97, 102, 104, 105, and 107--109 are post-freeze
+47, 49, 51, 53, 60, 62, 63, 65, 67, 68, 70, 73, 76, 78, 80, 83, 85, 87, 92, 94, 96, 98, 100, 103, 106, and 110; and
+Corollaries 48, 52, 54, 57, 59, 61, 64, 71, 74, 79, 81, 82, 84, 86, 88, 89, 93, 95, 97, 102, 104, 105, and 107--109, 111 are post-freeze
 additions
 and have not yet received the fresh-context audit applied to the frozen
 theorem chain.

@@ -288,9 +288,22 @@ Corollary 109 shows that the latter reset gates number only
 \(O(N/\log N)\) through index \(N\). Their zero density in absolute time does
 not make them finite or sparse among positive blocks.
 
+Lemma 110 now counts every locally valid gate state exactly:
+
+\[
+|\mathcal F|
+=1+\min(e-1,j)
++\min\!\left(\lfloor d/2\rfloor,\lfloor2d'/H\rfloor\right).
+\]
+
+Thus a later-window displacement can be absorbed by finite parent residue
+or defect headroom without producing proportional multiplicity.
+
 **Do next:** treat those near-maximal gaps as renewal points. Derive the
 state map from one such reset to the next across the intervening unit blocks,
 while keeping the nonunique alternative as the exact complementary event.
+For nonunique gates, accumulate the two headroom consumptions in Lemma 110,
+not only the canonical displacement.
 
 ## 7. Resolve the low-order mixed-ridge defect
 

@@ -107,7 +107,12 @@ finite checks support the identities; they do not prove orbitwise
 equidistribution or termination. Python checks Lemma 106's exact next-block
 band and Corollary 107's unit-versus-long threshold on all 8,411 unique
 gates in its raw census; the native Rust census independently checks the
-same statements on its 9,718 unique gates.
+same statements on its 9,718 unique gates. Python also checks Lemma 110 and
+Corollary 111 on all 27,030 gates,
+pinning the exact multiplicity histogram
+\((8411,5776,4578,3021,1127,1370,2204,543)\) for multiplicities
+\(1,\ldots,8\). The native `gate_multiplicity` Rust test independently
+reproduces the same formula and histogram.
 
 The exploratory Rust binary `gate_chain` searches these chains without
 assuming that the accumulated quotient is zero. Exhausting all 20,771,000
