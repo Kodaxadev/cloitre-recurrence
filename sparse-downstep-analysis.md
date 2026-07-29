@@ -275,3 +275,75 @@ because \(P(d_J)/d_J\to0\), their ratio tends to zero. This proves (61.1).
 A weighted average of nonnegative ratios can tend to zero only if some
 subsequence of the ratios tends to zero, proving (61.2). Theorem 58 gives
 \(R_j\le U_j\) eventually, so (61.3) follows. \(\square\)
+
+## Lemma 62: exact zero budget on a post-down ridge
+
+Suppose a down-step at index \(N-1\) reaches the state
+\((N,Q,e_N)\), and put
+
+\[
+h=N-Q-e_N.
+\]
+
+Then \(1\le h\le Q+1\). Suppose the next \(L\) digits contain no
+down-step, and let
+
+\[
+\mathcal Z=\{0\le i<L:a_{N+i}=0\}.
+\]
+
+Writing \(e_{N+L}\) for the terminal state coordinate, one has the exact
+identity
+
+\[
+\boxed{\displaystyle
+Q+h+3
+=
+\sum_{i\in\mathcal Z}\frac{N+i+2}{2^{i+1}}
++\frac{N+L+3-e_{N+L}}{2^L}.} \tag{62.1}
+\]
+
+In particular,
+
+\[
+\sum_{i\in\mathcal Z}\frac{N+i+2}{2^{i+1}}<Q+h+3. \tag{62.2}
+\]
+
+If \(i_0\) is the first zero offset, then
+
+\[
+2^{i_0+1}>\frac{N+i_0+2}{Q+h+3}. \tag{62.3}
+\]
+
+Thus the whole finite zero pattern, not only its first digit, has a dyadic
+budget controlled by the narrow post-down ridge.
+
+### Proof
+
+Write the parent down-step as \((N-1,q,r)\). Then
+
+\[
+Q=q-1,\qquad e_N=N-h-Q,\qquad h=q-2r,
+\]
+
+so \(1\le h\le q=Q+1\). Unrolling the exact doubling law over the
+following \(L\) digits gives
+
+\[
+e_N=
+\sum_{i=0}^{L-1}
+\frac{a_{N+i}(N+i+2)}{2^{i+1}}
++\frac{e_{N+L}}{2^L}. \tag{62.4}
+\]
+
+The corresponding sum with every digit equal to one is
+
+\[
+\sum_{i=0}^{L-1}\frac{N+i+2}{2^{i+1}}
+=N+3-\frac{N+L+3}{2^L}. \tag{62.5}
+\]
+
+Subtract (62.4) from (62.5) and use
+\(N+3-e_N=Q+h+3\). This proves (62.1). The terminal numerator is
+positive because every valid state has \(e_{N+L}<N+L\), proving (62.2).
+Keeping only the first zero term gives (62.3). \(\square\)

@@ -123,3 +123,28 @@ segments have total length asymptotic to their final index and contain at
 most \(P(n)=o(n)\) up-steps. The weighted average in (8.6) follows, and a
 nonnegative weighted average tending to zero has a subsequence of component
 ratios tending to zero. \(\square\)
+
+## Lemma 62 (post-down zero budget)
+
+Suppose a down-step at \(N-1\) reaches \((N,Q,e_N)\), and put
+\(h=N-Q-e_N\), so \(1\le h\le Q+1\). If the next \(L\) digits contain
+no down-step and \(\mathcal Z=\{i<L:a_{N+i}=0\}\), then
+
+\[
+Q+h+3
+=\sum_{i\in\mathcal Z}\frac{N+i+2}{2^{i+1}}
++\frac{N+L+3-e_{N+L}}{2^L}. \tag{8.7}
+\]
+
+Consequently the zero sum is strictly smaller than \(Q+h+3\).
+
+Indeed, unroll the doubling law over \(L\) steps. The same weighted sum
+with every digit equal to one is
+
+\[
+N+3-\frac{N+L+3}{2^L}.
+\]
+
+Subtracting the actual digit sum and using
+\(e_N=N-Q-h\) gives (8.7). Its terminal numerator is positive because
+\(e_{N+L}<N+L\). \(\square\)

@@ -207,6 +207,38 @@ def check_weighted_rebound_budget() -> int:
     return checked
 
 
+def check_ridge_zero_budget() -> int:
+    checked = 0
+    for n in (32, 64, 128, 256):
+        for q in range(1, 33):
+            for r in range((q + 1) // 2):
+                parent = State(n=n, q=q, r=r)
+                assert digit(parent) == -1
+                start = step(parent)
+                index = start.n
+                quotient = start.q
+                gap = index - start.r
+                assert 1 <= gap <= quotient + 1
+
+                current = start
+                zeros = []
+                for offset in range(80):
+                    if current.r == current.q or digit(current) == -1:
+                        break
+                    if digit(current) == 0:
+                        zeros.append(offset)
+                    current = step(current)
+                length = current.n - index
+                terminal_e = current.r - current.q
+                left = (quotient + gap + 3) << length
+                right = index + length + 3 - terminal_e
+                for offset in zeros:
+                    right += (index + offset + 2) << (length - offset - 1)
+                assert left == right
+                checked += 1
+    return checked
+
+
 def main() -> None:
     cascades = check_parameterized_cascades()
     explicit_rebounds = check_explicit_rebound_lengths()
@@ -215,6 +247,7 @@ def main() -> None:
     endpoints = check_floor_endpoints()
     windows = check_low_window_counts()
     weighted = check_weighted_rebound_budget()
+    ridge_budgets = check_ridge_zero_budget()
     assert cascades > 1_000
     assert explicit_rebounds > 100_000
     assert growth > 100_000
@@ -222,6 +255,7 @@ def main() -> None:
     assert endpoints > 900_000
     assert windows > 100_000
     assert weighted > 300_000
+    assert ridge_budgets > 1_000
     print(f"parameterized rebound cascades checked: {cascades}")
     print(f"explicit rebound-length states checked: {explicit_rebounds}")
     print(f"finite sharp-growth inequalities checked: {growth}")
@@ -229,9 +263,10 @@ def main() -> None:
     print(f"floor-threshold endpoints checked: {endpoints}")
     print(f"low-window counting prefixes checked: {windows}")
     print(f"weighted rebound-budget prefixes checked: {weighted}")
+    print(f"post-down dyadic zero budgets checked: {ridge_budgets}")
     print(
         "VERDICT: bounded raw checks agree with Theorems 56/58, "
-        "Lemma 60, and Corollaries 57/59."
+        "Lemmas 60/62, and Corollaries 57/59/61."
     )
 
 

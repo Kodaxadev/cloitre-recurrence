@@ -53,7 +53,7 @@ result is the finite-start bound and its computer-assisted nonsurjectivity
 corollary. Theorem numbering follows `../theorem-status.md` to preserve
 traceability to the frozen research snapshot
 `f19ffcd75d04a05529878ce0226088f2f3221c0b`.
-Theorems 46, 50, 55, 56, and 58; Lemmas 47, 49, 51, 53, and 60; and
+Theorems 46, 50, 55, 56, and 58; Lemmas 47, 49, 51, 53, 60, and 62; and
 Corollaries 48, 52, 54, 57, 59, and 61 are post-freeze additions and have
 not yet received the fresh-context audit applied to the frozen theorem
 chain.

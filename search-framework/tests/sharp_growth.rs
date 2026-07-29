@@ -161,3 +161,42 @@ fn weighted_rebound_budget_holds_on_arbitrary_prefixes() {
     }
     assert!(checked > 300_000, "weighted test too weak: {checked}");
 }
+
+#[test]
+fn post_down_dyadic_zero_budget_is_exact() {
+    let mut checked = 0u64;
+    for n in [32u64, 64, 128] {
+        for q in 1..=24 {
+            for r in 0..(q + 1) / 2 {
+                let parent = State { n, q, r };
+                assert_eq!(dq(parent), -1);
+                let start = step(parent);
+                let gap = start.n - start.r;
+                assert!((1..=start.q + 1).contains(&gap));
+
+                let mut current = start;
+                let mut zeros = Vec::new();
+                for offset in 0..60u32 {
+                    if current.absorbed() || dq(current) == -1 {
+                        break;
+                    }
+                    if dq(current) == 0 {
+                        zeros.push(offset);
+                    }
+                    current = step(current);
+                }
+
+                let length = u32::try_from(current.n - start.n).unwrap();
+                let terminal_e = i128::from(current.r) - i128::from(current.q);
+                let left = i128::from(start.q + gap + 3) << length;
+                let mut right = i128::from(start.n + u64::from(length) + 3) - terminal_e;
+                for offset in zeros {
+                    right += i128::from(start.n + u64::from(offset) + 2) << (length - offset - 1);
+                }
+                assert_eq!(left, right, "parent={parent:?} end={current:?}");
+                checked += 1;
+            }
+        }
+    }
+    assert!(checked > 400, "ridge-budget test too weak: {checked}");
+}
