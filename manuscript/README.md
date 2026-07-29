@@ -44,7 +44,9 @@ Independently, failure of the short-gap inequality activates the complementary
 boundary at the successor, so such failures cannot occur twice consecutively.
 The resulting equality-scale analysis bounds both the dyadic gap offset and
 positive excess, and excludes an eventual tail in which all blocks are unit
-and all gates are unique.
+and all gates are unique. For arbitrary block lengths, the adjacent-block
+gate has an exact two-boundary uniqueness criterion in terms of its child
+excess and the parent and child defects.
 
 ## Manuscript assembly
 
@@ -67,6 +69,7 @@ files in order:
 14. [`14-safe-block-gates.md`](14-safe-block-gates.md)
 15. [`15-unit-wrap-gates.md`](15-unit-wrap-gates.md)
 16. [`16-unit-wrap-exclusion.md`](16-unit-wrap-exclusion.md)
+17. [`17-general-gate-boundaries.md`](17-general-gate-boundaries.md)
 
 Only definitions, statements, proofs, and explicit claim boundaries belong
 here. Algorithms, benchmarks, certificates, and reproduction instructions
@@ -80,8 +83,8 @@ corollary. Theorem numbering follows `../theorem-status.md` to preserve
 traceability to the frozen research snapshot
 `f19ffcd75d04a05529878ce0226088f2f3221c0b`.
 Theorems 46, 50, 55, 56, 58, 69, 72, 75, 77, 90, and 91; Proposition 66; Lemmas
-47, 49, 51, 53, 60, 62, 63, 65, 67, 68, 70, 73, 76, 78, 80, 83, 85, and 87; and
-Corollaries 48, 52, 54, 57, 59, 61, 64, 71, 74, 79, 81, 82, 84, 86, 88, and 89 are post-freeze
+47, 49, 51, 53, 60, 62, 63, 65, 67, 68, 70, 73, 76, 78, 80, 83, 85, 87, 92, and 94; and
+Corollaries 48, 52, 54, 57, 59, 61, 64, 71, 74, 79, 81, 82, 84, 86, 88, 89, and 93 are post-freeze
 additions
 and have not yet received the fresh-context audit applied to the frozen
 theorem chain.

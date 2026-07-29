@@ -242,3 +242,50 @@ cannot be eventually all-unit and all-unique.
 
 The surviving safe-map alternatives are now explicit: infinitely many
 blocks of length at least two, or infinitely many nonunique gates.
+
+## 11. Arbitrary blocks have the same exact two-boundary gate
+
+The one-sided lattice count in Corollary 84 can be made exact without
+assuming \(k=1\). For a returned residue \(f\), define
+
+\[
+x=2^{r+2}f-m-r-3,\qquad H=2^{k+r+3}.
+\]
+
+If \(d=A-U-4\) is the parent defect and \(d'\) is the defect at the next
+positive-block start, direct substitution gives
+
+\[
+G+r-3-x=2d'.
+\]
+
+The lower neighboring gate value survives exactly when \(x>H\). The upper
+neighbor survives exactly when \(d\ge2\) and \(2d'\ge H\). Hence
+
+\[
+\text{unique}\iff
+x\le H\ \text{and}\ (d\le1\ \text{or}\ 2d'<H).
+\]
+
+This is Lemma 92. It shows that longer blocks do not introduce a third
+uniqueness mechanism: they use the same parent/child boundary split as the
+unit-wrap coordinates. The independent raw census confirms both directions
+on 27,030 gates.
+
+The same coordinates also give the affine compatibility equation
+
+\[
+(2^{k+r+1}-1)U-(2^{r+1}-1)n
+=2^{r+1}(k+4)-2^{k+r+1}(d+4)-r-1+d'.
+\]
+
+Applying it to two consecutive gates produces a two-by-two linear system.
+Except when its explicit determinant vanishes, every fixed parameter tuple
+determines at most one rational start. This is Lemma 94.
+
+A bounded affine search for two consecutive unique gates whose three starts
+all have \(d\le1\) finds only three parameter patterns through
+\(k,k',r,r'\le16\), including the terminal unit-wrap pattern and two
+length-two patterns. This is useful evidence for the next classification
+target, but the bound is computational and has not been promoted to a
+theorem.

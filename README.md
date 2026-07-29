@@ -132,6 +132,7 @@ Stabilization is exactly the event \(e_n=0\). This exposes the dynamics as a dou
 | Adjacent safe-map blocks pass through an exact dyadic gate | New internal proof | Lemma 83 and Corollary 84 give \(m+3-f=2^kA\), a lifted class modulo \(2^{k+1}\), and a sharp interval; the gate either fixes both endpoints uniquely or forces \(2^{k+r+3}<G+r-3\), but neither alternative is excluded |
 | Unit-wrap gates have an exact boundary test | New internal proof | Lemmas 85/87, Corollaries 86/88/89, and Theorem 90 give an affine map on \((n,D,s)\), isolate non-short gates, and force every infinite all-unit/all-unique chain onto the exact critical scale \(D_j\sim j\log_2j\) and \(U_j\log_2n_j/n_j\to1\); this is not termination |
 | An eventual all-unit, all-unique safe tail is impossible | New internal proof | Theorem 91 turns the critical scale into bounded excess and a six-value dyadic offset; the resulting finite affine-dyadic forms cannot support two starts in one large dyadic epoch, although \(O(\log n)\) index advances force such pairs |
+| Arbitrary-length gates have an exact two-boundary test | New internal proof | Lemmas 92/94 and Corollary 93 characterize uniqueness and nonuniqueness iff through one child excess and the parent/child defects, then reduce two fixed consecutive parameter tuples to an affine determinant; the parameters remain unbounded |
 | No eventually periodic quotient-change sequence | Internally proved | Complete proof; awaiting external mathematical review |
 | Two-counter termination for every valid entry state | **Open** | Only the eventually-no-down branch is reduced |
 | Safe-map instance at \(N=10^6\) | Certified finite result | Independent Rust/Python agreement |
@@ -208,6 +209,7 @@ The Lean development compiles without `sorry`, but it does **not** formalize the
 | [`unit-wrap-gate-analysis.md`](unit-wrap-gate-analysis.md) | induced unit-wrap coordinates and exact uniqueness-boundary test |
 | [`unit-wrap-chain-analysis.md`](unit-wrap-chain-analysis.md) | persistence obstruction and critical-scale bounds for unique unit-wrap chains |
 | [`unit-wrap-critical-exclusion.md`](unit-wrap-critical-exclusion.md) | dyadic-epoch contradiction excluding the all-unit/all-unique tail |
+| [`general-gate-boundary-analysis.md`](general-gate-boundary-analysis.md) | exact two-boundary uniqueness test for positive blocks of arbitrary length |
 | [`symbolic-analysis.md`](symbolic-analysis.md) | doubling model, heuristics, and failures |
 | [`compressed-orbit-analysis.md`](compressed-orbit-analysis.md) | compression design and rejected approaches |
 | [`invariant-search.md`](invariant-search.md) | negative invariant and potential searches |

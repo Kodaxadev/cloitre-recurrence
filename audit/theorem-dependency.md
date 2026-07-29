@@ -124,6 +124,10 @@ flowchart TD
   C89 --> T90
   T45 --> T90
   T90 --> T91["T91 no all-unit all-unique tail"]
+  L83 --> L92["L92 exact arbitrary-block gate boundaries"]
+  C84 --> L92
+  L92 --> C93["C93 exact nonunique alternative"]
+  L83 --> L94["L94 affine defect compatibility"]
 
   T24 --> O1["Open branch A: infinitely many down-steps"]
   T38 --> O1
@@ -140,6 +144,7 @@ flowchart TD
   T55 --> O2
   T56 --> O2
   C81 --> O2
+  C93 --> O2
   C82 --> O2
   C84 --> O2
   C86 --> O2
@@ -255,6 +260,11 @@ flowchart TD
     or infinitely many nonunique gates. The theorem does not control either
     remaining alternative.
 
+19. **Lemma 92 localizes arbitrary gates but does not eliminate a boundary.**
+    Its iff test strictly sharpens Corollary 84 and classifies every
+    nonunique gate. Both the parent layer \(d\le1\) and the lower-child
+    neighbor \(x>H\) remain dynamically possible.
+
 ## Audit priority
 
 | Priority | Chain | Evidence required |
@@ -289,3 +299,5 @@ flowchart TD
 | 28 | C88 and T45 -> C89 | Divergence of the gap coordinate, pair-block summation, conversion from block count to index, and both quotient-scale constants |
 | 29 | C86, C89, and T45 -> T90 | Non-short-gate quotient lower bound, eventual elimination using $U/D\to0$, every-gate summation, and the equality-case limit conversion |
 | 30 | T90 -> T91 | Eventual gap-offset bound, uniform excess bound, finite affine-dyadic forms, same-epoch incompatibility, and forced same-epoch pairs after crossings |
+| 31 | L83 and C84 -> L92 -> C93 | Child-excess endpoints, defect identity, both adjacent lattice neighbors, parent upper-bound preservation, exact reconstruction, and logical complement |
+| 32 | L83 -> L94 | Returned-residue indexing, child-defect substitution, shifted second start, coefficient determinant, and the singular case boundary |

@@ -153,6 +153,28 @@ fn adjacent_positive_blocks_obey_the_dyadic_gate() {
                 let denominator = 1u64 << (block.wraps + r + 3);
                 let bound = numerator.div_ceil(denominator);
                 assert!(u64::try_from(candidates.len()).unwrap() <= bound);
+
+                let parent_a = block.start.n() + 4 - 2 * block.start.e;
+                let parent_d = parent_a - block.start.wraps - 4;
+                let excess = (1u128 << (r + 2)) * u128::from(next_zero.e)
+                    - u128::from(m + u64::from(r) + 3);
+                let spacing = 1u128 << (block.wraps + r + 3);
+                let next_start = blocks[next_positive].start;
+                let child_d =
+                    next_start.n() - next_start.wraps - 2 * next_start.e;
+                assert_eq!(
+                    u128::from(numerator) - excess,
+                    2 * u128::from(child_d)
+                );
+                let boundary_unique = excess <= spacing
+                    && (parent_d <= 1
+                        || 2 * u128::from(child_d) < spacing);
+                assert_eq!(candidates.len() == 1, boundary_unique);
+                let boundary_multiple = excess > spacing
+                    || (parent_d >= 2
+                        && 2 * u128::from(child_d) >= spacing);
+                assert_eq!(candidates.len() >= 2, boundary_multiple);
+
                 if candidates.len() == 1 {
                     unique += 1;
                 } else {

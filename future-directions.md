@@ -191,6 +191,24 @@ same-epoch pairs. The eventual-no-down branch is therefore reduced further:
 combine the extra wrap count with the exact parent equation. For nonunique
 gates, accumulate \(2^{k+r+3}<G+r-3\) rather than bounding isolated gaps.
 
+Lemma 92 now puts both alternatives in one exact boundary language. With
+
+\[
+x=2^{r+2}f-m-r-3,\qquad H=2^{k+r+3},
+\]
+
+nonuniqueness is equivalent to
+
+\[
+x>H\quad\text{or}\quad(d\ge2\text{ and }2d'\ge H).
+\]
+
+**Do:** classify consecutive unique gates in the parent layer \(d\le1\)
+for arbitrary \(k\). A bounded affine search through
+\(k,k',r,r'\le16\) finds only three patterns, but no uniform parameter
+bound is proved. In the complementary interior layer, accumulate the sharp
+inequality \(G+r-3<2^{k+r+4}\) together with the block-count lower bound.
+
 ## 7. Resolve the low-order mixed-ridge defect
 
 Lemma 73 now encodes every zero in an arbitrary ridge by

@@ -60,6 +60,15 @@ The native `safe_block_gates` Rust test repeats the same census and
 reconstruction through the safe-map implementation and independently checks
 the parent-boundary compatibility grid and terminal path.
 
+`independent/verify_general_gate_boundaries.py` independently re-enumerates
+27,030 adjacent arbitrary-length raw gates and checks both directions of
+Lemma 92 and Corollary 93. It classifies all 18,619 nonunique gates in that
+census by the exact lower-neighbor or paired-upper-boundary alternative.
+Separately, a bounded affine parameter scan through
+\(k,k',r,r'\le16\) finds three consecutive unique parent-boundary patterns.
+That last count is exploratory finite evidence, not a theorem or a claim
+that the three patterns are globally exhaustive.
+
 The exploratory Rust binary `gate_chain` searches these chains without
 assuming that the accumulated quotient is zero. Exhausting all 20,771,000
 valid positive-block zero epochs with \(2\le n\le1000\) found seven

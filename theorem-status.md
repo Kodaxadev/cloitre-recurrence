@@ -106,6 +106,9 @@ classification is the point: nothing is promoted without a proof.
 | **C89** | An infinite all-unique unit-wrap chain has $\liminf D_j/(j\log_2j)\ge1/2$ and quotient scale between constants 1 and 2 times $n/\log_2n$ | `unit-wrap-chain-analysis.md` | **Corollary - new; fresh audit pending; conditional subcase, not termination** |
 | **T90** | Every infinite all-unit, all-unique chain is eventually short at every gate and has $D_j/(j\log_2j)\to1$ and $U_j\log_2n_j/n_j\to1$ | `unit-wrap-chain-analysis.md` | **Theorem - new; fresh audit pending; exact critical scale, not termination** |
 | **T91** | No infinite safe path can eventually have every positive block of length one and every adjacent-block gate unique | `unit-wrap-critical-exclusion.md` | **Theorem - new; fresh audit pending; excludes one exhaustive subcase, not all safe paths** |
+| **L92** | Every arbitrary-length adjacent-block gate is unique iff its child excess is below one lattice spacing and either its parent or child defect is in the exact boundary layer | `general-gate-boundary-analysis.md` | **Lemma - new; fresh audit pending; exact localization, not termination** |
+| **C93** | Nonuniqueness occurs iff the lower child neighbor survives or both upper defects clear their boundary; an interior unique gate satisfies $G+r-3<2^{k+r+4}$ | `general-gate-boundary-analysis.md` | **Corollary - new; fresh audit pending; exact alternative, not termination** |
+| **L94** | Every arbitrary adjacent-block gate obeys an exact affine equation in $(n,U)$; two fixed consecutive parameter tuples determine at most one rational start unless their explicit determinant vanishes | `general-gate-boundary-analysis.md` | **Lemma - new; fresh audit pending; parameter reduction, not a uniform bound** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**
