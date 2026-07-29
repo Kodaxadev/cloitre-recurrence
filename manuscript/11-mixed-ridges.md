@@ -107,3 +107,56 @@ The theorem is informative only when the terminal positive up-runs grow.
 Theorem 58 forces the initial rebound to grow in a sublinear
 counterexample, not the terminal run. Hence the infinitely-many-down-steps
 branch remains open.
+
+## Lemma 76 (terminal dyadic ladder)
+
+In a mixed ridge, let \(L\) be the final positive-zero digit index and put
+\(x=e_L\). The following \(R\) digits are up-steps and end at \(e=-v\).
+Then
+
+\[
+2^R(L+4-2x)=L+R+4+v. \tag{11.9}
+\]
+
+For every \(0\le j\le R\),
+
+\[
+A_{L+1+j}=2^j(L+4-2x),\qquad
+e_{L+1+j}=L+j+4-2^j(L+4-2x). \tag{11.10}
+\]
+
+Indeed, the zero at \(L\) makes \(e_{L+1}=2x\), and each following
+up-step doubles \(A_n=n+3-e_n\). At the endpoint,
+\(A_{L+R+1}=L+R+4+v\). \(\square\)
+
+## Theorem 77 (terminal-run dichotomy)
+
+Suppose a counterexample has \(q_n=o(n)\) and infinitely many down-steps.
+For its late ridges, exactly one of the following holds.
+
+1. \(R_j\to\infty\), in which case Theorem 75 has
+   \(\rho_j=\min(R_j,R_{j+1})\to\infty\).
+2. Some fixed \(R\) occurs infinitely often on mixed ridges. At their last
+   positive-zero indices \(L_j\), with \(x_j=e_{L_j}\),
+
+   \[
+   \frac{x_j}{L_j}\to\frac{2^R-1}{2^{R+1}},
+   \qquad
+   \frac{v_j}{L_j}\to0, \tag{11.11}
+   \]
+
+   and, for \(0\le h\le R\),
+
+   \[
+   \frac{e_{L_j+1+h}}{L_j+1+h}\to1-2^{h-R}. \tag{11.12}
+   \]
+
+If \(R_j\not\to\infty\), a fixed value recurs infinitely often. Theorem 58
+makes every late initial rebound grow, so these fixed-\(R\) ridges must be
+mixed. If \(s_j=q_{L_j}\), Lemma 63 gives
+\(v_j\le s_j+R=o(L_j)\). Rearranging (11.9) proves (11.11), and
+substitution in (11.10) proves (11.12). The other branch is Theorem 75.
+\(\square\)
+
+This exhaustive alternative is not termination. Its bounded-run branch
+allows aperiodic returns to a fixed dyadic boundary ladder.

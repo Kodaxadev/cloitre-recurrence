@@ -31,7 +31,8 @@ can nevertheless have vanishing up-step density. We derive their pure-chain
 compatibility law and show that any infinite arbitrary-terminal pure tail
 would require exponentially large local parameters infinitely often. An exact
 defect expansion extends the compatibility law to arbitrary mixed ridges and
-isolates the unresolved low-order terminal-run obstruction.
+reduces the sublinear infinite-down branch to growing terminal complexity or
+infinitely many shadows of one fixed dyadic boundary ladder.
 
 ## Manuscript assembly
 
@@ -61,9 +62,9 @@ result is the finite-start bound and its computer-assisted nonsurjectivity
 corollary. Theorem numbering follows `../theorem-status.md` to preserve
 traceability to the frozen research snapshot
 `f19ffcd75d04a05529878ce0226088f2f3221c0b`.
-Theorems 46, 50, 55, 56, 58, 69, 72, and 75; Proposition 66; Lemmas 47,
-49, 51, 53, 60, 62, 63, 65, 67, 68, 70, and 73; and Corollaries 48, 52,
-54, 57, 59, 61, 64, 71, and 74 are post-freeze additions
+Theorems 46, 50, 55, 56, 58, 69, 72, 75, and 77; Proposition 66; Lemmas
+47, 49, 51, 53, 60, 62, 63, 65, 67, 68, 70, 73, and 76; and
+Corollaries 48, 52, 54, 57, 59, 61, 64, 71, and 74 are post-freeze additions
 and have not yet received the fresh-context audit applied to the frozen
 theorem chain.
 

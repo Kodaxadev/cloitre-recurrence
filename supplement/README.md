@@ -70,12 +70,18 @@ through the largest listed parameters fitting `u64`, and distinct bounded
 scale and arbitrary-terminal grids.
 
 `independent/verify_mixed_ridges.py` checks Lemma 73's arbitrary positive-zero
-defect, its adjacent compatibility equation, and Corollary 74's terminal-run
-congruence on 6,846 raw ridges and 6,486 adjacent pairs. It also reproduces a
-valid local prefix of 100 ridges whose terminal up-runs all have length at
-most two. The separate native Rust `mixed_ridges` test checks the same
-identities on a distinct bounded grid. Neither prefix is claimed reachable
-from \(b_1=m\), and neither finite check proves Theorem 75.
+defect, its adjacent compatibility equation, Corollary 74's terminal-run
+congruence, and Lemma 76's complete terminal dyadic ladder on 6,846 raw
+ridges and 6,486 adjacent pairs. It also reproduces a valid local prefix of
+100 ridges whose terminal up-runs all have length at most two. The separate
+native Rust `mixed_ridges` test checks the same identities on a distinct
+bounded grid. Neither prefix is claimed reachable from \(b_1=m\), and the
+finite checks do not prove Theorems 75 or 77.
+
+The exploratory native `ridge_trace` binary measures initial, internal, and
+terminal up-runs on literal recurrence orbits and verifies the normalized
+last-zero parity identity at every completed mixed ridge. It is a
+falsification tool, not a certificate.
 
 ## Files
 

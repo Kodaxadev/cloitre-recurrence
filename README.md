@@ -127,7 +127,7 @@ Stabilization is exactly the event \(e_n=0\). This exposes the dynamics as a dou
 | Uniform local ridge density is false | New exact construction | Proposition 66 gives valid words \(-1,1^K,0^{K^2},-1\), with up-step fraction \(1/(K+1)\); global reachability and general mixed concatenation remain open |
 | Pure unit-terminal ridges cannot repeat indefinitely | New internal proof | Theorem 69 excludes three consecutive \(v=1\) ridges; arbitrary \(v\) requires Theorem 72, while mixed positive words remain open |
 | Infinite arbitrary-\(v\) pure tails require exponential local complexity | New internal proof | Theorem 72; conditional on every sufficiently late ridge having word \(1^K0^z\), while mixed positive words remain open |
-| Arbitrary mixed ridges have an exact compatibility law | New internal proof | Lemma 73 and Corollary 74 encode every positive zero and give a terminal-run congruence; Theorem 75 gives a complexity alternative, but terminal-run growth is unproved |
+| Arbitrary mixed ridges reduce to two exact escape modes | New internal proof | Lemmas 73/76 and Theorems 75/77: either terminal runs grow with exponential local complexity, or one fixed dyadic boundary ladder is shadowed infinitely often; neither mode is yet excluded |
 | No eventually periodic quotient-change sequence | Internally proved | Complete proof; awaiting external mathematical review |
 | Two-counter termination for every valid entry state | **Open** | Only the eventually-no-down branch is reduced |
 | Safe-map instance at \(N=10^6\) | Certified finite result | Independent Rust/Python agreement |
@@ -197,7 +197,7 @@ The Lean development compiles without `sorry`, but it does **not** formalize the
 | [`sparse-downstep-analysis.md`](sparse-downstep-analysis.md) | down-step density, spacing, weighted rebound budget, and ridge dilution |
 | [`ridge-segment-analysis.md`](ridge-segment-analysis.md) | terminal negative suffix, down-epoch defect coding, and exact diluted ridge families |
 | [`ridge-chain-analysis.md`](ridge-chain-analysis.md) | unit and arbitrary-terminal pure-ridge compatibility, dyadic congruence, and conditional complexity obstruction |
-| [`mixed-ridge-analysis.md`](mixed-ridge-analysis.md) | arbitrary mixed-ridge defect, terminal-run congruence, and exact remaining limitation |
+| [`mixed-ridge-analysis.md`](mixed-ridge-analysis.md) | arbitrary mixed-ridge defect, terminal-run congruence, and exhaustive dyadic boundary-ladder dichotomy |
 | [`symbolic-analysis.md`](symbolic-analysis.md) | doubling model, heuristics, and failures |
 | [`compressed-orbit-analysis.md`](compressed-orbit-analysis.md) | compression design and rejected approaches |
 | [`invariant-search.md`](invariant-search.md) | negative invariant and potential searches |

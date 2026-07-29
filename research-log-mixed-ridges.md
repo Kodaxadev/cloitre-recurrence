@@ -72,3 +72,41 @@ next theorem would have to prove one of:
    along a reachable infinite chain.
 
 Short-range ridge compatibility alone cannot prove the first statement.
+
+## Terminal-run experiment on reachable orbits
+
+The new `ridge_trace` probe scanned every completed ridge on the ten longest
+published literal-start orbits. Across 139,058,804 ridges, every
+initial, internal, and terminal consecutive up-run had length at most two.
+The record orbit from `m=1320111` alone contributed 40,963,537 ridges.
+
+This does not support a universal bound. These are stabilizing orbits with
+typical quotient ratio near \(1/4\). In the hypothetical sublinear branch,
+Theorem 58 already proves that the initial up-run tends to infinity.
+Accordingly, the measurement is evidence that terminal-run growth cannot be
+borrowed from ordinary stabilizing behavior.
+
+## Exact boundary ladder
+
+If the last positive zero is at index `L` with `e_L=x`, followed by `R`
+terminal ups ending at `e=-v`, then
+
+```text
+2^R (L+4-2x) = L+R+4+v.
+```
+
+For fixed `R` in a sublinear counterexample, `v/L -> 0`, so
+
+```text
+x/L -> (2^R-1)/2^(R+1).
+```
+
+Every intermediate state shadows the finite ladder
+
+```text
+1-2^(-R), 1-2^(1-R), ..., 1/2, 0
+```
+
+after the last positive zero. Theorem 77 makes this exhaustive: either
+terminal runs tend to infinity and Theorem 75 applies at growing modulus,
+or one fixed dyadic ladder is visited infinitely often.

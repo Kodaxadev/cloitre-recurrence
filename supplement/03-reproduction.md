@@ -151,6 +151,18 @@ cargo test --release --manifest-path search-framework\Cargo.toml `
 These are bounded algebra regressions, not a proof that a reachable infinite
 ridge chain exists or terminates.
 
+To measure the terminal-run geometry of one literal orbit:
+
+```powershell
+cargo run --release --manifest-path search-framework\Cargo.toml `
+  --bin ridge_trace -- --m 1320111 --terminal-bound 2
+```
+
+The published record orbit reports 40,963,537 completed ridges and maximum
+initial, internal, and terminal consecutive up-run lengths all equal to two.
+This finite stabilizing orbit does not model the sublinear counterexample
+branch, where Theorem 58 forces initial runs to grow.
+
 ## Artifact hashing
 
 ```powershell

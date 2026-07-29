@@ -129,19 +129,19 @@ W=\sum_{i\in\mathcal Z^+}(N+i+2)2^{P-1-i}.
 \]
 
 Corollary 74 extracts a modulus from the final positive up-run, and Theorem
-75 forces exponential local complexity if those terminal runs grow. The
-missing implication is real: Theorem 58 lengthens the *initial* rebound, while
-valid local prefixes can keep the terminal run at one or two for at least 100
-consecutive ridges.
+75 forces exponential local complexity if those terminal runs grow. Theorem
+77 now handles failure of that growth exactly: one fixed terminal length must
+recur, forcing infinitely many shadows of its finite dyadic boundary ladder.
 
-**Do:** track the nested low bits of \(W_j\) under the adjacent compatibility
-equation, with reachability parity imposed at each index. Split the problem
-into bounded and unbounded terminal-run cases instead of assuming the latter.
+**Do:** track the nested low bits of \(W_j\) across repeated visits to the
+same dyadic ladder, with reachability parity imposed at each index. In the
+growing-run branch, combine Theorem 75's exponential parameter with the
+sublinear quotient bound.
 
-**Success:** either prove that reachable sublinear chains cannot keep terminal
-runs bounded, or derive a finite-state contradiction for each fixed terminal
-run bound. A constructed infinite arbitrary-state chain would also be decisive
-for understanding whether reachability is essential.
+**Success:** exclude recurrent visits to every fixed ladder, or show that the
+exponential parameter forced by growing terminal runs exceeds its state-window
+bound. A constructed infinite arbitrary-state chain would also be decisive for
+understanding whether reachability is essential.
 
 ## 8. The general-starting-index question
 

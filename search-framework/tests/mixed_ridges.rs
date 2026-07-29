@@ -65,6 +65,23 @@ fn mixed_ridge(parent: State) -> Option<MixedRidge> {
     );
     assert_eq!(defect % (1u128 << terminal_run), 0);
     if let Some(&last_zero) = positive_zeros.last() {
+        let last_zero_index = start.n + last_zero as u64;
+        let last_zero_e = i128::from(states[last_zero].r) - i128::from(states[last_zero].q);
+        assert_eq!(
+            (1i128 << terminal_run) * (i128::from(last_zero_index) + 4 - 2 * last_zero_e),
+            i128::from(last_zero_index)
+                + i128::try_from(terminal_run).unwrap()
+                + 4
+                + i128::from(value)
+        );
+        for up_offset in 0..=terminal_run {
+            let ladder_state = states[last_zero + 1 + up_offset];
+            assert_eq!(
+                i128::from(ladder_state.n) + 3
+                    - (i128::from(ladder_state.r) - i128::from(ladder_state.q)),
+                (1i128 << up_offset) * (i128::from(last_zero_index) + 4 - 2 * last_zero_e)
+            );
+        }
         assert_eq!(
             (defect >> terminal_run) % 2,
             (u128::from(start.n) + last_zero as u128 + 2) % 2

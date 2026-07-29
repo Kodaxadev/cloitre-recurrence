@@ -90,6 +90,8 @@ classification is the point: nothing is promoted without a proof.
 | **L73** | Every arbitrary mixed ridge has an exact positive-zero defect and adjacent compatibility equation | `mixed-ridge-analysis.md` | **Lemma - new; fresh audit pending** |
 | **C74** | Adjacent arbitrary ridges obey an exact congruence controlled by their terminal positive up-runs | `mixed-ridge-analysis.md` | **Corollary - new; fresh audit pending** |
 | **T75** | Every infinite arbitrary-ridge chain has infinitely many pairs with local complexity exponential in the smaller terminal up-run | `mixed-ridge-analysis.md` | **Theorem - new; fresh audit pending; informative only when terminal runs grow** |
+| **L76** | Every mixed ridge ends by following an exact finite dyadic boundary ladder from its last positive zero to terminal negative defect | `mixed-ridge-analysis.md` | **Lemma - new; fresh audit pending** |
+| **T77** | A sublinear infinite-down counterexample either has growing terminal runs and Theorem 75 complexity, or shadows one fixed dyadic boundary ladder infinitely often | `mixed-ridge-analysis.md` | **Theorem - new; fresh audit pending; exhaustive dichotomy, not termination** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**
