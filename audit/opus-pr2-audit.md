@@ -96,3 +96,8 @@ The original stabilization conjecture remains open.
 Follow-up: [`continuation-t58-l63.md`](continuation-t58-l63.md) closes item
 1, and [`continuation-c89-t90.md`](continuation-c89-t90.md) closes item 2.
 Item 3 remains open.
+
+A second independent pass,
+[`opus-reconciliation-verification.md`](opus-reconciliation-verification.md),
+confirms the repaired cuts and the exact five Lemma 100 witnesses. It also
+keeps the unarchived-enumeration and external-review limits explicit.

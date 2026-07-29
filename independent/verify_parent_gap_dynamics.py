@@ -19,8 +19,8 @@ def defect(state: object) -> int:
     return state.n - state.q - 2 * state.e
 
 
-def check_raw_increases() -> int:
-    checked = 0
+def check_raw_increases() -> list[tuple[int, ...]]:
+    witnesses = []
     for n in range(2, 701):
         for quotient in range(n):
             width = n - quotient
@@ -53,8 +53,18 @@ def check_raw_increases() -> int:
                     gap = second - first - 1
                     next_gap = third - second - 1
                     assert next_gap > gap
-                    checked += 1
-    return checked
+                    witnesses.append(
+                        (
+                            n,
+                            quotient,
+                            e,
+                            blocks[first].wraps,
+                            blocks[third].wraps,
+                            gap,
+                            next_gap,
+                        )
+                    )
+    return witnesses
 
 
 def check_formal_exceptions() -> None:
@@ -81,10 +91,16 @@ def check_formal_exceptions() -> None:
 
 
 def main() -> None:
-    checked = check_raw_increases()
+    witnesses = check_raw_increases()
     check_formal_exceptions()
-    assert checked == 5
-    print(f"three-start parent gap increases checked: {checked}")
+    assert witnesses == [
+        (12, 2, 5, 1, 1, 0, 1),
+        (39, 4, 17, 2, 2, 1, 2),
+        (41, 3, 19, 2, 2, 0, 1),
+        (174, 2, 86, 4, 3, 0, 3),
+        (492, 3, 244, 5, 4, 0, 1),
+    ]
+    print(f"three-start parent gap increases checked: {len(witnesses)}")
     print("two formal decreasing-gap exceptions rejected exactly")
     print("VERDICT: bounded raw states agree with Lemma 100.")
 

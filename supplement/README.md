@@ -87,7 +87,10 @@ uniform exclusion theorem.
 form of Lemma 100 on arbitrary bounded-quotient parent-boundary starts
 through \(n\le700\). Among 30 three-start parent-boundary runs, five have
 equal first-two block lengths and satisfy the lemma's full hypothesis; all
-five have strict gap increase. The verifier also
+five have strict gap increase. Their first-two lengths span
+\(k\in\{1,2,4,5\}\), while their third lengths vary through
+\(\{1,2,3,4\}\); both implementations pin the exact five witnesses rather
+than only their count. The verifier also
 rejects the two formal decreasing-gap exceptions by their exact state-bound
 and parity failures. The native Rust test independently reproduces the same
 five theorem-applicable transitions. Theorem 101 itself is symbolic.

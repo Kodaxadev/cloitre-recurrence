@@ -190,6 +190,8 @@ The Lean development compiles without `sorry`, but it does **not** formalize the
 7. **[`audit/opus-pr2-audit.md`](audit/opus-pr2-audit.md)** — independent AI audit of the post-freeze gate and ridge cuts, with residual evidence limits
 8. **[`audit/continuation-t58-l63.md`](audit/continuation-t58-l63.md)** — dependency-closing audit for the sublinear down-step and terminal-suffix theorems
 9. **[`audit/continuation-c89-t90.md`](audit/continuation-c89-t90.md)** — quantified asymptotic audit of the critical unit-wrap scale
+10. **[`audit/opus-reconciliation-verification.md`](audit/opus-reconciliation-verification.md)** — independent recheck of the repaired cuts and exact Lemma 100 witnesses
+11. **[`audit/scoped-post-freeze-band.md`](audit/scoped-post-freeze-band.md)** — scoped internal pass over T46–C57, C64–T72, and L78–C82
 
 <details>
 <summary><strong>Research notes and specialized analyses</strong></summary>

@@ -346,7 +346,7 @@ fn three_parent_boundary_starts_force_the_terminal_pattern() {
 
 #[test]
 fn three_start_parent_boundary_gaps_increase() {
-    let mut checked = 0u64;
+    let mut witnesses = Vec::new();
     for n in 2..=700u64 {
         for wraps in 0..n {
             let width = n - wraps;
@@ -382,10 +382,14 @@ fn three_start_parent_boundary_gaps_increase() {
                         continue;
                     }
                     assert!(*third - *second > *second - *first);
-                    checked += 1;
+                    witnesses.push((n, wraps, e, blocks[*first].wraps, blocks[*third].wraps, *second - *first - 1, *third - *second - 1));
                 }
             }
         }
     }
-    assert_eq!(checked, 5);
+    assert_eq!(witnesses, vec![
+        (12, 2, 5, 1, 1, 0, 1), (39, 4, 17, 2, 2, 1, 2),
+        (41, 3, 19, 2, 2, 0, 1), (174, 2, 86, 4, 3, 0, 3),
+        (492, 3, 244, 5, 4, 0, 1),
+    ]);
 }
