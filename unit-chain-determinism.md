@@ -314,9 +314,15 @@ number $E_J(n)$ of length-$J$ chains starting at index $n$:
 
 The model therefore predicts finitely many length-$5$ chains in total, which
 matches the observed single minimal witness, and an expected number of
-length-$6$ chains beyond the verified range of order $10^{-19}$. This is a
-non-rigorous equidistribution model, exactly the assumption the project does
-not have; it is recorded as a heuristic, not as evidence of a proof.
+length-$6$ chains beyond $N=5\times10^9$ of order $\log N/N^2\approx10^{-18}$.
+
+The constants are not calibrated. At $J=1$ the model gives
+$\sum_{n\le N}E_1\approx4N\ln N$, which overestimates the measured live-state
+counts by a factor near $3.3$ at both $N=10^8$ and $N=5\times10^9$; the ratio is
+stable, but no attempt is made to fit it. The $10^{-18}$ figure is an order of
+magnitude, not a bound. More importantly this is a non-rigorous
+equidistribution model, exactly the assumption the project does not have. It is
+recorded as a heuristic, not as evidence of a proof.
 
 ## Consequence and limitation
 

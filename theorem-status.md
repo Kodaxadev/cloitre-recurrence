@@ -191,7 +191,7 @@ it wins by a margin of one over its immediate neighbours.
 | H4 | Epoch chain has transition matrix with rows $(0,0,1)$, $(\tfrac18,\tfrac12,\tfrac38)$, $(\tfrac16,\tfrac23,\tfrac16)$ | measured to 4 decimals; row 1 is **proved** (T13) | **Heuristic + partly proved** |
 | H5 | Capture probability $\approx \tfrac{1}{2n}$ per step (one admissible target, even $n$ only) | see `symbolic-analysis.md` | **Heuristic** |
 | H6 | $c(m)\gtrsim0.92\sqrt m$ (lower envelope) | flat across all dyadic blocks to $2\times10^5$ | **Heuristic** |
-| H7 | The all-unit pure-upper mechanism has no chain of six gates at any index. Under an equidistribution model for the successor residue, the expected number of length-6 chains starting beyond index $N$ is $O(\log N/N^2)$, i.e. $\approx10^{-19}$ past the verified range | derivation in `unit-chain-determinism.md`; consistent with K15 | **Heuristic** |
+| H7 | The all-unit pure-upper mechanism has no chain of six gates at any index. Under an equidistribution model for the successor residue, the expected number of length-6 chains starting beyond index $N$ is $O(\log N/N^2)$, of order $10^{-18}$ past the verified range | derivation in `unit-chain-determinism.md`; consistent with K15, but constants uncalibrated (the model overestimates the measured length-1 count by a factor near 3.3) | **Heuristic** |
 | CJ1 | Every $m$ stabilizes (the conjecture) | $m\le10^{7}$ | **Conjecture — OPEN** |
 
 ---
