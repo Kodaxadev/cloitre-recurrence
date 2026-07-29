@@ -212,6 +212,22 @@ the unbounded parameters themselves. In the complementary interior layer,
 accumulate the sharp inequality \(G+r-3<2^{k+r+4}\) together with the
 block-count lower bound.
 
+Lemma 96 now proves that consecutive parent-boundary starts have
+\(k_{j+1}\le k_j\), even without uniqueness. Thus a persistent parent-layer
+tail has one eventual block length \(k\). **Do:** fix that \(k\), write
+\(A_j=A_0+jk+d_j-d_0\), and combine the divisibility
+
+\[
+2^{r_j+1}-1\mid
+(2^k-1)A_j+r_j-k+d_j+1-d_{j+1}
+\]
+
+with the exact uniqueness boundary. The remaining parameters are the gaps
+\(r_j\) and the two defect bits, not the block lengths.
+A bounded affine scan through \(k,r_j\le12\) finds no four-start
+constant-length parent-layer pattern, but a proof must control unbounded
+gaps rather than extrapolate from that search.
+
 ## 7. Resolve the low-order mixed-ridge defect
 
 Lemma 73 now encodes every zero in an arbitrary ridge by

@@ -129,6 +129,9 @@ flowchart TD
   L92 --> C93["C93 exact nonunique alternative"]
   L83 --> L94["L94 affine defect compatibility"]
   L94 --> C95["C95 no singular parent-boundary family"]
+  L94 --> L96["L96 parent-layer block lengths decrease"]
+  L53 --> L96
+  L96 --> C97["C97 eventual constant parent-layer length"]
 
   T24 --> O1["Open branch A: infinitely many down-steps"]
   T38 --> O1
@@ -146,6 +149,7 @@ flowchart TD
   T56 --> O2
   C81 --> O2
   C93 --> O2
+  C97 --> O2
   C82 --> O2
   C84 --> O2
   C86 --> O2
@@ -266,6 +270,11 @@ flowchart TD
     nonunique gate. Both the parent layer \(d\le1\) and the lower-child
     neighbor \(x>H\) remain dynamically possible.
 
+20. **Corollary 97 fixes block length, not the whole parent-layer word.**
+    Lemma 96 forbids increases only while consecutive starts both have
+    defect at most one. An eventual parent-layer tail has one fixed positive
+    block length, but its zero-only gaps and defect bits may remain aperiodic.
+
 ## Audit priority
 
 | Priority | Chain | Evidence required |
@@ -303,3 +312,4 @@ flowchart TD
 | 31 | L83 and C84 -> L92 -> C93 | Child-excess endpoints, defect identity, both adjacent lattice neighbors, parent upper-bound preservation, exact reconstruction, and logical complement |
 | 32 | L83 -> L94 | Returned-residue indexing, child-defect substitution, shifted second start, coefficient determinant, and the singular case boundary |
 | 33 | L94 -> C95 | Determinant ratio monotonicity, identical-parameter reduction, binary-defect cases, and the final parity obstruction |
+| 34 | L53 and L94 -> L96 -> C97 | Returned-residue identity, sharp bound on returned residue plus gap, stopping test at the preceding block length, and the nonincreasing-integer tail argument |

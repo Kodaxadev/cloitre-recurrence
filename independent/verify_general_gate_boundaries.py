@@ -92,9 +92,10 @@ def candidates(m: int, q: int, k: int, r: int) -> list[int]:
     ]
 
 
-def check_raw_gates() -> tuple[int, int]:
+def check_raw_gates() -> tuple[int, int, int]:
     checked = 0
     nonunique = 0
+    parent_transitions = 0
     for n in range(2, 121):
         for e in range(1, n):
             blocks = zero_blocks(State(n, 0, e))
@@ -138,9 +139,12 @@ def check_raw_gates() -> tuple[int, int]:
                     parent_d >= 2 and 2 * child_d >= spacing
                 )
                 assert predicted_multiple == (len(gate) >= 2)
+                if parent_d <= 1 and child_d <= 1:
+                    assert blocks[right].wraps <= k
+                    parent_transitions += 1
                 checked += 1
                 nonunique += len(gate) >= 2
-    return checked, nonunique
+    return checked, nonunique, parent_transitions
 
 
 def solve_boundary_pair(
@@ -209,6 +213,7 @@ def local_unique_transition(
     k: int,
     r: int,
     defect: int,
+    require_unique: bool = True,
 ) -> tuple[int, int, int] | None:
     if n < 2 or not 0 <= q < n or (n - q - defect) % 2:
         return None
@@ -233,7 +238,7 @@ def local_unique_transition(
     if not 1 <= excess <= upper:
         return None
     spacing = 1 << (k + r + 3)
-    if not (
+    if require_unique and not (
         excess <= spacing
         and (defect <= 1 or excess + spacing > upper)
     ):
@@ -299,21 +304,82 @@ def check_boundary_triples(bound: int = 16) -> list[tuple[int, ...]]:
     return hits
 
 
+def check_constant_length_quadruples(bound: int = 12) -> int:
+    hits = 0
+    for k in range(1, bound + 1):
+        for r in range(bound + 1):
+            for next_r in range(bound + 1):
+                for defect in range(2):
+                    for next_defect in range(2):
+                        for final_defect in range(2):
+                            parameters = (
+                                k,
+                                r,
+                                k,
+                                next_r,
+                                defect,
+                                next_defect,
+                                final_defect,
+                            )
+                            solved = solve_boundary_pair(*parameters)
+                            if solved is None:
+                                continue
+                            first = local_unique_transition(
+                                *solved,
+                                k,
+                                r,
+                                defect,
+                                False,
+                            )
+                            if first is None or first[2] != next_defect:
+                                continue
+                            second = local_unique_transition(
+                                first[0],
+                                first[1],
+                                k,
+                                next_r,
+                                next_defect,
+                                False,
+                            )
+                            if second is None or second[2] != final_defect:
+                                continue
+                            for final_r in range(bound + 1):
+                                for last_defect in range(2):
+                                    third = local_unique_transition(
+                                        second[0],
+                                        second[1],
+                                        k,
+                                        final_r,
+                                        final_defect,
+                                        False,
+                                    )
+                                    if (
+                                        third is not None
+                                        and third[2] == last_defect
+                                    ):
+                                        hits += 1
+    return hits
+
+
 def main() -> None:
-    checked, nonunique = check_raw_gates()
+    checked, nonunique, parent_transitions = check_raw_gates()
     triples = check_boundary_triples()
+    quadruples = check_constant_length_quadruples()
     assert triples == [
         (12, 2, 1, 0, 1, 1, 0, 1, 1),
         (41, 3, 2, 0, 2, 1, 0, 1, 1),
         (39, 4, 2, 1, 2, 2, 1, 1, 0),
     ]
+    assert quadruples == 0
     print(f"raw arbitrary-block gates checked: {checked}")
     print(f"nonunique gates classified exactly: {nonunique}")
+    print(f"parent-layer length transitions checked: {parent_transitions}")
     print("unique parent-boundary triples checked for parameters <=16")
     print(f"bounded triple patterns: {len(triples)}")
+    print("constant-length parent quadruples through parameters <=12: 0")
     print(
-        "VERDICT: bounded raw gates agree with Lemmas 92/94 "
-        "and Corollaries 93/95."
+        "VERDICT: bounded raw gates agree with Lemmas 92/94/96 "
+        "and Corollaries 93/95/97."
     )
 
 

@@ -186,3 +186,81 @@ state lies in the singular case. \(\square\)
 
 The unbounded block and gap parameters, not a singular affine family, are
 the remaining obstruction.
+
+## Lemma 96 (block lengths decrease on the parent layer)
+
+Suppose two consecutive positive-block starts have
+\(d,d'\in\{0,1\}\), and let their block lengths be \(k,\ell\). Then
+
+\[
+\boxed{\ell\le k.} \tag{17.8}
+\]
+
+No uniqueness assumption is needed.
+
+### Proof
+
+Put \(A=U+d+4\ge4\), and let \(f\) be the first block's returned residue.
+At the next positive start,
+
+\[
+A'=A+k+d'-d.
+\]
+
+The affine defect equation gives
+
+\[
+(2^{r+1}-1)f
+=(2^k-1)A+r-k+d+1-d', \tag{17.9}
+\]
+
+and the next index is
+
+\[
+n'=2^kA+f+r-3. \tag{17.10}
+\]
+
+Put \(C=(2^k-1)A\) and \(c=-k+d+1-d'\le1\). We claim
+
+\[
+f+r\le C+1. \tag{17.11}
+\]
+
+For \(r=0\), this is immediate from (17.9). For \(r\ge1\), put
+\(a=2^{r+1}\). Since \(f\ge1\), equation (17.9) gives
+\(C\ge a-r-2\). Therefore
+
+\[
+\begin{aligned}
+(C+1)(a-1)-(a-1)(f+r)
+&=(a-2)C-ar+a-1-c\\
+&\ge(a-1)(a-2-2r)\ge0,
+\end{aligned}
+\]
+
+proving (17.11).
+
+At the next start, \(A'=A+k+d'-d\). Lemma 53 characterizes \(\ell\) as
+the least \(j\) satisfying \(2^{j+1}A'\ge n'+j+5\). At \(j=k\),
+(17.10)--(17.11) give
+
+\[
+n'+k+5\le(2^{k+1}-1)A+k+3.
+\]
+
+For \(k=1\), the inequality
+\(A+2^{k+1}(k+d'-d)\ge k+3\) follows from \(A\ge4\).
+For \(k\ge2\), it follows from \(k+d'-d\ge k-1\). Hence
+\(2^{k+1}A'\ge n'+k+5\), so \(\ell\le k\). \(\square\)
+
+## Corollary 97 (eventual constant length on a parent-layer tail)
+
+If every sufficiently late positive-block start has defect at most one,
+then its positive block lengths are eventually constant.
+
+### Proof
+
+Lemma 96 makes those positive integer lengths nonincreasing. \(\square\)
+
+The remaining parent-layer problem therefore has a fixed block length but
+may still have variable zero-only gaps.

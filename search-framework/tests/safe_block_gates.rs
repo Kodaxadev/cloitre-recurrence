@@ -174,6 +174,9 @@ fn adjacent_positive_blocks_obey_the_dyadic_gate() {
                     || (parent_d >= 2
                         && 2 * u128::from(child_d) >= spacing);
                 assert_eq!(candidates.len() >= 2, boundary_multiple);
+                if parent_d <= 1 && child_d <= 1 {
+                    assert!(blocks[next_positive].wraps <= block.wraps);
+                }
 
                 if candidates.len() == 1 {
                     unique += 1;

@@ -70,6 +70,14 @@ That last count is exploratory finite evidence, not a theorem or a claim
 that the three patterns are globally exhaustive. The checker also isolates
 the sole determinant-zero binary-defect tuple within that grid and verifies
 the parity obstruction used symbolically in Corollary 95.
+The same raw census checks all 107 observed transitions whose two positive
+starts both have defect at most one and confirms the block-length
+monotonicity of Lemma 96. The native Rust gate census repeats that check
+through the primary safe-map implementation.
+Finally, an affine scan through \(k,r,r',r''\le12\) finds no four
+consecutive parent-boundary starts with the same positive block length.
+This is evidence for the fixed-length target after Corollary 97, not a
+uniform exclusion theorem.
 
 The exploratory Rust binary `gate_chain` searches these chains without
 assuming that the accumulated quotient is zero. Exhausting all 20,771,000

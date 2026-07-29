@@ -302,3 +302,41 @@ all have \(d\le1\) finds only three parameter patterns through
 length-two patterns. This is useful evidence for the next classification
 target, but the bound is computational and has not been promoted to a
 theorem.
+
+## 12. Parent-boundary block lengths cannot increase
+
+At consecutive parent-boundary starts, let \(A=U+d+4\), let the first block
+have length \(k\), let \(r\) zero-only blocks follow it, and let \(f\) be
+its returned residue. The affine equation becomes
+
+\[
+(2^{r+1}-1)f=(2^k-1)A+r-k+d+1-d',
+\]
+
+while the next start index is
+
+\[
+n'=2^kA+f+r-3.
+\]
+
+Put \(C=(2^k-1)A\). The same equation and \(f\ge1\) give the sharp bound
+
+\[
+f+r\le C+1.
+\]
+
+At the next start \(A'=A+k+d'-d\). The stopping test for its block already
+holds at \(j=k\), because
+
+\[
+n'+k+5\le(2^{k+1}-1)A+k+3
+\le2^{k+1}A'.
+\]
+
+Hence the next block length is at most \(k\). A tail that stays in the
+parent layer must therefore have one eventual constant block length.
+
+A bounded affine scan finds no four consecutive parent-boundary starts with
+that constant length through \(k,r,r',r''\le12\). This sharpens the next
+target but remains finite evidence; no uniform four-start exclusion is
+claimed.
