@@ -224,3 +224,145 @@ Lemma 96 makes those positive integer lengths nonincreasing. \(\square\)
 
 The remaining parent-layer problem has a fixed block length but may still
 have variable zero-only gaps.
+
+## Lemma 98 (fixed-length gap budget)
+
+Assume consecutive parent-boundary starts all have one fixed positive block
+length \(k\). Index them by \(j\), and let \(r_j,f_j,d_j,A_j\) denote the
+zero-only gap, returned residue, defect, and overshoot coordinate. Put
+
+\[
+C=2^k-1,\qquad K=2^kk-k-1.
+\]
+
+Then
+
+\[
+\boxed{A_j=A_0+jk+d_j-d_0,} \tag{98.1}
+\]
+
+\[
+\boxed{
+(2^{r_j+1}-1)f_j
+=CA_j+r_j-k+1-(d_{j+1}-d_j),
+} \tag{98.2}
+\]
+
+and
+
+\[
+\boxed{
+f_{j+1}-f_j
+=r_j-K-2^k(d_{j+1}-d_j).
+} \tag{98.3}
+\]
+
+Consequently, for every \(J\ge1\),
+
+\[
+\boxed{
+\sum_{j=0}^{J-1}r_j
+=JK+f_J-f_0+2^k(d_J-d_0).
+} \tag{98.4}
+\]
+
+### Proof
+
+Each block increments \(U\) by \(k\), while \(A=U+d+4\), proving (98.1).
+Equation (98.2) is (96.2).
+
+The positive start and its returned residue satisfy
+
+\[
+n_j=2^kA_j-k-4+f_j.
+\]
+
+Also \(n_{j+1}-n_j=k+r_j+1\). Substitute (98.1) into the difference of the
+two displayed index formulas:
+
+\[
+2^k\bigl(k+d_{j+1}-d_j\bigr)+f_{j+1}-f_j
+=k+r_j+1.
+\]
+
+This is (98.3). Summing it proves (98.4). \(\square\)
+
+## Theorem 99 (shape of a persistent parent-layer tail)
+
+On any hypothetical infinite parent-layer tail, after passing to the fixed
+block length \(k\) from Corollary 97, the gaps satisfy:
+
+1. \(r_j\) is unbounded;
+2. with \(A_j\) as above,
+   \[
+   \boxed{
+   r_j\le\max\!\left(2,\left\lfloor\log_2(CA_j)\right\rfloor\right);
+   } \tag{99.1}
+   \]
+3. their Cesàro means obey
+   \[
+   \boxed{
+   K\le
+   \liminf_{J\to\infty}\frac1J\sum_{j<J}r_j
+   \le
+   \limsup_{J\to\infty}\frac1J\sum_{j<J}r_j
+   \le2K+1.
+   } \tag{99.2}
+   \]
+
+Thus the gaps must have sparse unbounded excursions on at most the
+logarithmic scale; neither bounded gaps nor superlinear total gap growth is
+possible.
+
+### Proof
+
+Suppose first that \(r_j\le R\). From (98.2),
+
+\[
+\frac{f_j}{A_j}
+=\frac{C}{2^{r_j+1}-1}+O_{k,R}(A_j^{-1}). \tag{99.3}
+\]
+
+Equation (98.3) bounds \(f_{j+1}-f_j\), while (98.1) bounds
+\(A_{j+1}-A_j\). Also (99.3) gives \(f_j=O_{k,R}(A_j)\). Hence
+
+\[
+\frac{f_{j+1}}{A_{j+1}}-\frac{f_j}{A_j}\longrightarrow0.
+\]
+
+The finitely many numbers
+
+\[
+\frac{C}{2^{r+1}-1},\qquad0\le r\le R,
+\]
+
+are distinct. Equation (99.3) therefore forces
+\(r_{j+1}=r_j\) for every sufficiently large \(j\). But two equal
+consecutive gaps give identical parameter pairs \((k,r_j)\) in three
+parent-boundary starts, contradicting Corollary 95. Thus the gaps are
+unbounded.
+
+For (99.1), \(f_j\ge1\) in (98.2) gives
+
+\[
+2^{r_j+1}\le CA_j+r_j+2.
+\]
+
+If \(r_j\ge3\), then \(r_j+2\le2^{r_j}\), so \(2^{r_j}\le CA_j\).
+The remaining cases are covered by the maximum in (99.1).
+
+Finally, (98.4) and \(f_J\ge1\) give the lower Cesàro bound. Equation
+(98.2), its unit denominator lower bound, and (99.1) give
+
+\[
+f_J\le CA_J+O_k(\log A_J).
+\]
+
+Since \(A_J=A_0+Jk+O(1)\), divide (98.4) by \(J\) to obtain
+
+\[
+\limsup_{J\to\infty}\frac1J\sum_{j<J}r_j
+\le K+Ck=2K+1.
+\]
+
+This proves (99.2). \(\square\)

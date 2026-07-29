@@ -112,6 +112,8 @@ classification is the point: nothing is promoted without a proof.
 | **C95** | For three consecutive parent-boundary starts the affine determinant-zero case has no valid integral state, so every fixed block/gap tuple determines at most one rational start | `parent-boundary-gate-analysis.md` | **Corollary - new; fresh audit pending; parameters remain unbounded** |
 | **L96** | Across any two consecutive parent-boundary positive starts, the second positive block length is at most the first, without assuming gate uniqueness | `parent-boundary-gate-analysis.md` | **Lemma - new; fresh audit pending; monotonicity only within the parent layer** |
 | **C97** | If every sufficiently late positive start lies in the parent layer, its positive block lengths are eventually constant | `parent-boundary-gate-analysis.md` | **Corollary - new; fresh audit pending; zero-only gaps may still vary** |
+| **L98** | A fixed-length parent-layer tail obeys exact returned-residue and telescoping gap-budget identities | `parent-boundary-gate-analysis.md` | **Lemma - new; fresh audit pending; identity, not termination** |
+| **T99** | A hypothetical persistent parent-layer tail has unbounded but at most logarithmic zero-only gaps whose Cesaro means lie between $K$ and $2K+1$ | `parent-boundary-gate-analysis.md` | **Theorem - new; fresh audit pending; sparse gap excursions remain possible** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**

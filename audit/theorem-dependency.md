@@ -132,6 +132,10 @@ flowchart TD
   L94 --> L96["L96 parent-layer block lengths decrease"]
   L53 --> L96
   L96 --> C97["C97 eventual constant parent-layer length"]
+  C97 --> L98["L98 fixed-length gap budget"]
+  L94 --> L98
+  L98 --> T99["T99 sparse logarithmic parent-layer gaps"]
+  C95 --> T99
 
   T24 --> O1["Open branch A: infinitely many down-steps"]
   T38 --> O1
@@ -150,6 +154,7 @@ flowchart TD
   C81 --> O2
   C93 --> O2
   C97 --> O2
+  T99 --> O2
   C82 --> O2
   C84 --> O2
   C86 --> O2
@@ -275,6 +280,11 @@ flowchart TD
     defect at most one. An eventual parent-layer tail has one fixed positive
     block length, but its zero-only gaps and defect bits may remain aperiodic.
 
+21. **Theorem 99 forces sparse excursions, not termination.** Bounded gaps
+    would contradict Corollary 95, while every gap is at most logarithmic and
+    the mean stays bounded. An aperiodic sequence with rare logarithmic spikes
+    is still compatible with these restrictions.
+
 ## Audit priority
 
 | Priority | Chain | Evidence required |
@@ -313,3 +323,4 @@ flowchart TD
 | 32 | L83 -> L94 | Returned-residue indexing, child-defect substitution, shifted second start, coefficient determinant, and the singular case boundary |
 | 33 | L94 -> C95 | Determinant ratio monotonicity, identical-parameter reduction, binary-defect cases, and the final parity obstruction |
 | 34 | L53 and L94 -> L96 -> C97 | Returned-residue identity, sharp bound on returned residue plus gap, stopping test at the preceding block length, and the nonincreasing-integer tail argument |
+| 35 | C97 and L94 -> L98, then L98 and C95 -> T99 | Telescoping defect bits, bounded-gap slope separation, equal-gap singular obstruction, logarithmic gap ceiling, and Cesaro endpoint control |

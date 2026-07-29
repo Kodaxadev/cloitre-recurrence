@@ -74,6 +74,10 @@ The same raw census checks all 107 observed transitions whose two positive
 starts both have defect at most one and confirms the block-length
 monotonicity of Lemma 96. The native Rust gate census repeats that check
 through the primary safe-map implementation.
+For those transitions the Python checker also verifies Lemma 98's exact
+returned-residue equation and next-index identity directly from raw states.
+The unboundedness and Cesaro conclusions of Theorem 99 are symbolic; no
+finite census is presented as evidence for their infinite-tail quantifiers.
 Finally, an affine scan through \(k,r,r',r''\le12\) finds no four
 consecutive parent-boundary starts with the same positive block length.
 This is evidence for the fixed-length target after Corollary 97, not a

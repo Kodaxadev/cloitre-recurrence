@@ -141,6 +141,13 @@ def check_raw_gates() -> tuple[int, int, int]:
                 assert predicted_multiple == (len(gate) >= 2)
                 if parent_d <= 1 and child_d <= 1:
                     assert blocks[right].wraps <= k
+                    delta = child_d - parent_d
+                    assert ((1 << (r + 1)) - 1) * returned.e == (
+                        ((1 << k) - 1) * parent_a + r - k + 1 - delta
+                    )
+                    assert next_start.n == (
+                        (1 << k) * parent_a + returned.e + r - 3
+                    )
                     parent_transitions += 1
                 checked += 1
                 nonunique += len(gate) >= 2
@@ -378,8 +385,8 @@ def main() -> None:
     print(f"bounded triple patterns: {len(triples)}")
     print("constant-length parent quadruples through parameters <=12: 0")
     print(
-        "VERDICT: bounded raw gates agree with Lemmas 92/94/96 "
-        "and Corollaries 93/95/97."
+        "VERDICT: bounded raw gates agree with Lemmas 92/94/96/98, "
+        "Corollaries 93/95/97, and Theorem 99's local identities."
     )
 
 

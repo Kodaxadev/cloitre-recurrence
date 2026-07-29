@@ -340,3 +340,41 @@ A bounded affine scan finds no four consecutive parent-boundary starts with
 that constant length through \(k,r,r',r''\le12\). This sharpens the next
 target but remains finite evidence; no uniform four-start exclusion is
 claimed.
+
+## 13. Fixed-length parent tails need sparse logarithmic gap spikes
+
+For an eventual fixed block length \(k\), put
+
+\[
+C=2^k-1,\qquad K=2^kk-k-1.
+\]
+
+The returned residues satisfy
+
+\[
+f_{j+1}-f_j=r_j-K-2^k(d_{j+1}-d_j),
+\]
+
+so the defect bits telescope:
+
+\[
+\sum_{j<J}r_j=JK+f_J-f_0+2^k(d_J-d_0).
+\]
+
+If the gaps were bounded, the boundary equation would give
+
+\[
+\frac{f_j}{A_j}
+=\frac{C}{2^{r_j+1}-1}+O(A_j^{-1}).
+\]
+
+Consecutive ratios change by \(o(1)\), while the finitely many leading
+constants are separated. The gaps would therefore become constant,
+contradicting Corollary 95's exclusion of two identical consecutive
+parameter pairs.
+
+Thus the gaps are unbounded. Nevertheless \(f_j\ge1\) gives
+\(2^{r_j}\le CA_j\) for \(r_j\ge3\), so they grow only logarithmically.
+The telescoping budget bounds their Cesaro means between \(K\) and
+\(2K+1\). The remaining mechanism is consequently a bounded-mean sequence
+with rare logarithmic spikes.

@@ -264,3 +264,93 @@ Lemma 96 makes those positive integer lengths nonincreasing. \(\square\)
 
 The remaining parent-layer problem therefore has a fixed block length but
 may still have variable zero-only gaps.
+
+## Lemma 98 (fixed-length gap budget)
+
+On a parent-layer tail with fixed block length \(k\), put
+
+\[
+C=2^k-1,\qquad K=2^kk-k-1.
+\]
+
+Then
+
+\[
+A_j=A_0+jk+d_j-d_0, \tag{17.12}
+\]
+
+\[
+(2^{r_j+1}-1)f_j
+=CA_j+r_j-k+1-(d_{j+1}-d_j), \tag{17.13}
+\]
+
+\[
+f_{j+1}-f_j
+=r_j-K-2^k(d_{j+1}-d_j). \tag{17.14}
+\]
+
+Hence
+
+\[
+\boxed{
+\sum_{j<J}r_j
+=JK+f_J-f_0+2^k(d_J-d_0).
+} \tag{17.15}
+\]
+
+### Proof
+
+The first identity follows from \(A=U+d+4\). The second is (17.9).
+Using
+
+\[
+n_j=2^kA_j-k-4+f_j,\qquad
+n_{j+1}-n_j=k+r_j+1
+\]
+
+gives (17.14). Telescope it to obtain (17.15). \(\square\)
+
+## Theorem 99 (shape of a persistent parent-layer tail)
+
+On a hypothetical infinite parent-layer tail, its fixed-length gaps are
+unbounded and satisfy
+
+\[
+r_j\le\max\!\left(2,\left\lfloor\log_2((2^k-1)A_j)\right\rfloor\right),
+\tag{17.16}
+\]
+
+\[
+K\le\liminf_J\frac1J\sum_{j<J}r_j
+\le\limsup_J\frac1J\sum_{j<J}r_j\le2K+1. \tag{17.17}
+\]
+
+### Proof
+
+If \(r_j\) were bounded, (17.13) would give
+
+\[
+\frac{f_j}{A_j}
+=\frac{2^k-1}{2^{r_j+1}-1}+O_k(A_j^{-1}).
+\]
+
+Equations (17.12) and (17.14) make consecutive ratios differ by \(o(1)\).
+The finitely many displayed leading constants are distinct, so eventually
+\(r_{j+1}=r_j\), contradicting Corollary 95. Thus the gaps are unbounded.
+
+Since \(f_j\ge1\), (17.13) gives
+\(2^{r_j+1}\le(2^k-1)A_j+r_j+2\). For \(r_j\ge3\), this implies
+\(2^{r_j}\le(2^k-1)A_j\), proving (17.16).
+
+The lower mean bound follows from (17.15) and \(f_J\ge1\). Equations
+(17.13), (17.16), and \(A_J=A_0+Jk+O(1)\) give
+
+\[
+f_J\le(2^k-1)A_J+O_k(\log A_J).
+\]
+
+Use this in (17.15). Since \((2^k-1)k=K+1\), the upper mean is at most
+\(K+(K+1)=2K+1\). \(\square\)
+
+The surviving parent-layer word therefore needs sparse unbounded
+logarithmic gap excursions despite having bounded mean.

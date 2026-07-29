@@ -228,6 +228,21 @@ A bounded affine scan through \(k,r_j\le12\) finds no four-start
 constant-length parent-layer pattern, but a proof must control unbounded
 gaps rather than extrapolate from that search.
 
+Theorem 99 proves exactly why a bounded search cannot finish this branch:
+any surviving fixed-\(k\) parent tail must have unbounded gaps, although
+
+\[
+r_j\le\log_2 A_j+O_k(1),\qquad
+K\le\liminf\frac1J\sum_{j<J}r_j
+\le\limsup\frac1J\sum_{j<J}r_j\le2K+1.
+\]
+
+**Do:** exploit the rare large-gap indices. Equation (98.3) makes each such
+gap a positive jump of the returned residue, while (98.2) simultaneously
+divides that residue by \(2^{r_j+1}-1\). A contradiction must compare a
+large gap with the accumulated budget before and after it, rather than use
+only its pointwise logarithmic ceiling.
+
 ## 7. Resolve the low-order mixed-ridge defect
 
 Lemma 73 now encodes every zero in an arbitrary ridge by
