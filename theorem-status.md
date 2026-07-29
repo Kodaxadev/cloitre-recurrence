@@ -144,6 +144,9 @@ classification is the point: nothing is promoted without a proof.
 | **L127** | Every equal-endpoint word has an exact normalized forced-start functional, and two words compose only if their sparse integer data satisfy one cross-word equation | `unit-word-composition.md` | **Lemma - new; fresh audit pending; exact compatibility, not proof that no infinite chain exists** |
 | **L128** | Pure-upper unit gates with fixed returned residue occupy disjoint dyadic windows; their outgoing exponents are nondecreasing across later occurrences, with exact child-residue descent when an exponent repeats | `unit-word-composition.md` | **Lemma - new; fresh audit pending; monotone local scale, not termination** |
 | **P129** | Every segment in P126 has one uniquely forced pure-upper continuation gate, after which no pure-upper gate is possible | `unit-word-composition.md` | **Proposition - new exact exclusion; fresh audit pending; eliminates the explicit family as an infinite-tail mechanism only** |
+| **T130** | The all-unit pure-upper mechanism has no branching: the outgoing exponent is the explicit minimum $h^\ast=\min\{h\ge2:2^hf\ge n+h+4\}$, the gate test is three inequalities at that $h^\ast$, and the image is again a unit state. Every infinite such tail is one forward orbit of a deterministic partial map | `unit-chain-determinism.md` | **Theorem - new; uniqueness half machine-checked in Lean (`gate_exponent_unique`, no `sorryAx`); external review pending; reduction, not termination** |
+| **L131** | The wrap count is inert: the $(n,f)$ orbit is independent of $U$, and chain length is nonincreasing in $U$, so a sweep at $U=0$ is exhaustive over all wrap counts | `unit-chain-determinism.md` | **Lemma - new; exhaustive bounded check on 879,882 raised states; external review pending; strengthens L116 from digit words to chain lengths** |
+| **C132** | Pure-upper unit predecessors number at most $v_2(n+3+f)-1$, a repeated $(f,h)$ pair forces exact residue descent (so at most $2^{h+1}$ repeats), and at most $\lceil(n-3)/4\rceil$ chains start at index $n$ | `unit-chain-determinism.md` | **Corollary - new; descent confirmed on all 76 repeats below $n=2000$; external review pending; thinness, not termination** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**
@@ -169,6 +172,8 @@ This is unconditional: it does not assume the stabilization conjecture.
 | K12 | Longest arbitrary-state no-down segments are 75, 223, and 822 steps at indices 100, 1000, and 10000 | all positive-$e$ states at each index | exact exhaustive `monotone` scan |
 | K13 | No valid positive state at any index $2\le N\le10^6$ has an infinite no-down continuation; at the checkpoint $N=10^6$ the compressed safe set empties at $1{,}009{,}019$ | all $999{,}999$ positive $e$ values at the checkpoint + Lemma 41 + Theorem 46 | Rust and independent Python generators; matching trajectory digest |
 | K14 | A valid safe path has six consecutive pure-upper gates, five with unit parent blocks | explicit state $(n,U,e)=(971,5,482)$ | Exact Rust safe-map trace and independent symbolic finite-word reconstruction |
+| K15 | No all-unit pure-upper chain has six gates. Least start indices for 1..5 gates are 22, 36, 62, 93, 978; the length-5 record is exactly K14, reached from $(978,11,127)$ | every wrap count, every residue, start index $n\le5\times10^9$; 133,599,589,858 live gate states iterated | T130 determinism + L131 normalization; Rust `unit_chain` enumerating by $(n,h)$, cross-checked against an independent $O(N^2)$ residue scan and against from-scratch Python safe-map traces |
+| K16 | The P126 family is reproduced by the forced map with gap word $(1,L,1,L)$, residues $(a,c,a,c-S)$, and stops after exactly four gates, confirming P129 independently | 36 cases, $a\le32$, spans $S\le320$ | exact arbitrary-precision iteration of T130's map |
 
 K8 answers MathOverflow Q2 ("what is special about 316?"): **essentially nothing**;
 it wins by a margin of one over its immediate neighbours.
@@ -185,6 +190,7 @@ it wins by a margin of one over its immediate neighbours.
 | H4 | Epoch chain has transition matrix with rows $(0,0,1)$, $(\tfrac18,\tfrac12,\tfrac38)$, $(\tfrac16,\tfrac23,\tfrac16)$ | measured to 4 decimals; row 1 is **proved** (T13) | **Heuristic + partly proved** |
 | H5 | Capture probability $\approx \tfrac{1}{2n}$ per step (one admissible target, even $n$ only) | see `symbolic-analysis.md` | **Heuristic** |
 | H6 | $c(m)\gtrsim0.92\sqrt m$ (lower envelope) | flat across all dyadic blocks to $2\times10^5$ | **Heuristic** |
+| H7 | The all-unit pure-upper mechanism has no chain of six gates at any index. Under an equidistribution model for the successor residue, the expected number of length-6 chains starting beyond index $N$ is $O(\log N/N^2)$, i.e. $\approx10^{-19}$ past the verified range | derivation in `unit-chain-determinism.md`; consistent with K15 | **Heuristic** |
 | CJ1 | Every $m$ stabilizes (the conjecture) | $m\le10^{7}$ | **Conjecture — OPEN** |
 
 ---

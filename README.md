@@ -231,6 +231,7 @@ The Lean development compiles without `sorry`, but it does **not** formalize the
 | [`unit-word-rigidity.md`](unit-word-rigidity.md) | fixed-word endpoint rigidity and zero-density renewal bound |
 | [`unit-word-arithmetic.md`](unit-word-arithmetic.md) | sparse-binary endpoint equation and sharp two-renewal families |
 | [`unit-word-composition.md`](unit-word-composition.md) | exact word composition, dyadic windows, and termination of the explicit family |
+| [`unit-chain-determinism.md`](unit-chain-determinism.md) | forced-gate determinism, inert wrap count, exhaustive chain ceiling, and heuristic count |
 | [`symbolic-analysis.md`](symbolic-analysis.md) | doubling model, heuristics, and failures |
 | [`compressed-orbit-analysis.md`](compressed-orbit-analysis.md) | compression design and rejected approaches |
 | [`invariant-search.md`](invariant-search.md) | negative invariant and potential searches |
@@ -243,7 +244,9 @@ The Lean development compiles without `sorry`, but it does **not** formalize the
 | [`research-log-child-window.md`](research-log-child-window.md) | child-window derivation and orbitwise-equidistribution warning |
 | [`research-log-gate-transfer.md`](research-log-gate-transfer.md) | pure-upper persistence falsification and exact residue-transfer derivation |
 | [`research-log-safe-wraps.md`](research-log-safe-wraps.md) | safe-wrap balance dead end, log-log ceiling, and quantitative block recurrence |
+| [`research-log-unit-determinism.md`](research-log-unit-determinism.md) | collapse of the cross-word framing, forced-gate derivation, and the inequality routes that fail |
 | [`future-directions.md`](future-directions.md) | ranked unresolved directions |
+| [`future-directions-safe-map.md`](future-directions-safe-map.md) | safe-map frontier: ridge, gate, and unit-block branches with current targets |
 
 </details>
 

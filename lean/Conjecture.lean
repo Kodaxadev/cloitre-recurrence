@@ -247,6 +247,91 @@ theorem E_zero_of_ray {m k c : Nat} (hb : B m k = c * (k + 2)) (hc : c < k + 1) 
     exact Nat.eq_of_mul_eq_mul_left (by omega) this
   rw [E_zero_iff, hq, hr]
 
+/-! ## Theorem 130: the pure-upper unit gate exponent is unique
+
+The two pure-upper window inequalities of Lemma 128, written without any
+subtraction, are
+
+    lower h :  n + h + 4 ≤ 2^h * f
+    upper h :  2^h * (f + 4) + 2 ≤ n + D + 2 * h
+
+with `D = n - 2U ≤ n`. At most one exponent satisfies both, so the all-unit
+pure-upper subsystem is a deterministic map. This is the arithmetic core of
+Theorem 130; the safe-map interpretation is not formalized. -/
+
+/-- `1 ≤ 2 ^ h`, proved by hand because mathlib is unavailable. -/
+private theorem two_pow_pos (h : Nat) : 1 ≤ 2 ^ h := by
+  induction h with
+  | zero => rw [Nat.pow_zero]; omega
+  | succ j ih => rw [Nat.pow_succ]; omega
+
+/-- `2 ^ (h+1) * c = 2 ^ h * c + 2 ^ h * c`: the doubling rewrite `omega` needs
+with both factors abstracted as one atom. -/
+private theorem pow_succ_mul_split (h c : Nat) :
+    2 ^ (h + 1) * c = 2 ^ h * c + 2 ^ h * c := by
+  rw [Nat.pow_succ, Nat.mul_assoc, Nat.two_mul, Nat.mul_add]
+
+/-- Doubling dominates the linear drift: `2^(h+1+k) * c ≥ 2^(h+1) * c + 2k`
+whenever `c ≥ 1`. -/
+private theorem pow_dominates_linear (h c : Nat) (hc : 1 ≤ c) :
+    ∀ k : Nat, 2 ^ (h + 1) * c + 2 * k ≤ 2 ^ (h + 1 + k) * c := by
+  have hpos : 2 ≤ 2 ^ (h + 1) * c := by
+    have hmul : 1 * 1 ≤ 2 ^ h * c := Nat.mul_le_mul (two_pow_pos h) hc
+    have hsplit := pow_succ_mul_split h c
+    omega
+  intro k
+  induction k with
+  | zero =>
+      have e : h + 1 + 0 = h + 1 := by omega
+      rw [e]
+      omega
+  | succ j ih =>
+      have e : h + 1 + (j + 1) = (h + 1 + j) + 1 := by omega
+      have hstep : 2 ^ (h + 1 + (j + 1)) * c
+          = 2 ^ (h + 1 + j) * c + 2 ^ (h + 1 + j) * c := by
+        rw [e]
+        exact pow_succ_mul_split (h + 1 + j) c
+      rw [hstep]
+      omega
+
+/-- One step of the lower window inequality: `lower h` forces
+`2^(h+1) * (f+4) ≥ 2n + 2h + 8 + 8 * 2^h`. -/
+private theorem lower_forces_next (n h f : Nat)
+    (lo : n + h + 4 ≤ 2 ^ h * f) :
+    2 * n + 2 * h + 8 + 2 ^ h * 8 ≤ 2 ^ (h + 1) * (f + 4) := by
+  have hexpand : 2 ^ (h + 1) * (f + 4)
+      = 2 ^ h * f + 2 ^ h * f + 2 ^ h * 8 := by
+    have e1 : 2 ^ (h + 1) * (f + 4) = 2 ^ h * (f + 4) + 2 ^ h * (f + 4) :=
+      pow_succ_mul_split h (f + 4)
+    have e2 : 2 ^ h * (f + 4) = 2 ^ h * f + 2 ^ h * 4 := Nat.mul_add _ _ _
+    have e3 : 2 ^ h * 4 + 2 ^ h * 4 = 2 ^ h * 8 := by omega
+    rw [e1, e2]
+    omega
+  omega
+
+/-- **Theorem 130 (deterministic pure-upper unit gate).** Under `D ≤ n` and
+`f ≥ 1`, at most one exponent `h ≥ 2` satisfies both window inequalities. -/
+theorem gate_exponent_unique {n D f h h' : Nat}
+    (hD : D ≤ n) (hf : 1 ≤ f)
+    (lo : n + h + 4 ≤ 2 ^ h * f)
+    (hi : 2 ^ h * (f + 4) + 2 ≤ n + D + 2 * h)
+    (lo' : n + h' + 4 ≤ 2 ^ h' * f)
+    (hi' : 2 ^ h' * (f + 4) + 2 ≤ n + D + 2 * h') :
+    h = h' := by
+  -- A strictly larger exponent always breaks the upper inequality.
+  have key : ∀ a b : Nat, n + a + 4 ≤ 2 ^ a * f → a < b →
+      ¬ (2 ^ b * (f + 4) + 2 ≤ n + D + 2 * b) := by
+    intro a b hlo hab hup
+    obtain ⟨k, hk⟩ : ∃ k, b = a + 1 + k := ⟨b - (a + 1), by omega⟩
+    have hdom := pow_dominates_linear a (f + 4) (by omega) k
+    have hnext := lower_forces_next n a f hlo
+    rw [hk] at hup
+    omega
+  rcases Nat.lt_trichotomy h h' with hlt | heq | hgt
+  · exact absurd hi' (key h h' lo hlt)
+  · exact heq
+  · exact absurd hi (key h' h lo' hgt)
+
 end Conjecture
 
 /-! ## Axiom audit -- confirms nothing below depends on `sorryAx`. -/
@@ -264,4 +349,5 @@ open Conjecture
 #print axioms Conjecture.E_doubling
 #print axioms Conjecture.E_zero_of_ray
 #print axioms Conjecture.B_monotone
+#print axioms Conjecture.gate_exponent_unique
 end Audit

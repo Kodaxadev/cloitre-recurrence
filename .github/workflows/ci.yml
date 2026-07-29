@@ -56,6 +56,8 @@ jobs:
           independent/verify_unit_word_rigidity.py
           independent/verify_unit_word_arithmetic.py
           independent/verify_unit_word_composition.py
+          independent/verify_unit_determinism.py
+          independent/verify_unit_chain_structure.py
           independent/verify_sharp_growth.py
           independent/verify_ridge_segments.py
           independent/verify_mixed_ridges.py
@@ -86,6 +88,10 @@ jobs:
         run: python independent/verify_unit_word_arithmetic.py
       - name: Check unit-word composition
         run: python independent/verify_unit_word_composition.py
+      - name: Check forced-gate determinism against literal safe-map traces
+        run: python independent/verify_unit_determinism.py 200 400 30000
+      - name: Check inert wrap count and the P126/P129 family
+        run: python independent/verify_unit_chain_structure.py 300 1200
       - name: Check parameterized rebounds and sharp growth
         run: python independent/verify_sharp_growth.py
       - name: Check post-down ridge segments

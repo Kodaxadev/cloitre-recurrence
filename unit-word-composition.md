@@ -301,3 +301,13 @@ Proposition 129 disposes of the infinite local family from Proposition 126:
 none of those segments can seed an infinite pure-upper tail. It does not
 exclude other return words or prove that equation (127.5) has no infinite
 valid chain.
+
+**Superseded framing.** Theorem 130 in
+[`unit-chain-determinism.md`](unit-chain-determinism.md) shows that the
+disjointness argument used for (128.2) needs neither a fixed returned residue
+nor a return word: it applies at every block. The outgoing exponent is
+therefore forced everywhere, the mechanism is a deterministic map, and the
+cross-word equation (127.5) is satisfied automatically along any orbit rather
+than being a constraint to solve. The composition identities above remain
+correct and are still the right description of an individual return word; they
+are no longer the frontier.
