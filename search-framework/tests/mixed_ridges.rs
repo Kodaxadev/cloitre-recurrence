@@ -51,6 +51,19 @@ fn mixed_ridge(parent: State) -> Option<MixedRidge> {
         .map_or(prefix, |&offset| prefix - 1 - offset);
 
     assert!(value >= 1);
+    let terminal_start = states[prefix - terminal_run];
+    let terminal_start_e = i128::from(terminal_start.r) - i128::from(terminal_start.q);
+    assert_eq!(
+        (1i128 << terminal_run) * (i128::from(terminal_start.n) + 3 - terminal_start_e),
+        i128::from(terminal_start.n)
+            + i128::try_from(terminal_run).unwrap()
+            + 3
+            + i128::from(value)
+    );
+    assert!(
+        (1u128 << terminal_run) * u128::from(terminal_start.q + 4)
+            <= u128::from(terminal_start.n + terminal_start.q) + 2 * terminal_run as u128 + 3
+    );
     assert_eq!(
         (1u128 << prefix) * u128::from(width) - defect,
         u128::from(start.n) + prefix as u128 + 3 + u128::from(value)

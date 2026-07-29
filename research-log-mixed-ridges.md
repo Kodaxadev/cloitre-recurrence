@@ -110,3 +110,22 @@ Every intermediate state shadows the finite ladder
 after the last positive zero. Theorem 77 makes this exhaustive: either
 terminal runs tend to infinity and Theorem 75 applies at growing modulus,
 or one fixed dyadic ladder is visited infinitely often.
+
+## State-window ceiling
+
+If a terminal run of length `R` begins at `(t,Q,e)`, exact doubling gives
+
+```text
+2^R (t+3-e) = t+R+3+v.
+```
+
+The state window and `v<=Q+R` imply
+
+```text
+2^R (Q+4) <= t+Q+2R+3.
+```
+
+Combining this with Theorem 56 shows that the growing-run branch still has
+`R <= log2(log2(t))+o(1)`. This is a genuine ceiling but not a
+contradiction: Theorem 75's exponential-in-`R` scale may remain only
+logarithmic in `t`.

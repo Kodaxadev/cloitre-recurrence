@@ -102,6 +102,10 @@ flowchart TD
   T75 --> T77
   T58 --> T77
   L63 --> T77
+  T6 --> L78["L78 terminal-run state-window bound"]
+  L63 --> L78
+  L78 --> C79["C79 log-log terminal-run ceiling"]
+  T56 --> C79
 
   T24 --> O1["Open branch A: infinitely many down-steps"]
   T38 --> O1
@@ -111,6 +115,7 @@ flowchart TD
   T72 --> O1
   T75 --> O1
   T77 --> O1
+  C79 --> O1
   T24 --> O2["Open branch B: eventually no down-steps"]
   T38 --> O2
   L42 --> O2
@@ -128,7 +133,7 @@ flowchart TD
   classDef compute fill:#e5efff,stroke:#3566a8,color:#13243d;
   classDef open fill:#fff1d6,stroke:#ad6b00,color:#422900;
   classDef formal fill:#eee4ff,stroke:#6542a6,color:#261642;
-  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64,L65,P66,L67,L68,T69,L70,C71,T72,L73,C74,T75,L76,T77 proof;
+  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64,L65,P66,L67,L68,T69,L70,C71,T72,L73,C74,T75,L76,T77,L78,C79 proof;
   class K1,K11,K13,C46 compute;
   class O1,O2,U,CJ open;
   class F formal;
@@ -181,6 +186,11 @@ flowchart TD
    aperiodic returns to that ladder, and Theorem 38 only excludes eventual
    periodicity.
 
+10. **Corollary 79 is only a ceiling.** It limits terminal runs in the
+    sublinear branch to the log-log index scale. Theorem 75 may still force
+    only logarithmic-sized local parameters, so the two results do not
+    contradict one another.
+
 ## Audit priority
 
 | Priority | Chain | Evidence required |
@@ -206,3 +216,4 @@ flowchart TD
 | 19 | T6 and L63 -> L70 -> C71, then T58 -> T72 | Arbitrary terminal magnitude, adjacent indexing, divisibility modulus, forced-rebound limit, and the nonzero-defect subsequence |
 | 20 | T6 and L63 -> L73 -> C74 -> T75 | Mixed-zero weights and indices, last-zero divisibility, adjacent cancellation, positive-integer descent, and the distinction between initial and terminal up-runs |
 | 21 | L73 -> L76, then T58, L63, T75 -> T77 | Last-positive-zero indexing, endpoint constants, fixed-value subsequence, pure-ridge exclusion from growing initial rebounds, and every normalized ladder limit |
+| 22 | T6 and L63 -> L78, then T56 -> C79 | Terminal-run start/end indices, state-window lower bound, terminal-magnitude upper bound, preliminary logarithmic run bound, and order of the two asymptotic substitutions |

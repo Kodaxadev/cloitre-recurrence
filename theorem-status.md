@@ -92,6 +92,8 @@ classification is the point: nothing is promoted without a proof.
 | **T75** | Every infinite arbitrary-ridge chain has infinitely many pairs with local complexity exponential in the smaller terminal up-run | `mixed-ridge-analysis.md` | **Theorem - new; fresh audit pending; informative only when terminal runs grow** |
 | **L76** | Every mixed ridge ends by following an exact finite dyadic boundary ladder from its last positive zero to terminal negative defect | `mixed-ridge-analysis.md` | **Lemma - new; fresh audit pending** |
 | **T77** | A sublinear infinite-down counterexample either has growing terminal runs and Theorem 75 complexity, or shadows one fixed dyadic boundary ladder infinitely often | `mixed-ridge-analysis.md` | **Theorem - new; fresh audit pending; exhaustive dichotomy, not termination** |
+| **L78** | Every terminal positive up-run satisfies an exact endpoint equation and the finite state-window bound $2^R(Q+4)\le t+Q+2R+3$ | `terminal-run-analysis.md` | **Lemma - new; fresh audit pending** |
+| **C79** | In a sublinear counterexample every terminal run has $2^R\le(1+o(1))\log_2t$ and $R\le\log_2\log_2t+o(1)$ | `terminal-run-analysis.md` | **Corollary - new; fresh audit pending; ceiling, not termination** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**

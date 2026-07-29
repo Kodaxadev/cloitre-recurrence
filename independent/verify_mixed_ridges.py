@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Independent bounded checks for Lemmas 73 and 76 and Corollary 74.
+"""Independent bounded checks for Lemmas 73, 76, 78 and Corollary 74.
 
 This script uses raw ``(n,q,r)`` transitions and imports no project code.
 The finite grids are regression checks for the exact mixed-ridge formulas,
@@ -95,6 +95,17 @@ def ridge(parent: State, limit: int = 2_000) -> Ridge | None:
         terminal_run = prefix
 
     assert value >= 1
+    terminal_start = states[prefix - terminal_run]
+    terminal_start_e = terminal_start.r - terminal_start.q
+    assert (1 << terminal_run) * (
+        terminal_start.n + 3 - terminal_start_e
+    ) == terminal_start.n + terminal_run + 3 + value
+    assert (1 << terminal_run) * (terminal_start.q + 4) <= (
+        terminal_start.n
+        + terminal_start.q
+        + 2 * terminal_run
+        + 3
+    )
     assert (1 << prefix) * width - defect == (
         start.n + prefix + 3 + value
     )
@@ -225,8 +236,8 @@ def main() -> None:
     print(f"mixed terminal-run histogram: {dict(sorted(mixed_runs.items()))}")
     print("literal consecutive ridges with terminal run <= 2 checked: 100")
     print(
-        "VERDICT: bounded raw checks agree with Lemmas 73/76, Corollary 74, "
-        "and the local limitation used by Theorems 75/77."
+        "VERDICT: bounded raw checks agree with Lemmas 73/76/78, "
+        "Corollary 74, and the local limitation used by Theorems 75/77."
     )
 
 

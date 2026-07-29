@@ -135,13 +135,13 @@ recur, forcing infinitely many shadows of its finite dyadic boundary ladder.
 
 **Do:** track the nested low bits of \(W_j\) across repeated visits to the
 same dyadic ladder, with reachability parity imposed at each index. In the
-growing-run branch, combine Theorem 75's exponential parameter with the
-sublinear quotient bound.
+growing-run branch, improve Corollary 79's log-log ceiling into upper bounds
+for the specific parameters appearing in Theorem 75.
 
 **Success:** exclude recurrent visits to every fixed ladder, or show that the
-exponential parameter forced by growing terminal runs exceeds its state-window
-bound. A constructed infinite arbitrary-state chain would also be decisive for
-understanding whether reachability is essential.
+exponential parameter forced by growing terminal runs exceeds its
+state-window bound. A constructed infinite arbitrary-state chain would also
+be decisive for understanding whether reachability is essential.
 
 ## 8. The general-starting-index question
 
