@@ -268,3 +268,176 @@ Its block starts must live between the half-critical and critical
 \(J\log J\) scales. This matches, rather than contradicts, the universal
 quotient-growth theorem. Longer positive blocks and mixtures of lower and
 upper nonuniqueness also remain possible.
+
+## Lemma 119 (three-residue compatibility)
+
+For any three consecutive unit positive blocks in Corollary 114,
+
+\[
+\boxed{
+2^{r_i+2}f_i+f_{i+2}+r_{i+1}+2
+=
+\left(2^{r_{i+1}+2}+1\right)f_{i+1}.
+} \tag{119.1}
+\]
+
+If \(m_i=\min(r_i,r_{i+1})\), then
+
+\[
+\boxed{
+f_{i+2}\equiv f_{i+1}-r_{i+1}-2
+\pmod {2^{m_i+2}}.
+} \tag{119.2}
+\]
+
+The first gap is also recovered exactly from adjacent states:
+
+\[
+\boxed{
+r_i+2
+=
+v_2(n_{i+1}+3+f_{i+1})-v_2(f_i).
+} \tag{119.3}
+\]
+
+### Proof
+
+Corollary 114 at indices \(i\) and \(i+1\) gives
+
+\[
+2^{r_i+2}f_i-f_{i+1}=n_i+r_i+5
+\]
+
+and
+
+\[
+2^{r_{i+1}+2}f_{i+1}-f_{i+2}
+=n_i+r_i+r_{i+1}+7.
+\]
+
+Subtracting proves (119.1). Both power terms in (119.1) vanish modulo
+\(2^{m_i+2}\), proving (119.2). Finally, the first recurrence and
+\(n_{i+1}=n_i+r_i+2\) give
+
+\[
+n_{i+1}+3+f_{i+1}=2^{r_i+2}f_i.
+\]
+
+Taking 2-adic valuations proves (119.3). \(\square\)
+
+## Corollary 120 (two-gate ladder headroom)
+
+For two consecutive pure-upper unit gates \(i\) and \(i+1\),
+
+\[
+\boxed{f_{i+1}\ge5.} \tag{120.1}
+\]
+
+More precisely,
+
+\[
+\boxed{
+(f_{i+1}-4)n_{i+2}
+\ge
+2f_{i+1}U_{i+2}+4f_{i+1}+12+4f_{i+2}.
+} \tag{120.2}
+\]
+
+### Proof
+
+The identity preceding (119.3), applied at \(i+1\), is
+
+\[
+n_{i+2}+3+f_{i+2}
+=2^{r_{i+1}+2}f_{i+1}.
+\]
+
+Corollary 115 at gate \(i+1\) gives
+
+\[
+4\cdot2^{r_{i+1}+2}
+\le D_{i+2}-4=n_{i+2}-2U_{i+2}-4.
+\]
+
+Substitute the first equality into the second and multiply by
+\(f_{i+1}>0\). Rearrangement gives (120.2). Its right-hand side is
+positive, so \(f_{i+1}-4>0\), proving (120.1). \(\square\)
+
+## Theorem 121 (growing-modulus or fixed-ladder dichotomy)
+
+Every hypothetical infinite all-unit pure-upper tail satisfies exactly one
+of the following exhaustive alternatives.
+
+1. The gaps satisfy \(r_i\to\infty\). Consequently the modulus
+   \(2^{\min(r_i,r_{i+1})+2}\) in (119.2) tends to infinity.
+2. There are fixed integers \(R\ge0\) and
+   \(5\le a\le2^{R+4}\), and infinitely many indices \(i_j\), such that
+
+   \[
+   \boxed{
+   r_{i_j}=R,\qquad f_{i_j+1}=a,
+   } \tag{121.1}
+   \]
+
+   \[
+   r_{i_j-1}\longrightarrow\infty,\qquad
+   r_{i_j+1}\longrightarrow\infty,
+   \tag{121.2}
+   \]
+
+   the renewal starts lie in one fixed residue class,
+
+   \[
+   \boxed{
+   n_{i_j+1}+3+a=2^{R+2}f_{i_j},
+   \qquad
+   n_{i_j+1}\equiv-a-3\pmod {2^{R+2}},
+   } \tag{121.3}
+   \]
+
+   and the states after the following large gap lie on one fixed dyadic
+   ladder:
+
+   \[
+   \boxed{
+   n_{i_j+2}+3+f_{i_j+2}
+   =a\,2^{r_{i_j+1}+2}.
+   } \tag{121.4}
+   \]
+
+### Proof
+
+If \(r_i\to\infty\), the first alternative and its modulus claim follow
+from Lemma 119.
+
+Otherwise some finite set of gap values occurs infinitely often. Passing
+to a subsequence fixes one such value \(r_{i_j}=R\). The two-gap bound
+(118.1), applied at \(i_j\) and \(i_j+1\), gives
+
+\[
+r_{i_j-1}>\log_2n_{i_j}-R-6,\qquad
+r_{i_j+1}>\log_2n_{i_j+1}-R-6.
+\]
+
+The start indices diverge, proving (121.2). Pure upper at gate \(i_j\)
+gives \(1\le f_{i_j+1}\le2^{R+4}\), while Corollary 120 gives
+\(f_{i_j+1}\ge5\). A second subsequence therefore fixes this returned
+residue at some \(a\), proving (121.1).
+
+Applying the exact identity
+
+\[
+n_{i+1}+3+f_{i+1}=2^{r_i+2}f_i
+\]
+
+at \(i=i_j\) proves (121.3), and applying it at \(i=i_j+1\) proves
+(121.4). The two cases are mutually exclusive and exhaust whether \(r_i\)
+tends to infinity. \(\square\)
+
+## New frontier
+
+The unit pure-upper branch is now reduced to two arithmetic mechanisms:
+a growing-modulus congruence chain, or recurrent visits to one fixed
+dyadic ladder separated by logarithmic gaps. Neither mechanism is excluded.
+The next proof target is to show that the exact state window cannot support
+either mechanism indefinitely.

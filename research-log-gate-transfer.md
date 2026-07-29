@@ -102,10 +102,39 @@ literal transitions, both directions of the exact returning-unit state test
 on 24,140 arbitrary bounded states, and the local two-gap inequality on 580
 consecutive pure-unit pairs.
 
+## Second-order compatibility
+
+Subtracting two consecutive unit recurrences eliminates the absolute index:
+
+\[
+2^{r_i+2}f_i+f_{i+2}+r_{i+1}+2
+=\left(2^{r_{i+1}+2}+1\right)f_{i+1}.
+\]
+
+Modulo the smaller adjacent power of two, this becomes a growing dyadic
+congruence whenever all gaps diverge. If the gaps do not diverge, Theorem
+118 isolates every recurrent bounded gap between two gaps tending to
+infinity. The returned residue after the bounded gap lies in a finite set,
+so a subsequence fixes it. Its renewal starts occupy one residue class
+modulo the bounded-gap power of two, and its exits land exactly on one
+dyadic ladder after the following large gap. Corollary 120 excludes ladder
+coefficients below five by combining that exact identity with the next
+pure-upper headroom ceiling. The resulting exhaustive alternative is
+Theorem 121.
+
+Python and Rust check the compatibility identity on 3,250 arbitrary
+three-unit transitions and the local ladder identity on all 580 pure-unit
+triples in the bounded raw census.
+
+Two attempted search improvements were rejected rather than committed. A
+single disjunctive SMT model and a reduced two-variable incremental model
+both timed out at six gates over small bounded gap alphabets. Those timeouts
+are tooling results and provide no negative mathematical evidence.
+
 ## Remaining target
 
 There is still no evidence for a fixed pure-upper chain bound. Theorem 118
-forces any infinite all-unit pure-upper word onto a narrow asymptotic scale
-but does not contradict that scale. The next useful target is a genuine
-three-gap or congruence obstruction, or an explicit construction of
-arbitrarily long valid words.
+forces the critical scale, while Theorem 121 reduces the all-unit branch to
+growing congruence moduli or recurrent visits to one fixed dyadic ladder.
+The next useful target is to exclude one of those exact mechanisms, or to
+construct arbitrarily long valid words within it.

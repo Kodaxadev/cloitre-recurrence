@@ -111,3 +111,94 @@ This proves (22.4). Since \(U_J/J\to1\) and
 
 The theorem forces a critical scale but does not exclude an aperiodic
 all-unit pure-upper tail.
+
+## Lemma 119 (three-residue compatibility)
+
+For three consecutive unit blocks,
+
+\[
+2^{r_i+2}f_i+f_{i+2}+r_{i+1}+2
+=\left(2^{r_{i+1}+2}+1\right)f_{i+1}. \tag{22.6}
+\]
+
+Thus, with \(m_i=\min(r_i,r_{i+1})\),
+
+\[
+f_{i+2}\equiv f_{i+1}-r_{i+1}-2
+\pmod {2^{m_i+2}}, \tag{22.7}
+\]
+
+and
+
+\[
+r_i+2=v_2(n_{i+1}+3+f_{i+1})-v_2(f_i). \tag{22.8}
+\]
+
+### Proof
+
+Subtract the unit recurrences at \(i\) and \(i+1\) to obtain (22.6).
+Reduction modulo the smaller power of two gives (22.7). Rewriting the
+first recurrence as
+\(n_{i+1}+3+f_{i+1}=2^{r_i+2}f_i\) and taking 2-adic valuations gives
+(22.8). \(\square\)
+
+## Corollary 120 (two-gate ladder headroom)
+
+Two consecutive pure-upper unit gates satisfy
+
+\[
+f_{i+1}\ge5
+\]
+
+and, more precisely,
+
+\[
+(f_{i+1}-4)n_{i+2}
+\ge2f_{i+1}U_{i+2}+4f_{i+1}+12+4f_{i+2}. \tag{22.9}
+\]
+
+### Proof
+
+Substitute
+\(n_{i+2}+3+f_{i+2}=2^{r_{i+1}+2}f_{i+1}\) into the pure-upper ceiling
+\(4\cdot2^{r_{i+1}+2}\le n_{i+2}-2U_{i+2}-4\).
+Rearrangement gives (22.9), whose positive right side forces
+\(f_{i+1}>4\). \(\square\)
+
+## Theorem 121 (gap-renewal dichotomy)
+
+Every hypothetical infinite all-unit pure-upper tail has one of two forms:
+
+1. \(r_i\to\infty\), so the modulus in (22.7) tends to infinity; or
+2. fixed integers \(R\ge0\), \(5\le a\le2^{R+4}\) occur at infinitely many
+   indices \(i_j\) with
+
+   \[
+   r_{i_j}=R,\quad f_{i_j+1}=a,\quad
+   r_{i_j-1},r_{i_j+1}\to\infty, \tag{22.10}
+   \]
+
+   \[
+   n_{i_j+1}+3+a=2^{R+2}f_{i_j},\qquad
+   n_{i_j+1}\equiv-a-3\pmod {2^{R+2}}, \tag{22.11}
+   \]
+
+   and
+
+   \[
+   n_{i_j+2}+3+f_{i_j+2}
+   =a\,2^{r_{i_j+1}+2}. \tag{22.12}
+   \]
+
+### Proof
+
+If the gaps do not tend to infinity, one fixed value \(R\) occurs
+infinitely often. Theorem 118 forces both neighboring gaps to infinity.
+Pure upper bounds the following returned residue by \(2^{R+4}\), so a
+subsequence fixes it at \(a\); Corollary 120 gives \(a\ge5\).
+Identity (22.8) before taking valuations,
+applied at the bounded gap and then the following gap, gives
+(22.11)--(22.12). \(\square\)
+
+This dichotomy does not exclude either the growing-modulus chain or the
+fixed-ladder renewal mechanism.

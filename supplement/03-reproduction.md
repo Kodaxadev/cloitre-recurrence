@@ -173,6 +173,9 @@ the local two-gap inequality used in Theorem 118:
 python independent\verify_child_boundary_window.py
 cargo test --release --manifest-path search-framework\Cargo.toml `
   --test gate_multiplicity
+python independent\verify_unit_pure_upper.py
+cargo test --release --manifest-path search-framework\Cargo.toml `
+  --test unit_pure_upper
 ```
 
 The optional symbolic finite-word tools use a pinned Z3 package:

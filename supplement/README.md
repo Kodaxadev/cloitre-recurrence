@@ -126,6 +126,11 @@ Lemma 117 on 24,140 literal/reconstructed states. Both implementations also
 check the local adjacent-gap inequality of Theorem 118 on 580 consecutive
 pure-unit gate pairs. The asymptotic summation and limit statements in
 Theorem 118 remain symbolic.
+`independent/verify_unit_pure_upper.py` then checks Lemma 119 on 3,250
+arbitrary three-unit transitions, and Corollary 120 plus the fixed-ladder
+identity used by Theorem 121 on all 580 pure-unit triples. The native
+`unit_pure_upper` Rust test independently reproduces both counts.
+Theorem 121's infinite-subsequence dichotomy is symbolic.
 
 The exploratory Rust binary `gate_chain` searches these chains without
 assuming that the accumulated quotient is zero. Exhausting all 20,771,000

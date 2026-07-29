@@ -323,11 +323,26 @@ Equivalently, adjacent gaps must repeatedly supply logarithmic size, while
 the quotient ratio stays in the nondegenerate window \([1,2]\). This matches
 the critical safe-map scale rather than contradicting it.
 
-**Do next:** use the exact returning-unit test of Lemma 117 to eliminate
-\((e,d)\) and analyze the remaining integer recurrence in \((n,U,f,r)\).
-The target is a second-order obstruction coupling three or more gaps, not
-another one-gap ceiling. In the mixed-block case, treat near-maximal unique
-gaps as renewal points and accumulate both headroom terms from Lemma 110.
+Lemma 119 now supplies the second-order obstruction:
+
+\[
+f_{i+2}\equiv f_{i+1}-r_{i+1}-2
+\pmod {2^{\min(r_i,r_{i+1})+2}}.
+\]
+
+Corollary 120 first excludes ladder coefficients below five. Theorem 121
+makes the remaining unit branch exhaustive. Either every gap
+diverges and these moduli grow without bound, or one bounded gap and one
+bounded returned residue recur infinitely often. The renewal starts then
+occupy one fixed residue class, and their exits lie on one fixed dyadic
+ladder after isolated logarithmic gaps.
+
+**Do next:** attack the two cases separately. In the growing-modulus branch,
+combine nested congruences across overlapping triples with the state-window
+bounds. In the fixed-ladder branch, compare successive visits to the same
+\(a2^{L+2}\) ladder and use the intervening quotient growth. In the
+mixed-block case, treat near-maximal unique gaps as renewal points and
+accumulate both headroom terms from Lemma 110.
 
 ## 7. Resolve the low-order mixed-ridge defect
 

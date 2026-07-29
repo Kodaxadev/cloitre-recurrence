@@ -94,9 +94,9 @@ result is the finite-start bound and its computer-assisted nonsurjectivity
 corollary. Theorem numbering follows `../theorem-status.md` to preserve
 traceability to the frozen research snapshot
 `f19ffcd75d04a05529878ce0226088f2f3221c0b`.
-Theorems 46, 50, 55, 56, 58, 69, 72, 75, 77, 90, 91, 99, 101, and 118; Proposition 66; Lemmas
-47, 49, 51, 53, 60, 62, 63, 65, 67, 68, 70, 73, 76, 78, 80, 83, 85, 87, 92, 94, 96, 98, 100, 103, 106, 110, 113, 116, and 117; and
-Corollaries 48, 52, 54, 57, 59, 61, 64, 71, 74, 79, 81, 82, 84, 86, 88, 89, 93, 95, 97, 102, 104, 105, 107--109, 111--112, and 114--115 are post-freeze
+Theorems 46, 50, 55, 56, 58, 69, 72, 75, 77, 90, 91, 99, 101, 118, and 121; Proposition 66; Lemmas
+47, 49, 51, 53, 60, 62, 63, 65, 67, 68, 70, 73, 76, 78, 80, 83, 85, 87, 92, 94, 96, 98, 100, 103, 106, 110, 113, 116, 117, and 119; and
+Corollaries 48, 52, 54, 57, 59, 61, 64, 71, 74, 79, 81, 82, 84, 86, 88, 89, 93, 95, 97, 102, 104, 105, 107--109, 111--112, 114--115, and 120 are post-freeze
 additions
 and have not yet received the fresh-context audit applied to the frozen
 theorem chain.
