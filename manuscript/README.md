@@ -29,7 +29,9 @@ branch, such down-steps must have zero density both in time and among quotient
 changes, and that their individual spacings must diverge. Exact finite ridges
 can nevertheless have vanishing up-step density. We derive their pure-chain
 compatibility law and show that any infinite arbitrary-terminal pure tail
-would require exponentially large local parameters infinitely often.
+would require exponentially large local parameters infinitely often. An exact
+defect expansion extends the compatibility law to arbitrary mixed ridges and
+isolates the unresolved low-order terminal-run obstruction.
 
 ## Manuscript assembly
 
@@ -46,6 +48,7 @@ files in order:
 8. [`08-sparse-downsteps.md`](08-sparse-downsteps.md)
 9. [`09-ridge-segments.md`](09-ridge-segments.md)
 10. [`10-ridge-chains.md`](10-ridge-chains.md)
+11. [`11-mixed-ridges.md`](11-mixed-ridges.md)
 
 Only definitions, statements, proofs, and explicit claim boundaries belong
 here. Algorithms, benchmarks, certificates, and reproduction instructions
@@ -58,9 +61,9 @@ result is the finite-start bound and its computer-assisted nonsurjectivity
 corollary. Theorem numbering follows `../theorem-status.md` to preserve
 traceability to the frozen research snapshot
 `f19ffcd75d04a05529878ce0226088f2f3221c0b`.
-Theorems 46, 50, 55, 56, 58, 69, and 72; Proposition 66; Lemmas 47, 49,
-51, 53, 60, 62, 63, 65, 67, 68, and 70; and Corollaries 48, 52, 54, 57,
-59, 61, 64, and 71 are post-freeze additions
+Theorems 46, 50, 55, 56, 58, 69, 72, and 75; Proposition 66; Lemmas 47,
+49, 51, 53, 60, 62, 63, 65, 67, 68, 70, and 73; and Corollaries 48, 52,
+54, 57, 59, 61, 64, 71, and 74 are post-freeze additions
 and have not yet received the fresh-context audit applied to the frozen
 theorem chain.
 

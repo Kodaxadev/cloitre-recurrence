@@ -123,6 +123,34 @@ cargo run --release --manifest-path search-framework\Cargo.toml `
 Use `--max-r 0` for a deliberately restricted boundary-residue probe. Output
 from this command is exploratory and is not a certificate or theorem.
 
+## Mixed-ridge identities
+
+Run the arbitrary-precision raw-state checker:
+
+```powershell
+python independent\verify_mixed_ridges.py
+```
+
+Expected principal counts:
+
+```text
+mixed-ridge finite segments checked: 6846
+segments with positive-prefix zeros: 5158
+adjacent compatibility equations checked: 6486
+literal consecutive ridges with terminal run <= 2 checked: 100
+```
+
+The independent native test is included in the ordinary Rust suite, or can
+be run alone:
+
+```powershell
+cargo test --release --manifest-path search-framework\Cargo.toml `
+  --test mixed_ridges
+```
+
+These are bounded algebra regressions, not a proof that a reachable infinite
+ridge chain exists or terminates.
+
 ## Artifact hashing
 
 ```powershell

@@ -69,6 +69,14 @@ valid chain of eight pure ridges. The native
 through the largest listed parameters fitting `u64`, and distinct bounded
 scale and arbitrary-terminal grids.
 
+`independent/verify_mixed_ridges.py` checks Lemma 73's arbitrary positive-zero
+defect, its adjacent compatibility equation, and Corollary 74's terminal-run
+congruence on 6,846 raw ridges and 6,486 adjacent pairs. It also reproduces a
+valid local prefix of 100 ridges whose terminal up-runs all have length at
+most two. The separate native Rust `mixed_ridges` test checks the same
+identities on a distinct bounded grid. Neither prefix is claimed reachable
+from \(b_1=m\), and neither finite check proves Theorem 75.
+
 ## Files
 
 - [`01-search-and-census.md`](01-search-and-census.md): algorithms and

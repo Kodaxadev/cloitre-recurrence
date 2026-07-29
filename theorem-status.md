@@ -87,6 +87,9 @@ classification is the point: nothing is promoted without a proof.
 | **L70** | A pure ridge with arbitrary terminal magnitude has an exact transition and consecutive-ridge compatibility equation | `ridge-chain-analysis.md` | **Lemma - new; fresh audit pending** |
 | **C71** | Adjacent pure ridges obey an exact congruence modulo $2^{\min(K,K')}$, with strict terminal-magnitude descent below that scale | `ridge-chain-analysis.md` | **Corollary - new; fresh audit pending** |
 | **T72** | An infinite pure ridge tail in a sublinear counterexample must have exponentially large local complexity infinitely often | `ridge-chain-analysis.md` | **Theorem - new; fresh audit pending; conditional on an eventually pure tail** |
+| **L73** | Every arbitrary mixed ridge has an exact positive-zero defect and adjacent compatibility equation | `mixed-ridge-analysis.md` | **Lemma - new; fresh audit pending** |
+| **C74** | Adjacent arbitrary ridges obey an exact congruence controlled by their terminal positive up-runs | `mixed-ridge-analysis.md` | **Corollary - new; fresh audit pending** |
+| **T75** | Every infinite arbitrary-ridge chain has infinitely many pairs with local complexity exponential in the smaller terminal up-run | `mixed-ridge-analysis.md` | **Theorem - new; fresh audit pending; informative only when terminal runs grow** |
 
 **C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
 *"Do the values a(n) include all positive numbers?"* — **No.**

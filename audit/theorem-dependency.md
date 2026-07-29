@@ -93,6 +93,10 @@ flowchart TD
   L70 --> C71["C71 adjacent dyadic congruence"]
   C71 --> T72["T72 exponential pure-tail complexity"]
   T58 --> T72
+  T6 --> L73["L73 arbitrary mixed-ridge defect"]
+  L63 --> L73
+  L73 --> C74["C74 terminal-run congruence"]
+  C74 --> T75["T75 arbitrary-ridge complexity alternative"]
 
   T24 --> O1["Open branch A: infinitely many down-steps"]
   T38 --> O1
@@ -100,6 +104,7 @@ flowchart TD
   C59 --> O1
   T69 --> O1
   T72 --> O1
+  T75 --> O1
   T24 --> O2["Open branch B: eventually no down-steps"]
   T38 --> O2
   L42 --> O2
@@ -117,7 +122,7 @@ flowchart TD
   classDef compute fill:#e5efff,stroke:#3566a8,color:#13243d;
   classDef open fill:#fff1d6,stroke:#ad6b00,color:#422900;
   classDef formal fill:#eee4ff,stroke:#6542a6,color:#261642;
-  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64,L65,P66,L67,L68,T69,L70,C71,T72 proof;
+  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64,L65,P66,L67,L68,T69,L70,C71,T72,L73,C74,T75 proof;
   class K1,K11,K13,C46 compute;
   class O1,O2,U,CJ open;
   class F formal;
@@ -157,6 +162,13 @@ flowchart TD
    congruence is exact for every adjacent pure pair, but a general
    counterexample may have mixed zero/up positive portions between down-steps.
 
+8. **Theorem 75 covers mixed words but does not force a growing modulus.**
+   Lemma 73 exactly encodes every positive-prefix zero, and Corollary 74 is
+   unconditional for adjacent ridges. Its modulus is the smaller terminal
+   positive up-run. Theorem 58 controls the initial rebound after a down-step,
+   not this terminal run, so Theorem 75 does not eliminate the infinite-down
+   branch.
+
 ## Audit priority
 
 | Priority | Chain | Evidence required |
@@ -180,3 +192,4 @@ flowchart TD
 | 17 | T6 -> P66 | Parent-state validity, every up threshold, terminal zero count, and the explicit asymptotic specialization |
 | 18 | T6 and L63 -> L67 -> T69, with L68 | Unit-terminal indexing, quotient monotonicity, all three exponent-order cases, and the terminal-quotient hypothesis |
 | 19 | T6 and L63 -> L70 -> C71, then T58 -> T72 | Arbitrary terminal magnitude, adjacent indexing, divisibility modulus, forced-rebound limit, and the nonzero-defect subsequence |
+| 20 | T6 and L63 -> L73 -> C74 -> T75 | Mixed-zero weights and indices, last-zero divisibility, adjacent cancellation, positive-integer descent, and the distinction between initial and terminal up-runs |

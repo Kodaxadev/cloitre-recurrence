@@ -120,7 +120,30 @@ satisfy `U_n+2e_n>=n+1`, or that the pure orbit captures. The compressed
 index and shows an apparent `O(sqrt(n))` lifetime. A uniform upper bound of any
 finite form would rule out eventual monotone escape.
 
-## 7. The general-starting-index question
+## 7. Resolve the low-order mixed-ridge defect
+
+Lemma 73 now encodes every zero in an arbitrary ridge by
+
+\[
+W=\sum_{i\in\mathcal Z^+}(N+i+2)2^{P-1-i}.
+\]
+
+Corollary 74 extracts a modulus from the final positive up-run, and Theorem
+75 forces exponential local complexity if those terminal runs grow. The
+missing implication is real: Theorem 58 lengthens the *initial* rebound, while
+valid local prefixes can keep the terminal run at one or two for at least 100
+consecutive ridges.
+
+**Do:** track the nested low bits of \(W_j\) under the adjacent compatibility
+equation, with reachability parity imposed at each index. Split the problem
+into bounded and unbounded terminal-run cases instead of assuming the latter.
+
+**Success:** either prove that reachable sublinear chains cannot keep terminal
+runs bounded, or derive a finite-state contradiction for each fixed terminal
+run bound. A constructed infinite arbitrary-state chain would also be decisive
+for understanding whether reachability is essential.
+
+## 8. The general-starting-index question
 
 The conjecture is about orbits from $b_1 = m$. Nothing is known about orbits
 started at an arbitrary state $(n_0, b)$. These are *not* all reachable —
@@ -136,7 +159,7 @@ eventually periodic pattern.
 a major result — it would show the conjecture is a statement about reachability
 from $b_1=m$, not about the recurrence, and would redirect the whole problem.
 
-## 8. The shifted family A074482/3/4
+## 9. The shifted family A074482/3/4
 
 Cloitre's original conjecture was for $b_{n+1} = b_n + (b_n \bmod (n+a))$ for every
 integer $a$. Everything in this project was done for $a=0$.
