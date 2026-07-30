@@ -150,14 +150,31 @@ $C\ge G_i\ge2U_i+11\ge2i+11$, so $i\le\tfrac12(C-11)$. Hence $k_i=1$ for every
 $i>\tfrac12(C-11)$.
 
 *Zero gaps happen early.* Let $i\le N-2$, so that block $i+1$ exists. If $r_i=0$
-then the predicate of (136.1) holds at $r=0$, that is $4f_i\ge n_{i+1}+4$, and
-with $f_i\le G_i-3\le C-3$ from (144.1) this forces $n_{i+1}\le4C-16$. But
-$n_{i+1}=G_{i+1}+2U_{i+1}\ge4+2(i+1)$. So $r_i=0$ forces $2i+6\le4C-16$, i.e.
-$i\le2C-11$, and therefore $r_i\ge1$ for every $i$ with $2C-11<i\le N-2$.
+then the predicate of (136.1) holds at $r=0$, that is $4f_i\ge n_{i+1}+4$. Now
 
-*The budget then climbs.* Since $C\ge4$ we have $2C-11\ge\tfrac12(C-11)$, so with
-$i_0=\max(0,2C-10)$ both statements apply at once: for $i_0\le i\le N-2$,
-$k_i=1$ and $r_i\ge1$, whence by (143.1)
+\[
+n_{i+1}=G_{i+1}+2U_{i+1}
+=\bigl(G_i+r_i+1-k_i\bigr)+2\bigl(U_i+k_i\bigr)
+=G_i+r_i+1+k_i+2U_i
+\ \ge\ G_i+2i+2,
+\]
+
+using $r_i=0$, $k_i\ge1$ and $U_i\ge i$. With $f_i\le G_i-3$ from (144.1),
+
+\[
+4G_i-12\ \ge\ 4f_i\ \ge\ n_{i+1}+4\ \ge\ G_i+2i+6,
+\qquad\text{so}\qquad
+3G_i\ge2i+18 .
+\tag{145.2}
+\]
+
+Hence $3C\ge2i+18$, and therefore $r_i\ge1$ for every $i$ with
+$2i\ge3C-17$ and $i\le N-2$.
+
+*The budget then climbs.* Since $C\ge4$ we have $3C-17\ge C-10$, so the gap
+condition is the binding one. Let $i_0$ be least with $2i_0\ge3C-17$; then both
+statements apply from $i_0$ on, and for $i_0\le i\le N-2$ we have $k_i=1$ and
+$r_i\ge1$, whence by (143.1)
 
 \[
 G_{i+1}=G_i+r_i\ \ge\ G_i+1 .
@@ -165,9 +182,21 @@ G_{i+1}=G_i+r_i\ \ge\ G_i+1 .
 
 If $N-1\ge i_0$ this gives $C\ge G_{N-1}\ge G_{i_0}+(N-1-i_0)\ge N+3-i_0$, so
 $N\le C-3+i_0$; and if $N-1<i_0$ then $N\le i_0$, which is weaker. For $C\ge6$,
-$i_0=2C-10$ and the bound reads $N\le3C-13$. For $C=5$ it reads $N\le2=3C-13$,
-and for $C=4$ it reads $N\le1$, contradicting $N\ge2$ — so $N\ge2$ already
-forces $C\ge5$, and (145.1) holds in every case. $\square$
+$2i_0\le3C-16$ and the bound reads $2N\le5C-22$, which is at most $6C-26$ since
+$C\ge4$, so $N\le3C-13$. For $C\le5$ we have $i_0=0$ and $N\le C-3$: at $C=5$
+that is $N\le2=3C-13$, and at $C=4$ it is $N\le1$, contradicting $N\ge2$. So
+$N\ge2$ already forces $C\ge5$, and (145.1) holds in every case. $\square$
+
+**A refinement, and why it is not the headline.** The proof above actually
+delivers $2N+22\le5C$ whenever $C\ge6$, which beats (145.1) once $C\ge15$ and
+loses to it below that; and at $C=5$ it is false outright, since it would give
+$N\le1$ where $N\le2$ is what the argument yields. A statement needing that case
+split is worse than the clean uniform one, so (145.1) is what is claimed. The
+sharper intermediate step (145.2) is worth having on its own account: it says a
+zero gap at block $i$ requires budget at least $(2i+18)/3$. Together with
+(144.2), *both* $r_i=0$ and $k_i\ge2$ demand a budget linear in the block index,
+which is the real mechanism here — past a linear threshold every step is forced
+to be a single wrap with a positive gap, and then the budget can only climb.
 
 ## Corollary 146 (the dichotomy an infinite chain faces)
 

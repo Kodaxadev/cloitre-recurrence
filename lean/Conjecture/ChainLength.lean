@@ -20,6 +20,13 @@ Every hypothesis below names its source:
 Stated with `N + 13 ≤ 3 * C` rather than `N ≤ 3 * C - 13` so that truncated
 subtraction plays no part in the statement.
 
+The note's proof reaches the same conclusion by a sharper route, bounding the
+child index through `U' = U + k` to get (145.2). This module deliberately does
+not assume that identity, and bounds the child index by `4 ≤ G'` and
+`i + 1 ≤ U'` instead. The threshold it reaches is weaker, the conclusion is the
+same, and the hypothesis set is smaller -- so what is machine-checked here is
+the more general statement of the two.
+
 Mathlib-free.
 -/
 

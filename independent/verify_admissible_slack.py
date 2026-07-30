@@ -92,6 +92,15 @@ def check_chain_length(n_max: int) -> tuple[int, int, float]:
                 continue
             budgets = [bn - 2 * bu for bn, bu, _, _ in chain]
             worst = max(budgets)
+            # (145.2): a zero gap at block i needs budget at least (2i+18)/3.
+            # This is the step that drives the proof, so it is checked directly
+            # rather than only through the bound it implies.
+            for i, (bn, _, bk, bf) in enumerate(chain[:-1]):
+                if forced_gap(bn + bk + 1, bf) == 0:
+                    assert 3 * budgets[i] >= 2 * i + 18, (n, e, i, budgets[i])
+            # The refinement holds from C = 6 up, and is false at C = 5.
+            if worst >= 6:
+                assert 2 * len(chain) + 22 <= 5 * worst, (n, e, len(chain), worst)
             # The proof needs G >= 4 at every block, and needs a chain of two
             # or more to force C >= 5; both are asserted rather than assumed.
             assert min(budgets) >= 4, (n, e, min(budgets))
