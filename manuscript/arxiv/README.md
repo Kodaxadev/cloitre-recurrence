@@ -1,13 +1,9 @@
 # arXiv draft package
 
-## Working title
+## Title
 
-Currently in `main.tex`:
-
-**The Eventual-Increment Spectrum of Cloitre's Recurrence Is Not Surjective**
-
-Superseded by the decision recorded under "The title: decided" below, which is
-held for the editorial batch and not yet applied.
+**The Eventual-Increment Spectrum of the Recurrence
+`b(n+1) = b(n) + (b(n) mod n)` Is Not Surjective**
 
 This package is the first focused paper extracted from the broader `cloitre-recurrence` repository. It contains only the completed finite-start theorem and the independently certified proof that 5 and 7 are the smallest omitted eventual increments.
 
@@ -150,37 +146,39 @@ Expected SHA-256:
 
 ## Compile status
 
-The source has been compiled twice with `pdflatex` under TeX Live 2025 at the
-commit that introduced the attribution corrections: 8 pages, no errors, no
-undefined references or citations, no overfull or underfull boxes, preflight
-passed, all pages visually inspected. That compile is current — it supersedes the
-two earlier ones, which were invalidated by successive Section 7 rewrites.
+**A recompile is needed.** The last clean build — twice through `pdflatex` under
+TeX Live 2025, 8 pages, no errors, no undefined references or citations, no
+overfull or underfull boxes, preflight passed, all pages visually inspected —
+predates the title change. Applying the neutral title and advancing the draft
+date to 30 July 2026 changed `main.tex`, so that build is now stale.
 
-**Editorial changes are batched from here.** Purely editorial edits to
-`main.tex` and `sections/` are held until the release freeze rather than landed
-one at a time, because each one invalidates the compiled PDF. Correctness changes
-still land immediately. Pending batch:
+Nothing else editorial is pending except the author details:
 
 | Change | Status |
 |---|---|
-| Retitle to the neutral option (below) | decided, held for the batch |
 | Author contact details and ORCID | needs the author |
 
-## The title: decided
+**Editorial changes are otherwise batched.** Purely editorial edits to
+`main.tex` and `sections/` are held until the release freeze rather than landed
+one at a time, because each one invalidates the compiled PDF — three builds were
+retired that way before this policy. Correctness changes still land immediately.
+The title was an exception, applied on the author's explicit instruction.
 
-The author's decision is the **neutral option**:
+## The title: applied
 
-> The Eventual-Increment Spectrum of the Recurrence
-> `b(n+1) = b(n) + (b(n) mod n)` Is Not Surjective
+The neutral option is in `main.tex`. It states exactly what the paper proves,
+avoids implying that Cloitre introduced this specific sequence, avoids coining a
+"Zumkeller–Cloitre recurrence" that has no established use, and stays legible to
+a referee meeting the problem for the first time. `hypersetup`'s `pdftitle`
+carries a plain-ASCII form, since PDF metadata cannot hold math.
 
-It avoids implying that Cloitre introduced this specific sequence, while the
-introduction still describes it as the recurrence underlying Cloitre's
-conjecture. "Zumkeller–Cloitre recurrence" would credit both but would coin an
-eponym with no established use.
+The introduction still records that Zumkeller contributed the sequence and
+Cloitre formulated the broader stabilization conjecture, and Section 8 still
+refers to "Cloitre's conjecture", which is correct.
 
-This has **not yet been applied to `main.tex`** — it is in the batch above, so
-that the current compile stays valid until the freeze. The repository name and
-`CITATION.cff` are a separate question and are unchanged.
+The repository name and `CITATION.cff` keep "Cloitre recurrence" — they name the
+research package rather than assert mathematical priority, and changing them
+would break the citation identity pinned at `v0.1.0-audit`.
 
 ### The audit that raised it
 
