@@ -21,6 +21,7 @@ Modules:
   * `Conjecture.Basic`   -- the orbit, absorption, congruence, pairs, doubling
   * `Conjecture.Gate`    -- pure Nat arithmetic for the gate exponent
   * `Conjecture.Ratchet` -- forced rebound and the quotient ratchet
+  * `Conjecture.ChainLength` -- Nat arithmetic for the block-chain length bound
 
 Formalized:
   * Theorem 1  (Absorption): the ray b = c(n+1) is invariant; increments are c
@@ -31,15 +32,25 @@ Formalized:
                 steps of the finite-start bound
   * Theorem 133 (Gate exponent uniqueness) and its unit case Theorem 130,
                 plus Lemma 136's upward closure
+  * Theorem 145 (Chain length bound), as pure arithmetic: given the
+                inequalities Corollary 144 establishes for the safe map, a
+                chain of N blocks with budget at most C has N + 13 <= 3C
 
 NOT formalized, and stated as such in lean/README.md: the finite-start bound
 itself (Theorem 18), the growth bounds, the all-period exclusion, the safe-map
 reduction, and every claim above index 130 except the arithmetic noted.
+
+In particular, Theorem 145 is formalized as an implication whose hypotheses are
+supplied by hand. That those hypotheses hold of the safe map -- Corollary 144
+and Lemma 136 -- is not formalized, so the Lean statement is the combinatorial
+core and not the theorem about the recurrence. Its hypotheses are discharged
+against a literal chain in the module, so the implication is not vacuous.
 -/
 
 import Conjecture.Basic
 import Conjecture.Gate
 import Conjecture.Ratchet
+import Conjecture.ChainLength
 import Conjecture.FiniteStart
 import Conjecture.AbsorptionConverse
 import Conjecture.EntryBound
@@ -62,6 +73,7 @@ open Conjecture
 #print axioms Conjecture.gate_exponent_unique
 #print axioms Conjecture.unit_gate_exponent_unique
 #print axioms Conjecture.gap_predicate_upward_closed
+#print axioms Conjecture.chain_length_bound
 #print axioms Conjecture.quotient_drop_le_one
 #print axioms Conjecture.forced_rebound
 #print axioms Conjecture.ratchet

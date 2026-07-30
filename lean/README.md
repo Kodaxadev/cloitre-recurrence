@@ -24,6 +24,7 @@ the helper lemmas exist to make those atoms match syntactically.
 | `Conjecture/Basic.lean` | the orbit `B`, absorption, congruence propagation, pair merging, and `Q`/`R`/`E` with the doubling law |
 | `Conjecture/Gate.lean` | pure `Nat` arithmetic: gate-exponent uniqueness and gap-predicate upward closure |
 | `Conjecture/Ratchet.lean` | forced rebound and the quotient ratchet |
+| `Conjecture/ChainLength.lean` | pure `Nat` arithmetic: the block-chain length bound, with its hypotheses supplied by hand |
 | `Conjecture/FiniteStart.lean` | entry, the quadratic step, and Theorem 18 from the ray hypothesis |
 | `Conjecture/AbsorptionConverse.lean` | eventual increment implies the ray, and Theorem 18 in the paper's form |
 | `Conjecture/EntryBound.lean` | Lemma 3's explicit entry bound, square-root-free |
@@ -49,6 +50,7 @@ absorb_step, absorb_forever, absorb_increment, increment_forces_remainder,
 congruence_propagation, even_at_even_index, pair_merging,
 E_doubling_nat, E_doubling_mod, E_doubling, B_monotone,
 gate_exponent_unique, unit_gate_exponent_unique, gap_predicate_upward_closed,
+chain_length_bound,
 quotient_drop_le_one, forced_rebound, ratchet,
 entry_exists, quadratic_step, least_entry, ray_of_eventual_increment,
 orbit_bound_doubled, entry_at_sqrt_bound, least_entry_le_sqrt_bound
@@ -120,6 +122,14 @@ Following the instruction to formalize only non-speculative results:
   safe-map development. `Conjecture/Gate.lean` formalizes only arithmetic facts
   about inequalities over `Nat`; it knows nothing about the safe map, and the
   identification of those inequalities with safe-map gates is not formalized.
+* **The hypotheses of Theorem 145.** `Conjecture/ChainLength.lean` proves the
+  implication — given sequences satisfying Corollary 144's inequalities, a chain
+  of `N` blocks with budget at most `C` has `N + 13 ≤ 3C` — and nothing more.
+  That the safe map *supplies* those inequalities is Corollary 144 and Lemma
+  136, which remain manuscript mathematics with raw-trace checks. So the Lean
+  statement is the combinatorial core, not the theorem about the recurrence.
+  Its hypotheses are discharged there against a literal chain, which rules out
+  the failure mode a many-hypothesis implication invites: being vacuous.
 * **The conjecture itself** — unproved, so there is nothing to formalize.
 * **Everything heuristic** — `κ → 1/4`, the epoch transition matrix, the tail
   law. These are explicitly *not* theorems and must not be given the appearance
