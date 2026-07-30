@@ -5,13 +5,14 @@
 
 A `pdflatex` build is not byte-reproducible by default: it embeds a wall-clock
 `/CreationDate` and a time-derived `/ID`. Setting `SOURCE_DATE_EPOCH` fixes the
-dates from TeX Live 2016 on, but whether that is enough for byte equality is an
-empirical question about the local toolchain, so this measures it instead of
-asserting it.
+dates from TeX Live 2016 on; the trailer id needs `\\pdftrailerid{}`, which
+`main.tex` now sets. With both in place the builds match, and CI and
+`scripts/reproduce.sh` pass `--require` so a regression fails rather than warns.
 
-Exit status is zero unless `--require` is passed and the builds differ. Without
-it the result is reported and the caller decides, which is the right default
-while reproducibility is a goal rather than a guarantee.
+Without `--require` the difference is reported and the exit status stays zero.
+That mode is for diagnosis on a toolchain where equality does not hold: the
+field-by-field breakdown below says which of the four is responsible, which is
+how the trailer id was identified as the last one.
 """
 
 from __future__ import annotations
@@ -71,8 +72,12 @@ def main(argv: list[str]) -> int:
             print(f"   {'':13} {right[name]}")
     print(
         "\nA hash of such a build documents custody only: a reviewer rebuilding\n"
-        "from the same source cannot reproduce it. To close the gap, fix the\n"
-        "trailer id as well as the dates."
+        "from the same source cannot reproduce it. The dates are pinned by\n"
+        "SOURCE_DATE_EPOCH in scripts/build_paper.sh and the trailer id by\n"
+        "\\pdftrailerid{} in main.tex, so if one of those four fields is marked\n"
+        "above, check that both are still in effect. If none is marked, the\n"
+        "difference is in the page content and this toolchain differs from the\n"
+        "one CI uses."
     )
     return 1 if require else 0
 

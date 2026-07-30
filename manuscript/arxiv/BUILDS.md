@@ -20,17 +20,34 @@ default. Each of the builds below embeds a wall-clock `/CreationDate` and a
 time-derived `/ID`, so recompiling the same source produces a different file with
 a different hash.
 
-So for these builds a hash documents **custody** — this exact file existed and
-was produced from that commit — but it does **not** document **correspondence**,
-because a reviewer rebuilding from the same source cannot reproduce it. Do not
-read the table below as more than custody.
+So for the three superseded builds listed below, a hash documents **custody** —
+this exact file existed and was produced from that commit — but it does **not**
+document **correspondence**, because a reviewer rebuilding from the same source
+cannot reproduce them. Do not read that table as more than custody. This
+limitation applies to those builds only; it no longer applies to new ones.
 
-Making builds deterministic is possible and would close that gap: set
-`SOURCE_DATE_EPOCH` before running `pdflatex`, which pdfTeX has honoured for
-`/CreationDate` and `/ModDate` since TeX Live 2016, and fix the trailer `/ID`.
-This has not been done because it needs a real compile to validate and no LaTeX
-toolchain is available in the development environment. It is worth doing before
-the release build, so the released PDF *can* be reproduced from the tag.
+**This has since been fixed, and the fix is enforced.** `scripts/build_paper.sh`
+exports a fixed `SOURCE_DATE_EPOCH`, and `main.tex` sets `\pdftrailerid{}`.
+CI compiles the paper twice, independently, and fails if the bytes differ.
+
+The two changes were not guesswork. With only `SOURCE_DATE_EPOCH` set, CI
+measured two builds of identical source as differing in exactly one field:
+
+```
+CreationDate  D:20260101000000Z   identical
+ModDate       D:20260101000000Z   identical
+Producer      pdfTeX-1.40.25      identical
+ID            15A1E0AA...         DIFFERENT
+              6E8B4E30...
+```
+
+Same length, 324743 bytes both. So the dates were already handled and the
+trailer id was the only remaining cause. After fixing it, both builds hash to
+`84b75af2ba44b033a00720c49e61ddd301636f24a84d59654dce6cf438a7e171`.
+
+A hash of a build produced this way documents **correspondence** with its
+source, not merely custody, and the release build can be verified by anyone who
+rebuilds from the tag.
 
 ## Superseded builds
 
@@ -54,8 +71,10 @@ When the paper is frozen:
 
 1. Apply the remaining editorial batch — the author details in
    [`README.md`](README.md).
-2. Consider making the build deterministic, per the note above.
-3. Compile, tag the commit, and record the build here.
+2. Run `bash scripts/build_paper.sh`, or download the artifact from the CI run.
+   The build is already deterministic, so no extra step is needed.
+3. Tag the commit and record the build's hash here. Because the build is
+   reproducible, that hash is verifiable by anyone rebuilding from the tag.
 4. Attach the PDF to the GitHub Release rather than committing it. A Release
    asset is immutable, tied to a tag, and does not enter git history — where a
    binary cannot later be removed without rewriting it.

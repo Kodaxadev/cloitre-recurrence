@@ -155,11 +155,12 @@ jobs:
         run: bash scripts/build_paper.sh build-a
       - name: Compile again, independently
         run: bash scripts/build_paper.sh build-b
-      - name: Measure byte reproducibility
+      - name: Require byte reproducibility
         run: >-
           python scripts/check_pdf_reproducible.py
           manuscript/arxiv/build-a/main.pdf
           manuscript/arxiv/build-b/main.pdf
+          --require
       - uses: actions/upload-artifact@v4
         with:
           name: cloitre-arxiv-draft-pdf
