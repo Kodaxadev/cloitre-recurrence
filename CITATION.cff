@@ -9,10 +9,19 @@ abstract: >-
   conjecture remains open, and the principal new proofs await external
   mathematical review.
 authors:
-  - name: "Kodaxadev"
+  - family-names: "Davis"
+    given-names: "Justin"
+    email: "Justin@Kodaxa.dev"
+    affiliation: "Independent researcher"
 version: 0.1.0-audit
-commit: "46e4780dc4955c1fd21110aebcbc6da688794668"
 date-released: "2026-07-28"
+# No `commit:` field, deliberately. A file cannot contain the hash of the commit
+# that contains it: writing one in changes the file, which changes the commit,
+# so the recorded value is stale the moment it is committed. That is exactly how
+# the `7ccda13` line on the paper's title page went stale, and it was removed
+# for the same reason. Provenance is by tag instead -- tag the frozen commit,
+# then record the tag in manuscript/arxiv/README.md, which a later commit can do
+# without contradicting itself.
 type: software
 repository-code: "https://github.com/Kodaxadev/cloitre-recurrence"
 url: "https://github.com/Kodaxadev/cloitre-recurrence"

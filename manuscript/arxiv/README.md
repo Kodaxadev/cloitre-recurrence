@@ -169,11 +169,13 @@ reproducibility. CI measured TeX Live 2023 and TeX Live 2022 compiling the same
 source to different bytes, so a hash is only meaningful beside the
 `environment.txt` its build wrote. `BUILDS.md` carries the measurement.
 
-Nothing else editorial is pending except the author details:
+Nothing editorial is pending. The batch is empty:
 
 | Change | Status |
 |---|---|
-| Author contact details and ORCID | needs the author |
+| Author contact details | applied — `Justin@Kodaxa.dev` on the byline |
+| ORCID | none, by the author's decision |
+| `CITATION.cff` author | applied — names the author, not the repository handle |
 
 **Editorial changes are otherwise batched.** Purely editorial edits to
 `main.tex` and `sections/` are held until the release freeze rather than landed
@@ -223,21 +225,23 @@ already pinned at `v0.1.0-audit`. They are unchanged.
 Everything mechanical is done. What remains is split by who can do it, because
 that is the only distinction that matters now.
 
-**Blocked on the author — the whole freeze waits on this one item.**
+**The editorial batch is empty.** The author details are applied: the byline
+carries `Justin Davis`, `Independent researcher`, and the contact address
+`Justin@Kodaxa.dev`; `pdfauthor` carries the name; `CITATION.cff` names the
+author rather than the repository handle. No ORCID, by the author's decision.
 
-1. **Author contact details and ORCID.** Supply them and the batch is empty.
-   They go in three places: the `\author{}` line in `main.tex`, `pdfauthor` in
-   its `hypersetup`, and `authors:` in the repository's `CITATION.cff`. This is
-   the sole remaining editorial change; the batch exists so the compiled PDF is
-   invalidated once rather than repeatedly.
+**Mechanical, in order.**
 
-**Then mechanical, in order, once that lands.**
-
-2. Apply the batch and recompile once — `bash scripts/build_paper.sh`, or take
-   the artifact from the CI run for the release commit.
-3. Tag the release commit, and update `CITATION.cff` to match it: `commit:` and
-   `date-released:` there still point at `46e4780` and 2026-07-28, and `authors:`
-   still carries the handle `Kodaxadev` rather than the name on the paper.
+1. Recompile once — `bash scripts/build_paper.sh`, or take the artifact from the
+   CI run for the release commit.
+2. Set `version:` and `date-released:` in `CITATION.cff` to the release values.
+   **Do not add a `commit:` field.** A file cannot carry the hash of the commit
+   containing it — writing one in changes the file and so changes the commit —
+   which is the same defect that took the `7ccda13` line off the title page. The
+   file records why, so the field is not reintroduced by a later editor.
+3. Tag the frozen commit, then record **the tag** here. A later commit can name
+   an earlier tag without contradicting itself, which is what makes tag-based
+   provenance work where an embedded SHA does not.
 4. Fill the release row in `BUILDS.md`. It is laid out there as a template with
    a stated source for every field, so this is transcription: hash, byte count,
    the build's `environment.txt`, and what the cross-release CI step reported for
