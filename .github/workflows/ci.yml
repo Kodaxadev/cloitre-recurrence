@@ -135,6 +135,37 @@ jobs:
           a0b60e6d229e56adbba04808130218a807817d5471edfc2f659c253b47370e4b  independent/verify_small_spectrum.py
           HASHES
 
+  paper:
+    name: Compile the arXiv draft
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Install a minimal TeX Live
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            texlive-latex-base texlive-latex-recommended texlive-latex-extra \
+            texlive-fonts-recommended lmodern
+          pdflatex --version | head -1
+      - name: Compile, failing on undefined references or bad boxes
+        run: bash scripts/build_paper.sh build-a
+      - name: Compile again, independently
+        run: bash scripts/build_paper.sh build-b
+      - name: Measure byte reproducibility
+        run: >-
+          python scripts/check_pdf_reproducible.py
+          manuscript/arxiv/build-a/main.pdf
+          manuscript/arxiv/build-b/main.pdf
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cloitre-arxiv-draft-pdf
+          path: manuscript/arxiv/build-a/main.pdf
+          if-no-files-found: error
+
   lean:
     name: Lean formalization and external checking
     runs-on: ubuntu-latest

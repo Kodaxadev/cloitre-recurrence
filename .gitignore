@@ -19,6 +19,7 @@ manuscript/arxiv/*.pdf
 manuscript/arxiv/*.aux
 manuscript/arxiv/*.log
 manuscript/arxiv/*.out
+manuscript/arxiv/build-*/
 
 # Platform noise
 .DS_Store

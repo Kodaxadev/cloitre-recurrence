@@ -45,6 +45,29 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
     && rustc --version \
     && cargo --version
 
+# LaTeX, for building the arXiv draft locally. This is the bulk of the image —
+# roughly a gigabyte — so it can be switched off when only the mathematics and
+# code checks are wanted:
+#
+#   docker build --build-arg WITH_TEX=0 -t cloitre .
+#
+# Note the version caveat: Debian bookworm ships TeX Live 2022, whereas the
+# manuscript has also been built with TeX Live 2025. Output is not guaranteed
+# identical across TeX Live releases, so this image gives *a* pinned build
+# environment, not the same one every past build used.
+ARG WITH_TEX=1
+RUN if [ "$WITH_TEX" = "1" ]; then \
+      apt-get update \
+      && apt-get install -y --no-install-recommends \
+           texlive-latex-base \
+           texlive-latex-recommended \
+           texlive-latex-extra \
+           texlive-fonts-recommended \
+           lmodern \
+      && rm -rf /var/lib/apt/lists/* \
+      && pdflatex --version | head -1; \
+    fi
+
 # Lean, pinned by lean-toolchain rather than by a literal here, so the image and
 # the repository cannot drift apart.
 COPY lean-toolchain /tmp/lean-toolchain

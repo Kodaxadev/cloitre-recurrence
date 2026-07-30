@@ -61,6 +61,17 @@ lake env lean lean/Conjecture.lean
 lake env leanchecker Conjecture
 bash scripts/check_lean_nanoda.sh
 
+say "Paper: compile the arXiv draft"
+if command -v pdflatex >/dev/null 2>&1; then
+  bash scripts/build_paper.sh build-a
+  bash scripts/build_paper.sh build-b
+  python scripts/check_pdf_reproducible.py \
+    manuscript/arxiv/build-a/main.pdf manuscript/arxiv/build-b/main.pdf
+else
+  echo "pdflatex not on PATH; skipping."
+  echo "The image built with --build-arg WITH_TEX=0 has no LaTeX."
+fi
+
 cat <<'NOTE'
 
 === all fast checks passed ===

@@ -65,14 +65,20 @@ keeps each file inside the repository's per-file length gate.
 
 ## Build
 
-Run twice so cross-references resolve:
+From the repository root:
 
 ```bash
-pdflatex -interaction=nonstopmode -halt-on-error main.tex
-pdflatex -interaction=nonstopmode -halt-on-error main.tex
+bash scripts/build_paper.sh
 ```
 
-No bibliography tool is required; references are embedded in `main.tex`.
+That runs `pdflatex` twice so cross-references resolve, then **fails** on
+undefined references, undefined citations, or any overfull or underfull box — so
+a broken build cannot pass unnoticed. No bibliography tool is required;
+references are embedded in `main.tex`.
+
+CI compiles the draft on every push and uploads the PDF as a build artifact, so
+a working LaTeX installation is not needed to obtain one. The container also
+carries LaTeX unless built with `--build-arg WITH_TEX=0`.
 
 A structural check that needs no LaTeX installation — environment balance,
 cross-references, citations, `\input` targets, brace balance — is run in CI:
