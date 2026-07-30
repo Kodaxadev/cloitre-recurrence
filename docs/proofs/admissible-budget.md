@@ -200,29 +200,52 @@ to be a single wrap with a positive gap, and then the budget can only climb.
 
 ## Corollary 146 (the dichotomy an infinite chain faces)
 
-An infinite chain of positive blocks has $G_i\to\infty$, and
+An infinite chain of positive blocks has **unbounded** budget,
+$\sup_iG_i=\infty$, and
 
 \[
 \boxed{
-\text{either } k_i=1 \text{ for all large } i,
-\quad\text{or}\quad
-G_i\ge2i+11 \text{ infinitely often.}
+\begin{aligned}
+&\text{either } k_i=1 \text{ for all large } i,\ \text{and then } G_i\to\infty;\\
+&\text{or } k_i\ge2 \text{ infinitely often, and then } G_i\ge2i+11
+\text{ along that subsequence.}
+\end{aligned}
 }
 \tag{146.1}
 \]
 
 ### Proof
 
-$G_i\to\infty$: if $G_i\le C$ for all $i$ then every finite prefix is a chain of
+*Unbounded.* If $G_i\le C$ for every $i$ then every finite prefix is a chain of
 the kind Theorem 145 bounds, so $N\le3C-13$ for every $N$, which is false.
 
-For (146.1), suppose $k_i\ge2$ for infinitely many $i$. Each such $i$ has
+*The dichotomy.* Suppose first that $k_i=1$ for all $i\ge i_1$. Then (143.1)
+gives $G_{i+1}=G_i+r_i\ge G_i$ for $i\ge i_1$, so $G$ is eventually
+nondecreasing; a nondecreasing unbounded sequence diverges, so $G_i\to\infty$.
+Otherwise $k_i\ge2$ for infinitely many $i$, and each such $i$ has
 $G_i\ge2U_i+11\ge2i+11$ by (144.2). $\square$
 
+**On the strength of the first clause.** Unboundedness is all the counting
+argument gives, and it is weaker than divergence: an unbounded sequence may
+return to small values infinitely often, and $G$ is free to do so, since (143.1)
+lets it fall by $k_i-r_i-1$ whenever $k_i>r_i+1$. Divergence is recovered only in
+the first branch, where $k_i=1$ makes $G$ eventually nondecreasing. In the second
+branch what is established is a linear lower bound *along the subsequence* of
+long blocks, hence $\limsup_iG_i=\infty$ and nothing about the $\liminf$.
+
+The distinction is not pedantic. The budget really does fall: over the chains
+with start index $n\le200$ there are $28{,}423$ steps with $G_{i+1}<G_i$, spread
+across $12{,}947$ chains, the largest single drop being $4$ — at $(n,e)=(162,81)$,
+where a block of length $5$ takes $G$ from $162$ to $158$. So the monotonicity a
+claim of $G_i\to\infty$ would need is not merely unproved outside the all-unit
+branch; it is false. An earlier revision of this note asserted $G_i\to\infty$
+unconditionally, which the proof above does not support.
+
 So an infinite chain either has an eventually all-unit tail — the fibre Theorem
-130 already treats as a three-integer map — or its budget grows at least
-linearly, which by (144.1) forces the returned residues to grow with it. The two
-branches are not symmetric, and the first is the one with existing machinery.
+130 already treats as a three-integer map, and there its budget genuinely
+diverges — or it has long blocks infinitely often, each of which costs a budget
+linear in its index. The two branches are not symmetric, and the first is the one
+with existing machinery.
 
 ## Corollary 147 (on the unit fibre there is only one inequality)
 

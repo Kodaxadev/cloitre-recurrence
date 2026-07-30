@@ -76,14 +76,14 @@ def descriptions(blocks: list[object]) -> list[tuple[int, int, int, int]]:
     ]
 
 
-def check_chain_length(n_max: int) -> tuple[int, int, float]:
+def check_chain_length(n_max: int) -> tuple[int, int, float, int]:
     """Theorem 145: a chain of N blocks needs a budget of at least (N+13)/3.
 
-    Returns ``(chains checked, longest chain, tightest N/(3C-13) ratio)``. The
+    Returns ``(chains, longest chain, tightest N/(3C-13), budget drops)``. The
     ratio is reported because the bound is far from sharp in this range and
     saying so is part of stating it honestly.
     """
-    chains = longest = 0
+    chains = longest = drops = 0
     tightest = 0.0
     for n in range(8, n_max + 1):
         for e in range(1, n):
@@ -109,7 +109,14 @@ def check_chain_length(n_max: int) -> tuple[int, int, float]:
             chains += 1
             longest = max(longest, len(chain))
             tightest = max(tightest, len(chain) / (3 * worst - 13))
-    return chains, longest, tightest
+            # C146 says only that the budget is *unbounded*, not that it
+            # diverges. Count the steps where it falls: if this were ever zero,
+            # the weaker statement would be needlessly weak, and if it is not,
+            # the monotonicity a divergence claim needs is simply false.
+            drops += sum(
+                1 for a, b in zip(budgets, budgets[1:]) if b < a
+            )
+    return chains, longest, tightest, drops
 
 
 def check_unit_fibre(n_max: int) -> tuple[int, int, int]:
@@ -205,7 +212,7 @@ def check(n_max: int) -> dict[str, int]:
 def main(argv: list[str]) -> int:
     n_max = int(argv[1]) if len(argv) > 1 else 200
     tally = check(n_max)
-    chains, longest, tightest = check_chain_length(n_max)
+    chains, longest, tightest, drops = check_chain_length(n_max)
     children, parents, greedy = check_unit_fibre(n_max)
     print(f"index bound {n_max}")
     print(f"  gates decided both ways : {tally['gates']}")
@@ -216,6 +223,7 @@ def main(argv: list[str]) -> int:
     print(f"  chains of >= 2 blocks   : {chains}")
     print(f"    longest              : {longest}")
     print(f"    tightest N/(3C-13)   : {tightest:.3f}")
+    print(f"    steps where G falls  : {drops}")
     print(f"  single-wrap children    : {children}")
     print(f"  unit parents            : {parents}")
     print(f"  all-unit greedy steps   : {greedy}")
