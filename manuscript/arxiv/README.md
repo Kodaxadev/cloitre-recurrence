@@ -157,12 +157,17 @@ applied in `910f6a9`. Compiled PDFs are not tracked here; the provenance record
 for past builds, and the plan for the release build, is in
 [`BUILDS.md`](BUILDS.md).
 
-That file also records a finding worth knowing before the release: `pdflatex`
-output is not byte-reproducible by default, because it embeds a wall-clock
-`/CreationDate` and a time-derived `/ID`. A recorded hash therefore documents
-custody but not correspondence, unlike the deterministic CSV artifacts elsewhere
-in this repository. Setting `SOURCE_DATE_EPOCH` and fixing the trailer `/ID`
-before the release build would close that gap.
+That gap is now closed, and the closing is enforced. `pdflatex` is not
+byte-reproducible by default — it embeds a wall-clock `/CreationDate` and a
+time-derived `/ID` — so `scripts/build_paper.sh` exports a fixed
+`SOURCE_DATE_EPOCH` and `main.tex` sets `\pdftrailerid{}`. CI compiles the paper
+twice and **fails** if the bytes differ.
+
+One limit survives, and the release must state it rather than paper over it: this
+is repeatability within a recorded TeX environment, not source-only
+reproducibility. CI measured TeX Live 2023 and TeX Live 2022 compiling the same
+source to different bytes, so a hash is only meaningful beside the
+`environment.txt` its build wrote. `BUILDS.md` carries the measurement.
 
 Nothing else editorial is pending except the author details:
 
@@ -213,14 +218,42 @@ already pinned at `v0.1.0-audit`. They are unchanged.
   (160 and 260), the absence of increments 5 and 7 below 260, and agreement of
   all 259 certificate rows with an independent recomputation.
 
-## Editorial next steps
+## Release checklist
 
-1. Obtain a line-by-line human mathematical review of the finite-start theorem.
-2. Confirm historical attribution and bibliography wording.
-3. Add author contact details and ORCID, if applicable.
-4. Archive an immutable release containing the manuscript source, verifier, certificate, and hashes.
-5. Tag the release commit and fill in the tag in the provenance table above.
-6. Apply the batched editorial changes, then recompile once.
-7. Compile with arXiv's TeX environment before submission. TeX Live 2025 gives a
-   clean 8-page build, but arXiv's own preview is a separate submission-stage
-   check.
+Everything mechanical is done. What remains is split by who can do it, because
+that is the only distinction that matters now.
+
+**Blocked on the author — the whole freeze waits on this one item.**
+
+1. **Author contact details and ORCID.** Supply them and the batch is empty.
+   They go in three places: the `\author{}` line in `main.tex`, `pdfauthor` in
+   its `hypersetup`, and `authors:` in the repository's `CITATION.cff`. This is
+   the sole remaining editorial change; the batch exists so the compiled PDF is
+   invalidated once rather than repeatedly.
+
+**Then mechanical, in order, once that lands.**
+
+2. Apply the batch and recompile once — `bash scripts/build_paper.sh`, or take
+   the artifact from the CI run for the release commit.
+3. Tag the release commit, and update `CITATION.cff` to match it: `commit:` and
+   `date-released:` there still point at `46e4780` and 2026-07-28, and `authors:`
+   still carries the handle `Kodaxadev` rather than the name on the paper.
+4. Fill the release row in `BUILDS.md`. It is laid out there as a template with
+   a stated source for every field, so this is transcription: hash, byte count,
+   the build's `environment.txt`, and what the cross-release CI step reported for
+   *that* build. A hash without its environment is not checkable.
+5. Attach the PDF to the GitHub Release rather than committing it. A Release
+   asset is immutable, tied to a tag, and stays out of git history, where a
+   binary cannot later be removed without rewriting it.
+
+**Not gated on the repository at all.**
+
+6. A line-by-line human mathematical review of the finite-start theorem. No
+   amount of verification substitutes for this, and every ledger row still reads
+   "external review pending".
+7. arXiv's own preview, which is a submission-stage check with its own TeX
+   environment, and endorsement if required.
+
+Historical attribution and bibliography wording were confirmed and corrected:
+A073117 is Zumkeller's, with Cloitre's general stabilization conjecture added as
+a comment the following day.

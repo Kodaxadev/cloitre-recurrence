@@ -92,6 +92,35 @@ packages from an immutable snapshot, with the image digest recorded alongside
 the source and PDF hashes. That is deliberately not done here — it trades CI
 robustness for a guarantee this draft does not need — and so it is not claimed.
 
+## The release row, ready to fill
+
+Left here as a template so the freeze is transcription rather than judgement.
+Every field has a stated source; none of them is a number to invent.
+
+| Field | Where it comes from |
+|---|---|
+| Tag | `git tag` on the release commit |
+| Source commit | `git rev-parse HEAD` at that tag |
+| SHA-256 | `sha256sum manuscript/arxiv/build-a/main.pdf` |
+| Bytes | the same build's size |
+| pdfTeX / TeX Live | first line of that build's `environment.txt` |
+| `texlive-base` | the `texlive-base` line of the same file |
+| Cross-release result | what the "Measure whether the hash survives a different TeX Live" CI step reported for **this** build, not an earlier one |
+
+```
+Tag                 vX.Y.Z
+Source commit       ...
+SHA-256             ...
+Bytes               ...
+pdfTeX / TeX Live   ...
+texlive-base        ...
+Cross-release       differs from TeX Live 20xx as expected / unexpectedly equal
+```
+
+Record all seven. A hash on its own documents custody; a hash beside the
+environment that produced it documents correspondence, which is the whole point
+of the work above.
+
 ## Superseded builds
 
 None of these is a release. Each was invalidated by a later correction, and all
