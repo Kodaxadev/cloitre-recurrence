@@ -76,6 +76,7 @@ jobs:
           independent/verify_mixed_ridges.py
           scripts/periodic_phase_blocks.py
           scripts/check_tex_structure.py
+          scripts/check_doc_links.py
       - name: Verify published OEIS terms
         run: python verification-framework/verify.py --oeis
       - name: Regenerate the minimal nonsurjectivity certificate
@@ -120,6 +121,8 @@ jobs:
         run: python independent/verify_mixed_ridges.py
       - name: Regenerate the denominator-family certificate
         run: python scripts/periodic_phase_blocks.py --max-denominator 501
+      - name: Check documentation cross-references
+        run: python scripts/check_doc_links.py
       - name: Check arXiv draft structure
         run: python scripts/check_tex_structure.py
       - name: Verify committed audit artifact hashes

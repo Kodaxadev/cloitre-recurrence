@@ -95,7 +95,7 @@ belong in `../supplement/`.
 
 The original stabilization conjecture remains open. The strongest completed
 result is the finite-start bound and its computer-assisted nonsurjectivity
-corollary. Theorem numbering follows `../theorem-status.md` to preserve
+corollary. Theorem numbering follows `../docs/theorem-status.md` to preserve
 traceability to the frozen research snapshot
 `f19ffcd75d04a05529878ce0226088f2f3221c0b`.
 Theorems 46, 50, 55, 56, 58, 69, 72, 75, 77, 90, 91, 99, 101, 118, 121, and 122; Proposition 66; Lemmas

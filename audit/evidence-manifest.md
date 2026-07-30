@@ -29,7 +29,7 @@ line-ending configuration.
 | 3,840 | `certificates/spectrum_m259.csv` | `66a06cff15735c4a3caf98575f29afbcd881fbef06334616fbc3bc772b7ab084` |
 | 4,499 | `independent/verify_safe_certificate.py` | `41216cd3830cb97fd809b6aa9f78ee8a3e77ce7f13c7a5244d65ebc7c96beeef` |
 | 2,282 | `independent/verify_small_spectrum.py` | `a0b60e6d229e56adbba04808130218a807817d5471edfc2f659c253b47370e4b` |
-| 90,030 | `computational-results.csv` | `1fa4073cfad904230ee93ca28f84351dcc78604c16b6d09d2448b182c4d25b63` |
+| 90,030 | `data/computational-results.csv` | `1fa4073cfad904230ee93ca28f84351dcc78604c16b6d09d2448b182c4d25b63` |
 | 253,778 | `data/census_10M.csv` | `c973869fa708dfa5be5b599fe7409ca66652c2ee7ee4e6dc52cacb31325a15c3` |
 | 5,322 | `data/census_10M.log` | `ad8623885344ee3f3c9100c1c975a5cf219032e841abfa1954c831b86211bc3f` |
 | 1,145 | `data/epochs_m11489.csv` | `333ed5ebd2a0dd3742ef6738004ab9cc7d1a32e6c3bab07ac9b25ca2b4f19fe1` |

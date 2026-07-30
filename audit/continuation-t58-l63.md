@@ -7,8 +7,8 @@ This is the requested continuation of
 post-freeze ridge cut through Theorem 77 but left its imported Theorem 58
 and Lemma 63 unchecked. This pass audits those two imports against:
 
-- [`sparse-downstep-analysis.md`](../sparse-downstep-analysis.md);
-- [`ridge-segment-analysis.md`](../ridge-segment-analysis.md);
+- [`sparse-downstep-analysis.md`](../docs/proofs/sparse-downstep-analysis.md);
+- [`ridge-segment-analysis.md`](../docs/proofs/ridge-segment-analysis.md);
 - the compact proofs in
   [`manuscript/08-sparse-downsteps.md`](../manuscript/08-sparse-downsteps.md)
   and

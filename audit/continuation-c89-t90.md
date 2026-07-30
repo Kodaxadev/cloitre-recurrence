@@ -5,7 +5,7 @@
 This is the quantified asymptotic pass requested by
 [`opus-pr2-audit.md`](opus-pr2-audit.md). It checks Corollary 89 and
 Theorem 90 in
-[`unit-wrap-chain-analysis.md`](../unit-wrap-chain-analysis.md), together
+[`unit-wrap-chain-analysis.md`](../docs/proofs/unit-wrap-chain-analysis.md), together
 with their compact versions in
 [`manuscript/15-unit-wrap-gates.md`](../manuscript/15-unit-wrap-gates.md).
 

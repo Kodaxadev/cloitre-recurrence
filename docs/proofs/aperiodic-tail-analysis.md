@@ -107,7 +107,7 @@ a negative next value, contradicting the first paragraph. Equality
 ## Computational probe of monotone segments
 
 The exact tool
-[`search-framework/src/bin/monotone.rs`](search-framework/src/bin/monotone.rs)
+[`search-framework/src/bin/monotone.rs`](../../search-framework/src/bin/monotone.rs)
 tests every state with `e>0` at a selected index until its first down-step or
 absorption. Exhaustive results include:
 
@@ -152,7 +152,7 @@ difference stays constant. The quotient-zero state is valid because `e<N`.
 ## Exact compressed safe sweep
 
 The auxiliary tool
-[`search-framework/src/bin/pure.rs`](search-framework/src/bin/pure.rs)
+[`search-framework/src/bin/pure.rs`](../../search-framework/src/bin/pure.rs)
 implements two distinct computations:
 
 - `--sweep` advances every pure moving-modulus state, ignoring the danger
