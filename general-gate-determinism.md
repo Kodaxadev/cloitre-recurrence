@@ -85,10 +85,20 @@ since $D\le n$. So the second window fails at every $h'>h$, and monotonicity of
 $2^hf-n-h$ in $h$ makes the first window fail below $r^\ast+2$. $\square$
 
 Theorem 130 is the case $k=1$, where $2^{k+1}=4$ and (133.2) reads
-$n+h+4\le2^hf$ and $2^h(f+4)+2\le n+D+2h$. The Lean theorem
-`Conjecture.gate_exponent_unique` proves the uniqueness in the general form of
-(133.2); `Conjecture.unit_gate_exponent_unique` is the specialization used for
-Theorem 130. Both pass the axiom audit with no `sorryAx`.
+$n+h+4\le2^hf$ and $2^h(f+4)+2\le n+D+2h$.
+
+**Exact formalization boundary.** The Lean theorem
+`Conjecture.gate_exponent_unique` machine-checks one statement and no more: that
+the two inequalities of (133.2) at $h$ and at $h'$, together with $D\le n$ and
+$f\ge1$, force $h=h'$. `Conjecture.unit_gate_exponent_unique` is its $k=1$
+specialization. Both pass the axiom audit with no `sorryAx`.
+
+Everything else in Theorem 133 is manuscript mathematics supported by
+computational checks, not formalized: the safe-map coordinates (133.1), the
+identification of the pure-upper conditions with (133.2), the closed form
+(133.3) for $r^\ast$, and the interpretation of the whole as a statement about
+safe-map gates. In particular the Lean theorem knows nothing about the safe map;
+it is a fact about two inequalities over the naturals.
 
 ## Verification
 
@@ -140,9 +150,9 @@ Theorem 130. Each extra unit of block length doubles the room. The trade is not
 free: Corollary 112 caps $k_i+r_i+k_{i+1}$ near $\log_2n$, so a long parent
 block buys residue freedom only by forcing a short gap and a short child block.
 
-Checked on $39{,}990$ literal pure-upper gates from raw traces with
-$n\le260$, where the observed widths are exactly $4,8,16,32$ for
-$k=1,2,3,4$.
+Checked on $40{,}322$ literal pure-upper gates from raw traces with
+$n\le260$, the figure reported by `verify_pure_upper_run.py` in CI, where the
+observed widths are exactly $4,8,16,32$ for $k=1,2,3,4$.
 
 ### Why the general ceiling exceeds the unit ceiling
 
@@ -231,3 +241,29 @@ therefore does not close into a map on a fixed number of integers, which is
 exactly what Theorem 130 gains from the unit hypothesis. And, as in the unit
 case, forcing the gap is a removal of search freedom, not a termination
 argument.
+
+## The frontier after Theorem 133
+
+The open problem in this branch is no longer gap enumeration. With the gaps
+forced, what is unconstrained is the joint sequence
+
+\[
+(k_0,f_0),\ (k_1,f_1),\ (k_2,f_2),\ \dots
+\]
+
+of block lengths and returned residues. Corollary 134 says each $f_i$ ranges
+over an interval of length $2^{k_i+1}$, and (134.2) says the block lengths and
+the forced gap trade against one another inside a $\log_2n$ budget. Those are
+one-step constraints; neither pins the sequence.
+
+**Target.** A multi-step obstruction that replaces the closed recurrence the
+unit case had. Concretely, Theorem 130 worked because Lemma 113 collapses excess
+and child residue at $\ell=1$, giving $f_{i+1}=2^{h_i}f_i-n_{i+1}-3$ and hence
+both the telescoping identity and Theorem 118's two-step product bound. For
+$\ell\ge2$ that recurrence is lost. What is needed is an identity over two or
+more gates that survives the intervening block length — for instance an exact
+relation among $f_i,f_{i+2}$ and $k_{i+1}$ analogous to Lemma 119's
+three-residue compatibility, from which a descent or a modulus can be
+accumulated. Until such a relation exists, the branch has exact one-step
+arithmetic and no chain argument, which is precisely the state the unit case was
+in before Lemma 119.

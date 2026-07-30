@@ -308,7 +308,22 @@ sweep at \(U=0\) is exhaustive over every wrap count at once. The resulting
 exhaustive computation (K15) finds a ceiling of five gates, attained only at
 the K14 witness, while the Proposition 126 family reaches only four.
 
-**Do next:** the fixed-ladder branch no longer has a combinatorial dimension
+Theorem 133 extends the forcing to every block length, and Corollary 134
+quantifies what freedom is left: the returned residue at a pure-upper gate
+ranges over an interval of length exactly \(2^{k+1}\), so the unit case very
+nearly selects one residue while longer blocks admit exponentially more.
+
+**Do next, arbitrary-length branch:** control the joint sequence of block
+lengths and returned residues under forced gaps. The one-step arithmetic is
+complete — Corollary 134 for the residue band, (134.2) for the length/gap
+trade — and no chain argument exists. The target is a multi-step obstruction
+replacing the closed recurrence the unit case lost: for \(\ell=1\) Lemma 113
+collapses excess and child residue, which is what produced Lemma 119's
+three-residue compatibility and Theorem 118's two-step product bound. Seek the
+analogue that survives an intervening block length, for instance an exact
+relation among \(f_i\), \(f_{i+2}\) and \(k_{i+1}\).
+
+**Do next, fixed-ladder branch:** it no longer has a combinatorial dimension
 to search, so what remains there is a termination proof for one forced
 one-dimensional orbit. No inequality argument can supply it: the constraints
 alone admit chains of length \(O(n/\log n)\), and the observed ceiling of five
