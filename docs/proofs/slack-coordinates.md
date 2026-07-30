@@ -255,12 +255,12 @@ two windows across a step, which is what (140.3) couples. The two regimes should
 be separated before the recurrence is manipulated, exactly as the alignment
 count above separates modulus dominance from accidental uniqueness.
 
-## Lemma 143 and Corollary 144 (admissibility)
+## Where this continues
 
-Moved to [`admissible-budget.md`](admissible-budget.md). Everything above is
-about which slacks are arithmetically possible; that note is about whether the
-path survives to use them, and puts the wrap count — the one coordinate left
-outside Lemma 140 — inside these same coordinates.
+Everything above is about which slacks are arithmetically *possible*. Whether
+the path survives to use them is a separate question, and the wrap count — the
+one coordinate left outside Lemma 140 — is brought inside these coordinates by
+Lemma 143 onwards, on the `research/admissible-budget` branch.
 
 ## What the coordinate change does and does not buy
 

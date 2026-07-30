@@ -292,10 +292,10 @@ nonunique gates of Corollary 102 — is one forward orbit of $\Psi$. There is no
 gap word to enumerate, no block-length word to enumerate, and no digit
 simulation. A hypothetical infinite safe path is an infinite $\Psi$-orbit.
 
-What this does not do is bound the orbit. (Theorem 145, in
-[`admissible-budget.md`](admissible-budget.md), later bounds its *length* by the
-largest budget the chain reaches. That is a bound in a quantity measured along
-the orbit rather than read off its start, so the paragraph below stands.)
+What this does not do is bound the orbit. (Theorem 145, on the
+`research/admissible-budget` branch, later bounds its *length* by the largest
+budget the chain reaches. That is a bound in a quantity measured along the orbit
+rather than read off its start, so the paragraph below stands.)
 $\Psi$ is expanding: (137.2)
 multiplies the residue by $2^{k'+r+1}\ge4$ and subtracts a term of size
 $2^{k'}n'$, and survival requires the difference to land in the narrow admissible
