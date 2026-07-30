@@ -145,6 +145,8 @@ jobs:
           test: false
           lint: false
           use-mathlib-cache: false
+      - name: Print the axiom audit
+        run: lake env lean lean/Conjecture.lean
       - name: Check compiled declarations with Lean's bundled checker
         run: lake env leanchecker Conjecture
       - name: Check compiled declarations with pinned nanoda

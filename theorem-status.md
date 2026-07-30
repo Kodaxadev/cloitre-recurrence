@@ -29,8 +29,8 @@ classification is the point: nothing is promoted without a proof.
 | T10 | Pair merging: $b_3(2k-1)=b_3(2k)=2k$ | §4 | **Theorem** (known, A117846) |
 | T11 | $f_n(x)=f_n(y)$, $x\ne y$ $\iff$ $n$ even, $|x-y|=n/2$, adjacent blocks | §4 | **Theorem** (known, MO) |
 | **L12** | Two consecutive $+1$ force $3q_n\le n-9$; two consecutive $-1$ force $3q_n>2n+3$ | §5 | **Lemma — new** |
-| **T13** | $\Delta q_n=-1$ and $3q_n\le n+1$ $\Rightarrow$ $\Delta q_{n+1}=+1$ | §5 | **Theorem — new** |
-| **T14** | Ratchet: while $3q\le n+1$, $q$ never falls more than 1 below its window start | §5 | **Theorem — new** |
+| **T13** | $\Delta q_n=-1$ and $3q_n\le n+1$ $\Rightarrow$ $\Delta q_{n+1}=+1$ | §5 | **Theorem — new; machine-checked in Lean (`forced_rebound`, no `sorryAx`)** |
+| **T14** | Ratchet: while $3q\le n+1$, $q$ never falls more than 1 below its window start | §5 | **Theorem — new; machine-checked in Lean (`ratchet`, no `sorryAx`); the Lean induction closes a gap in the compressed paper argument** |
 | **L21** | At first entry $n_0\ge3$, $q_{n_0}\in\{n_0-2,n_0-1\}$ | `bounded-quotient-analysis.md` | **Lemma — new** |
 | **T22** | Exact rebound cascade; if $\Delta q_n=-1$ and $n\ge7q_n+1$, the next two steps are $+1,+1$ | `bounded-quotient-analysis.md` | **Theorem — new** |
 | **C23** | Every bounded-quotient orbit stabilizes; every counterexample has unbounded $q_n$ | `bounded-quotient-analysis.md` | **Corollary — new** |
