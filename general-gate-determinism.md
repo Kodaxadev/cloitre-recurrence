@@ -107,6 +107,114 @@ At index and residue bound $400$ this covers $345{,}785$ adjacent-block
 coordinates and $53{,}201$ literal pure-upper gates, with no parent state
 admitting two gaps.
 
+## Corollary 134 (the residue window has width exactly $2^{k+1}$)
+
+At a pure-upper gate in the notation of Theorem 133, the parent's returned
+residue is confined to
+
+\[
+\boxed{
+\frac{m+r+3}{2^{r+2}}\ <\ f\ \le\ 2^{k+1}+\frac{m+r+3}{2^{r+2}}.
+}
+\tag{134.1}
+\]
+
+Hence for fixed $(n,k,r)$ at most $2^{k+1}$ integers $f$ are admissible.
+
+### Proof
+
+The condition $x\ge1$ is $2^{r+2}f>m+r+3$, the left inequality. The canonical
+translate condition $x\le H=2^{k+r+3}$ is
+
+\[
+2^{r+2}f-m-r-3\le2^{k+r+3},
+\]
+
+that is $2^{r+2}\bigl(f-2^{k+1}\bigr)\le m+r+3$, the right inequality.
+$\square$
+
+This is the exact quantitative form of the difference between the unit and
+general cases. At $k=1$ the window admits at most four integers, which after the
+congruence modulo $4$ leaves essentially one — the rigidity behind (132.2) and
+Theorem 130. Each extra unit of block length doubles the room. The trade is not
+free: Corollary 112 caps $k_i+r_i+k_{i+1}$ near $\log_2n$, so a long parent
+block buys residue freedom only by forcing a short gap and a short child block.
+
+Checked on $39{,}990$ literal pure-upper gates from raw traces with
+$n\le260$, where the observed widths are exactly $4,8,16,32$ for
+$k=1,2,3,4$.
+
+### Why the general ceiling exceeds the unit ceiling
+
+The unit ceiling of five (K15) comes from a two-step *product* bound. For a
+unit child, Lemma 113 makes the excess and the child's returned residue the
+same number, $g=x$. Combined with the canonical translate condition
+$x\le2^{r+4}$ and with $2^{r_i+2}f_i\approx n$, that gives
+
+\[
+2^{r_i+2}\cdot2^{r_{i+1}+2}\ \gtrsim\ n/4,
+\]
+
+which is Theorem 118. It pins every gap near $\tfrac12\log_2n$ and makes the
+unit system critically tight at every step.
+
+For a child block of length $\ell\ge2$ the coincidence fails. Lemma 113 gives
+
+\[
+g=n'+\ell+4-2^{\ell-1}(n'+5-x),
+\]
+
+so the returned residue is not the excess, the recursion does not close in
+$(n,U,f)$, and the two-step product bound does not survive. What remains is the
+one-sided ceiling of Corollary 112,
+
+\[
+2^{k_i+r_i+k_{i+1}+2}\ \le\ n_{i+1}+k_{i+1}+3,
+\tag{134.2}
+\]
+
+an upper bound on how fast consecutive parameters may grow rather than a lower
+bound forcing them to be large. (Directly: the upper mechanism gives
+$d'\ge2^{k_i+r_i+2}$, so $A'\ge2^{k_i+r_i+2}$, and Lemma 83 applied to the child
+block of length $\ell=k_{i+1}$ needs $2^\ell A'\le n'+\ell+3$ for its returned
+residue to stay positive.) That is the extra room, and it is consistent
+with the observed ceiling rising from five to six.
+
+## Exhaustive computation: the length of a pure-upper run
+
+Because Theorem 133 leaves no gap-word freedom, the only remaining question
+about the mechanism is how many pure-upper gates can occur in a row. That is a
+finite computation at each index. As in Lemma 131 the wrap count can be
+normalized away, this time by Lemma 116 directly: lowering $U_0$ preserves the
+digit word and raises both gate defects, while the canonical translate $x$
+depends only on indices and residues. So a pure-upper run can only lengthen
+when $U_0$ falls, and sweeping $U_0=0$ decides every wrap count at once.
+
+The record run over all normalized safe states with $n\le6{,}000$ is **six**,
+first available at $(n,U,e)=(960,0,199)$ — and it is the K14 run, entered eleven
+indices later. So R8 is sharp in the range checked: "pure-upper ambiguity is a
+transient of length at most five" is false, and nothing longer than six occurs
+either. Reading the six gates off the trace:
+
+| $n$ | $U$ | $e$ | $k$ | $r$ | $f$ | $x$ | $d'$ |
+|-----|-----|-----|-----|-----|-----|-----|------|
+| 971 | 5 | 482 | 6 | 0 | 277 | 127 | 413 |
+| 978 | 11 | 277 | 1 | 1 | 127 | 32 | 461 |
+| 981 | 12 | 254 | 1 | 3 | 32 | 35 | 461 |
+| 986 | 13 | 256 | 1 | 3 | 35 | 126 | 417 |
+| 991 | 14 | 280 | 1 | 1 | 126 | 11 | 475 |
+| 994 | 15 | 252 | 1 | 5 | 11 | 404 | 281 |
+
+This matches the K14 table in `gate-transfer-analysis.md` row for row, including
+its defect pairs, and confirms the shape recorded there: six consecutive
+pure-upper gates, the first from a block of length six and the remaining five
+from unit blocks. The unit sub-chain of five is exactly the K15 record, and the
+K14 state $(971,5,482)$ gives six both literally and after normalization.
+
+Two implementations agree: `search-framework/src/bin/pure_upper_run.rs` over the
+project's `safe_step`, and a from-scratch block decomposition in Python, which
+match on the record, the witness, the K14 state and this table.
+
 ## Consequence and limitation
 
 Corollary 102 leaves two surviving alternatives for a hypothetical infinite
