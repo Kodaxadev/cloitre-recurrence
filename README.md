@@ -208,6 +208,7 @@ That runs the full fast suite against pinned toolchains. The heavy computations 
 9. **[`audit/continuation-c89-t90.md`](audit/continuation-c89-t90.md)** — quantified asymptotic audit of the critical unit-wrap scale
 10. **[`audit/opus-reconciliation-verification.md`](audit/opus-reconciliation-verification.md)** — independent recheck of the repaired cuts and exact Lemma 100 witnesses
 11. **[`audit/scoped-post-freeze-band.md`](audit/scoped-post-freeze-band.md)** — scoped internal pass over T46–C57, C64–T72, and L78–C82
+12. **[`audit/tail-123-142.md`](audit/tail-123-142.md)** — per-claim verification coverage for the L123–C142 tail, the heuristic boundary, and the provenance-pin check
 
 <details>
 <summary><strong>Research notes and specialized analyses</strong></summary>
