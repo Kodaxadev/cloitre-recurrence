@@ -146,11 +146,17 @@ Expected SHA-256:
 
 ## Compile status
 
-**A recompile is needed.** The last clean build — twice through `pdflatex` under
-TeX Live 2025, 8 pages, no errors, no undefined references or citations, no
-overfull or underfull boxes, preflight passed, all pages visually inspected —
-predates the title change. Applying the neutral title and advancing the draft
-date to 30 July 2026 changed `main.tex`, so that build is now stale.
+**A recompile is needed.** Every existing build predates the neutral title
+applied in `910f6a9`. Compiled PDFs are not tracked here; the provenance record
+for past builds, and the plan for the release build, is in
+[`BUILDS.md`](BUILDS.md).
+
+That file also records a finding worth knowing before the release: `pdflatex`
+output is not byte-reproducible by default, because it embeds a wall-clock
+`/CreationDate` and a time-derived `/ID`. A recorded hash therefore documents
+custody but not correspondence, unlike the deterministic CSV artifacts elsewhere
+in this repository. Setting `SOURCE_DATE_EPOCH` and fixing the trailer `/ID`
+before the release build would close that gap.
 
 Nothing else editorial is pending except the author details:
 
