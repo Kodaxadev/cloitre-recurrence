@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bounded raw checks for Lemma 143, Corollary 144 and Theorem 145.
+"""Bounded raw checks for Lemma 143 through Corollary 147.
 
 Theorem 138 left the wrap count outside the closed map: it accumulates as
 ``U' = U + k`` and decides only termination, so admissibility sat outside the
@@ -103,6 +103,34 @@ def check_chain_length(n_max: int) -> tuple[int, int, float]:
     return chains, longest, tightest
 
 
+def check_unit_fibre(n_max: int) -> tuple[int, int]:
+    """Corollary 147, which needs consecutive pairs rather than single blocks.
+
+    Returns ``(single-wrap children, unit parents)``.
+    """
+    children = parents = 0
+    for n in range(8, n_max + 1):
+        for e in range(1, n):
+            chain = descriptions(zero_blocks(State(n, 0, e), limit=400))
+            for (pn, pu, pk, pf), (cn, cu, ck, cf) in zip(chain, chain[1:]):
+                r = forced_gap(pn + pk + 1, pf)
+                alpha = (pf << (r + 2)) - (cn + 4)
+                budget, child_budget = pn - 2 * pu, cn - 2 * cu
+                if ck == 1:
+                    # (147.1), and with it the collapse of (143.2) into (144.1):
+                    # survival at the parent *is* the residue cap at the child.
+                    assert cf == alpha + 1, (n, e, pn, cf, alpha)
+                    assert (alpha <= child_budget - 4) == (cf <= child_budget - 3)
+                    children += 1
+                if pk == 1:
+                    # (147.3): the window widens relative to the index exactly
+                    # when r * U exceeds G. Cross-multiplied to stay exact.
+                    assert cn == pn + 2 + r and child_budget == budget + r
+                    assert (child_budget * pn > budget * cn) == (r * pu > budget)
+                    parents += 1
+    return children, parents
+
+
 def check(n_max: int) -> dict[str, int]:
     tally = {"gates": 0, "continued": 0, "died": 0, "tight": 0, "long_blocks": 0}
     for n in range(8, n_max + 1):
@@ -161,6 +189,7 @@ def main(argv: list[str]) -> int:
     n_max = int(argv[1]) if len(argv) > 1 else 200
     tally = check(n_max)
     chains, longest, tightest = check_chain_length(n_max)
+    children, parents = check_unit_fibre(n_max)
     print(f"index bound {n_max}")
     print(f"  gates decided both ways : {tally['gates']}")
     print(f"    path continued        : {tally['continued']}")
@@ -170,10 +199,12 @@ def main(argv: list[str]) -> int:
     print(f"  chains of >= 2 blocks   : {chains}")
     print(f"    longest              : {longest}")
     print(f"    tightest N/(3C-13)   : {tightest:.3f}")
+    print(f"  single-wrap children    : {children}")
+    print(f"  unit parents            : {parents}")
     if tally["died"] == 0 or tally["continued"] == 0:
         print("\nFAIL: one direction of the equivalence was never exercised.")
         return 1
-    print("\nLemma 143, Corollary 144 and Theorem 145 hold on every case in range.")
+    print("\nLemma 143 through Corollary 147 hold on every case in range.")
     return 0
 
 

@@ -195,6 +195,64 @@ So an infinite chain either has an eventually all-unit tail — the fibre Theore
 linearly, which by (144.1) forces the returned residues to grow with it. The two
 branches are not symmetric, and the first is the one with existing machinery.
 
+## Corollary 147 (on the unit fibre there is only one inequality)
+
+If block $i+1$ is a single wrap, $k_{i+1}=1$, then
+
+\[
+\boxed{f_{i+1}=\alpha_i+1.}
+\tag{147.1}
+\]
+
+Consequently, along an all-unit chain the survival condition (143.2) and the
+residue cap (144.1) are the *same* inequality read at successive indices, and the
+chain is the orbit of
+
+\[
+\boxed{
+f_{i+1}=2^{r_i+2}f_i-n_{i+1}-3,
+\qquad
+n_{i+1}=n_i+2+r_i,
+\qquad
+G_{i+1}=G_i+r_i,
+}
+\tag{147.2}
+\]
+
+in which $r_i$ is the least gap making $f_{i+1}\ge1$ and admissibility is exactly
+$f_{i+1}\le G_{i+1}-3$.
+
+### Proof
+
+By (140.2), $2A_{i+1}=n_{i+1}+4-\alpha_i$. With $k_{i+1}=1$, (135.0) reads
+$f_{i+1}=n_{i+1}+5-2A_{i+1}$, which is $\alpha_i+1$. Then (143.2) says
+$f_{i+1}-1\le G_{i+1}-4$, that is $f_{i+1}\le G_{i+1}-3$, which is (144.1) at
+$i+1$. The recursion is (137.2) at $k'=1$ with (143.1) at $k_i=1$; minimality of
+$r_i$ is (136.1), and $\alpha_i\ge0$ is $f_{i+1}\ge1$. $\square$
+
+So the unit fibre carries no independent admissibility test at all. Every
+constraint on it is one cap, $f_i\le G_i-3$, applied once per block — which is
+why Corollary 146's first branch is the tractable-looking one, and also why it
+has resisted: (147.2) is a one-dimensional expanding recursion required to land
+in a window that moves.
+
+**How the window moves.** The surviving gate needs $2^{r_i+2}f_i$ inside
+$[n_{i+1}+4,\ n_{i+1}+G_{i+1}]$ by (144.3), so the relevant quantity is the
+window's width relative to the index, $G/n$. Along a unit chain that ratio
+increases exactly when
+
+\[
+\boxed{r_iU_i>G_i,}
+\tag{147.3}
+\]
+
+since $G_{i+1}n_i>G_in_{i+1}$ unwinds to $r_i(n_i-G_i)>2G_i$ and $n_i-G_i=2U_i$.
+The threshold is $r_i\approx G_i/U_i$, and $G_{i+1}-G_i=r_i$ — so the gap needed
+to stop the target shrinking is the same gap that widens the budget, and the
+regime $G_i\sim ci$ with $r_i\sim c$ sits exactly on the boundary. That is the
+obstruction of Theorem 137 in its sharpest available form: not an inequality
+that fails, but one that holds with nothing to spare.
+
 ## What this settles, and what it does not
 
 Theorem 145 is a bound on chain length, and it is the first: Theorem 137 closed
@@ -244,6 +302,12 @@ $n_{i+1}$ predicted by (136.1), so the $\alpha_i$ tested is the child's rather
 than a fiction. (143.1), (144.1), (144.2) and (144.3) are checked on the same
 gates; $56{,}357$ blocks have $k_i\ge2$, and equality in (144.1) is rare, one
 case in range.
+
+Corollary 147 needs consecutive pairs rather than single blocks, so it is checked
+separately: (147.1) on all $66{,}822$ single-wrap children, together with the
+collapse it produces — that (143.2) at the parent and (144.1) at the child are
+then the same condition — and (147.3) on all $66{,}929$ unit parents,
+cross-multiplied so the ratio comparison stays in integers.
 
 Theorem 145 is checked over every chain of two or more blocks in the same range,
 together with the two facts its proof leans on that are not inequalities being
