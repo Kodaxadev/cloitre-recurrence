@@ -11,6 +11,16 @@
 \usepackage{hyperref}
 \usepackage{xurl}
 
+% Reproducible builds. With SOURCE_DATE_EPOCH set, pdfTeX fixes /CreationDate
+% and /ModDate, but the trailer /ID is still derived from the wall clock, which
+% CI measured as the only remaining difference between two builds of identical
+% source. Fixing it makes the PDF byte-identical, so a recorded hash documents
+% correspondence with the source rather than mere custody. Guarded because the
+% primitive is pdfTeX-specific.
+\ifdefined\pdftrailerid
+  \pdftrailerid{}
+\fi
+
 \hypersetup{
   colorlinks=true,
   linkcolor=black,
