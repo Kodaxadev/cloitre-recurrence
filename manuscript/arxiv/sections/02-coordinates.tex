@@ -1,0 +1,56 @@
+\section{Basic coordinates and absorption}
+
+Write
+\begin{equation}
+ b_n=q_n n+r_n,
+ \qquad 0\le r_n<n,
+ \label{eq:qr}
+\end{equation}
+so that $q_n=\lfloor b_n/n\rfloor$ and $r_n=b_n\bmod n$. Since $b_1\bmod1=0$, we have $b_2=m$, so index $2$ is the natural starting index for the quotient-remainder dynamics.
+
+From \eqref{eq:recurrence} and \eqref{eq:qr},
+\[
+ b_{n+1}=q_n n+2r_n
+          =q_n(n+1)+(2r_n-q_n).
+\]
+Therefore
+\begin{equation}
+ q_{n+1}=q_n+\left\lfloor\frac{2r_n-q_n}{n+1}\right\rfloor,
+ \qquad
+ r_{n+1}=(2r_n-q_n)\bmod(n+1).
+ \label{eq:transition}
+\end{equation}
+
+\begin{theorem}[Absorption criterion]
+Fix an index $t$. The following statements are equivalent:
+\begin{enumerate}[label=(\roman*)]
+\item $b_{n+1}-b_n=c$ for every $n\ge t$;
+\item $b_t=c(t+1)$ with $0\le c<t$;
+\item $q_t=r_t=c$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+If $q_t=r_t=c$, then $b_t=ct+c=c(t+1)$ and $c<t$. Conversely, suppose $b_n=c(n+1)$ and $c<n$. Then $b_n\bmod n=c$, so
+\[
+ b_{n+1}=c(n+1)+c=c(n+2),
+\]
+and induction gives constant increment $c$ forever.
+
+Finally, suppose the increment is $c$ for all $n\ge t$. Then $r_n=c$ and
+\[
+ b_n=b_t+c(n-t).
+\]
+Since $b_n=q_n n+c$, we obtain
+\[
+ q_n=c+\frac{b_t-ct-c}{n}.
+\]
+The left side is an integer for every sufficiently large $n$, while the fraction tends to zero. Its numerator must vanish. Thus $b_t=c(t+1)$, and $c=r_t<t$.
+\end{proof}
+
+The set $q_n=r_n$ is therefore absorbing. It is useful to introduce the signed coordinate
+\begin{equation}
+ e_n=r_n-q_n.
+ \label{eq:e}
+\end{equation}
+Stabilization is exactly the event $e_n=0$.

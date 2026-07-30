@@ -1,0 +1,102 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xurl}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=blue,
+  pdftitle={The Eventual-Increment Spectrum of Cloitre's Recurrence Is Not Surjective},
+  pdfauthor={Justin Davis}
+}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Spec}{\mathcal{E}}
+
+\title{\bfseries The Eventual-Increment Spectrum of Cloitre's Recurrence Is Not Surjective}
+\author{Justin Davis\\\small Independent researcher}
+\date{Draft of 29 July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+\small
+Draft prepared from repository commit
+\texttt{7ccda13f112f3768a35d28759891aaa0689e3c77}.\\
+The universal stabilization conjecture remains open, and this draft has not yet received external specialist review.
+\end{center}
+
+\begin{abstract}
+For a positive integer $m$, define
+\[
+ b_1=m,\qquad b_{n+1}=b_n+(b_n\bmod n),
+\]
+where $b_n\bmod n$ denotes the least nonnegative remainder. It is conjectured that every orbit eventually has constant first difference, but this remains open. We study instead the set of positive integers that occur as an eventual constant increment for at least one stabilizing orbit. We prove the effective bound
+\[
+ m<(c+3)(3c+5)
+\]
+whenever the orbit starting from $m$ stabilizes with eventual increment $c$. Thus the attainability of any fixed increment is a finite question. Combining this theorem with a complete, independently regenerated arbitrary-precision certificate for every start $1\le m<260$, we prove that the attainable eventual-increment spectrum is not all of $\Z_{>0}$: the two smallest omitted values are $5$ and $7$. The conclusion is unconditional and does not assume universal stabilization.
+\end{abstract}
+
+\noindent\textbf{Keywords.} modular recurrence, integer dynamics, eventual periodicity, finite certificate, OEIS A073117, OEIS A117846.
+
+
+\input{sections/01-introduction}
+\input{sections/02-coordinates}
+\input{sections/03-entry}
+\input{sections/04-ratchet}
+\input{sections/05-finite-start}
+\input{sections/06-spectrum}
+\input{sections/07-certificate}
+\input{sections/08-open}
+\input{sections/09-disclosure}
+
+\begin{thebibliography}{9}
+
+\bibitem{oeisA073117}
+The On-Line Encyclopedia of Integer Sequences,
+\emph{A073117},
+\url{https://oeis.org/A073117}.
+
+\bibitem{oeisA117846}
+The On-Line Encyclopedia of Integer Sequences,
+\emph{A117846},
+\url{https://oeis.org/A117846}.
+
+\bibitem{mathoverflow191518}
+MathOverflow,
+\emph{Mod sequences that seem to become constant and the number 316},
+Question 191518,
+\url{https://mathoverflow.net/questions/191518/mod-sequences-that-seem-to-become-constant-and-the-number-316}.
+
+\bibitem{repository}
+J. Davis,
+\emph{Remainder Dynamics: Cloitre recurrence research package},
+source repository,
+\url{https://github.com/Kodaxadev/cloitre-recurrence}.
+
+\end{thebibliography}
+
+
+\end{document}

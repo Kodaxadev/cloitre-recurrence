@@ -1,0 +1,8 @@
+c,status,witness_m,first_absorption_t,b_t,complete_candidate_range
+1,attained,3,2,3,
+2,attained,5,7,16,
+3,attained,13,9,30,
+4,attained,19,5,24,
+5,omitted,,,,m<160
+6,attained,41,7,48,
+7,omitted,,,,m<260

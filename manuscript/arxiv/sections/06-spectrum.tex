@@ -1,0 +1,38 @@
+\section{The smallest omitted increments}
+
+For $c=5$ and $c=7$, Theorem~\ref{thm:finite-start} gives the complete candidate ranges
+\[
+ m<(5+3)(3\cdot5+5)=160,
+\]
+\[
+ m<(7+3)(3\cdot7+5)=260.
+\]
+Thus a complete exact computation for $1\le m<260$ settles both cases.
+
+The certificate records, for each such $m$, the first absorption index $t$, the resulting increment $c$, and the value $b_t=c(t+1)$. The rows needed to establish the smaller attained increments are shown below.
+
+\begin{table}[ht]
+\centering
+\caption{Explicit witnesses below the first two omissions.}
+\label{tab:witnesses}
+\begin{tabular}{@{}rrrr@{}}
+\toprule
+Eventual increment $c$ & Start $m$ & First absorption index $t$ & $b_t$ \\
+\midrule
+1 & 3  & 2 & 3 \\
+2 & 5  & 7 & 16 \\
+3 & 13 & 9 & 30 \\
+4 & 19 & 5 & 24 \\
+6 & 41 & 7 & 48 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{theorem}[Certified nonsurjectivity]
+\label{thm:nonsurjective}
+The attainable eventual-increment spectrum omits $5$ and $7$, while $1,2,3,4,$ and $6$ occur. Hence $5$ and $7$ are the two smallest omitted positive integers.
+\end{theorem}
+
+\begin{proof}
+The complete certificate contains every start $1\le m<260$. No row has eventual increment $5$ or $7$. By the finite-start bound, this exhausts every possible witness for $5$ and every possible witness for $7$. Table~\ref{tab:witnesses} gives explicit witnesses for $1,2,3,4,$ and $6$.
+\end{proof}

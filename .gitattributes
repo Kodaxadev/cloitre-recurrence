@@ -18,3 +18,4 @@ lake-manifest.json text eol=lf
 *.sh text eol=lf
 *.json text eol=lf
 Dockerfile text eol=lf
+*.tex text eol=lf

@@ -1,0 +1,46 @@
+\section{Certificate and reproducibility boundary}
+
+The finite part of Theorem~\ref{thm:nonsurjective} is deliberately small enough to be reproduced without the larger compressed census used elsewhere in the project. All files named below are in the source repository \cite{repository}, which also pins the toolchain versions used to produce them.
+
+\subsection*{Certificate}
+The committed file
+\[
+ \texttt{certificates/spectrum\_m259.csv}
+\]
+contains 259 rows, one for each $1\le m<260$, with columns
+\[
+ (m,t,c,b_t).
+\]
+Its SHA-256 digest is
+\begin{center}
+\small\texttt{66a06cff15735c4a3caf98575f29afbcd881fbef06334616fbc3bc772b7ab084}.
+\end{center}
+
+\subsection*{Independent regeneration}
+The script
+\[
+ \texttt{independent/verify\_small\_spectrum.py}
+\]
+uses arbitrary-precision integers and the literal recurrence \eqref{eq:recurrence}. For each start it:
+\begin{enumerate}
+\item iterates until the first index satisfying the absorption criterion;
+\item records $(m,t,c,b_t)$;
+\item confirms 64 subsequent increments equal $c$;
+\item regenerates the complete CSV and checks its digest;
+\item asserts that $5$ and $7$ are absent and that the witnesses in Table~\ref{tab:witnesses} occur.
+\end{enumerate}
+
+The reproduction commands are
+\begin{verbatim}
+python independent/verify_small_spectrum.py
+sha256sum certificates/spectrum_m259.csv
+\end{verbatim}
+On Windows PowerShell, the second command may be replaced by
+\begin{verbatim}
+Get-FileHash -Algorithm SHA256 certificates\spectrum_m259.csv
+\end{verbatim}
+
+\subsection*{Logical boundary}
+The proof of the finite-start bound is symbolic mathematics. The certificate supplies only the finite exhaustion authorized by that theorem. The nonsurjectivity conclusion does not rely on the project's $10^7$-start compressed census, on any heuristic model, or on universal stabilization.
+
+The Lean development in the repository formalizes the foundational identities of Sections 2 and 3, and it now also formalizes both load-bearing steps of Section 4: the forced-rebound lemma and the ratchet, including the induction of \eqref{eq:ratchet-invariant}. It does \emph{not} formalize Theorem~\ref{thm:finite-start} itself, whose remaining ingredients are the entry lemma and the quadratic step $(n_0-1)^2<(c+2)n_0\Rightarrow n_0\le c+4$, nor Theorem~\ref{thm:nonsurjective}, whose finite exhaustion is checked by an independent arbitrary-precision program rather than inside the proof assistant.

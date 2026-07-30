@@ -183,6 +183,7 @@ before reporting a completed range.
 | `.github/workflows/ci.yml` | Rust, Python, certificate, hash, OEIS, and Lean checks; Rust and Python run on both Ubuntu and Windows |
 | `Dockerfile` + `scripts/reproduce.sh` | Pinned toolchains (Rust 1.94.0, Python 3.13, Lean 4.32.2) and a one-command run of every fast check |
 | `data/README.md` | Column-level format documentation for every tracked artifact |
+| `manuscript/arxiv/` | Focused arXiv draft: the finite-start theorem and certified nonsurjectivity, with a structural check in CI |
 
 The Lean development compiles without `sorry`, but it does **not** formalize the finite-start theorem, growth bounds, all-period exclusion, or two-counter reduction.
 
