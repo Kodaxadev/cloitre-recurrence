@@ -40,6 +40,7 @@ reduction, and every claim above index 130 except the arithmetic noted.
 import Conjecture.Basic
 import Conjecture.Gate
 import Conjecture.Ratchet
+import Conjecture.FiniteStart
 
 /-! ## Axiom audit -- confirms nothing below depends on `sorryAx`. -/
 section Audit
@@ -62,4 +63,8 @@ open Conjecture
 #print axioms Conjecture.quotient_drop_le_one
 #print axioms Conjecture.forced_rebound
 #print axioms Conjecture.ratchet
+#print axioms Conjecture.entry_exists
+#print axioms Conjecture.quadratic_step
+#print axioms Conjecture.least_entry
+#print axioms Conjecture.finite_start
 end Audit

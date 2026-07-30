@@ -24,6 +24,7 @@ the helper lemmas exist to make those atoms match syntactically.
 | `Conjecture/Basic.lean` | the orbit `B`, absorption, congruence propagation, pair merging, and `Q`/`R`/`E` with the doubling law |
 | `Conjecture/Gate.lean` | pure `Nat` arithmetic: gate-exponent uniqueness and gap-predicate upward closure |
 | `Conjecture/Ratchet.lean` | forced rebound and the quotient ratchet |
+| `Conjecture/FiniteStart.lean` | entry, the quadratic step, and Theorem 18 from the ray hypothesis |
 | `Conjecture.lean` | module index and the axiom audit |
 
 It was one file until the modules exceeded the repository's per-file length gate.
@@ -46,9 +47,10 @@ absorb_step, absorb_forever, absorb_increment, increment_forces_remainder,
 congruence_propagation, even_at_even_index, pair_merging,
 E_doubling_nat, E_doubling_mod, E_doubling, B_monotone,
 gate_exponent_unique, unit_gate_exponent_unique, gap_predicate_upward_closed,
-quotient_drop_le_one, forced_rebound, ratchet
+quotient_drop_le_one, forced_rebound, ratchet,
+entry_exists, quadratic_step, least_entry
     depends on axioms: [propext, Quot.sound]
-E_zero_of_ray
+E_zero_of_ray, finite_start
     depends on axioms: [propext, Classical.choice, Quot.sound]
 ```
 
@@ -80,6 +82,13 @@ E_zero_of_ray
 | `gate_exponent_unique` | **Theorem 133**: at most one exponent satisfies both pure-upper windows |
 | `unit_gate_exponent_unique` | **Theorem 130**, the `k = 1` case |
 | `gap_predicate_upward_closed` | **Lemma 136**: the forced-gap predicate is upward closed, so its minimum is well defined |
+| `orbit_upper_bound`, `entry_exists` | **Lemma 3**, in the form Theorem 18 needs: some index satisfies `b_n < n^2` |
+| `entry_forward`, `entry_forward_all` | forward invariance of `b_n < n^2` |
+| `quotient_lt_index` | `b_n < n^2` implies `q_n < n`, putting the orbit in the bounded-quotient region |
+| `least_entry` | the least entry index and its minimality |
+| `quadratic_step` | the nonlinear step `(n_0-1)^2 < (c+2)n_0 => n_0 <= c+4` |
+| `ray_quotient`, `ray_below_square`, `start_le` | reading the absorbing ray |
+| `finite_start` | **Theorem 18** from the ray hypothesis: `m < (c+3)(3c+5)` |
 
 The indexing shift (`B m k = b_{k+1}`) is not cosmetic: it makes the recurrence
 structurally recursive, so Lean accepts the definition without a termination
@@ -100,14 +109,17 @@ which is exact, has no side conditions at all, and immediately yields both the
 
 Following the instruction to formalize only non-speculative results:
 
-* **Theorem 18** itself (the bound `m < (c+3)(3c+5)`). Its two load-bearing
-  steps, Theorems 13 and 14, are now formalized; what remains is the entry lemma
-  and the final case analysis, whose inequalities are genuinely nonlinear
-  (`(n₀−1)² < (c+2)n₀` forcing `n₀ ≤ c+4`). Those need either explicit
-  quadratic helper lemmas or mathlib. This is still the single most valuable
-  next target, because Theorem 18 is what makes Corollary 20 (the answer to
-  Abercrombie's question) a proof rather than an observation.
-* **Lemma 3** (entry in `O(√m)` steps) — needs a summation bound.
+* **The converse half of the absorption criterion**: eventually constant
+  increment implies ray membership. `finite_start` assumes the *ray*, which is
+  where the paper's Theorem 18 also does its work, but the reduction from
+  "stabilizes with increment `c`" to "lies on the ray" uses a limiting
+  divisibility argument that is not formalized.
+  `increment_forces_remainder` is only its one-step fragment. Closing this is now
+  the single most valuable target, because it is all that separates
+  `finite_start` from Theorem 18 in the form Corollary 20 consumes.
+* **Lemma 3's explicit bound** `n₀ ≤ ⌈√(2m)⌉ + 2` — needs a summation estimate.
+  It is *not* needed for Theorem 18: that proof uses only existence of an entry
+  index plus minimality, so `entry_exists` (via `B m k ≤ m + k*k`) suffices.
 * **Theorem 137** (the closed block-chain map) and everything else in the
   safe-map development. `Conjecture/Gate.lean` formalizes only arithmetic facts
   about inequalities over `Nat`; it knows nothing about the safe map, and the
@@ -119,13 +131,15 @@ Following the instruction to formalize only non-speculative results:
 
 ## Next steps
 
-1. **Done:** Theorem 13 and Theorem 14. The ratchet is proved by the two-clause
-   induction, formalized with the invariant *either `q ≥ q_u`, or `q = q_u − 1`
-   and the next step is forced up*. The second clause is not optional: without it
-   a flat step one below `q_u` could precede a further descent, which is a gap in
-   the compressed paper argument.
-2. Lemma 3 (entry), which needs a summation bound.
-3. The final case analysis of Theorem 18, which needs the quadratic step
-   `(n₀−1)² < (c+2)n₀ ⟹ n₀ ≤ c+4` as an explicit helper.
+1. **Done:** Theorems 13 and 14, and Theorem 18 from the ray hypothesis. The
+   ratchet uses the two-clause invariant *either `q ≥ q_u`, or `q = q_u − 1` and
+   the next step is forced up*; the second clause is not optional, and its
+   absence was a gap in the compressed paper argument.
+2. The converse half of absorption: eventually constant increment implies ray
+   membership. This is the only remaining gap between `finite_start` and
+   Theorem 18 as Corollary 20 uses it. The argument is that `n` divides a fixed
+   quantity for every large `n`, so that quantity is zero; it needs `Int` or a
+   sign case split.
+3. Lemma 3's explicit `O(√m)` bound, for completeness rather than necessity.
 4. A verified checker for the finite enumeration, which would make Corollary 20
    end-to-end machine-checked.

@@ -100,7 +100,7 @@ Expected SHA-256:
 - The finite-start theorem is written as a complete symbolic proof.
 - The 259-row certificate is independently regenerated using arbitrary-precision literal recurrence dynamics, and a fresh recomputation agrees with all 259 rows.
 - Universal stabilization remains open.
-- Theorem 18 and the nonsurjectivity theorem are not formalized in Lean. Its two load-bearing steps, the forced-rebound lemma and the ratchet, now are.
+- Theorem 18 is now machine-checked in Lean from the absorbing-ray hypothesis (`Conjecture.finite_start`), along with the forced-rebound lemma, the ratchet, and the quadratic step. Two gaps remain: the converse half of the absorption criterion (eventually constant increment implies ray membership), and the nonsurjectivity theorem, whose finite exhaustion is checked by an independent program rather than in the proof assistant.
 - Human specialist review remains pending.
 
 ## Repository review applied to this draft
@@ -114,9 +114,15 @@ Expected SHA-256:
 - **Bounded-quotient lemma**, final sentence: the implication
   `b_n < n^2  =>  q_n < n` that connects it to the entry lemma is now written out
   rather than bundled into "Consequently".
-- **Lean boundary** in Section 7 restated: Sections 2–4 are formalized; what is
-  missing for Theorem 18 is the entry lemma and the quadratic step
-  `(n0-1)^2 < (c+2)n0  =>  n0 <= c+4`.
+- **Lean boundary** in Section 7 rewritten twice. Theorem 18 is now itself
+  machine-checked from the ray hypothesis, so the paragraph now states the two
+  boundaries that actually remain: the converse half of the absorption criterion,
+  and the finite exhaustion behind the nonsurjectivity theorem. The entry lemma
+  is formalized in the form the proof consumes — existence plus minimality — and
+  the paper now says the `⌈√(2m)⌉ + 2` bound is not needed for Theorem 18, which
+  is true of the paper's own proof.
+  **This changed Section 7 after the clean TeX Live 2025 compile, so the PDF
+  needs regenerating.**
 - `\bibitem{repository}` was never cited; Section 7 now cites it.
 - Verified numerically: every witness in Table 1, both candidate bounds
   (160 and 260), the absence of increments 5 and 7 below 260, and agreement of

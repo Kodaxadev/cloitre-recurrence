@@ -33,7 +33,7 @@ private theorem down_step_linear {m k : Nat} (hdown : Q m (k + 1) + 1 = Q m k) :
 
 /-- The quotient never falls by more than one while it is small. This is the
 part of the bounded-quotient lemma that the ratchet needs. -/
-theorem quotient_drop_le_one {m k : Nat} (hsmall : 3 * Q m k ≤ k + 2) :
+theorem quotient_drop_le_one_of_le {m k : Nat} (hbound : Q m k ≤ k + 1) :
     Q m k ≤ Q m (k + 1) + 1 := by
   -- `by_contra` is a mathlib tactic, so split on trichotomy by hand.
   rcases Nat.lt_or_ge (Q m (k + 1) + 1) (Q m k) with hcon | hok
@@ -54,6 +54,11 @@ theorem quotient_drop_le_one {m k : Nat} (hsmall : 3 * Q m k ≤ k + 2) :
       Nat.succ_mul (k + 1) (Q m (k + 1))
     omega
   · exact hok
+
+/-- The form the ratchet uses: smallness implies the index bound. -/
+theorem quotient_drop_le_one {m k : Nat} (hsmall : 3 * Q m k ≤ k + 2) :
+    Q m k ≤ Q m (k + 1) + 1 :=
+  quotient_drop_le_one_of_le (by omega)
 
 /-- **Theorem 13 (forced rebound).** A down-step in the small-quotient region is
 immediately undone. -/
