@@ -2,7 +2,12 @@
 
 ## Working title
 
+Currently in `main.tex`:
+
 **The Eventual-Increment Spectrum of Cloitre's Recurrence Is Not Surjective**
+
+Superseded by the decision recorded under "The title: decided" below, which is
+held for the editorial batch and not yet applied.
 
 This package is the first focused paper extracted from the broader `cloitre-recurrence` repository. It contains only the completed finite-start theorem and the independently certified proof that 5 and 7 are the smallest omitted eventual increments.
 
@@ -120,9 +125,9 @@ Expected SHA-256:
   and the finite exhaustion behind the nonsurjectivity theorem. The entry lemma
   is formalized in the form the proof consumes — existence plus minimality — and
   the paper now says the `⌈√(2m)⌉ + 2` bound is not needed for Theorem 18, which
-  is true of the paper's own proof.
-  **Section 7 changed again when the absorption converse landed, so the PDF
-  needs regenerating.**
+  is true of the paper's own proof. Section 7 was then rewritten a third time
+  when the absorption converse landed, and now states that both directions of the
+  absorption criterion are formalized.
 - `\bibitem{repository}` was never cited; Section 7 now cites it.
 - **Attribution audit, done against the primary sources.** Fetched OEIS A073117
   and A117846 and the MathOverflow question metadata directly:
@@ -143,21 +148,57 @@ Expected SHA-256:
     T2 and T11 appear in RavenclawPrefect's answer (2025-09-03), pair merging in
     Gjergji Zaimi's (2014-12-29). Both now carry author and date.
 
-### Open editorial question: the title
+## Compile status
 
-The title says *"Cloitre's Recurrence"*. Given the above, the **conjecture** is
-Cloitre's but the **sequence** is Zumkeller's, and Cloitre's comment is about the
-general `n+a` family rather than this specific recurrence. Options, for the
-author to decide — this was deliberately not changed unilaterally:
+The source has been compiled twice with `pdflatex` under TeX Live 2025 at the
+commit that introduced the attribution corrections: 8 pages, no errors, no
+undefined references or citations, no overfull or underfull boxes, preflight
+passed, all pages visually inspected. That compile is current — it supersedes the
+two earlier ones, which were invalidated by successive Section 7 rewrites.
 
-1. Keep it. Defensible if read as "the recurrence of Cloitre's conjecture", and
-   it matches established usage in this repository.
-2. Retitle to *"The Eventual-Increment Spectrum of the Zumkeller–Cloitre
-   Recurrence"* or similar, crediting both.
-3. Make it neutral: *"...of the Recurrence `b(n+1) = b(n) + (b(n) mod n)`"*.
+**Editorial changes are batched from here.** Purely editorial edits to
+`main.tex` and `sections/` are held until the release freeze rather than landed
+one at a time, because each one invalidates the compiled PDF. Correctness changes
+still land immediately. Pending batch:
 
-The same question applies to the repository name and to `CITATION.cff`, which
-both use "Cloitre recurrence". Those were left alone for the same reason.
+| Change | Status |
+|---|---|
+| Retitle to the neutral option (below) | decided, held for the batch |
+| Author contact details and ORCID | needs the author |
+
+## The title: decided
+
+The author's decision is the **neutral option**:
+
+> The Eventual-Increment Spectrum of the Recurrence
+> `b(n+1) = b(n) + (b(n) mod n)` Is Not Surjective
+
+It avoids implying that Cloitre introduced this specific sequence, while the
+introduction still describes it as the recurrence underlying Cloitre's
+conjecture. "Zumkeller–Cloitre recurrence" would credit both but would coin an
+eponym with no established use.
+
+This has **not yet been applied to `main.tex`** — it is in the batch above, so
+that the current compile stays valid until the freeze. The repository name and
+`CITATION.cff` are a separate question and are unchanged.
+
+### The audit that raised it
+
+The title said *"Cloitre's Recurrence"*. The **conjecture** is Cloitre's but the
+**sequence** is Zumkeller's, and Cloitre's comment concerns the general `n+a`
+family rather than this specific recurrence. The three options weighed were:
+
+1. Keep it, read as "the recurrence of Cloitre's conjecture".
+2. Credit both, as "the Zumkeller–Cloitre recurrence".
+3. Neutral: name the recurrence rather than a person.
+
+Option 3 was chosen. Option 2 was rejected because it would coin an eponym with
+no established use.
+
+The repository name and `CITATION.cff` also say "Cloitre recurrence". Those are
+a separate question — they name the research package rather than assert
+mathematical priority, and changing them would break the citation identity
+already pinned at `v0.1.0-audit`. They are unchanged.
 - Verified numerically: every witness in Table 1, both candidate bounds
   (160 and 260), the absence of increments 5 and 7 below 260, and agreement of
   all 259 certificate rows with an independent recomputation.
@@ -169,7 +210,7 @@ both use "Cloitre recurrence". Those were left alone for the same reason.
 3. Add author contact details and ORCID, if applicable.
 4. Archive an immutable release containing the manuscript source, verifier, certificate, and hashes.
 5. Tag the release commit and fill in the tag in the provenance table above.
-6. Compile with arXiv's TeX environment before submission. The split source has
-   been compiled cleanly with TeX Live 2025 — 8 pages, no errors, no undefined
-   references or citations, no overfull or underfull boxes, all pages visually
-   inspected — but arXiv's own preview is a separate submission-stage check.
+6. Apply the batched editorial changes, then recompile once.
+7. Compile with arXiv's TeX environment before submission. TeX Live 2025 gives a
+   clean 8-page build, but arXiv's own preview is a separate submission-stage
+   check.

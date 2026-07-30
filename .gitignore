@@ -11,6 +11,15 @@
 # manifest; compact certificates, logs, census files, and profiles stay tracked.
 data/scan_*.csv
 
+# Compiled manuscript PDFs. These are build outputs, regenerable from
+# manuscript/arxiv/ with two pdflatex passes, so they are not tracked; the
+# release should attach one rather than the branch carrying several.
+cloitre_arxiv_*_compiled.pdf
+manuscript/arxiv/*.pdf
+manuscript/arxiv/*.aux
+manuscript/arxiv/*.log
+manuscript/arxiv/*.out
+
 # Platform noise
 .DS_Store
 Thumbs.db
