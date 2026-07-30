@@ -265,6 +265,33 @@ why Corollary 146's first branch is the tractable-looking one, and also why it
 has resisted: (147.2) is a one-dimensional expanding recursion required to land
 in a window that moves.
 
+**The unit chain as a greedy binary expansion.** Writing $h_i=r_i+2$ for the
+exponent (137.2) actually applies, the recursion (147.2) rearranges to
+
+\[
+\boxed{2^{h_i}f_i=n_i+h_i+f_{i+1}+3,}
+\qquad
+n_{i+1}=n_i+h_i,
+\qquad
+G_{i+1}=G_i+h_i-2,
+\tag{147.4}
+\]
+
+with $h_i$ the **least** exponent $\ge2$ for which the implied $f_{i+1}$ is
+positive. This is (137.2) at $k'=1$ rewritten, not a new claim, but the rewriting
+is the transparent form: $h_i$ is a greedy digit count — the number of doublings
+needed to carry $f_i$ past the moving target $n_i+h_i+4$ — and $f_{i+1}$ is what
+is left over. Reading it against the binary expansion of $f_i/n_i$, each step
+consumes a leading run of zeros and the one that ends it, and $f_{i+1}/n_{i+1}$
+is the tail; survival asks that tail to be at most $G_{i+1}/n_{i+1}$.
+
+So admissibility along the unit fibre is a condition on the binary expansion of
+the starting ratio: every block of digits it is cut into must be long enough,
+where "long enough" is set by a threshold the earlier blocks moved. That is a
+precise statement of why this branch resists — it is the same shape as the
+questions about binary expansions that make Collatz-type problems hard — and it
+is not an argument that the chain terminates.
+
 **How the window moves.** The surviving gate needs $2^{r_i+2}f_i$ inside
 $[n_{i+1}+4,\ n_{i+1}+G_{i+1}]$ by (144.3), so the relevant quantity is the
 window's width relative to the index, $G/n$. Along a unit chain that ratio
@@ -336,7 +363,11 @@ Corollary 147 needs consecutive pairs rather than single blocks, so it is checke
 separately: (147.1) on all $66{,}822$ single-wrap children, together with the
 collapse it produces — that (143.2) at the parent and (144.1) at the child are
 then the same condition — and (147.3) on all $66{,}929$ unit parents,
-cross-multiplied so the ratio comparison stays in integers.
+cross-multiplied so the ratio comparison stays in integers. (147.4) is checked on
+the $38{,}196$ steps that are all-unit at both ends, including that its exponent
+really is the least one admitting a positive successor — the greedy choice is
+the whole content of that form, so verifying the identity alone would not be
+enough.
 
 Theorem 145 is checked over every chain of two or more blocks in the same range,
 together with the two facts its proof leans on that are not inequalities being

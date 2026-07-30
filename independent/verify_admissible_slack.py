@@ -112,12 +112,12 @@ def check_chain_length(n_max: int) -> tuple[int, int, float]:
     return chains, longest, tightest
 
 
-def check_unit_fibre(n_max: int) -> tuple[int, int]:
+def check_unit_fibre(n_max: int) -> tuple[int, int, int]:
     """Corollary 147, which needs consecutive pairs rather than single blocks.
 
-    Returns ``(single-wrap children, unit parents)``.
+    Returns ``(single-wrap children, unit parents, all-unit steps)``.
     """
-    children = parents = 0
+    children = parents = greedy = 0
     for n in range(8, n_max + 1):
         for e in range(1, n):
             chain = descriptions(zero_blocks(State(n, 0, e), limit=400))
@@ -137,7 +137,15 @@ def check_unit_fibre(n_max: int) -> tuple[int, int]:
                     assert cn == pn + 2 + r and child_budget == budget + r
                     assert (child_budget * pn > budget * cn) == (r * pu > budget)
                     parents += 1
-    return children, parents
+                if pk == 1 and ck == 1:
+                    # (147.4): the greedy form, and that its exponent really is
+                    # the least one -- the "greedy" is the whole content.
+                    h = r + 2
+                    assert (pf << h) == pn + h + cf + 3, (n, e, pn, h)
+                    assert [t for t in range(2, h + 1)
+                            if (pf << t) - pn - t - 3 >= 1] == [h], (n, e, pn, h)
+                    greedy += 1
+    return children, parents, greedy
 
 
 def check(n_max: int) -> dict[str, int]:
@@ -198,7 +206,7 @@ def main(argv: list[str]) -> int:
     n_max = int(argv[1]) if len(argv) > 1 else 200
     tally = check(n_max)
     chains, longest, tightest = check_chain_length(n_max)
-    children, parents = check_unit_fibre(n_max)
+    children, parents, greedy = check_unit_fibre(n_max)
     print(f"index bound {n_max}")
     print(f"  gates decided both ways : {tally['gates']}")
     print(f"    path continued        : {tally['continued']}")
@@ -210,6 +218,7 @@ def main(argv: list[str]) -> int:
     print(f"    tightest N/(3C-13)   : {tightest:.3f}")
     print(f"  single-wrap children    : {children}")
     print(f"  unit parents            : {parents}")
+    print(f"  all-unit greedy steps   : {greedy}")
     if tally["died"] == 0 or tally["continued"] == 0:
         print("\nFAIL: one direction of the equivalence was never exercised.")
         return 1
