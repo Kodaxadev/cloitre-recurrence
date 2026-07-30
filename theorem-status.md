@@ -40,7 +40,7 @@ classification is the point: nothing is promoted without a proof.
 | **T27** | Before absorption, $q_n\ge n/[3(\lfloor\log_2n\rfloor+1)]-n_0/3-3$ | `bounded-quotient-analysis.md` | **Theorem — new** |
 | **L28** | Every periodic slope pattern reduces to a finite doubling cycle modulo its period | `periodic-orbit-analysis.md` | **Lemma — new** |
 | **T29** | Every eventually periodic slope cycle with reduced denominator $3$ is impossible | `periodic-orbit-analysis.md` | **Theorem — new** |
-| **T18** | $c(m)=c \Rightarrow m<(c+3)(3c+5)$ | §5b | **Theorem — new; machine-checked in Lean from the absorbing-ray hypothesis (`finite_start`, no `sorryAx`); the converse half of the absorption criterion is not yet formalized** |
+| **T18** | $c(m)=c \Rightarrow m<(c+3)(3c+5)$ | §5b | **Theorem — new; machine-checked in Lean in the paper's form (`finite_start_of_increment`, no `sorryAx`), via `finite_start` and the absorption converse `ray_of_eventual_increment`** |
 | **C19** | $\{m: c(m)=c\}$ finite and effectively bounded | §5b | **Corollary — new** |
 | **C20** | Not every positive integer is an eventual increment; smallest missing are 5 and 7 | §5b | **Computer-assisted corollary — independent complete certificate for $m<260$** |
 | P16 | Only affine-in-$n$ orbit for $e_n$ is the absorbing one | §6 | **Proposition — new** |

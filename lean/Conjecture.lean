@@ -41,6 +41,7 @@ import Conjecture.Basic
 import Conjecture.Gate
 import Conjecture.Ratchet
 import Conjecture.FiniteStart
+import Conjecture.AbsorptionConverse
 
 /-! ## Axiom audit -- confirms nothing below depends on `sorryAx`. -/
 section Audit
@@ -67,4 +68,6 @@ open Conjecture
 #print axioms Conjecture.quadratic_step
 #print axioms Conjecture.least_entry
 #print axioms Conjecture.finite_start
+#print axioms Conjecture.ray_of_eventual_increment
+#print axioms Conjecture.finite_start_of_increment
 end Audit

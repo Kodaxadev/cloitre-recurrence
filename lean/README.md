@@ -25,6 +25,7 @@ the helper lemmas exist to make those atoms match syntactically.
 | `Conjecture/Gate.lean` | pure `Nat` arithmetic: gate-exponent uniqueness and gap-predicate upward closure |
 | `Conjecture/Ratchet.lean` | forced rebound and the quotient ratchet |
 | `Conjecture/FiniteStart.lean` | entry, the quadratic step, and Theorem 18 from the ray hypothesis |
+| `Conjecture/AbsorptionConverse.lean` | eventual increment implies the ray, and Theorem 18 in the paper's form |
 | `Conjecture.lean` | module index and the axiom audit |
 
 It was one file until the modules exceeded the repository's per-file length gate.
@@ -48,9 +49,9 @@ congruence_propagation, even_at_even_index, pair_merging,
 E_doubling_nat, E_doubling_mod, E_doubling, B_monotone,
 gate_exponent_unique, unit_gate_exponent_unique, gap_predicate_upward_closed,
 quotient_drop_le_one, forced_rebound, ratchet,
-entry_exists, quadratic_step, least_entry
+entry_exists, quadratic_step, least_entry, ray_of_eventual_increment
     depends on axioms: [propext, Quot.sound]
-E_zero_of_ray, finite_start
+E_zero_of_ray, finite_start, finite_start_of_increment
     depends on axioms: [propext, Classical.choice, Quot.sound]
 ```
 
@@ -89,6 +90,8 @@ E_zero_of_ray, finite_start
 | `quadratic_step` | the nonlinear step `(n_0-1)^2 < (c+2)n_0 => n_0 <= c+4` |
 | `ray_quotient`, `ray_below_square`, `start_le` | reading the absorbing ray |
 | `finite_start` | **Theorem 18** from the ray hypothesis: `m < (c+3)(3c+5)` |
+| `ray_of_eventual_increment` | **absorption converse**: eventual increment `c` forces `b_t = c(t+1)` and `c < t` |
+| `finite_start_of_increment` | **Theorem 18** in the paper's form, from the eventual-increment hypothesis |
 
 The indexing shift (`B m k = b_{k+1}`) is not cosmetic: it makes the recurrence
 structurally recursive, so Lean accepts the definition without a termination
@@ -109,14 +112,6 @@ which is exact, has no side conditions at all, and immediately yields both the
 
 Following the instruction to formalize only non-speculative results:
 
-* **The converse half of the absorption criterion**: eventually constant
-  increment implies ray membership. `finite_start` assumes the *ray*, which is
-  where the paper's Theorem 18 also does its work, but the reduction from
-  "stabilizes with increment `c`" to "lies on the ray" uses a limiting
-  divisibility argument that is not formalized.
-  `increment_forces_remainder` is only its one-step fragment. Closing this is now
-  the single most valuable target, because it is all that separates
-  `finite_start` from Theorem 18 in the form Corollary 20 consumes.
 * **Lemma 3's explicit bound** `n₀ ≤ ⌈√(2m)⌉ + 2` — needs a summation estimate.
   It is *not* needed for Theorem 18: that proof uses only existence of an entry
   index plus minimality, so `entry_exists` (via `B m k ≤ m + k*k`) suffices.
@@ -135,11 +130,12 @@ Following the instruction to formalize only non-speculative results:
    ratchet uses the two-clause invariant *either `q ≥ q_u`, or `q = q_u − 1` and
    the next step is forced up*; the second clause is not optional, and its
    absence was a gap in the compressed paper argument.
-2. The converse half of absorption: eventually constant increment implies ray
-   membership. This is the only remaining gap between `finite_start` and
-   Theorem 18 as Corollary 20 uses it. The argument is that `n` divides a fixed
-   quantity for every large `n`, so that quantity is zero; it needs `Int` or a
-   sign case split.
+2. **Done:** the absorption converse. Rather than introduce `Int` for the fixed
+   quantity, the key identity is kept subtraction-free as
+   `P q + c(s+2) = B m s + c P` with `P = s+j+1`, and one index past both
+   `B m s` and `c(s+2)` contradicts each strict comparison of `q` against `c`.
+   `absorb_increment` produces exactly the hypothesis `finite_start_of_increment`
+   consumes, so both directions of the absorption criterion now compose.
 3. Lemma 3's explicit `O(√m)` bound, for completeness rather than necessity.
 4. A verified checker for the finite enumeration, which would make Corollary 20
    end-to-end machine-checked.

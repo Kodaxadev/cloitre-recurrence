@@ -100,7 +100,7 @@ Expected SHA-256:
 - The finite-start theorem is written as a complete symbolic proof.
 - The 259-row certificate is independently regenerated using arbitrary-precision literal recurrence dynamics, and a fresh recomputation agrees with all 259 rows.
 - Universal stabilization remains open.
-- Theorem 18 is now machine-checked in Lean from the absorbing-ray hypothesis (`Conjecture.finite_start`), along with the forced-rebound lemma, the ratchet, and the quadratic step. Two gaps remain: the converse half of the absorption criterion (eventually constant increment implies ray membership), and the nonsurjectivity theorem, whose finite exhaustion is checked by an independent program rather than in the proof assistant.
+- Theorem 18 is machine-checked in Lean **in the form stated in the paper** (`Conjecture.finite_start_of_increment`), composing `finite_start` with the absorption converse `ray_of_eventual_increment`. The forced-rebound lemma, the ratchet and the quadratic step are also formalized. One gap remains: the nonsurjectivity theorem, whose finite exhaustion is checked by an independent program rather than in the proof assistant.
 - Human specialist review remains pending.
 
 ## Repository review applied to this draft
@@ -121,7 +121,7 @@ Expected SHA-256:
   is formalized in the form the proof consumes — existence plus minimality — and
   the paper now says the `⌈√(2m)⌉ + 2` bound is not needed for Theorem 18, which
   is true of the paper's own proof.
-  **This changed Section 7 after the clean TeX Live 2025 compile, so the PDF
+  **Section 7 changed again when the absorption converse landed, so the PDF
   needs regenerating.**
 - `\bibitem{repository}` was never cited; Section 7 now cites it.
 - Verified numerically: every witness in Table 1, both candidate bounds
