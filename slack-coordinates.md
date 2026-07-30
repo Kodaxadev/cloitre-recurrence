@@ -152,9 +152,78 @@ $\square$
 
 By (141.3) the block slack $\beta_{i+1}$ is **never** arithmetically forced: its
 modulus provably cannot cover its window, so at least two candidates always
-remain. The gap slack $\alpha_i$ can be forced, but only in the small-residue
-regime: if $2^{r_i+2}>n_{i+1}$ then $\alpha_i\le n_{i+1}$ gives
-$2^{r_i+2}f_i\le2n_{i+1}+4$ and hence $f_i\le2$.
+remain.
+
+The gap slack $\alpha_i$ can be forced, and exactly then
+
+\[
+\boxed{f_i\le2.}
+\tag{142.1}
+\]
+
+### Proof of (142.1)
+
+Write $N=n_{i+1}$, $M=2^{r_i+2}$ and $\alpha=\alpha_i=Mf_i-(N+4)$, so
+$\alpha\in[0,N]$ by (140.4)--(140.5). Suppose $\alpha$ is the only member of its
+class modulo $M$ in $[0,N]$. Then
+
+\[
+\alpha<M
+\qquad\text{and}\qquad
+\alpha+M>N,
+\tag{142.2}
+\]
+
+since otherwise $\alpha-M$ or $\alpha+M$ would be a second member of the class
+inside $[0,N]$. Substituting $\alpha=Mf_i-(N+4)$ turns (142.2) into
+
+\[
+M(f_i-1)<N+4,
+\qquad
+M(f_i+1)>2N+4.
+\]
+
+Multiplying the first by $(f_i+1)$ and the second by $(f_i-1)$ and comparing
+eliminates $M$:
+
+\[
+(f_i+1)(N+4)>(f_i-1)(2N+4),
+\qquad\text{i.e.}\qquad
+N(f_i-3)<8.
+\tag{142.3}
+\]
+
+Every gate in question has $N\ge8$, so (142.3) gives $f_i\le3$.
+
+It remains to exclude $f_i=3$. Then (142.2) reads $N+2<2M<N+4$, forcing
+$2M=N+3$ and hence
+
+\[
+N=2^{r_i+3}-3.
+\]
+
+Theorem 137 now determines the whole continuation. The child overshoot is
+$A'=N+4-3\cdot2^{r_i+1}=2^{r_i+1}+1$, the forced block length is $k'=1$, and the
+child returns at index $N+2=2^{r_i+3}-1$ with residue
+
+\[
+f'=N+1+4-2A'=2^{r_i+2}.
+\]
+
+At that return state $2f'=2^{r_i+3}=(N+2)+1$. So the zero test
+$2e\le n-U$ fails for **every** wrap count, because $2f'$ already exceeds the
+index $N+2$; and the wrap test $2e>n+2$ fails because
+$2f'=2^{r_i+3}<2^{r_i+3}+1$. The safe map therefore terminates there, and no next
+positive block exists.
+
+Hence $f_i=3$ cannot occur at a gate between two returning positive blocks, and
+$f_i\le2$. $\square$
+
+The two regimes are distinguished by *why* uniqueness holds. If the modulus
+covers the window, $2^{r_i+2}>n_{i+1}$, then $\alpha_i\le n_{i+1}$ forces
+$f_i=1$. Uniqueness can also hold by alignment with the modulus *not* covering
+the window, and then $f_i=2$. Both are within (142.1); neither is excluded by the
+counting bound of Lemma 141 alone, which is why (142.2) is needed.
 
 Consequently, for a hypothetical infinite orbit the natural dichotomy
 
@@ -162,15 +231,22 @@ Consequently, for a hypothetical infinite orbit the natural dichotomy
 2. infinitely many transitions have an arithmetically forced slack,
 
 degenerates on the $\beta$ side: branch 2 is reachable only through $\alpha$, and
-only at gates whose incoming returned residue is $1$ or $2$. On a pure-upper
-chain Corollary 120 gives $f_i\ge5$, so **neither** slack is ever forced there and
-branch 1 holds at every step.
+by (142.1) only at gates whose incoming returned residue is $1$ or $2$. On a
+pure-upper chain Corollary 120 gives $f_i\ge5$, so **neither** slack is ever
+forced there and branch 1 holds at every step.
 
 Bounded check at $n\le150$, the figures `verify_block_chain_map.py` reports in
 CI: of $26{,}293$ gates with $r_i\ge1$, the gap modulus covers its window in
-$711$, every one of them with $f_i=1$, and a further $525$ have a unique
-$\alpha_i$ by alignment alone rather than by modulus dominance. Of $21{,}579$
-gates with $k_{i+1}\ge2$, none has a unique $\beta_{i+1}$.
+$711$, and a further $525$ have a unique $\alpha_i$ by alignment alone. The
+verifier asserts $f_i\le2$ on **both** kinds, and separately that the
+modulus-dominant kind has $f_i=1$. Of $21{,}579$ gates with $k_{i+1}\ge2$, none
+has a unique $\beta_{i+1}$.
+
+Over a wider sweep to $n\le200$ the observed split is exact: $f_i=1$ at every one
+of the $1{,}717$ modulus-dominant gates and $f_i=2$ at every one of the $846$
+alignment-unique gates, with $f_i=3$ occurring at $6$ configurations, all of them
+terminating and none of them a gate between two returning blocks — as the proof
+of (142.1) requires.
 
 **What this redirects.** A descent cannot come from $\beta$-uniqueness, because
 that never occurs. It must come either from the $\alpha$ side — where forcing

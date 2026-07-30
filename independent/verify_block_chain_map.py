@@ -133,14 +133,25 @@ def check_slack_counts(n_max: int) -> tuple[int, int, int, int]:
                 )
                 if gap >= 1:
                     modulus = 1 << (gap + 2)
+                    alpha = (start_f << (gap + 2)) - (child_n + 4)
                     count = count_in_class(
                         0, child_n, (-(child_n + 4)) % modulus, modulus
                     )
                     # (141.1)
                     assert 1 <= count <= start_f, (n, e, count, start_f)
+                    if count == 1:
+                        # (142.1) applies to every unique alpha, however the
+                        # uniqueness arises -- not only under modulus dominance.
+                        assert start_f <= 2, (n, e, start_f)
+                        # (142.2), the two inequalities the proof rests on.
+                        assert alpha < modulus, (n, e, alpha, modulus)
+                        assert alpha + modulus > child_n, (n, e, alpha, modulus)
+                        # (142.3)
+                        assert child_n * (start_f - 3) < 8, (n, e, child_n, start_f)
+                        assert child_n >= 8, (n, e, child_n)
                     if modulus > child_n:
-                        # Modulus dominance forces the slack, and costs f <= 2.
-                        assert count == 1 and start_f <= 2, (n, e, start_f)
+                        # Modulus dominance is the stronger regime: f = 1.
+                        assert count == 1 and start_f == 1, (n, e, start_f)
                         dominant += 1
                     elif count == 1:
                         aligned += 1
