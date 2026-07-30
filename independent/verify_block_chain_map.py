@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bounded raw checks for Lemmas 135/136/140 and Theorems 137/138.
+"""Bounded raw checks for Lemmas 135/136/140/141 and Theorems 137/138.
 
 The raw safe map and block decomposition come from
 ``verify_general_gate_boundaries.py``, which imports no project implementation.
@@ -106,6 +106,60 @@ def check_skew_product_and_slacks(n_max: int) -> tuple[int, int]:
                 assert (beta + child_n + child_k + 5) % (1 << (child_k + 1)) == 0
                 slacks += 1
     return semiconjugacy, slacks
+
+
+def count_in_class(low: int, high: int, target: int, modulus: int) -> int:
+    """Number of integers in [low, high] congruent to target modulo modulus."""
+    if high < low:
+        return 0
+    first = low + ((target - low) % modulus)
+    return 0 if first > high else (high - first) // modulus + 1
+
+
+def check_slack_counts(n_max: int) -> tuple[int, int, int, int]:
+    """Lemma 141 and Corollary 142 on literal traces.
+
+    Returns ``(gap cases, modulus-dominant cases, alignment-unique cases,
+    block cases)``.
+    """
+    gap_cases = dominant = aligned = block_cases = 0
+    for n in range(8, n_max + 1):
+        for e in range(1, n):
+            chain = descriptions(zero_blocks(State(n, 0, e), limit=200))
+            for current in chain[:-1]:
+                start_n, _, start_k, start_f = current
+                child_n, child_k, _, gap, overshoot = base_map(
+                    start_n, start_k, start_f
+                )
+                if gap >= 1:
+                    modulus = 1 << (gap + 2)
+                    count = count_in_class(
+                        0, child_n, (-(child_n + 4)) % modulus, modulus
+                    )
+                    # (141.1)
+                    assert 1 <= count <= start_f, (n, e, count, start_f)
+                    if modulus > child_n:
+                        # Modulus dominance forces the slack, and costs f <= 2.
+                        assert count == 1 and start_f <= 2, (n, e, start_f)
+                        dominant += 1
+                    elif count == 1:
+                        aligned += 1
+                    gap_cases += 1
+                if child_k >= 2:
+                    modulus = 1 << (child_k + 1)
+                    count = count_in_class(
+                        0,
+                        child_n + child_k + 2,
+                        (-(child_n + child_k + 5)) % modulus,
+                        modulus,
+                    )
+                    # (141.2): never forced, and bounded by the overshoot.
+                    assert 2 <= count <= overshoot, (n, e, count, overshoot)
+                    # (141.3): the modulus provably cannot cover the window.
+                    assert 2 * modulus < child_n + child_k + 4, (n, e)
+                    assert overshoot >= 4, (n, e, overshoot)
+                    block_cases += 1
+    return gap_cases, dominant, aligned, block_cases
 
 
 def check_wrap_prefix(n_max: int) -> tuple[int, int]:
@@ -295,6 +349,13 @@ def main() -> int:
         f"slack relations (140.2)-(140.7) checked: {slacks}"
     )
 
+    gap_cases, dominant, aligned, block_cases = check_slack_counts(min(bound, 150))
+    print(
+        f"slack counts (141.1)-(141.3): {gap_cases} gap cases "
+        f"({dominant} modulus-dominant, {aligned} unique by alignment), "
+        f"{block_cases} block cases with no forced slack"
+    )
+
     compared, strict = check_wrap_prefix(min(bound, 110))
     print(
         f"wrap prefix and monotonicity (139.1): {compared} raised states, "
@@ -303,9 +364,9 @@ def main() -> int:
 
     print(
         "VERDICT: bounded raw traces agree with Lemmas 135/136/140 and Theorems "
-        "137/138; the closed map reproduces every literal block description in "
-        "range, the base map needs no wrap count, and every slack relation "
-        "holds. Termination of the map is not addressed."
+        "137/138 and Corollary 142; the closed map reproduces every literal "
+        "block description in range, the base map needs no wrap count, and no "
+        "block slack is ever forced. Termination is not addressed."
     )
     return 0
 
