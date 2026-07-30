@@ -334,6 +334,21 @@ theorem gate_exponent_unique {n D f k c h h' : Nat}
   · exact heq
   · exact absurd hi (key h' h lo' hgt)
 
+/-- **Lemma 136, upward closure.** The predicate `m + r + 4 ≤ 2^(r+2) * f`
+defining the forced gap is upward closed in `r`, so the minimum in (136.1) is
+well defined. The same doubling argument gives the (135.2) instance. -/
+theorem gap_predicate_upward_closed {m f r r' : Nat} (hf : 1 ≤ f)
+    (hr : m + r + 4 ≤ 2 ^ (r + 2) * f) (hle : r ≤ r') :
+    m + r' + 4 ≤ 2 ^ (r' + 2) * f := by
+  obtain ⟨j, hj⟩ : ∃ j, r' = r + j := ⟨r' - r, by omega⟩
+  -- `pow_dominates_linear` at exponent base `r + 1` gives the drift bound.
+  have hdom := pow_dominates_linear (r + 1) f hf j
+  -- Normalize both exponents so `omega` sees the same atoms as `hr`.
+  have hhi : r + 1 + 1 + j = r' + 2 := by omega
+  have hlo : r + 1 + 1 = r + 2 := by omega
+  rw [hhi, hlo] at hdom
+  omega
+
 /-- The unit case of Theorem 133, in the exact shape used by Theorem 130. -/
 theorem unit_gate_exponent_unique {n D f h h' : Nat}
     (hD : D ≤ n) (hf : 1 ≤ f)
@@ -363,4 +378,5 @@ open Conjecture
 #print axioms Conjecture.B_monotone
 #print axioms Conjecture.gate_exponent_unique
 #print axioms Conjecture.unit_gate_exponent_unique
+#print axioms Conjecture.gap_predicate_upward_closed
 end Audit

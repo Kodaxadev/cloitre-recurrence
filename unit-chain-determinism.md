@@ -149,10 +149,14 @@ the statement "$D\le n$, $f\ge1$, and both windows at $h$ and at $h'$ imply
 $h=h'$", with an axiom audit showing no `sorryAx`.
 
 The uniqueness argument does not use the unit hypothesis at all. Theorem 133 in
-[`general-gate-determinism.md`](general-gate-determinism.md) forces the gap of
-a pure-upper gate at every block length. What the unit case adds is closure:
-only for $k=1$ does the reduced data $(n,U,f)$ map into itself, which is what
-makes (130.3) a self-contained map on three integers.
+[`general-gate-determinism.md`](general-gate-determinism.md) forces the gap of a
+pure-upper gate at every block length, Lemma 136 forces it at every gate
+whatsoever, and Theorem 137 in
+[`block-chain-closed-map.md`](block-chain-closed-map.md) closes the general
+mechanism into a deterministic map on four integers $(n,U,k,f)$. What the unit
+case adds is therefore not closure but *invariance*: the fibre $k\equiv1$ is
+preserved, so three integers suffice and (130.3) needs no block-length
+coordinate.
 
 ## Lemma 131 (the wrap count is inert)
 

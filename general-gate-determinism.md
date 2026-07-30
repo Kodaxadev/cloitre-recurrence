@@ -8,7 +8,9 @@ the unit hypothesis: it needs only the two gap-dependent pure-upper
 inequalities and $D\le n$. This note states and proves the general version.
 
 The consequence is that the surviving arbitrary-length branch left open by
-Corollary 102 also has no gap-word freedom. It is not a termination result.
+Corollary 102 also has no gap-word freedom. Combined with Lemma 135, which forces
+the block length too, this makes the whole mechanism a closed deterministic map
+(Theorem 137). None of it is a termination result.
 
 ## Theorem 133 (forced pure-upper gap)
 
@@ -234,13 +236,14 @@ says that wherever the pure-upper mechanism is active in those branches, the
 gap is not a free parameter, so no analysis of them needs to enumerate gap
 words.
 
-The limitation is sharper than for the unit case. For $k\ge2$ the child start
-residue is $e'=2^rf$, so the child *state* is determined, but recovering the
-next pair $(k',f')$ requires the child's own block length. The reduced data
-therefore does not close into a map on a fixed number of integers, which is
-exactly what Theorem 130 gains from the unit hypothesis. And, as in the unit
-case, forcing the gap is a removal of search freedom, not a termination
-argument.
+For $k\ge2$ the child start residue is $e'=2^rf$, so the child *state* is
+determined, but recovering the next pair $(k',f')$ needs the child's own block
+length. That extra datum turns out to have a closed form as well (Lemma 135), so
+the mechanism does close — on four integers rather than three. Theorem 137
+assembles it. What Theorem 130 gains from the unit hypothesis is therefore not
+closure but invariance of the unit fibre, which lets three integers suffice
+there. As in the unit case, forcing the gap is a removal of search freedom, not a
+termination argument.
 
 ## The frontier after Theorem 133
 
@@ -256,14 +259,23 @@ over an interval of length $2^{k_i+1}$, and (134.2) says the block lengths and
 the forced gap trade against one another inside a $\log_2n$ budget. Those are
 one-step constraints; neither pins the sequence.
 
-**Target.** A multi-step obstruction that replaces the closed recurrence the
-unit case had. Concretely, Theorem 130 worked because Lemma 113 collapses excess
-and child residue at $\ell=1$, giving $f_{i+1}=2^{h_i}f_i-n_{i+1}-3$ and hence
-both the telescoping identity and Theorem 118's two-step product bound. For
-$\ell\ge2$ that recurrence is lost. What is needed is an identity over two or
-more gates that survives the intervening block length — for instance an exact
-relation among $f_i,f_{i+2}$ and $k_{i+1}$ analogous to Lemma 119's
-three-residue compatibility, from which a descent or a modulus can be
-accumulated. Until such a relation exists, the branch has exact one-step
-arithmetic and no chain argument, which is precisely the state the unit case was
-in before Lemma 119.
+**Resolved: the closed recurrence exists.** This section previously asked for a
+multi-step identity to replace the recurrence the unit case had, on the reading
+that $\ell\ge2$ destroys it. That reading was wrong. Theorem 137 in
+[`block-chain-closed-map.md`](block-chain-closed-map.md) gives
+
+\[
+f_{i+1}=2^{k_{i+1}+r_i+1}f_i-\bigl(2^{k_{i+1}}-1\bigr)(n_{i+1}+4)+k_{i+1},
+\]
+
+exact at every gate and collapsing to (130.7) at $k_{i+1}=1$. Both remaining
+data are also in closed form: Lemma 136 forces the gap unconditionally, and
+Lemma 135 forces the next block length. So the whole mechanism is a
+deterministic orbit in four integers.
+
+**Target.** Use that recurrence to build the chain argument. The unit case
+reached Lemma 119's three-residue compatibility and Theorem 118's two-step
+product bound by eliminating the index between consecutive instances of its
+recurrence; the same elimination is now available in general, with $k_{i+1}$
+carried through. What is not yet available is a descent or a growing modulus out
+of it.

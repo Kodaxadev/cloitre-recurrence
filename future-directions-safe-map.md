@@ -313,15 +313,24 @@ quantifies what freedom is left: the returned residue at a pure-upper gate
 ranges over an interval of length exactly \(2^{k+1}\), so the unit case very
 nearly selects one residue while longer blocks admit exponentially more.
 
-**Do next, arbitrary-length branch:** control the joint sequence of block
-lengths and returned residues under forced gaps. The one-step arithmetic is
-complete — Corollary 134 for the residue band, (134.2) for the length/gap
-trade — and no chain argument exists. The target is a multi-step obstruction
-replacing the closed recurrence the unit case lost: for \(\ell=1\) Lemma 113
-collapses excess and child residue, which is what produced Lemma 119's
-three-residue compatibility and Theorem 118's two-step product bound. Seek the
-analogue that survives an intervening block length, for instance an exact
-relation among \(f_i\), \(f_{i+2}\) and \(k_{i+1}\).
+Lemma 135 then forces the block length as well, and Theorem 137 assembles both
+closed forms into a deterministic map on four integers \((n,U,k,f)\) with the
+exact residue recurrence
+
+\[
+f_{i+1}=2^{k_{i+1}+r_i+1}f_i-\bigl(2^{k_{i+1}}-1\bigr)(n_{i+1}+4)+k_{i+1}.
+\]
+
+Every surviving branch is therefore one forward orbit of that map, with no gap
+word, no block-length word, and no digit simulation.
+
+**Do next, arbitrary-length branch:** build the chain argument on that
+recurrence. The unit case reached Lemma 119 and Theorem 118 by eliminating the
+index between consecutive instances of its recurrence; the same elimination is
+now available with \(k_{i+1}\) carried through. Combine it with Corollary 134's
+residue band of width \(2^{k+1}\) and the length/gap trade (134.2), and look
+for either a descent or a growing modulus. That is the missing ingredient — the
+one-step arithmetic is complete.
 
 **Do next, fixed-ladder branch:** it no longer has a combinatorial dimension
 to search, so what remains there is a termination proof for one forced

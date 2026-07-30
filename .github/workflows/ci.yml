@@ -60,6 +60,7 @@ jobs:
           independent/verify_unit_chain_structure.py
           independent/verify_general_gate_determinism.py
           independent/verify_pure_upper_run.py
+          independent/verify_block_chain_map.py
           independent/verify_sharp_growth.py
           independent/verify_ridge_segments.py
           independent/verify_mixed_ridges.py
@@ -98,6 +99,8 @@ jobs:
         run: python independent/verify_general_gate_determinism.py 220 220
       - name: Check the pure-upper run ceiling
         run: python independent/verify_pure_upper_run.py 500
+      - name: Check the closed block-chain map
+        run: python independent/verify_block_chain_map.py 200
       - name: Check parameterized rebounds and sharp growth
         run: python independent/verify_sharp_growth.py
       - name: Check post-down ridge segments
