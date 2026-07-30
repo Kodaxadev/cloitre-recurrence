@@ -55,10 +55,20 @@ the difference matters for a reviewer.
 CI compiles on `ubuntu-latest` with TeX Live 2023/Debian, pdfTeX 1.40.25,
 installing texlive packages from the runner's current APT repositories. The
 [`Dockerfile`](../../Dockerfile) is Debian bookworm, which ships TeX Live 2022.
-Those are two different environments, and pdfTeX output is not guaranteed
-identical across TeX Live releases. So a reviewer who rebuilds from the tag with
-some other TeX Live may get a valid PDF with a different hash, and that is not
-evidence of tampering.
+Those are two different environments, and this is not a hypothetical worry —
+run `30574944526` compiled the same source in both and measured the result:
+
+| | `ubuntu-latest` | `debian:bookworm-slim` |
+|---|---|---|
+| pdfTeX | 3.141592653-2.6-1.40.25 | 3.141592653-2.6-1.40.24 |
+| TeX Live | 2023/Debian, `texlive-base 2023.20240207-1` | 2022/Debian, `texlive-base 2022.20230122-3` |
+| bytes | 324,668 | 324,470 |
+| SHA-256 | `84b75af2…` | `d0ec921b…` |
+
+`CreationDate` and `ModDate` agreed, and `/ID` was absent from both, so the two
+fixes hold across the change. What differs is `/Producer` and 198 bytes of
+output. **A reviewer who rebuilds from the tag under a different TeX Live gets a
+valid PDF with a different hash, and that is not evidence of tampering.**
 
 The claim this record therefore makes is:
 
@@ -70,12 +80,11 @@ To make the two operational rather than rhetorical, every build now writes
 version of every installed `texlive*` package. A recorded hash is meaningful
 only next to that file, and the release provenance records the pair.
 
-CI also *measures* the cross-release question instead of speculating about it:
-after the gate, it rebuilds inside a `debian:bookworm-slim` container — TeX Live
-2022 against the runner's 2023 — and reports whether the bytes still agree. That
-step never fails the build, because a difference there is expected behaviour of
-TeX Live, not a defect here. Its output is the evidence for whichever way the
-answer goes, and it belongs in the release row below.
+The table above is not a one-off. CI reruns that comparison on every push, in a
+step that never fails the build — a difference there is expected behaviour of
+TeX Live, not a defect here — so the release row below can record what the
+cross-release answer was for the build being released, rather than assuming it
+is still what it was measured to be today.
 
 Full source-only reproducibility, if it is ever wanted, needs the build
 environment itself pinned immutably: a base image pinned by OCI digest and

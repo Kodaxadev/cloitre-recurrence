@@ -18,15 +18,16 @@ about survival. Put
 \boxed{G_i:=n_i-2U_i.}
 \]
 
-Then
+— the quantity Theorem 133 already carries as $D$, with
 
 \[
-\boxed{G_{i+1}=G_i+r_i+1-k_i,}
+G_{i+1}=G_i+r_i+1-k_i
 \tag{143.1}
 \]
 
-and the safe path continues from block $i$'s return state to a next positive
-block **if and only if**
+being (133.1) restated. What is new is that the *survival* of the path is a
+statement about $\alpha$ and $G$ alone: the safe path continues from block $i$'s
+return state to a next positive block **if and only if**
 
 \[
 \boxed{\alpha_i\le G_{i+1}-4.}
@@ -35,8 +36,8 @@ block **if and only if**
 
 ### Proof
 
-For (143.1), substitute $n_{i+1}=n_i+k_i+1+r_i$ and $U_{i+1}=U_i+k_i$ into the
-definition: $n_{i+1}-2U_{i+1}=(n_i-2U_i)+r_i+1-k_i$.
+(143.1) is (133.1); substituting $n_{i+1}=n_i+k_i+1+r_i$ and $U_{i+1}=U_i+k_i$
+into the definition gives $n_{i+1}-2U_{i+1}=(n_i-2U_i)+r_i+1-k_i$ directly.
 
 For (143.2), start at the return state $(m_i,U_{i+1},f_i)$ and follow the safe
 map. By Lemma 136 the candidate digits sit at indices $m_i+j$ for
@@ -127,16 +128,93 @@ throughout, **every** block has $k_i=1$ and the unit fibre of Theorem 130 is not
 a special case but the only case. (144.3) says a surviving gate must
 land a dyadic multiple inside a window whose width *is* the budget less four.
 
+## Theorem 145 (a long chain needs a large budget)
+
+Let a safe path carry $N\ge2$ consecutive positive blocks with descriptions
+$(n_i,U_i,k_i,f_i)$ for $0\le i<N$, and put $C=\max_{i<N}G_i$. Then
+
+\[
+\boxed{N\le3C-13,}
+\qquad\text{equivalently}\qquad
+\max_{i<N}\bigl(n_i-2U_i\bigr)\ \ge\ \frac{N+13}{3}.
+\tag{145.1}
+\]
+
+### Proof
+
+Two standing facts. First $U_i\ge i$, because $U_i=U_0+\sum_{j<i}k_j$ with
+$U_0\ge0$ and every $k_j\ge1$. Second $G_i\ge4$, because $f_i\ge1$ and (144.1).
+
+*Long blocks happen early.* If $k_i\ge2$ then (144.2) gives
+$C\ge G_i\ge2U_i+11\ge2i+11$, so $i\le\tfrac12(C-11)$. Hence $k_i=1$ for every
+$i>\tfrac12(C-11)$.
+
+*Zero gaps happen early.* Let $i\le N-2$, so that block $i+1$ exists. If $r_i=0$
+then the predicate of (136.1) holds at $r=0$, that is $4f_i\ge n_{i+1}+4$, and
+with $f_i\le G_i-3\le C-3$ from (144.1) this forces $n_{i+1}\le4C-16$. But
+$n_{i+1}=G_{i+1}+2U_{i+1}\ge4+2(i+1)$. So $r_i=0$ forces $2i+6\le4C-16$, i.e.
+$i\le2C-11$, and therefore $r_i\ge1$ for every $i$ with $2C-11<i\le N-2$.
+
+*The budget then climbs.* Since $C\ge4$ we have $2C-11\ge\tfrac12(C-11)$, so with
+$i_0=\max(0,2C-10)$ both statements apply at once: for $i_0\le i\le N-2$,
+$k_i=1$ and $r_i\ge1$, whence by (143.1)
+
+\[
+G_{i+1}=G_i+r_i\ \ge\ G_i+1 .
+\]
+
+If $N-1\ge i_0$ this gives $C\ge G_{N-1}\ge G_{i_0}+(N-1-i_0)\ge N+3-i_0$, so
+$N\le C-3+i_0$; and if $N-1<i_0$ then $N\le i_0$, which is weaker. For $C\ge6$,
+$i_0=2C-10$ and the bound reads $N\le3C-13$. For $C=5$ it reads $N\le2=3C-13$,
+and for $C=4$ it reads $N\le1$, contradicting $N\ge2$ — so $N\ge2$ already
+forces $C\ge5$, and (145.1) holds in every case. $\square$
+
+## Corollary 146 (the dichotomy an infinite chain faces)
+
+An infinite chain of positive blocks has $G_i\to\infty$, and
+
+\[
+\boxed{
+\text{either } k_i=1 \text{ for all large } i,
+\quad\text{or}\quad
+G_i\ge2i+11 \text{ infinitely often.}
+}
+\tag{146.1}
+\]
+
+### Proof
+
+$G_i\to\infty$: if $G_i\le C$ for all $i$ then every finite prefix is a chain of
+the kind Theorem 145 bounds, so $N\le3C-13$ for every $N$, which is false.
+
+For (146.1), suppose $k_i\ge2$ for infinitely many $i$. Each such $i$ has
+$G_i\ge2U_i+11\ge2i+11$ by (144.2). $\square$
+
+So an infinite chain either has an eventually all-unit tail — the fibre Theorem
+130 already treats as a three-integer map — or its budget grows at least
+linearly, which by (144.1) forces the returned residues to grow with it. The two
+branches are not symmetric, and the first is the one with existing machinery.
+
 ## What this settles, and what it does not
 
-It gives no descent, and none is claimed. The conditions above are jointly
-satisfiable along an infinite chain: with $k_i=1$ and $r_i=c$ constant, (143.1)
-gives $G_i=G_0+ci$ exactly, (144.2) is vacuous, (144.1) asks only
-$f_i\le G_0+ci-3$, and the window in (144.3) has width $\sim ci$ against the
-fixed modulus $2^{c+2}$, so it is eventually far wider than the modulus. Ruling
-that regime out is a statement about the deterministic map, which chooses
-$f_{i+1}$ with no freedom left. Necessary conditions a putative infinite orbit
-can satisfy prove nothing about whether one runs.
+Theorem 145 is a bound on chain length, and it is the first: Theorem 137 closed
+the mechanism into one orbit but, as recorded there, did not bound it. It is
+still not a termination proof, and the gap is precise. $C$ is measured along the
+chain, not read off its start, and nothing here bounds $C$ in terms of
+$(n_0,U_0)$ — the growth $G_{i+1}-G_i=r_i+1-k_i$ is capped only by
+$2^{r_i+2}\le n_{i+1}+G_{i+1}$, which permits $r_i$ of order $\log n$. So (145.1)
+says a long chain must spend budget, not that the budget runs out.
+
+Nor do the conditions of Corollary 144 rule out an infinite chain on their own.
+With $k_i=1$ and $r_i=c$ constant, (143.1) gives $G_i=G_0+ci$ exactly, (144.2) is
+vacuous, (144.1) asks only $f_i\le G_0+ci-3$, and the window in (144.3) has width
+$\sim ci$ against the fixed modulus $2^{c+2}$, so it is eventually far wider than
+the modulus. Excluding that regime is a statement about the deterministic map,
+which chooses $f_{i+1}$ with no freedom left; necessary conditions a putative
+orbit can satisfy prove nothing about whether one runs. Consistent with this,
+(145.1) is loose where it can be measured: over every chain with start index
+$n\le200$ the largest $N/(3C-13)$ observed is $0.25$, at the shortest chains,
+and long chains sit below $0.1$.
 
 What it does settle is where the wrap count lives. Before, the admissible
 dynamics was Theorem 138's base map plus an accumulator $U_i=U_0+\sum_{j<i}k_j$
@@ -166,3 +244,9 @@ $n_{i+1}$ predicted by (136.1), so the $\alpha_i$ tested is the child's rather
 than a fiction. (143.1), (144.1), (144.2) and (144.3) are checked on the same
 gates; $56{,}357$ blocks have $k_i\ge2$, and equality in (144.1) is rare, one
 case in range.
+
+Theorem 145 is checked over every chain of two or more blocks in the same range,
+together with the two facts its proof leans on that are not inequalities being
+tested elsewhere: $G_i\ge4$ at every block, and $C\ge5$ whenever $N\ge2$. The
+tightest ratio and the longest chain are reported rather than only asserted,
+because a bound that is never approached should say so.
