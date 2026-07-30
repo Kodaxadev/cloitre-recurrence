@@ -187,6 +187,67 @@ fn lemma_135_forced_length_holds_for_terminating_blocks_too() {
     assert!(terminating > 100, "no terminating blocks seen: {terminating}");
 }
 
+/// The base map of Theorem 138: takes no wrap count at all.
+fn base_map(n: i128, length: i128, returned: i128) -> (i128, i128, i128, u32, i128) {
+    let m = n + length + 1;
+    let gap = forced_gap(m, returned);
+    let child_n = m + i128::from(gap);
+    let overshoot = child_n + 4 - (returned << (gap + 1));
+    let child_k = forced_length(child_n, overshoot);
+    (
+        child_n,
+        i128::from(child_k),
+        child_n + i128::from(child_k) + 4 - (overshoot << child_k),
+        gap,
+        overshoot,
+    )
+}
+
+#[test]
+fn theorem_138_skew_product_and_slack_relations() {
+    let mut checked = 0u64;
+    for n in 8u64..=140 {
+        for e in 1..n {
+            let start = SafeState { e, w: n, wraps: 0 };
+            if !start.check() {
+                continue;
+            }
+            let chain = literal_descriptions(start, 400);
+            for pair in chain.windows(2) {
+                let (current, next) = (pair[0], pair[1]);
+                let (child_n, child_k, child_f, gap, overshoot) =
+                    base_map(current.n, current.length, current.returned);
+                // (138.1): base map reproduces (n, k, f); U only accumulates.
+                assert_eq!((child_n, child_k, child_f), (next.n, next.length, next.returned));
+                assert_eq!(next.wraps, current.wraps + current.length);
+
+                let alpha = (current.returned << (gap + 2)) - (child_n + 4);
+                let beta = (overshoot << (child_k + 1)) - (child_n + child_k + 5);
+                // (140.2) inversions and (140.3) beta-from-alpha.
+                assert_eq!(2 * overshoot, child_n + 4 - alpha);
+                assert_eq!(2 * child_f, child_n + child_k + 3 - beta);
+                assert_eq!(
+                    beta,
+                    (1i128 << child_k) * (child_n + 4 - alpha) - (child_n + child_k + 5)
+                );
+                // (140.4), (140.5)
+                assert!(alpha >= 0 && beta >= 0);
+                if gap >= 1 {
+                    assert!(alpha <= child_n);
+                }
+                if child_k >= 2 {
+                    assert!(beta < child_n + child_k + 3);
+                }
+                // (140.7) growing congruences.
+                assert_eq!((alpha + child_n + 4) % (1i128 << (gap + 2)), 0);
+                assert_eq!((beta + child_n + child_k + 5) % (1i128 << (child_k + 1)), 0);
+                checked += 1;
+            }
+        }
+    }
+    assert!(checked > 20_000, "too few gates checked: {checked}");
+}
+
 #[test]
 fn theorem_130_is_the_unit_fibre() {
     // At k = k' = 1 the recurrence (137.2) collapses to (130.7).

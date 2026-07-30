@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bounded raw checks for Lemmas 135/136 and Theorem 137.
+"""Bounded raw checks for Lemmas 135/136/140 and Theorems 137/138.
 
 The raw safe map and block decomposition come from
 ``verify_general_gate_boundaries.py``, which imports no project implementation.
@@ -45,6 +45,102 @@ def psi(n: int, u: int, k: int, f: int) -> tuple[int, int, int, int]:
     overshoot = child_n + 4 - (f << (r + 1))
     child_k = forced_length(child_n, overshoot)
     return child_n, child_u, child_k, child_n + child_k + 4 - (overshoot << child_k)
+
+
+def base_map(n: int, k: int, f: int) -> tuple[int, int, int, int, int]:
+    """The base map of Theorem 138: no U argument anywhere.
+
+    Returns ``(n', k', f', r, A')``.
+    """
+    m = n + k + 1
+    r = forced_gap(m, f)
+    child_n = m + r
+    overshoot = child_n + 4 - (f << (r + 1))
+    child_k = forced_length(child_n, overshoot)
+    return (
+        child_n,
+        child_k,
+        child_n + child_k + 4 - (overshoot << child_k),
+        r,
+        overshoot,
+    )
+
+
+def check_skew_product_and_slacks(n_max: int) -> tuple[int, int]:
+    """Theorem 138 and Lemma 140 on literal traces."""
+    semiconjugacy = 0
+    slacks = 0
+    for n in range(8, n_max + 1):
+        for e in range(1, n):
+            chain = descriptions(zero_blocks(State(n, 0, e), limit=200))
+            for current, nxt in zip(chain, chain[1:]):
+                start_n, start_u, start_k, start_f = current
+                child_n, child_k, child_f, gap, overshoot = base_map(
+                    start_n, start_k, start_f
+                )
+                # (138.1): the base map reproduces (n, k, f); U just accumulates.
+                assert (child_n, child_k, child_f) == (nxt[0], nxt[2], nxt[3])
+                assert nxt[1] == start_u + start_k
+                semiconjugacy += 1
+
+                alpha = (start_f << (gap + 2)) - (child_n + 4)
+                beta = (overshoot << (child_k + 1)) - (child_n + child_k + 5)
+                # (140.2) inversions
+                assert 2 * overshoot == child_n + 4 - alpha
+                assert 2 * child_f == child_n + child_k + 3 - beta
+                # (140.3) first line: beta from alpha
+                assert beta == (1 << child_k) * (child_n + 4 - alpha) - (
+                    child_n + child_k + 5
+                )
+                # (140.4) and (140.5)
+                assert alpha >= 0 and beta >= 0
+                if gap >= 1:
+                    assert alpha <= child_n
+                if child_k >= 2:
+                    assert beta < child_n + child_k + 3
+                # (140.6) parities
+                assert (alpha - (child_n + 4)) % 2 == 0
+                assert (beta - (child_n + child_k + 3)) % 2 == 0
+                # (140.7) growing congruences
+                assert (alpha + child_n + 4) % (1 << (gap + 2)) == 0
+                assert (beta + child_n + child_k + 5) % (1 << (child_k + 1)) == 0
+                slacks += 1
+    return semiconjugacy, slacks
+
+
+def check_wrap_prefix(n_max: int) -> tuple[int, int]:
+    """Corollary 139: raised wrap counts give a prefix and no more blocks."""
+    compared = 0
+    strict = 0
+    for n in range(8, n_max + 1):
+        for e in range(1, n):
+            if 2 * e > n:
+                continue
+            base_word = digit_word(n, 0, e)
+            base_blocks = len(descriptions(zero_blocks(State(n, 0, e), limit=400)))
+            for u in range(1, n - 2 * e + 1):
+                raised_word = digit_word(n, u, e)
+                assert raised_word == base_word[: len(raised_word)], (n, u, e)
+                raised_blocks = len(
+                    descriptions(zero_blocks(State(n, u, e), limit=400))
+                )
+                assert raised_blocks <= base_blocks, (n, u, e)
+                compared += 1
+                if raised_blocks < base_blocks:
+                    strict += 1
+    return compared, strict
+
+
+def digit_word(n: int, u: int, e: int, cap: int = 1200) -> list[str]:
+    word: list[str] = []
+    current = State(n, u, e)
+    for _ in range(cap):
+        outcome = step(current)
+        if outcome is None:
+            break
+        word.append(outcome[0])
+        current = outcome[1]
+    return word
 
 
 def descriptions(blocks: list[object]) -> list[tuple[int, int, int, int]]:
@@ -193,10 +289,23 @@ def main() -> int:
     paths, steps = check_iterated_map(bound)
     print(f"iterated map (137.1): {paths} paths, {steps} successive descriptions")
 
+    semiconjugacy, slacks = check_skew_product_and_slacks(bound)
     print(
-        "VERDICT: bounded raw traces agree with Lemmas 135/136 and Theorem 137; "
-        "the closed map reproduces every literal block description in range. "
-        "Termination of the map is not addressed."
+        f"skew product (138.1) checked: {semiconjugacy}; "
+        f"slack relations (140.2)-(140.7) checked: {slacks}"
+    )
+
+    compared, strict = check_wrap_prefix(min(bound, 110))
+    print(
+        f"wrap prefix and monotonicity (139.1): {compared} raised states, "
+        f"{strict} with strictly fewer blocks"
+    )
+
+    print(
+        "VERDICT: bounded raw traces agree with Lemmas 135/136/140 and Theorems "
+        "137/138; the closed map reproduces every literal block description in "
+        "range, the base map needs no wrap count, and every slack relation "
+        "holds. Termination of the map is not addressed."
     )
     return 0
 

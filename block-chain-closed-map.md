@@ -171,6 +171,175 @@ Everything else here is manuscript mathematics with computational checks: the
 safe-map coordinates, the block conventions, and the identification of $\Psi$
 with the dynamics are not formalized.
 
+## Theorem 138 (triangular skew product over a three-integer base)
+
+Let $\pi(n,U,k,f)=(n,k,f)$, and let $\widehat\Psi(n,k,f)=(n',k',f')$ be given by
+(137.1) with the line for $U'$ deleted. Then
+
+\[
+\boxed{
+\pi\circ\Psi=\widehat\Psi\circ\pi,
+\qquad
+U'=U+k,
+}
+\tag{138.1}
+\]
+
+so $\Psi$ is a triangular skew product over $\widehat\Psi$ in which the wrap
+count is a passive accumulator:
+
+\[
+\boxed{U_i=U_0+\sum_{j<i}k_j.}
+\tag{138.2}
+\]
+
+### Proof
+
+Inspect (137.1): none of $r$, $n'$, $A'$, $k'$, $f'$ mentions $U$. The only
+occurrence of $U$ in the whole map is the line $U'=U+k$. $\square$
+
+**Where $U$ is still needed.** The wrap count is not removable from the problem,
+only from the arithmetic. In the safe map, $U$ occurs exactly once — in the zero
+test $U+2e\le n$ — and nowhere in the wrap test $2e>n+2$. So $U$ does not
+influence any digit choice; it decides only whether a step is possible at all,
+that is, termination. The admissible dynamics therefore remain
+four-dimensional, but the fourth coordinate is a functional of the base orbit
+through (138.2), not an independent variable.
+
+## Corollary 139 (the $U=0$ reduction, at every block length)
+
+For fixed $(n,e)$, lowering the wrap count leaves every wrap/zero choice
+unchanged wherever the original path continues, and can only postpone
+termination. Consequently the digit word at wrap count $U$ is a **prefix** of the
+digit word at wrap count $0$, the number of successive returning positive blocks
+is nonincreasing in $U$, and
+
+\[
+\boxed{
+\begin{gathered}
+\text{an infinite admissible orbit exists}\\
+\Longleftrightarrow\quad
+\text{one exists with } U_0=0.
+\end{gathered}
+}
+\tag{139.1}
+\]
+
+### Proof
+
+By the previous remark the wrap test is $U$-free, so a wrap taken at $(n,U,e)$ is
+taken at $(n,U'',e)$ for every $U''\le U$; and the zero test $U+2e\le n$ only
+becomes easier as $U$ falls. Induction on the digits gives the prefix property,
+which is Lemma 116. Each additional digit can only add blocks, giving the
+monotonicity.
+
+For (139.1), the right-to-left direction is trivial. For left-to-right, take any
+infinite admissible orbit from $(n_0,U_0,e_0)$; the prefix property makes the
+orbit from $(n_0,0,e_0)$ infinite as well. $\square$
+
+So the whole eventually-no-down search reduces to the three-variable base
+dynamics $\widehat\Psi$ started from $U_0=0$, with the accumulator
+$U_i=\sum_{j<i}k_j$ supplying the admissibility test. Corollary 139 is the
+arbitrary-length generalization of Lemma 131, which proved the same reduction
+for the unit fibre only.
+
+## Lemma 140 (threshold-slack coordinates)
+
+The two minima in (137.1) are thresholds, so it is natural to record how far each
+is exceeded. Put
+
+\[
+\boxed{
+\alpha_i=2^{r_i+2}f_i-(n_{i+1}+4),
+\qquad
+\beta_{i+1}=2^{k_{i+1}+1}A_{i+1}-(n_{i+1}+k_{i+1}+5).
+}
+\tag{140.1}
+\]
+
+Then the map inverts to
+
+\[
+\boxed{
+2A_{i+1}=n_{i+1}+4-\alpha_i,
+\qquad
+2f_{i+1}=n_{i+1}+k_{i+1}+3-\beta_{i+1},
+}
+\tag{140.2}
+\]
+
+the slacks satisfy the coupled recurrence
+
+\[
+\boxed{
+\begin{aligned}
+\beta_{i+1}&=2^{k_{i+1}}\bigl(n_{i+1}+4-\alpha_i\bigr)-(n_{i+1}+k_{i+1}+5),\\
+\alpha_{i+1}&=2^{r_{i+1}+1}\bigl(n_{i+1}+k_{i+1}+3-\beta_{i+1}\bigr)-(n_{i+2}+4),
+\end{aligned}
+}
+\tag{140.3}
+\]
+
+and they obey
+
+\[
+\alpha_i\ge0,
+\qquad
+\beta_{i+1}\ge0,
+\tag{140.4}
+\]
+
+\[
+\alpha_i\le n_{i+1}\ \ (r_i\ge1),
+\qquad
+\beta_{i+1}<n_{i+1}+k_{i+1}+3\ \ (k_{i+1}\ge2),
+\tag{140.5}
+\]
+
+\[
+\alpha_i\equiv n_{i+1}\ (2),
+\qquad
+\beta_{i+1}\equiv n_{i+1}+k_{i+1}+1\ (2),
+\tag{140.6}
+\]
+
+\[
+\boxed{
+\alpha_i\equiv-(n_{i+1}+4)\ \bigl(2^{r_i+2}\bigr),
+\qquad
+\beta_{i+1}\equiv-(n_{i+1}+k_{i+1}+5)\ \bigl(2^{k_{i+1}+1}\bigr).
+}
+\tag{140.7}
+\]
+
+### Proof
+
+(140.2) is (140.1) solved for $A_{i+1}$ and $f_{i+1}$ using
+$A_{i+1}=n_{i+1}+4-2^{r_i+1}f_i$ and $f_{i+1}=n_{i+1}+k_{i+1}+4-2^{k_{i+1}}A_{i+1}$.
+Substituting the first half of (140.2) into the definition of $\beta_{i+1}$ gives
+the first line of (140.3), and substituting the second half into the definition
+of $\alpha_{i+1}$ gives the second.
+
+(140.4) is the defining inequality of each minimum. For (140.5), minimality at
+$r_i\ge1$ says the inequality fails at $r_i-1$, i.e.
+$2^{r_i+1}f_i\le n_{i+1}+2$, which with (140.2) is $\alpha_i\le n_{i+1}$;
+minimality at $k_{i+1}\ge2$ says $2^{k_{i+1}}A_{i+1}\le n_{i+1}+k_{i+1}+3$,
+which is the stated bound on $\beta_{i+1}$.
+
+(140.6) is integrality of $A_{i+1}$ and $f_{i+1}$ read off (140.2). Finally
+(140.7) is immediate from (140.1): $\alpha_i+n_{i+1}+4=2^{r_i+2}f_i$ and
+$\beta_{i+1}+n_{i+1}+k_{i+1}+5=2^{k_{i+1}+1}A_{i+1}$. $\square$
+
+The point of (140.7) is that the modulus **grows with the parameter it is
+attached to**: a long gap forces a high-order congruence on $\alpha_i$, and a long
+block forces one on $\beta_{i+1}$. Together with the two-sided bounds (140.4)
+and (140.5) — which confine each slack to a window of width $O(n)$ — this is the
+same tension as everywhere else in the project, but now written as two threshold
+errors rather than as an expanding residue. It is the intended starting point for
+a descent or growing-modulus argument, and it is a cleaner one than iterating
+(137.2) directly, because the exponential factors appear only inside the
+congruence moduli.
+
 ## Verification
 
 `independent/verify_block_chain_map.py` reads block descriptions off literal
@@ -183,13 +352,22 @@ things:
 * the forced gap (136.1) against the literal number of zero-only blocks, at
   every gate rather than only pure-upper ones;
 * that **iterating** $\Psi$ from the first block description of a path
-  reproduces every later description exactly.
+  reproduces every later description exactly;
+* the semiconjugacy (138.1), by running the base map with no $U$ argument and
+  checking $U'=U+k$ separately;
+* Corollary 139's prefix property and block-count monotonicity, over every
+  admissible raised wrap count;
+* all of Lemma 140: the inversions (140.2), the coupled recurrence (140.3), the
+  bounds (140.4)--(140.5), the parities (140.6), and the growing congruences
+  (140.7).
 
 At index bound $200$ this covers $132{,}975$ returning and $8{,}094$
 terminating blocks, $114{,}777$ gates, and $114{,}777$ successive descriptions
-reproduced by iteration over $16{,}732$ paths, with no mismatch. The block-length
-formula is checked on terminating blocks too, so Lemma 135 needs no
-returning hypothesis.
+reproduced by iteration over $16{,}732$ paths, with no mismatch. The semiconjugacy
+and every slack relation are checked on the same $114{,}777$ gates, and
+Corollary 139's prefix property on $109{,}373$ raised wrap counts, of which
+$81{,}944$ give strictly fewer blocks. The block-length formula is checked on
+terminating blocks too, so Lemma 135 needs no returning hypothesis.
 
 ## Consequence and limitation
 

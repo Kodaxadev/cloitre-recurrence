@@ -177,8 +177,10 @@ g=n'+\ell+4-2^{\ell-1}(n'+5-x),
 \]
 
 so the returned residue is not the excess, the recursion does not close in
-$(n,U,f)$, and the two-step product bound does not survive. What remains is the
-one-sided ceiling of Corollary 112,
+$(n,U,f)$, and the two-step product bound does not survive. (It does close once
+the block length is carried as a fourth coordinate — Theorem 137 — but that
+closure supplies no product bound.) What remains is the one-sided ceiling of
+Corollary 112,
 
 \[
 2^{k_i+r_i+k_{i+1}+2}\ \le\ n_{i+1}+k_{i+1}+3,
@@ -202,7 +204,7 @@ digit word and raises both gate defects, while the canonical translate $x$
 depends only on indices and residues. So a pure-upper run can only lengthen
 when $U_0$ falls, and sweeping $U_0=0$ decides every wrap count at once.
 
-The record run over all normalized safe states with $n\le6{,}000$ is **six**,
+The record run over all normalized safe states with $n\le60{,}000$ is **six**,
 first available at $(n,U,e)=(960,0,199)$ — and it is the K14 run, entered eleven
 indices later. So R8 is sharp in the range checked: "pure-upper ambiguity is a
 transient of length at most five" is false, and nothing longer than six occurs
