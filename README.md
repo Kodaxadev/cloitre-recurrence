@@ -180,9 +180,19 @@ before reporting a completed range.
 | `independent/` | Independent certificate regenerators |
 | `lean/Conjecture.lean` | Mathlib-free Lean formalization of foundational identities |
 | `scripts/check_lean_nanoda.sh` | Pinned independent-kernel check of the Lean environment |
-| `.github/workflows/ci.yml` | Rust, Python, certificate, hash, OEIS, and Lean checks |
+| `.github/workflows/ci.yml` | Rust, Python, certificate, hash, OEIS, and Lean checks; Rust and Python run on both Ubuntu and Windows |
+| `Dockerfile` + `scripts/reproduce.sh` | Pinned toolchains (Rust 1.94.0, Python 3.13, Lean 4.32.2) and a one-command run of every fast check |
+| `data/README.md` | Column-level format documentation for every tracked artifact |
 
 The Lean development compiles without `sorry`, but it does **not** formalize the finite-start theorem, growth bounds, all-period exclusion, or two-counter reduction.
+
+### Reproducing
+
+```bash
+docker build -t cloitre . && docker run --rm cloitre
+```
+
+That runs the full fast suite against pinned toolchains. The heavy computations behind K1–K8, K13, K15 and K17 take hours and are not in CI; their exact commands are printed at the end of `scripts/reproduce.sh`.
 
 ## Recommended reading path
 

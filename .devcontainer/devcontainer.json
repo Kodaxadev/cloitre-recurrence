@@ -1,0 +1,18 @@
+{
+  "name": "Cloitre recurrence research package",
+  "build": {
+    "dockerfile": "../Dockerfile",
+    "context": ".."
+  },
+  "overrideCommand": true,
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "rust-lang.rust-analyzer",
+        "leanprover.lean4",
+        "ms-python.python"
+      ]
+    }
+  },
+  "postCreateCommand": "rustc --version && python --version && lean --version"
+}

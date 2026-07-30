@@ -16,9 +16,15 @@ concurrency:
 
 jobs:
   rust:
-    name: Rust theorem and verifier tests
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
+    name: Rust theorem and verifier tests (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        # Development happens on Windows; the frozen results were produced on
+        # Linux. Both are checked so a platform-dependent result cannot hide.
+        os: [ubuntu-latest, windows-latest]
     steps:
       - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@1.94.0
@@ -33,9 +39,13 @@ jobs:
           -- --selftest
 
   python:
-    name: Python certificates and OEIS checks
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
+    name: Python certificates and OEIS checks (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v6
