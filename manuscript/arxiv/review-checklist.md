@@ -30,4 +30,6 @@
 - [ ] Confirm the larger 10M census is not needed for the main theorem.
 - [ ] Confirm the Lean boundary is stated correctly.
 - [ ] Review AI-assistance disclosure.
-- [ ] Review title, abstract, and historical attribution.
+- [x] Historical attribution verified against OEIS and MathOverflow primary sources; A073117 corrected from Cloitre to Zumkeller (sequence) with Cloitre credited for the conjecture comment, MathOverflow title and asker corrected. See the attribution audit in README.md.
+- [ ] Decide the title question raised by that audit (see README.md).
+- [ ] Review title and abstract wording.

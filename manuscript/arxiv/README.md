@@ -124,6 +124,40 @@ Expected SHA-256:
   **Section 7 changed again when the absorption converse landed, so the PDF
   needs regenerating.**
 - `\bibitem{repository}` was never cited; Section 7 now cites it.
+- **Attribution audit, done against the primary sources.** Fetched OEIS A073117
+  and A117846 and the MathOverflow question metadata directly:
+  - **A073117 is not Cloitre's.** The sequence was contributed by
+    **R. Zumkeller, 19 Aug 2002**. **B. Cloitre** added a comment **one day
+    later**, 20 Aug 2002, conjecturing stabilization for the *general* family
+    `b(n+1) = b(n) + b(n) mod (n+a)`. So the conjecture is Cloitre's; the
+    sequence is Zumkeller's. The introduction now says exactly this and the
+    bibliography records both.
+  - A117846 and the surjectivity question are **A. Abercrombie, 22 Mar 2007** —
+    the paper was already correct, and the question is present verbatim as
+    *"Do the values a(n) include all positive numbers?"*
+  - The MathOverflow title was slightly wrong: it is
+    *"Mod sequences that seem to become constant**;** and the number 316"*,
+    asked by **Joseph O'Rourke, 26 Dec 2014**. Corrected, and the asker is now
+    credited.
+  - The ledger's "known" attributions were checked against the actual answers:
+    T2 and T11 appear in RavenclawPrefect's answer (2025-09-03), pair merging in
+    Gjergji Zaimi's (2014-12-29). Both now carry author and date.
+
+### Open editorial question: the title
+
+The title says *"Cloitre's Recurrence"*. Given the above, the **conjecture** is
+Cloitre's but the **sequence** is Zumkeller's, and Cloitre's comment is about the
+general `n+a` family rather than this specific recurrence. Options, for the
+author to decide — this was deliberately not changed unilaterally:
+
+1. Keep it. Defensible if read as "the recurrence of Cloitre's conjecture", and
+   it matches established usage in this repository.
+2. Retitle to *"The Eventual-Increment Spectrum of the Zumkeller–Cloitre
+   Recurrence"* or similar, crediting both.
+3. Make it neutral: *"...of the Recurrence `b(n+1) = b(n) + (b(n) mod n)`"*.
+
+The same question applies to the repository name and to `CITATION.cff`, which
+both use "Cloitre recurrence". Those were left alone for the same reason.
 - Verified numerically: every witness in Table 1, both candidate bounds
   (160 and 260), the absence of increments 5 and 7 below 260, and agreement of
   all 259 certificate rows with an independent recomputation.

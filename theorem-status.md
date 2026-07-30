@@ -17,17 +17,17 @@ classification is the point: nothing is promoted without a proof.
 | # | Statement | Where | Status |
 |---|-----------|-------|--------|
 | T1 | Constant increments from $t$ $\iff$ $b_t=c(t+1)$, $c<t$ $\iff$ $q_t=r_t$ | `partial-proofs.md` §1 | **Theorem** (folklore) |
-| T2 | If $b_n<n^2$: stabilized at $n$ $\iff$ $(n+1)\mid b_n$ | §1 | **Theorem** (known, MO 191518, 2025) |
+| T2 | If $b_n<n^2$: stabilized at $n$ $\iff$ $(n+1)\mid b_n$ | §1 | **Theorem** (known; MO 191518, answer by RavenclawPrefect, 2025-09-03) |
 | C2.1 | $m\ge1 \Rightarrow c\ge1$ | §1 | **Corollary** |
-| L3 | Entry: $\exists\,n_0\le\lceil\sqrt{2m}\rceil+2$ with $b_{n_0}<n_0^2$; no absorbing index skipped | §2 | **Lemma** |
+| L3 | Entry: $\exists\,n_0\le\lceil\sqrt{2m}\rceil+2$ with $b_{n_0}<n_0^2$; no absorbing index skipped | §2 | **Lemma; explicit bound machine-checked in Lean (`entry_at_sqrt_bound`, no `sorryAx`), stated square-root-free as $k^2\ge2m\Rightarrow b_{k+2}<(k+2)^2$** |
 | L4 | $q_n\le n$ forward invariant; $\Delta q_n\in\{-1,0,+1\}$ | §2 | **Lemma** (known) |
 | T5 | $\limsup q_n/n \le 1/2$ | §2 | **Theorem** |
 | **T6** | $e_{n+1}=2e_n-\Delta q_n(n+2)$, so $e_{n+1}\equiv2e_n \pmod{n+2}$ | §3 | **Theorem — new** |
 | **C7** | First capture at $n+1$ $\iff$ $n$ even and $e_n=\pm(n+2)/2$ | §3 | **Corollary — new** |
 | **L8** | $d\mid n \Rightarrow b_{n+1}\equiv 2b_n \pmod d$ | §3 | **Lemma — new** |
 | **C9** | $b_j$ even for every odd $j\ge3$ | §3 | **Corollary — new** |
-| T10 | Pair merging: $b_3(2k-1)=b_3(2k)=2k$ | §4 | **Theorem** (known, A117846) |
-| T11 | $f_n(x)=f_n(y)$, $x\ne y$ $\iff$ $n$ even, $|x-y|=n/2$, adjacent blocks | §4 | **Theorem** (known, MO) |
+| T10 | Pair merging: $b_3(2k-1)=b_3(2k)=2k$ | §4 | **Theorem** (known; A117846 comment, A. Abercrombie 2007, and MO 191518 answer by Gjergji Zaimi, 2014-12-29) |
+| T11 | $f_n(x)=f_n(y)$, $x\ne y$ $\iff$ $n$ even, $|x-y|=n/2$, adjacent blocks | §4 | **Theorem** (known; MO 191518, answer by RavenclawPrefect, 2025-09-03) |
 | **L12** | Two consecutive $+1$ force $3q_n\le n-9$; two consecutive $-1$ force $3q_n>2n+3$ | §5 | **Lemma — new** |
 | **T13** | $\Delta q_n=-1$ and $3q_n\le n+1$ $\Rightarrow$ $\Delta q_{n+1}=+1$ | §5 | **Theorem — new; machine-checked in Lean (`forced_rebound`, no `sorryAx`)** |
 | **T14** | Ratchet: while $3q\le n+1$, $q$ never falls more than 1 below its window start | §5 | **Theorem — new; machine-checked in Lean (`ratchet`, no `sorryAx`); the Lean induction closes a gap in the compressed paper argument** |

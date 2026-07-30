@@ -5,7 +5,9 @@ For each $m\in\Z_{>0}$, consider the integer recurrence
  b_1=m,\qquad b_{n+1}=b_n+(b_n\bmod n).
  \label{eq:recurrence}
 \end{equation}
-The recurrence appears in OEIS A073117 and A117846 and was discussed in MathOverflow question 191518; see \cite{oeisA073117,oeisA117846,mathoverflow191518}. Cloitre's stabilization conjecture asks whether every positive starting value $m$ produces an orbit whose increments $b_{n+1}-b_n$ are eventually constant.
+The recurrence appears in OEIS A073117 and A117846 and was discussed in MathOverflow question 191518; see \cite{oeisA073117,oeisA117846,mathoverflow191518}. The stabilization conjecture asks whether every positive starting value $m$ produces an orbit whose increments $b_{n+1}-b_n$ are eventually constant.
+
+The attribution is worth stating precisely, since the sequence and the conjecture are due to different people. The orbit from $b_1=1$ was contributed to OEIS as A073117 by R.~Zumkeller on 19 August 2002. One day later B.~Cloitre added a comment to that entry conjecturing, for the more general family $b_{n+1}=b_n+(b_n\bmod(n+a))$, that the increments are eventually constant; it is this conjecture that the present paper's title refers to. The spectrum sequence A117846, together with the surjectivity question answered below, is due to A.~Abercrombie, 22 March 2007 \cite{oeisA117846}.
 
 The conjecture itself is not resolved here. Our subject is the smaller and logically independent question of which constants can occur when stabilization does happen.
 

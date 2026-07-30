@@ -26,6 +26,7 @@ the helper lemmas exist to make those atoms match syntactically.
 | `Conjecture/Ratchet.lean` | forced rebound and the quotient ratchet |
 | `Conjecture/FiniteStart.lean` | entry, the quadratic step, and Theorem 18 from the ray hypothesis |
 | `Conjecture/AbsorptionConverse.lean` | eventual increment implies the ray, and Theorem 18 in the paper's form |
+| `Conjecture/EntryBound.lean` | Lemma 3's explicit entry bound, square-root-free |
 | `Conjecture.lean` | module index and the axiom audit |
 
 It was one file until the modules exceeded the repository's per-file length gate.
@@ -49,7 +50,8 @@ congruence_propagation, even_at_even_index, pair_merging,
 E_doubling_nat, E_doubling_mod, E_doubling, B_monotone,
 gate_exponent_unique, unit_gate_exponent_unique, gap_predicate_upward_closed,
 quotient_drop_le_one, forced_rebound, ratchet,
-entry_exists, quadratic_step, least_entry, ray_of_eventual_increment
+entry_exists, quadratic_step, least_entry, ray_of_eventual_increment,
+orbit_bound_doubled, entry_at_sqrt_bound, least_entry_le_sqrt_bound
     depends on axioms: [propext, Quot.sound]
 E_zero_of_ray, finite_start, finite_start_of_increment
     depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -92,6 +94,8 @@ E_zero_of_ray, finite_start, finite_start_of_increment
 | `finite_start` | **Theorem 18** from the ray hypothesis: `m < (c+3)(3c+5)` |
 | `ray_of_eventual_increment` | **absorption converse**: eventual increment `c` forces `b_t = c(t+1)` and `c < t` |
 | `finite_start_of_increment` | **Theorem 18** in the paper's form, from the eventual-increment hypothesis |
+| `orbit_bound_doubled` | the telescoped sum `2 b_{i+2} <= 2m + i(i+1)`, doubled so the triangular number needs no division |
+| `entry_at_sqrt_bound`, `least_entry_le_sqrt_bound` | **Lemma 3**'s explicit bound `n_0 <= ceil(sqrt(2m)) + 2` |
 
 The indexing shift (`B m k = b_{k+1}`) is not cosmetic: it makes the recurrence
 structurally recursive, so Lean accepts the definition without a termination
@@ -112,9 +116,6 @@ which is exact, has no side conditions at all, and immediately yields both the
 
 Following the instruction to formalize only non-speculative results:
 
-* **Lemma 3's explicit bound** `n₀ ≤ ⌈√(2m)⌉ + 2` — needs a summation estimate.
-  It is *not* needed for Theorem 18: that proof uses only existence of an entry
-  index plus minimality, so `entry_exists` (via `B m k ≤ m + k*k`) suffices.
 * **Theorem 137** (the closed block-chain map) and everything else in the
   safe-map development. `Conjecture/Gate.lean` formalizes only arithmetic facts
   about inequalities over `Nat`; it knows nothing about the safe map, and the
@@ -136,6 +137,10 @@ Following the instruction to formalize only non-speculative results:
    `B m s` and `c(s+2)` contradicts each strict comparison of `q` against `c`.
    `absorb_increment` produces exactly the hypothesis `finite_start_of_increment`
    consumes, so both directions of the absorption criterion now compose.
-3. Lemma 3's explicit `O(√m)` bound, for completeness rather than necessity.
+3. **Done:** Lemma 3's explicit bound. Square roots and ceilings are avoided by
+   noting that `⌈√(2m)⌉` is *by definition* the least `k` with `k² ≥ 2m`, so the
+   bound is equivalent to `k² ≥ 2m → b_{k+2} < (k+2)²`, which mentions neither.
+   The telescoped sum is carried doubled so the triangular number needs no
+   division.
 4. A verified checker for the finite enumeration, which would make Corollary 20
    end-to-end machine-checked.
