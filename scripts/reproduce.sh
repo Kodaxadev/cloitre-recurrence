@@ -43,6 +43,7 @@ python independent/verify_unit_chain_structure.py 300 1200
 python independent/verify_general_gate_determinism.py 220 220
 python independent/verify_pure_upper_run.py 500
 python independent/verify_block_chain_map.py 200
+python independent/verify_admissible_slack.py 200
 python independent/verify_sharp_growth.py
 python independent/verify_ridge_segments.py
 python independent/verify_mixed_ridges.py

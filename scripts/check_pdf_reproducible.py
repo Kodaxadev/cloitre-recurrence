@@ -60,7 +60,10 @@ def main(argv: list[str]) -> int:
     if digests[0] == digests[1]:
         print("\nREPRODUCIBLE: two independent builds produced identical bytes.")
         print("A recorded hash of this PDF therefore documents correspondence")
-        print("with its source, not merely custody of one file.")
+        print("with its source *and the toolchain that built it*, not merely")
+        print("custody of one file. See environment.txt beside each build: the")
+        print("hash is reproducible from the source plus that environment, and")
+        print("no claim is made across TeX Live releases.")
         return 0
 
     print("\nNOT REPRODUCIBLE: the builds differ.")

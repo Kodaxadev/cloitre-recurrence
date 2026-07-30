@@ -71,6 +71,7 @@ jobs:
           independent/verify_general_gate_determinism.py
           independent/verify_pure_upper_run.py
           independent/verify_block_chain_map.py
+          independent/verify_admissible_slack.py
           independent/verify_sharp_growth.py
           independent/verify_ridge_segments.py
           independent/verify_mixed_ridges.py
@@ -113,6 +114,8 @@ jobs:
         run: python independent/verify_pure_upper_run.py 500
       - name: Check the closed block-chain map
         run: python independent/verify_block_chain_map.py 200
+      - name: Check admissibility as a slack inequality, both directions
+        run: python independent/verify_admissible_slack.py 200
       - name: Check parameterized rebounds and sharp growth
         run: python independent/verify_sharp_growth.py
       - name: Check post-down ridge segments
@@ -155,16 +158,43 @@ jobs:
         run: bash scripts/build_paper.sh build-a
       - name: Compile again, independently
         run: bash scripts/build_paper.sh build-b
-      - name: Require byte reproducibility
+      - name: Require byte reproducibility, within this TeX environment
         run: >-
           python scripts/check_pdf_reproducible.py
           manuscript/arxiv/build-a/main.pdf
           manuscript/arxiv/build-b/main.pdf
           --require
+      # The gate above proves same-environment repeatability only. Whether the
+      # hash also survives a change of TeX Live is a separate empirical
+      # question, and the answer belongs in the provenance record rather than
+      # in a claim. The runner has TeX Live 2023; Debian bookworm has 2022, so
+      # one container answers it. Reported, never enforced: releases differing
+      # is expected behaviour, not a defect in this repository.
+      - name: Measure whether the hash survives a different TeX Live
+        continue-on-error: true
+        run: |
+          docker run --rm -v "$PWD:/w" -w /w debian:bookworm-slim bash -c '
+            set -eu
+            apt-get update -qq
+            DEBIAN_FRONTEND=noninteractive apt-get install -y -qq \
+              --no-install-recommends \
+              texlive-latex-base texlive-latex-recommended texlive-latex-extra \
+              texlive-fonts-recommended lmodern >/dev/null
+            bash scripts/build_paper.sh build-c
+          '
+          echo "--- ubuntu-latest ---"
+          cat manuscript/arxiv/build-a/environment.txt
+          echo "--- debian bookworm ---"
+          cat manuscript/arxiv/build-c/environment.txt
+          python scripts/check_pdf_reproducible.py \
+            manuscript/arxiv/build-a/main.pdf \
+            manuscript/arxiv/build-c/main.pdf
       - uses: actions/upload-artifact@v4
         with:
           name: cloitre-arxiv-draft-pdf
-          path: manuscript/arxiv/build-a/main.pdf
+          path: |
+            manuscript/arxiv/build-a/main.pdf
+            manuscript/arxiv/build-a/environment.txt
           if-no-files-found: error
 
   lean:

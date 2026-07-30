@@ -45,9 +45,43 @@ Same length, 324743 bytes both. So the dates were already handled and the
 trailer id was the only remaining cause. After fixing it, both builds hash to
 `84b75af2ba44b033a00720c49e61ddd301636f24a84d59654dce6cf438a7e171`.
 
-A hash of a build produced this way documents **correspondence** with its
-source, not merely custody, and the release build can be verified by anyone who
-rebuilds from the tag.
+### Exactly what that buys, and what it does not
+
+What has been demonstrated is **same-environment repeatability**: identical
+source, compiled twice on the same runner with the same TeX Live, gives
+identical bytes. That is strictly weaker than source-only reproducibility, and
+the difference matters for a reviewer.
+
+CI compiles on `ubuntu-latest` with TeX Live 2023/Debian, pdfTeX 1.40.25,
+installing texlive packages from the runner's current APT repositories. The
+[`Dockerfile`](../../Dockerfile) is Debian bookworm, which ships TeX Live 2022.
+Those are two different environments, and pdfTeX output is not guaranteed
+identical across TeX Live releases. So a reviewer who rebuilds from the tag with
+some other TeX Live may get a valid PDF with a different hash, and that is not
+evidence of tampering.
+
+The claim this record therefore makes is:
+
+> The build is byte-repeatable **within a recorded TeX environment**.
+> Verifying a PDF hash needs both the tagged source and that environment.
+
+To make the two operational rather than rhetorical, every build now writes
+`environment.txt` beside the PDF, holding the pdfTeX banner and the exact
+version of every installed `texlive*` package. A recorded hash is meaningful
+only next to that file, and the release provenance records the pair.
+
+CI also *measures* the cross-release question instead of speculating about it:
+after the gate, it rebuilds inside a `debian:bookworm-slim` container — TeX Live
+2022 against the runner's 2023 — and reports whether the bytes still agree. That
+step never fails the build, because a difference there is expected behaviour of
+TeX Live, not a defect here. Its output is the evidence for whichever way the
+answer goes, and it belongs in the release row below.
+
+Full source-only reproducibility, if it is ever wanted, needs the build
+environment itself pinned immutably: a base image pinned by OCI digest and
+packages from an immutable snapshot, with the image digest recorded alongside
+the source and PDF hashes. That is deliberately not done here — it trades CI
+robustness for a guarantee this draft does not need — and so it is not claimed.
 
 ## Superseded builds
 
@@ -73,8 +107,10 @@ When the paper is frozen:
    [`README.md`](README.md).
 2. Run `bash scripts/build_paper.sh`, or download the artifact from the CI run.
    The build is already deterministic, so no extra step is needed.
-3. Tag the commit and record the build's hash here. Because the build is
-   reproducible, that hash is verifiable by anyone rebuilding from the tag.
+3. Tag the commit and record here **three** things, not one: the hash, the
+   contents of the build's `environment.txt`, and what the cross-release step
+   reported for that build. The hash alone is not checkable; the hash next to
+   its environment is.
 4. Attach the PDF to the GitHub Release rather than committing it. A Release
    asset is immutable, tied to a tag, and does not enter git history — where a
    binary cannot later be removed without rewriting it.

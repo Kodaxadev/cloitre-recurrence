@@ -8,6 +8,12 @@
 # /ModDate since TeX Live 2016, which is a prerequisite for a byte-reproducible
 # PDF. Whether it is sufficient is measured separately by
 # scripts/check_pdf_reproducible.py rather than assumed here.
+#
+# Reproducibility here means *within one TeX environment*: identical source and
+# identical toolchain give identical bytes. Different TeX Live releases are not
+# claimed to agree, so a PDF hash is only meaningful next to the environment
+# that produced it. That is why every build writes environment.txt beside the
+# PDF, and why the release provenance records the two together.
 
 set -euo pipefail
 
@@ -21,6 +27,19 @@ export FORCE_SOURCE_DATE=1
 
 cd "$paper"
 mkdir -p "$outdir"
+
+# The toolchain fingerprint. `pdflatex --version` names the TeX Live release;
+# the package versions are what actually determine the output bytes on a Debian
+# or Ubuntu runner, so record them where the package manager can say.
+{
+  pdflatex --version | head -1
+  if command -v dpkg-query >/dev/null 2>&1; then
+    dpkg-query -W -f='${Package} ${Version}\n' 'texlive*' lmodern 2>/dev/null \
+      | sort || true
+  else
+    echo "(no dpkg-query; package versions unrecorded)"
+  fi
+} > "$outdir/environment.txt"
 
 for pass in 1 2; do
   echo "=== pdflatex pass $pass ==="
@@ -57,5 +76,7 @@ pages=$(grep -oE "Output written on [^(]*\(([0-9]+) page" "$log" | grep -oE "[0-
 echo "pages: ${pages:-unknown}"
 echo "over/underfull boxes: $boxes"
 echo "output: $paper/$outdir/main.pdf"
+echo "environment:"
+sed 's/^/  /' "$outdir/environment.txt"
 
 exit "$fail"

@@ -1,12 +1,23 @@
 # Pinned reproduction environment for the Cloitre recurrence research package.
 #
 # CI runs on `ubuntu-latest` and `windows-latest`, which are moving targets. This
-# image pins every toolchain to the exact version the committed results were
-# produced with, so a reviewer can reproduce them years from now:
+# image constrains the toolchains to the versions the committed results were
+# produced with, so a reviewer can rerun them years from now:
 #
 #   Python 3.13   (base image)
 #   Rust   1.94.0 (matches .github/workflows/ci.yml)
 #   Lean   4.32.2 (matches lean-toolchain)
+#
+# "Constrains", not "pins bit-for-bit". Rust and Lean are pinned by exact
+# version below, and Python to a minor release by the base tag. But the base
+# image is referenced by tag rather than by OCI digest, the Debian packages come
+# from whatever bookworm serves at build time, and the rustup and elan installer
+# scripts are fetched from their upstream heads. So two builds of this
+# Dockerfile months apart agree on the toolchain versions that matter for the
+# mathematics, and are not guaranteed to agree byte-for-byte.
+#
+# That is sufficient for rerunning the checks, which is what this image is for.
+# It is not sufficient to reproduce a PDF hash; see manuscript/arxiv/BUILDS.md.
 #
 # Build and run the full check suite:
 #
