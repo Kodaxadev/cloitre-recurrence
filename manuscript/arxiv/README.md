@@ -8,8 +8,33 @@ This package is the first focused paper extracted from the broader `cloitre-recu
 
 ## Source basis
 
-Repository: `Kodaxadev/cloitre-recurrence`  
-Drafted from commit: `7ccda13f112f3768a35d28759891aaa0689e3c77`
+Repository: `Kodaxadev/cloitre-recurrence`
+
+### Provenance convention
+
+The commit hash is **not** on the title page, and should not be put back there.
+A commit cannot contain its own hash: writing the hash into `main.tex` creates a
+new commit with a different hash, so the printed line is stale the moment it is
+written. That is what happened to the earlier `7ccda13...` line — the draft was
+then corrected in a later commit and the title page still named the old one.
+
+Provenance therefore lives here, in metadata that can be updated after a commit
+without recompiling the PDF:
+
+| Field | Value |
+|---|---|
+| Content basis | the commit containing this file |
+| Release tag | *not yet created* |
+
+For an immutable release, tag the commit and record the tag above. A tag is
+created after the commit it names, so it carries no circularity:
+
+```bash
+git tag -a v0.1.0-paper -m "arXiv draft: eventual-increment spectrum" <commit>
+git push origin v0.1.0-paper
+```
+
+Cite the tag, not a branch, in any archived version.
 
 Primary source files used:
 
@@ -103,4 +128,8 @@ Expected SHA-256:
 2. Confirm historical attribution and bibliography wording.
 3. Add author contact details and ORCID, if applicable.
 4. Archive an immutable release containing the manuscript source, verifier, certificate, and hashes.
-5. Compile with arXiv's TeX environment before submission; no LaTeX toolchain is present in this development environment, so only the structural check has been run here.
+5. Tag the release commit and fill in the tag in the provenance table above.
+6. Compile with arXiv's TeX environment before submission. The split source has
+   been compiled cleanly with TeX Live 2025 — 8 pages, no errors, no undefined
+   references or citations, no overfull or underfull boxes, all pages visually
+   inspected — but arXiv's own preview is a separate submission-stage check.
