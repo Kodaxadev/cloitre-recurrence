@@ -120,17 +120,34 @@ Stabilization is exactly the event \(e_n=0\). This exposes the dynamics as a dou
 | Universal stabilization | **Open** | No proof claimed |
 | \(m<(c+3)(3c+5)\) | Internally proved | Complete proof; awaiting external mathematical review |
 | Eventual increments 5 and 7 are omitted | Certified | Independent complete finite certificate |
-| 106 omissions among \(1,\dots,1823\) | Census result | Primary compressed census; full independent census pending |
+| 106 omissions among \(1,\dots,1823\) | Independently reproduced census result | Primary compressed census and an independent auditor's full scratch enumeration agree exactly; the scratch implementation is not yet tracked |
 | Counterexample growth bounds | Internally proved | Complete proof; awaiting external mathematical review |
+| Unit-leading bound with explicit \(1-O(1/\log\log n)\) rate | New internal proof | Theorem 56 and Corollary 57; post-freeze and awaiting fresh audit; optimality for the recurrence is not claimed |
+| Sublinear counterexamples have sparse down-steps | New internal proof | Theorem 58 and Corollaries 59/61/64; zero density, divergent spacing, diluted ridge segments, and unbounded zero plateaus, but not finite occurrence |
+| Uniform local ridge density is false | New exact construction | Proposition 66 gives valid words \(-1,1^K,0^{K^2},-1\), with up-step fraction \(1/(K+1)\); global reachability and general mixed concatenation remain open |
+| Pure unit-terminal ridges cannot repeat indefinitely | New internal proof | Theorem 69 excludes three consecutive \(v=1\) ridges; arbitrary \(v\) requires Theorem 72, while mixed positive words remain open |
+| Infinite arbitrary-\(v\) pure tails require exponential local complexity | New internal proof | Theorem 72; conditional on every sufficiently late ridge having word \(1^K0^z\), while mixed positive words remain open |
+| Arbitrary mixed ridges reduce to two exact escape modes | New internal proof | Lemmas 73/76/78 and Theorems 75/77: either terminal runs grow, necessarily no faster than \(\log_2\log_2 n+o(1)\), or one fixed dyadic boundary ladder is shadowed infinitely often; neither mode is yet excluded |
+| Safe-map wrap blocks are short but quantitatively recurrent | New internal proof | Lemma 80 and Corollaries 81/82 give \(2^kU<n\), \(k\le\log_2\log_2n+o(1)\), and at least \((1-o(1))n/(\log_2n\log_2\log_2n)\) completed positive blocks by a zero epoch; these are restrictions, not termination |
+| Adjacent safe-map blocks pass through an exact dyadic gate | New internal proof | Lemma 83 and Corollary 84 give \(m+3-f=2^kA\), a lifted class modulo \(2^{k+1}\), and a sharp interval; the gate either fixes both endpoints uniquely or forces \(2^{k+r+3}<G+r-3\), but neither alternative is excluded |
+| Unit-wrap gates have an exact boundary test | New internal proof | Lemmas 85/87, Corollaries 86/88/89, and Theorem 90 give an affine map on \((n,D,s)\), isolate non-short gates, and force every infinite all-unit/all-unique chain onto the exact critical scale \(D_j\sim j\log_2j\) and \(U_j\log_2n_j/n_j\to1\); this is not termination |
+| An eventual all-unit, all-unique safe tail is impossible | New internal proof | Theorem 91 turns the critical scale into bounded excess and a six-value dyadic offset; the resulting finite affine-dyadic forms cannot support two starts in one large dyadic epoch, although \(O(\log n)\) index advances force such pairs |
+| A persistent parent-boundary safe tail is impossible | New internal proof | Lemmas 92/94/96/98/100 and Theorem 101 first reduce the tail to fixed block length, then force its gaps both to increase strictly and to have bounded mean; every infinite safe path must instead use infinitely many nonunique or unique child-boundary gates |
+| Interior gates occupy one canonical moving window | New internal proof | Lemmas 103/106 and Corollaries 104/105/107--109 rewrite the two surviving interior conditions as one exact window \(D'-3\in[\rho,\rho+H)\); every infinite safe path has infinitely many nonunique gates or zero-density longer-child resets with \(r/\log_2n'\to1\), and neither alternative is excluded |
+| Nonunique gates have exact finite multiplicity | New internal proof | Lemma 110 and Corollaries 111/112 count every lattice translate: each missed canonical window contributes one lower candidate, while upper ambiguity is defect-truncated and forces a two-block exponential ceiling |
+| Gate excess transfers exactly to the child residue | New internal proof | Lemma 113 and Corollaries 114/115 eliminate quotient and defect from one inter-gate transfer; unit-block chains obey an exact affine recurrence, while a verified six-gate pure-upper run rules out a short-transience argument |
+| All-unit pure-upper tails are forced onto a critical scale | New internal proof | Lemmas 116/117 and Theorem 118 normalize the quotient, characterize unit states exactly, and force \(n_J/(J\log_2J)\) into \([1/2,1]\) and \(U_J\log_2n_J/n_J\) into \([1,2]\); this does not exclude such a tail |
+| The critical all-unit branch has an exact renewal dichotomy | New internal proof | Lemma 119, Corollary 120, and Theorem 121 force either a growing dyadic congruence modulus or returns to one fixed dyadic ladder; Theorem 122 and Lemmas 123/125/127/128 give renewal exclusion, word rigidity, composition arithmetic, and nondecreasing outgoing dyadic scales; Propositions 126/129 construct unbounded two-renewal segments but prove that this entire family exits pure-upper after one forced continuation gate |
 | No eventually periodic quotient-change sequence | Internally proved | Complete proof; awaiting external mathematical review |
 | Two-counter termination for every valid entry state | **Open** | Only the eventually-no-down branch is reduced |
 | Safe-map instance at \(N=10^6\) | Certified finite result | Independent Rust/Python agreement |
+| Safe-map starts at every \(2\le N\le10^6\) | New internal proof from finite certificate | Theorem 46 propagates the checkpoint downward; fresh audit pending |
 
 “Internally proved” means that a complete proof is present and passed a fresh-context internal audit. It does **not** mean that an external specialist has refereed it. See [`audit/release-readiness.md`](audit/release-readiness.md).
 
 ## The aperiodic frontier
 
-For an eventually-no-down tail, the project derives an exact future-digit identity and an exact two-counter safe map. A compressed certificate checks all \(999{,}999\) positive states at index \(10^6\) and empties the safe set after \(9{,}019\) additional steps.
+For an eventually-no-down tail, the project derives an exact future-digit identity and an exact two-counter safe map. A compressed certificate checks all \(999{,}999\) positive states at index \(10^6\) and empties the safe set after \(9{,}019\) additional steps. Theorem 46 shows that this single checkpoint also rules out infinite positive no-down paths beginning at every earlier index.
 
 > [!CAUTION]
 > The two-counter map covers the **eventually-no-down branch only**. A hypothetical counterexample with infinitely many quotient down-steps lies outside this reduction. The \(N=10^6\) certificate is rigorous but finite; it is not a uniform termination theorem.
@@ -162,37 +179,105 @@ before reporting a completed range.
 | `verification-framework/verify.py` | Third implementation using arbitrary-precision Python integers |
 | `independent/` | Independent certificate regenerators |
 | `lean/Conjecture.lean` | Mathlib-free Lean formalization of foundational identities |
-| `.github/workflows/ci.yml` | Rust, Python, certificate, hash, OEIS, and Lean checks |
+| `scripts/check_lean_nanoda.sh` | Pinned independent-kernel check of the Lean environment |
+| `.github/workflows/ci.yml` | Rust, Python, certificate, hash, OEIS, and Lean checks; Rust and Python run on both Ubuntu and Windows |
+| `Dockerfile` + `scripts/reproduce.sh` | Pinned toolchains (Rust 1.94.0, Python 3.13, Lean 4.32.2) and a one-command run of every fast check |
+| `data/README.md` | Column-level format documentation for every tracked artifact |
+| `manuscript/arxiv/` | Focused arXiv draft: the finite-start theorem and certified nonsurjectivity, with a structural check in CI |
 
 The Lean development compiles without `sorry`, but it does **not** formalize the finite-start theorem, growth bounds, all-period exclusion, or two-counter reduction.
+
+### Reproducing
+
+```bash
+docker build -t cloitre . && docker run --rm cloitre
+```
+
+That runs the full fast suite against pinned toolchains. The heavy computations behind K1–K8, K13, K15 and K17 take hours and are not in CI; their exact commands are printed at the end of `scripts/reproduce.sh`.
+
+## Repository layout
+
+| Path | Contents |
+|---|---|
+| [`docs/`](docs/) | All research notes. [`docs/theorem-status.md`](docs/theorem-status.md) is the claim ledger and the authoritative index; `docs/proofs/`, `docs/research-logs/`, `docs/future-directions/` and `docs/notes/` are what it cites. See [`docs/README.md`](docs/README.md) |
+| [`lean/`](lean/) | Mathlib-free Lean 4 formalization, with an axiom audit |
+| [`manuscript/`](manuscript/) | Statement-and-proof dossier and the [arXiv draft](manuscript/arxiv/) |
+| [`search-framework/`](search-framework/) | Zero-dependency Rust dynamics, sweeps, and safe-map tools |
+| [`verification-framework/`](verification-framework/) | Independent `u128` Rust verifier and a third Python implementation |
+| [`independent/`](independent/) | Independent regenerators that reimplement the raw maps and import no project code |
+| [`certificates/`](certificates/), [`data/`](data/) | Compact certificates and datasets; see [`data/README.md`](data/README.md) for formats |
+| [`audit/`](audit/) | Internal audit passes, evidence boundaries, and the dependency graph |
+| [`scripts/`](scripts/) | Reproduction, checkers, and analysis utilities |
+
+`scripts/check_doc_links.py` verifies in CI that every relative link and inline path reference across all documentation resolves.
 
 ## Recommended reading path
 
 1. **[`audit/evidence-manifest.md`](audit/evidence-manifest.md)** — audit release identity, canonical artifact hashes, and evidence boundaries
 2. **[`manuscript/README.md`](manuscript/README.md)** — compact statement-and-proof dossier
 3. **[`audit/theorem-dependency.md`](audit/theorem-dependency.md)** — theorem dependency graph and critical cuts
-4. **[`theorem-status.md`](theorem-status.md)** — complete claim ledger
+4. **[`theorem-status.md`](docs/theorem-status.md)** — complete claim ledger
 5. **[`supplement/README.md`](supplement/README.md)** — algorithms, certificates, and reproduction
 6. **[`audit/fresh-proof-review.md`](audit/fresh-proof-review.md)** — fresh-context internal audit
+7. **[`audit/opus-pr2-audit.md`](audit/opus-pr2-audit.md)** — independent AI audit of the post-freeze gate and ridge cuts, with residual evidence limits
+8. **[`audit/continuation-t58-l63.md`](audit/continuation-t58-l63.md)** — dependency-closing audit for the sublinear down-step and terminal-suffix theorems
+9. **[`audit/continuation-c89-t90.md`](audit/continuation-c89-t90.md)** — quantified asymptotic audit of the critical unit-wrap scale
+10. **[`audit/opus-reconciliation-verification.md`](audit/opus-reconciliation-verification.md)** — independent recheck of the repaired cuts and exact Lemma 100 witnesses
+11. **[`audit/scoped-post-freeze-band.md`](audit/scoped-post-freeze-band.md)** — scoped internal pass over T46–C57, C64–T72, and L78–C82
+12. **[`audit/tail-123-142.md`](audit/tail-123-142.md)** — per-claim verification coverage for the L123–C142 tail, the heuristic boundary, and the provenance-pin check
 
 <details>
 <summary><strong>Research notes and specialized analyses</strong></summary>
 
 | File | Contents |
 |---|---|
-| [`partial-proofs.md`](partial-proofs.md) | foundational proofs and finite-start theorem |
-| [`bounded-quotient-analysis.md`](bounded-quotient-analysis.md) | entry ridge, rebound cascade, bounded quotient, growth bound |
-| [`periodic-orbit-analysis.md`](periodic-orbit-analysis.md) | affine-phase obstruction and finite periodic search |
-| [`periodic-denominator-families.md`](periodic-denominator-families.md) | denominator-family exclusions |
-| [`periodic-boundary-reduction.md`](periodic-boundary-reduction.md) | universal boundary subset-equation reduction |
-| [`aperiodic-tail-analysis.md`](aperiodic-tail-analysis.md) | future-digit identity and monotone-tail safe map |
-| [`symbolic-analysis.md`](symbolic-analysis.md) | doubling model, heuristics, and failures |
-| [`compressed-orbit-analysis.md`](compressed-orbit-analysis.md) | compression design and rejected approaches |
-| [`invariant-search.md`](invariant-search.md) | negative invariant and potential searches |
-| [`literature-review.md`](literature-review.md) | prior work and attribution |
-| [`research-log.md`](research-log.md) | exploratory chronology and corrections |
-| [`research-log-aperiodic.md`](research-log-aperiodic.md) | continuation chronology |
-| [`future-directions.md`](future-directions.md) | ranked unresolved directions |
+| [`partial-proofs.md`](docs/proofs/partial-proofs.md) | foundational proofs and finite-start theorem |
+| [`bounded-quotient-analysis.md`](docs/proofs/bounded-quotient-analysis.md) | entry ridge, rebound cascade, bounded quotient, growth bound |
+| [`periodic-orbit-analysis.md`](docs/proofs/periodic-orbit-analysis.md) | affine-phase obstruction and finite periodic search |
+| [`periodic-denominator-families.md`](docs/proofs/periodic-denominator-families.md) | denominator-family exclusions |
+| [`periodic-boundary-reduction.md`](docs/proofs/periodic-boundary-reduction.md) | universal boundary subset-equation reduction |
+| [`aperiodic-tail-analysis.md`](docs/proofs/aperiodic-tail-analysis.md) | future-digit identity and monotone-tail safe map |
+| [`safe-map-checkpoint-analysis.md`](docs/proofs/safe-map-checkpoint-analysis.md) | checkpoint monotonicity and signed-distance safe map |
+| [`sparse-downstep-analysis.md`](docs/proofs/sparse-downstep-analysis.md) | down-step density, spacing, weighted rebound budget, and ridge dilution |
+| [`ridge-segment-analysis.md`](docs/proofs/ridge-segment-analysis.md) | terminal negative suffix, down-epoch defect coding, and exact diluted ridge families |
+| [`ridge-chain-analysis.md`](docs/proofs/ridge-chain-analysis.md) | unit and arbitrary-terminal pure-ridge compatibility, dyadic congruence, and conditional complexity obstruction |
+| [`mixed-ridge-analysis.md`](docs/proofs/mixed-ridge-analysis.md) | arbitrary mixed-ridge defect, terminal-run congruence, and exhaustive dyadic boundary-ladder dichotomy |
+| [`terminal-run-analysis.md`](docs/proofs/terminal-run-analysis.md) | exact state-window inequality and log-log ceiling for terminal positive up-runs |
+| [`safe-wrap-run-analysis.md`](docs/proofs/safe-wrap-run-analysis.md) | exact state-window inequality and log-log ceiling for safe-map wrap blocks |
+| [`safe-block-gate-analysis.md`](docs/proofs/safe-block-gate-analysis.md) | exact dyadic compatibility gate between adjacent positive safe-map blocks |
+| [`unit-wrap-gate-analysis.md`](docs/proofs/unit-wrap-gate-analysis.md) | induced unit-wrap coordinates and exact uniqueness-boundary test |
+| [`unit-wrap-chain-analysis.md`](docs/proofs/unit-wrap-chain-analysis.md) | persistence obstruction and critical-scale bounds for unique unit-wrap chains |
+| [`unit-wrap-critical-exclusion.md`](docs/proofs/unit-wrap-critical-exclusion.md) | dyadic-epoch contradiction excluding the all-unit/all-unique tail |
+| [`general-gate-boundary-analysis.md`](docs/proofs/general-gate-boundary-analysis.md) | exact two-boundary uniqueness test for positive blocks of arbitrary length |
+| [`parent-boundary-gate-analysis.md`](docs/proofs/parent-boundary-gate-analysis.md) | affine parent-layer compatibility and nonincreasing block lengths |
+| [`parent-gap-exclusion.md`](docs/proofs/parent-gap-exclusion.md) | strict gap growth and exclusion of the persistent parent boundary |
+| [`child-boundary-window.md`](docs/proofs/child-boundary-window.md) | canonical residue decomposition and exact interior uniqueness window |
+| [`gate-multiplicity-analysis.md`](docs/proofs/gate-multiplicity-analysis.md) | exact candidate count and upper-ambiguity two-block ceiling |
+| [`gate-transfer-analysis.md`](docs/proofs/gate-transfer-analysis.md) | exact child-residue transfer and unit-block pure-upper recurrence |
+| [`unit-pure-upper-analysis.md`](docs/proofs/unit-pure-upper-analysis.md) | quotient normalization, exact unit-state test, and critical-scale theorem |
+| [`unit-renewal-exclusion.md`](docs/proofs/unit-renewal-exclusion.md) | exponential obstruction to three strict alternating fixed-ladder renewals |
+| [`unit-word-rigidity.md`](docs/proofs/unit-word-rigidity.md) | fixed-word endpoint rigidity and zero-density renewal bound |
+| [`unit-word-arithmetic.md`](docs/proofs/unit-word-arithmetic.md) | sparse-binary endpoint equation and sharp two-renewal families |
+| [`unit-word-composition.md`](docs/proofs/unit-word-composition.md) | exact word composition, dyadic windows, and termination of the explicit family |
+| [`unit-chain-determinism.md`](docs/proofs/unit-chain-determinism.md) | forced-gate determinism, inert wrap count, exhaustive chain ceiling, and heuristic count |
+| [`general-gate-determinism.md`](docs/proofs/general-gate-determinism.md) | forced pure-upper gap at arbitrary block length |
+| [`block-chain-closed-map.md`](docs/proofs/block-chain-closed-map.md) | closed forms for gap and block length, and the four-integer deterministic map |
+| [`slack-coordinates.md`](docs/proofs/slack-coordinates.md) | threshold-slack coordinates, admissible-slack counts, and the one-sided forcing dichotomy |
+| [`symbolic-analysis.md`](docs/notes/symbolic-analysis.md) | doubling model, heuristics, and failures |
+| [`compressed-orbit-analysis.md`](docs/notes/compressed-orbit-analysis.md) | compression design and rejected approaches |
+| [`invariant-search.md`](docs/notes/invariant-search.md) | negative invariant and potential searches |
+| [`literature-review.md`](docs/notes/literature-review.md) | prior work and attribution |
+| [`research-log.md`](docs/research-logs/research-log.md) | exploratory chronology and corrections |
+| [`research-log-aperiodic.md`](docs/research-logs/research-log-aperiodic.md) | continuation chronology |
+| [`research-log-ridge-chains.md`](docs/research-logs/research-log-ridge-chains.md) | arbitrary-terminal ridge-chain derivation and rejected monotonicity routes |
+| [`research-log-mixed-ridges.md`](docs/research-logs/research-log-mixed-ridges.md) | mixed-ridge derivation, bounded falsification, and surviving low-bit target |
+| [`research-log-parent-gaps.md`](docs/research-logs/research-log-parent-gaps.md) | fixed-length parent-gap exclusion and surviving child-boundary target |
+| [`research-log-child-window.md`](docs/research-logs/research-log-child-window.md) | child-window derivation and orbitwise-equidistribution warning |
+| [`research-log-gate-transfer.md`](docs/research-logs/research-log-gate-transfer.md) | pure-upper persistence falsification and exact residue-transfer derivation |
+| [`research-log-safe-wraps.md`](docs/research-logs/research-log-safe-wraps.md) | safe-wrap balance dead end, log-log ceiling, and quantitative block recurrence |
+| [`research-log-unit-determinism.md`](docs/research-logs/research-log-unit-determinism.md) | collapse of the cross-word framing, forced-gate derivation, and the inequality routes that fail |
+| [`future-directions.md`](docs/future-directions/future-directions.md) | ranked unresolved directions |
+| [`future-directions-safe-map.md`](docs/future-directions/future-directions-safe-map.md) | safe-map frontier: ridge, gate, and unit-block branches with current targets |
 
 </details>
 
@@ -206,9 +291,15 @@ cargo test --release --manifest-path verification-framework/Cargo.toml
 cargo run --release --manifest-path verification-framework/Cargo.toml -- --selftest
 python verification-framework/verify.py --oeis
 python independent/verify_small_spectrum.py
+python independent/verify_mixed_ridges.py
+python independent/verify_child_boundary_window.py
+python independent/verify_unit_word_rigidity.py
+python independent/verify_unit_word_arithmetic.py
+python independent/verify_unit_word_composition.py
 python scripts/periodic_phase_blocks.py --max-denominator 501
-lake build
-lean lean/Conjecture.lean
+lake build --wfail
+lake env leanchecker Conjecture
+bash scripts/check_lean_nanoda.sh
 ```
 
 The full \(10^7\) census and full \(N=10^6\) independent safe-map regeneration are intentionally not run on every push. Exact commands and expected digests are recorded in [`supplement/03-reproduction.md`](supplement/03-reproduction.md).

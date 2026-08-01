@@ -1,0 +1,263 @@
+# arXiv draft package
+
+## Title
+
+**The Eventual-Increment Spectrum of the Recurrence
+`b(n+1) = b(n) + (b(n) mod n)` Is Not Surjective**
+
+This package is the first focused paper extracted from the broader `cloitre-recurrence` repository. It contains only the completed finite-start theorem and the independently certified proof that 5 and 7 are the smallest omitted eventual increments.
+
+## Source basis
+
+Repository: `Kodaxadev/cloitre-recurrence`
+
+### Provenance convention
+
+The commit hash is **not** on the title page, and should not be put back there.
+A commit cannot contain its own hash: writing the hash into `main.tex` creates a
+new commit with a different hash, so the printed line is stale the moment it is
+written. That is what happened to the earlier `7ccda13...` line — the draft was
+then corrected in a later commit and the title page still named the old one.
+
+Provenance therefore lives here, in metadata that can be updated after a commit
+without recompiling the PDF:
+
+| Field | Value |
+|---|---|
+| Content basis | the commit containing this file |
+| Release tag | *not yet created* |
+
+For an immutable release, tag the commit and record the tag above. A tag is
+created after the commit it names, so it carries no circularity:
+
+```bash
+git tag -a v0.1.0-paper -m "arXiv draft: eventual-increment spectrum" <commit>
+git push origin v0.1.0-paper
+```
+
+Cite the tag, not a branch, in any archived version.
+
+Primary source files used:
+
+- `partial-proofs.md`
+- `manuscript/01-foundations-and-spectrum.md`
+- `supplement/02-certificates.md`
+- `supplement/03-reproduction.md`
+- `certificates/spectrum_m259.csv`
+
+## Layout
+
+`main.tex` holds the preamble, title, abstract and bibliography, and pulls in one
+file per section from `sections/`. arXiv accepts multi-file sources, and the split
+keeps each file inside the repository's per-file length gate.
+
+| File | Section |
+|---|---|
+| `sections/01-introduction.tex` | statement of the main theorem |
+| `sections/02-coordinates.tex` | quotient/remainder coordinates and absorption |
+| `sections/03-entry.tex` | entry lemma, bounded quotient, doubling coordinate |
+| `sections/04-ratchet.tex` | forced rebound and the ratchet |
+| `sections/05-finite-start.tex` | Theorem: `m < (c+3)(3c+5)` |
+| `sections/06-spectrum.tex` | the smallest omitted increments |
+| `sections/07-certificate.tex` | certificate and reproducibility boundary |
+| `sections/08-open.tex` | open problems |
+| `sections/09-disclosure.tex` | acknowledgments and AI-assistance disclosure |
+
+## Build
+
+From the repository root:
+
+```bash
+bash scripts/build_paper.sh
+```
+
+That runs `pdflatex` twice so cross-references resolve, then **fails** on
+undefined references, undefined citations, or any overfull or underfull box — so
+a broken build cannot pass unnoticed. No bibliography tool is required;
+references are embedded in `main.tex`.
+
+CI compiles the draft on every push and uploads the PDF as a build artifact, so
+a working LaTeX installation is not needed to obtain one. The container also
+carries LaTeX unless built with `--build-arg WITH_TEX=0`.
+
+A structural check that needs no LaTeX installation — environment balance,
+cross-references, citations, `\input` targets, brace balance — is run in CI:
+
+```bash
+python scripts/check_tex_structure.py
+```
+
+## Reproduce the finite certificate
+
+From the repository root:
+
+```powershell
+python independent\verify_small_spectrum.py
+Get-FileHash -Algorithm SHA256 certificates\spectrum_m259.csv
+```
+
+Expected SHA-256:
+
+```text
+66a06cff15735c4a3caf98575f29afbcd881fbef06334616fbc3bc772b7ab084
+```
+
+## Current status
+
+- The finite-start theorem is written as a complete symbolic proof.
+- The 259-row certificate is independently regenerated using arbitrary-precision literal recurrence dynamics, and a fresh recomputation agrees with all 259 rows.
+- Universal stabilization remains open.
+- Theorem 18 is machine-checked in Lean **in the form stated in the paper** (`Conjecture.finite_start_of_increment`), composing `finite_start` with the absorption converse `ray_of_eventual_increment`. The forced-rebound lemma, the ratchet and the quadratic step are also formalized. One gap remains: the nonsurjectivity theorem, whose finite exhaustion is checked by an independent program rather than in the proof assistant.
+- Human specialist review remains pending.
+
+## Repository review applied to this draft
+
+- **Ratchet proof gap, fixed.** The original proof asserted that an occupancy of
+  level `q_u - 1` "must have been produced by the preceding down-step", which is
+  the step needing proof: a flat step at that level could otherwise precede a
+  further descent. Section 4 now carries the two-alternative induction, with a
+  remark on why the second alternative is not optional, and the same induction is
+  machine-checked in Lean (`Conjecture.ratchet`).
+- **Bounded-quotient lemma**, final sentence: the implication
+  `b_n < n^2  =>  q_n < n` that connects it to the entry lemma is now written out
+  rather than bundled into "Consequently".
+- **Lean boundary** in Section 7 rewritten twice. Theorem 18 is now itself
+  machine-checked from the ray hypothesis, so the paragraph now states the two
+  boundaries that actually remain: the converse half of the absorption criterion,
+  and the finite exhaustion behind the nonsurjectivity theorem. The entry lemma
+  is formalized in the form the proof consumes — existence plus minimality — and
+  the paper now says the `⌈√(2m)⌉ + 2` bound is not needed for Theorem 18, which
+  is true of the paper's own proof. Section 7 was then rewritten a third time
+  when the absorption converse landed, and now states that both directions of the
+  absorption criterion are formalized.
+- `\bibitem{repository}` was never cited; Section 7 now cites it.
+- **Attribution audit, done against the primary sources.** Fetched OEIS A073117
+  and A117846 and the MathOverflow question metadata directly:
+  - **A073117 is not Cloitre's.** The sequence was contributed by
+    **R. Zumkeller, 19 Aug 2002**. **B. Cloitre** added a comment **one day
+    later**, 20 Aug 2002, conjecturing stabilization for the *general* family
+    `b(n+1) = b(n) + b(n) mod (n+a)`. So the conjecture is Cloitre's; the
+    sequence is Zumkeller's. The introduction now says exactly this and the
+    bibliography records both.
+  - A117846 and the surjectivity question are **A. Abercrombie, 22 Mar 2007** —
+    the paper was already correct, and the question is present verbatim as
+    *"Do the values a(n) include all positive numbers?"*
+  - The MathOverflow title was slightly wrong: it is
+    *"Mod sequences that seem to become constant**;** and the number 316"*,
+    asked by **Joseph O'Rourke, 26 Dec 2014**. Corrected, and the asker is now
+    credited.
+  - The ledger's "known" attributions were checked against the actual answers:
+    T2 and T11 appear in RavenclawPrefect's answer (2025-09-03), pair merging in
+    Gjergji Zaimi's (2014-12-29). Both now carry author and date.
+
+## Compile status
+
+**A recompile is needed.** Every existing build predates the neutral title
+applied in `910f6a9`. Compiled PDFs are not tracked here; the provenance record
+for past builds, and the plan for the release build, is in
+[`BUILDS.md`](BUILDS.md).
+
+That gap is now closed, and the closing is enforced. `pdflatex` is not
+byte-reproducible by default — it embeds a wall-clock `/CreationDate` and a
+time-derived `/ID` — so `scripts/build_paper.sh` exports a fixed
+`SOURCE_DATE_EPOCH` and `main.tex` sets `\pdftrailerid{}`. CI compiles the paper
+twice and **fails** if the bytes differ.
+
+One limit survives, and the release must state it rather than paper over it: this
+is repeatability within a recorded TeX environment, not source-only
+reproducibility. CI measured TeX Live 2023 and TeX Live 2022 compiling the same
+source to different bytes, so a hash is only meaningful beside the
+`environment.txt` its build wrote. `BUILDS.md` carries the measurement.
+
+Nothing editorial is pending. The batch is empty:
+
+| Change | Status |
+|---|---|
+| Author contact details | applied — `Justin@Kodaxa.dev` on the byline |
+| ORCID | none, by the author's decision |
+| `CITATION.cff` author | applied — names the author, not the repository handle |
+
+**Editorial changes are otherwise batched.** Purely editorial edits to
+`main.tex` and `sections/` are held until the release freeze rather than landed
+one at a time, because each one invalidates the compiled PDF — three builds were
+retired that way before this policy. Correctness changes still land immediately.
+The title was an exception, applied on the author's explicit instruction.
+
+## The title: applied
+
+The neutral option is in `main.tex`. It states exactly what the paper proves,
+avoids implying that Cloitre introduced this specific sequence, avoids coining a
+"Zumkeller–Cloitre recurrence" that has no established use, and stays legible to
+a referee meeting the problem for the first time. `hypersetup`'s `pdftitle`
+carries a plain-ASCII form, since PDF metadata cannot hold math.
+
+The introduction still records that Zumkeller contributed the sequence and
+Cloitre formulated the broader stabilization conjecture, and Section 8 still
+refers to "Cloitre's conjecture", which is correct.
+
+The repository name and `CITATION.cff` keep "Cloitre recurrence" — they name the
+research package rather than assert mathematical priority, and changing them
+would break the citation identity pinned at `v0.1.0-audit`.
+
+### The audit that raised it
+
+The title said *"Cloitre's Recurrence"*. The **conjecture** is Cloitre's but the
+**sequence** is Zumkeller's, and Cloitre's comment concerns the general `n+a`
+family rather than this specific recurrence. The three options weighed were:
+
+1. Keep it, read as "the recurrence of Cloitre's conjecture".
+2. Credit both, as "the Zumkeller–Cloitre recurrence".
+3. Neutral: name the recurrence rather than a person.
+
+Option 3 was chosen. Option 2 was rejected because it would coin an eponym with
+no established use.
+
+The repository name and `CITATION.cff` also say "Cloitre recurrence". Those are
+a separate question — they name the research package rather than assert
+mathematical priority, and changing them would break the citation identity
+already pinned at `v0.1.0-audit`. They are unchanged.
+- Verified numerically: every witness in Table 1, both candidate bounds
+  (160 and 260), the absence of increments 5 and 7 below 260, and agreement of
+  all 259 certificate rows with an independent recomputation.
+
+## Release checklist
+
+Everything mechanical is done. What remains is split by who can do it, because
+that is the only distinction that matters now.
+
+**The editorial batch is empty.** The author details are applied: the byline
+carries `Justin Davis`, `Independent researcher`, and the contact address
+`Justin@Kodaxa.dev`; `pdfauthor` carries the name; `CITATION.cff` names the
+author rather than the repository handle. No ORCID, by the author's decision.
+
+**Mechanical, in order.**
+
+1. Recompile once — `bash scripts/build_paper.sh`, or take the artifact from the
+   CI run for the release commit.
+2. Set `version:` and `date-released:` in `CITATION.cff` to the release values.
+   **Do not add a `commit:` field.** A file cannot carry the hash of the commit
+   containing it — writing one in changes the file and so changes the commit —
+   which is the same defect that took the `7ccda13` line off the title page. The
+   file records why, so the field is not reintroduced by a later editor.
+3. Tag the frozen commit, then record **the tag** here. A later commit can name
+   an earlier tag without contradicting itself, which is what makes tag-based
+   provenance work where an embedded SHA does not.
+4. Fill the release row in `BUILDS.md`. It is laid out there as a template with
+   a stated source for every field, so this is transcription: hash, byte count,
+   the build's `environment.txt`, and what the cross-release CI step reported for
+   *that* build. A hash without its environment is not checkable.
+5. Attach the PDF to the GitHub Release rather than committing it. A Release
+   asset is immutable, tied to a tag, and stays out of git history, where a
+   binary cannot later be removed without rewriting it.
+
+**Not gated on the repository at all.**
+
+6. A line-by-line human mathematical review of the finite-start theorem. No
+   amount of verification substitutes for this, and every ledger row still reads
+   "external review pending".
+7. arXiv's own preview, which is a submission-stage check with its own TeX
+   environment, and endorsement if required.
+
+Historical attribution and bibliography wording were confirmed and corrected:
+A073117 is Zumkeller's, with Cloitre's general stabilization conjecture added as
+a comment the following day.

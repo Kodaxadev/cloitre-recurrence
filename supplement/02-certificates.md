@@ -83,9 +83,12 @@ and satisfies
 999,999 = 2,756 + 9 + 997,234 + 0.
 ```
 
-This proves only the stated finite-index result. The independent
-arbitrary-precision generator `independent/verify_safe_certificate.py` now
-reproduces the complete run using raw thresholds and a two-list linear merge.
+By Theorem 46 and Lemma 41, this checkpoint also rules out an infinite
+positive no-down path from every valid state at every index
+\(2\le N\le10^6\). This is still a finite statement and says nothing about
+indices above \(10^6\). The independent arbitrary-precision generator
+`independent/verify_safe_certificate.py` reproduces the complete checkpoint
+run using raw thresholds and a two-list linear merge.
 Both implementations agree on every terminal count, the ending index, and the
 full-layer trajectory digest
 

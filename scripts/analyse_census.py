@@ -16,7 +16,7 @@ from collections import Counter
 p = argparse.ArgumentParser()
 p.add_argument("--census", default="../data/census_10M.csv")
 p.add_argument("--hi", type=int, default=10_000_000)
-p.add_argument("--out", default="../computational-results.csv")
+p.add_argument("--out", default="../data/computational-results.csv")
 a = p.parse_args()
 
 recs = []

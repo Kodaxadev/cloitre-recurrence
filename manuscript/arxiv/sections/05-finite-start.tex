@@ -1,0 +1,69 @@
+\section{The eventual increment bounds the start}
+
+\begin{theorem}[Finite-start bound]
+\label{thm:finite-start}
+If the orbit from $m\ge1$ stabilizes with eventual increment $c$, then
+\begin{equation}
+ \boxed{m<(c+3)(3c+5).}
+ \label{eq:finite-start}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Let $n_0$ be the first index with $b_{n_0}<n_0^2$, and let $t$ be the stabilization index. Then $q_t=r_t=c$. Define
+\[
+ S=\{n\in[n_0,t]:3q_n>n+1\}.
+\]
+The sequence $b_n$ is nondecreasing, so $m=b_2\le b_n$ for every $n\ge2$.
+
+Suppose first that $S$ is empty. The ratchet theorem on $[n_0,t]$ gives
+\[
+ c=q_t\ge q_{n_0}-1,
+\]
+so $q_{n_0}\le c+1$ and
+\[
+ b_{n_0}=q_{n_0}n_0+r_{n_0}<(c+2)n_0.
+\]
+If $n_0=2$, then $m<2(c+2)$, which is stronger than \eqref{eq:finite-start}. If $n_0\ge3$, minimality of $n_0$ gives $b_{n_0-1}\ge(n_0-1)^2$, while monotonicity gives
+\[
+ (n_0-1)^2\le b_{n_0}<(c+2)n_0.
+\]
+This inequality forces $n_0\le c+4$: if $n_0\ge c+5$, then
+\[
+ (n_0-1)^2-(c+2)n_0
+ =n_0^2-(c+4)n_0+1>0,
+\]
+a contradiction. Hence
+\[
+ m\le b_{n_0}<(c+2)(c+4)<(c+3)(3c+5).
+\]
+
+Now suppose that $S$ is nonempty, and let $n^*=\max S$. If $n^*<t$, then every $k\in[n^*+1,t]$ satisfies $3q_k\le k+1$. The ratchet theorem gives
+\[
+ c=q_t\ge q_{n^*+1}-1.
+\]
+Since $\Delta q_{n^*}\ge-1$, we also have $q_{n^*+1}\ge q_{n^*}-1$, and therefore $q_{n^*}\le c+2$. If $n^*=t$, the same inequality is immediate from $q_t=c$.
+
+Because $n^*\in S$,
+\[
+ n^*+1<3q_{n^*}\le3(c+2),
+\]
+so $n^*<3c+5$. Finally,
+\[
+ m\le b_{n^*}=q_{n^*}n^*+r_{n^*}
+  <(q_{n^*}+1)n^*
+  \le(c+3)n^*
+  <(c+3)(3c+5).
+\]
+\end{proof}
+
+\begin{corollary}[Effective finite candidate set]
+For each fixed $c\ge1$, every starting value whose orbit stabilizes with increment $c$ lies in the finite interval
+\[
+ 1\le m<(c+3)(3c+5).
+\]
+\end{corollary}
+
+\begin{remark}
+The corollary does not assert that every candidate in this interval stabilizes. It says only that no witness for $c$ can occur outside the interval. This distinction is what allows a finite certificate to prove nonattainment without assuming the universal stabilization conjecture.
+\end{remark}

@@ -93,7 +93,7 @@ Solving gives the displayed formula. The bounds follow from `0<=K<=R`.
   instances of this form.
 
 The exact enumerator is
-[`scripts/periodic_boundaries.py`](scripts/periodic_boundaries.py). Its output
+[`scripts/periodic_boundaries.py`](../../scripts/periodic_boundaries.py). Its output
 is a finite classification for the requested denominator range, not a proof
 that all denominators are absent.
 
@@ -149,7 +149,7 @@ Reindexing the selected block positions gives phase numerator
 **Use.** A subset of powers of `B` has a base-`B` expansion containing only
 zeros and ones. Equation (36.1) therefore converts every surviving boundary
 family into a digit certificate. The script
-[`scripts/periodic_phase_blocks.py`](scripts/periodic_phase_blocks.py)
+[`scripts/periodic_phase_blocks.py`](../../scripts/periodic_phase_blocks.py)
 computes these exact certificates at the minimal repeat count; the next
 corollary explains why that certifies every repeat count.
 

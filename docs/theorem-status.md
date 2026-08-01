@@ -1,0 +1,239 @@
+# Theorem status ledger
+
+Every claim this project touches, classified. The classes are disjoint and the
+classification is the point: nothing is promoted without a proof.
+
+* **Theorem / Lemma** — proved, proof written out in the cited proof file.
+* **Computational** — established by exhaustive finite computation, with the
+  range stated. True as stated; says nothing beyond that range.
+* **Heuristic** — a prediction from a non-rigorous model. May be wrong.
+* **Conjecture** — believed, unproved, no proof strategy in hand.
+* **Refuted** — tested and false.
+
+---
+
+## A. Proved (unconditional)
+
+| # | Statement | Where | Status |
+|---|-----------|-------|--------|
+| T1 | Constant increments from $t$ $\iff$ $b_t=c(t+1)$, $c<t$ $\iff$ $q_t=r_t$ | `partial-proofs.md` §1 | **Theorem** (folklore) |
+| T2 | If $b_n<n^2$: stabilized at $n$ $\iff$ $(n+1)\mid b_n$ | §1 | **Theorem** (known; MO 191518, answer by RavenclawPrefect, 2025-09-03) |
+| C2.1 | $m\ge1 \Rightarrow c\ge1$ | §1 | **Corollary** |
+| L3 | Entry: $\exists\,n_0\le\lceil\sqrt{2m}\rceil+2$ with $b_{n_0}<n_0^2$; no absorbing index skipped | §2 | **Lemma; explicit bound machine-checked in Lean (`entry_at_sqrt_bound`, no `sorryAx`), stated square-root-free as $k^2\ge2m\Rightarrow b_{k+2}<(k+2)^2$** |
+| L4 | $q_n\le n$ forward invariant; $\Delta q_n\in\{-1,0,+1\}$ | §2 | **Lemma** (known) |
+| T5 | $\limsup q_n/n \le 1/2$ | §2 | **Theorem** |
+| **T6** | $e_{n+1}=2e_n-\Delta q_n(n+2)$, so $e_{n+1}\equiv2e_n \pmod{n+2}$ | §3 | **Theorem — new** |
+| **C7** | First capture at $n+1$ $\iff$ $n$ even and $e_n=\pm(n+2)/2$ | §3 | **Corollary — new** |
+| **L8** | $d\mid n \Rightarrow b_{n+1}\equiv 2b_n \pmod d$ | §3 | **Lemma — new** |
+| **C9** | $b_j$ even for every odd $j\ge3$ | §3 | **Corollary — new** |
+| T10 | Pair merging: $b_3(2k-1)=b_3(2k)=2k$ | §4 | **Theorem** (known; A117846 comment, A. Abercrombie 2007, and MO 191518 answer by Gjergji Zaimi, 2014-12-29) |
+| T11 | $f_n(x)=f_n(y)$, $x\ne y$ $\iff$ $n$ even, $|x-y|=n/2$, adjacent blocks | §4 | **Theorem** (known; MO 191518, answer by RavenclawPrefect, 2025-09-03) |
+| **L12** | Two consecutive $+1$ force $3q_n\le n-9$; two consecutive $-1$ force $3q_n>2n+3$ | §5 | **Lemma — new** |
+| **T13** | $\Delta q_n=-1$ and $3q_n\le n+1$ $\Rightarrow$ $\Delta q_{n+1}=+1$ | §5 | **Theorem — new; machine-checked in Lean (`forced_rebound`, no `sorryAx`)** |
+| **T14** | Ratchet: while $3q\le n+1$, $q$ never falls more than 1 below its window start | §5 | **Theorem — new; machine-checked in Lean (`ratchet`, no `sorryAx`); the Lean induction closes a gap in the compressed paper argument** |
+| **L21** | At first entry $n_0\ge3$, $q_{n_0}\in\{n_0-2,n_0-1\}$ | `bounded-quotient-analysis.md` | **Lemma — new** |
+| **T22** | Exact rebound cascade; if $\Delta q_n=-1$ and $n\ge7q_n+1$, the next two steps are $+1,+1$ | `bounded-quotient-analysis.md` | **Theorem — new** |
+| **C23** | Every bounded-quotient orbit stabilizes; every counterexample has unbounded $q_n$ | `bounded-quotient-analysis.md` | **Corollary — new** |
+| **T24** | Quotient dichotomy: stabilization, or $q_n\to\infty$ (hence $b_n/n\to\infty$) | `bounded-quotient-analysis.md` | **Theorem — new** |
+| **T25** | Exact integrality obstruction for every eventually periodic $\Delta q$ word | `periodic-orbit-analysis.md` | **Theorem — new** |
+| **L26** | A nonabsorbed run of $\Delta q=0$ has length at most $\lfloor\log_2 n\rfloor$ | `bounded-quotient-analysis.md` | **Lemma — new** |
+| **T27** | Before absorption, $q_n\ge n/[3(\lfloor\log_2n\rfloor+1)]-n_0/3-3$ | `bounded-quotient-analysis.md` | **Theorem — new** |
+| **L28** | Every periodic slope pattern reduces to a finite doubling cycle modulo its period | `periodic-orbit-analysis.md` | **Lemma — new** |
+| **T29** | Every eventually periodic slope cycle with reduced denominator $3$ is impossible | `periodic-orbit-analysis.md` | **Theorem — new** |
+| **T18** | $c(m)=c \Rightarrow m<(c+3)(3c+5)$ | §5b | **Theorem — new; machine-checked in Lean in the paper's form (`finite_start_of_increment`, no `sorryAx`), via `finite_start` and the absorption converse `ray_of_eventual_increment`** |
+| **C19** | $\{m: c(m)=c\}$ finite and effectively bounded | §5b | **Corollary — new** |
+| **C20** | Not every positive integer is an eventual increment; smallest missing are 5 and 7 | §5b | **Computer-assisted corollary — independent complete certificate for $m<260$** |
+| P16 | Only affine-in-$n$ orbit for $e_n$ is the absorbing one | §6 | **Proposition — new** |
+| P17 | No non-trivial affine Lyapunov function $\alpha q+\beta r+\gamma n+\delta$ | §6 | **Proposition — new** |
+| **T30** | Every eventually periodic slope cycle with reduced denominator $5$ is impossible | `periodic-denominator-families.md` | **Theorem - new** |
+| **T31** | Every eventually periodic slope cycle with reduced denominator $7$ is impossible | `periodic-denominator-families.md` | **Theorem - new** |
+| **T32** | Every nonintegral eventually periodic slope must lie on an admissibility boundary | `periodic-boundary-reduction.md` | **Theorem - new** |
+| **L33** | Every surviving boundary family has the exact choice ratio $K/R=N/d$ | `periodic-boundary-reduction.md` | **Lemma - new** |
+| **T34** | Every eventually periodic slope cycle with reduced denominator $9$ is impossible | `periodic-denominator-families.md` | **Theorem - new** |
+| **T35** | Every eventually periodic slope cycle with reduced denominator $11$ is impossible | `periodic-denominator-families.md` | **Theorem - new** |
+| **T36** | Every surviving periodic boundary family satisfies an exact base-$2^L$ subset equation | `periodic-boundary-reduction.md` | **Theorem - new** |
+| **T38** | No admissible integer orbit has an eventually periodic nonzero quotient-change word | `periodic-boundary-reduction.md` | **Theorem - new** |
+| **T39** | Every tail satisfies the exact convergent future-digit identity (39.1) | `aperiodic-tail-analysis.md` | **Theorem - new** |
+| **L40** | Every nonabsorbed tail without down-steps is a moving-modulus doubling orbit avoiding (40.1) | `aperiodic-tail-analysis.md` | **Lemma - new** |
+| **L41** | For fixed positive $e$, quotient zero dominates every no-down continuation with larger quotient | `aperiodic-tail-analysis.md` | **Lemma - new** |
+| **L42** | Every dominant positive no-down path obeys the exact two-counter safe map | `aperiodic-tail-analysis.md` | **Lemma - new** |
+| **L43** | The two-counter map has an exact binary-Euclidean form with forbidden gap $h<e\le h+U+2$ | `aperiodic-tail-analysis.md` | **Lemma - new** |
+| **L44** | On a positive wrap run, $h+q+3$ doubles exactly at every step | `aperiodic-tail-analysis.md` | **Lemma - new** |
+| **T45** | An eventually monotone counterexample has $\liminf q_n\log_2(n)/n\ge1$ and the same normalized lower bound for $b_n/n$ | `aperiodic-tail-analysis.md` | **Theorem - new** |
+| **T46** | Safe-map termination at checkpoint $N+1$ implies termination at $N$; failure is upward-closed in the starting index | `safe-map-checkpoint-analysis.md` | **Theorem - new; scoped internal audit passed 2026-07-29; external review pending** |
+| **L47** | The safe map is centered doubling in a signed-distance coordinate with terminating hole $1\le x\le U+2$ | `safe-map-checkpoint-analysis.md` | **Lemma - new; scoped internal audit passed 2026-07-29; external review pending** |
+| **C48** | Every witness at a least failing safe-map index has odd $e$; at an odd least index it is unreachable from $b_1=m$ | `safe-map-checkpoint-analysis.md` | **Corollary - new; scoped internal audit passed 2026-07-29; external review pending** |
+| **L49** | Initial quotient $Q$ preserves a safe prefix exactly while every zero-step slack is at least $Q$ | `safe-map-checkpoint-analysis.md` | **Lemma - new; scoped internal audit passed 2026-07-29; external review pending** |
+| **T50** | An even least safe-map failure must start below the midpoint and later hit exact zero quotient slack | `safe-map-checkpoint-analysis.md` | **Theorem - new; scoped internal audit passed 2026-07-29; external review pending** |
+| **L51** | Zero steps and their maximal wrap runs admit the exact accelerated return-or-termination map (51.1)--(51.2) | `safe-map-checkpoint-analysis.md` | **Lemma - new; scoped internal audit passed 2026-07-29; external review pending** |
+| **C52** | A zero-slack boundary exits to positive odd slack; local equality is classified, while later boundary residues strictly increase | `safe-map-checkpoint-analysis.md` | **Corollary - new; scoped internal audit passed 2026-07-29; external review pending** |
+| **L53** | The accelerated overshoot pair $(n,A)$ evolves autonomously; the wrap counter only selects return versus termination | `zero-epoch-overshoot-analysis.md` | **Lemma - new; scoped internal audit passed 2026-07-29; external review pending** |
+| **C54** | Every infinite safe path would satisfy an exact sparse dyadic identity over its zero epochs | `zero-epoch-overshoot-analysis.md` | **Corollary - new; scoped internal audit passed 2026-07-29; external review pending** |
+| **T55** | A positive-wrap block run has the explicit bound (55.1); every infinite safe path has infinitely many $00$ pairs and eventually $U\le(n-4)/2$ | `zero-epoch-overshoot-analysis.md` | **Theorem - new; scoped internal audit passed 2026-07-29; external review pending** |
+| **T56** | Every counterexample, with or without infinitely many down-steps, has $\liminf q_n\log_2(n)/n\ge1$ and the same normalized lower bound for $b_n$ | `sharp-counterexample-growth.md` | **Theorem - new; scoped internal audit passed 2026-07-29; external review pending** |
+| **C57** | Every counterexample has the explicit unit-leading rate $q_n\ge(1-O(1/\log\log n))n/\log_2n-O_m(1)$ | `sharp-counterexample-growth.md` | **Corollary - new; scoped internal audit passed 2026-07-29; external review pending** |
+| **T58** | In every sublinear counterexample, down-steps have zero density in time and among quotient changes, their individual spacings diverge, and $q_n/C(n)\to1$ | `sparse-downstep-analysis.md` | **Theorem - new; internal continuation audit passed 2026-07-29; external review pending** |
+| **C59** | Every counterexample either has positive $\limsup q_n/n$, or belongs to the sparse-downstep sublinear class of T58 | `sparse-downstep-analysis.md` | **Corollary - new; fresh audit pending** |
+| **L60** | On every finite interval, the total logarithmic rebound weight of down-steps is bounded by the up-step count plus one logarithmic endpoint loss | `sparse-downstep-analysis.md` | **Lemma - new; fresh audit pending** |
+| **C61** | A sublinear infinite-down counterexample requires increasingly long post-down segments with up-step fraction tending to zero along a subsequence | `sparse-downstep-analysis.md` | **Corollary - new; fresh audit pending** |
+| **L62** | Every finite post-down no-down segment satisfies an exact dyadic budget for all of its zero digits | `sparse-downstep-analysis.md` | **Lemma - new; fresh audit pending** |
+| **L63** | The terminal negative suffix before a down-step is an exact dyadic remainder map | `ridge-segment-analysis.md` | **Lemma - new; internal continuation audit passed 2026-07-29; external review pending** |
+| **C64** | A sublinear infinite-down counterexample has unbounded pure-zero runs inside its post-down segments | `ridge-segment-analysis.md` | **Corollary - new; scoped internal audit passed 2026-07-29; external review pending** |
+| **L65** | At every down-step, all future zero- and down-step defects form an exact nonnegative dyadic expansion with an exact consecutive-down recurrence | `ridge-segment-analysis.md` | **Lemma - new; scoped internal audit passed 2026-07-29; external review pending** |
+| **P66** | Valid post-down states realize exact segments with sublinear local quotient, diverging initial rebound, and up-step fraction tending to zero | `ridge-segment-analysis.md` | **Proposition - new; scoped internal audit passed 2026-07-29; external review pending; local states only** |
+| **L67** | A unit-terminal ridge has an exact parent equation and sends the next ridge width to $2^{z+1}+2$ | `ridge-chain-analysis.md` | **Lemma - new; scoped internal audit passed 2026-07-29; external review pending** |
+| **L68** | Two nondecreasing positive dyadic ridge scales cannot satisfy the three-segment compatibility equation | `ridge-chain-analysis.md` | **Lemma - new; scoped internal audit passed 2026-07-29; external review pending** |
+| **T69** | Once the first terminal quotient is at least two, three consecutive unit-terminal ridges are impossible | `ridge-chain-analysis.md` | **Theorem - new; scoped internal audit passed 2026-07-29; external review pending; not a general ridge-chain exclusion** |
+| **L70** | A pure ridge with arbitrary terminal magnitude has an exact transition and consecutive-ridge compatibility equation | `ridge-chain-analysis.md` | **Lemma - new; scoped internal audit passed 2026-07-29; external review pending** |
+| **C71** | Adjacent pure ridges obey an exact congruence modulo $2^{\min(K,K')}$, with strict terminal-magnitude descent below that scale | `ridge-chain-analysis.md` | **Corollary - new; scoped internal audit passed 2026-07-29; external review pending** |
+| **T72** | An infinite pure ridge tail in a sublinear counterexample must have exponentially large local complexity infinitely often | `ridge-chain-analysis.md` | **Theorem - new; scoped internal audit passed 2026-07-29; external review pending; conditional on an eventually pure tail** |
+| **L73** | Every arbitrary mixed ridge has an exact positive-zero defect and adjacent compatibility equation | `mixed-ridge-analysis.md` | **Lemma - new; Opus AI audit passed on 633,890 real ridges; external review pending** |
+| **C74** | Adjacent arbitrary ridges obey an exact congruence controlled by their terminal positive up-runs | `mixed-ridge-analysis.md` | **Corollary - new; Opus AI audit passed on 623,110 adjacent pairs; external review pending** |
+| **T75** | Every infinite arbitrary-ridge chain has infinitely many pairs with local complexity exponential in the smaller terminal up-run | `mixed-ridge-analysis.md` | **Theorem - new; Opus symbolic AI audit passed; external review pending; informative only when terminal runs grow and bounded samples are inert** |
+| **L76** | Every mixed ridge ends by following an exact finite dyadic boundary ladder from its last positive zero to terminal negative defect | `mixed-ridge-analysis.md` | **Lemma - new; Opus AI audit passed at `55d0d6d`; external review pending** |
+| **T77** | A sublinear infinite-down counterexample either has growing terminal runs and Theorem 75 complexity, or shadows one fixed dyadic boundary ladder infinitely often | `mixed-ridge-analysis.md` | **Theorem - new; Opus cut audit plus T58/L63 continuation audit passed; external review pending; exhaustive dichotomy, not termination** |
+| **L78** | Every terminal positive up-run satisfies an exact endpoint equation and the finite state-window bound $2^R(Q+4)\le t+Q+2R+3$ | `terminal-run-analysis.md` | **Lemma - new; scoped internal audit passed 2026-07-29; external review pending** |
+| **C79** | In a sublinear counterexample every terminal run has $2^R\le(1+o(1))\log_2t$ and $R\le\log_2\log_2t+o(1)$ | `terminal-run-analysis.md` | **Corollary - new; scoped internal audit passed 2026-07-29; external review pending; ceiling, not termination** |
+| **L80** | A positive safe-map wrap block satisfies the exact state-window bounds $2^k(U+4)<n+k+4$ and $2^kU<n$ | `safe-wrap-run-analysis.md` | **Lemma - new; scoped internal audit passed 2026-07-29; external review pending** |
+| **C81** | Along an infinite safe path every sufficiently late wrap block has $k\le\log_2\log_2n+o(1)$ | `safe-wrap-run-analysis.md` | **Corollary - new; scoped internal audit passed 2026-07-29; external review pending; ceiling, not termination** |
+| **C82** | Along an infinite safe path the number $B(n)$ of completed positive wrap blocks satisfies $\liminf B(n)\log_2n\log_2\log_2n/n\ge1$ at zero epochs | `safe-wrap-run-analysis.md` | **Corollary - new; scoped internal audit passed 2026-07-29; external review pending; recurrence rate, not termination** |
+| **L83** | Adjacent positive safe-map blocks obey the exact parent equation $m+3-f=2^kA$, a lifted congruence modulo $2^{k+1}$, and a sharp interval | `safe-block-gate-analysis.md` | **Lemma - new; Opus AI audit passed at `55d0d6d`; external review pending** |
+| **C84** | Every adjacent positive-block gate either determines both endpoint states uniquely or satisfies $2^{k+r+3}<G+r-3$ | `safe-block-gate-analysis.md` | **Corollary - new; Opus AI audit passed at `55d0d6d`; external review pending; dichotomy, not termination** |
+| **L85** | Every unit-wrap gate has an exact induced map on $(n,D,s)$ and an exact candidate interval in one class modulo $4$ | `unit-wrap-gate-analysis.md` | **Lemma - new; Opus AI audit passed at `55d0d6d`; external review pending** |
+| **C86** | A unit-wrap gate is unique exactly when its successor lies in the stated lower boundary layer and either the child or parent upper boundary layer | `unit-wrap-gate-analysis.md` | **Corollary - new; Opus AI audit passed with lower-bound clarification; external review pending; boundary localization, not termination** |
+| **L87** | Three consecutive unit-wrap starts in the parent boundary layer force the unique pattern $(12,8,5)\to(14,8,3)\to(17,9,4)$, which then terminates | `unit-wrap-chain-analysis.md` | **Lemma - new; parity ambiguity repaired after Opus AI audit and bounded exact check; external review pending** |
+| **C88** | At least one gate in every two of a continuing unique unit-wrap chain satisfies $D+r-3<2^{r+5}$ | `unit-wrap-chain-analysis.md` | **Corollary - new; Opus AI audit passed at `55d0d6d`; external review pending; gap frequency, not termination** |
+| **C89** | An infinite all-unique unit-wrap chain has $\liminf D_j/(j\log_2j)\ge1/2$ and quotient scale between constants 1 and 2 times $n/\log_2n$ | `unit-wrap-chain-analysis.md` | **Corollary - new; quantified continuation audit passed 2026-07-29; external review pending; conditional subcase, not termination** |
+| **T90** | Every infinite all-unit, all-unique chain is eventually short at every gate and has $D_j/(j\log_2j)\to1$ and $U_j\log_2n_j/n_j\to1$ | `unit-wrap-chain-analysis.md` | **Theorem - new; quantified continuation audit passed 2026-07-29; external review pending; exact critical scale, not termination** |
+| **T91** | No infinite safe path can eventually have every positive block of length one and every adjacent-block gate unique | `unit-wrap-critical-exclusion.md` | **Theorem - new; Opus symbolic audit plus T90 continuation audit passed; external review pending; excludes one exhaustive subcase, not all safe paths** |
+| **L92** | Every arbitrary-length adjacent-block gate is unique iff its child excess is below one lattice spacing and either its parent or child defect is in the exact boundary layer | `general-gate-boundary-analysis.md` | **Lemma - new; Opus AI audit passed at `55d0d6d`; external review pending; exact localization, not termination** |
+| **C93** | Nonuniqueness occurs iff the lower child neighbor survives or both upper defects clear their boundary; an interior unique gate satisfies $G+r-3<2^{k+r+4}$ | `general-gate-boundary-analysis.md` | **Corollary - new; Opus AI audit passed at `55d0d6d`; external review pending; exact alternative, not termination** |
+| **L94** | Every arbitrary adjacent-block gate obeys an exact affine equation in $(n,U)$; two fixed consecutive parameter tuples determine at most one rational start unless their explicit determinant vanishes | `parent-boundary-gate-analysis.md` | **Lemma - new; Opus AI audit passed at `55d0d6d`; external review pending; parameter reduction, not a uniform bound** |
+| **C95** | For three consecutive parent-boundary starts the affine determinant-zero case has no valid integral state, so every fixed block/gap tuple determines at most one rational start | `parent-boundary-gate-analysis.md` | **Corollary - new; Opus AI audit passed with full bounded determinant grid; external review pending; parameters remain unbounded** |
+| **L96** | Across any two consecutive parent-boundary positive starts, the second positive block length is at most the first, without assuming gate uniqueness | `parent-boundary-gate-analysis.md` | **Lemma - new; Opus AI audit passed with thin bounded coverage; external review pending; monotonicity only within the parent layer** |
+| **C97** | If every sufficiently late positive start lies in the parent layer, its positive block lengths are eventually constant | `parent-boundary-gate-analysis.md` | **Corollary - new; Opus AI audit passed through L96; external review pending; zero-only gaps may still vary** |
+| **L98** | A fixed-length parent-layer tail obeys exact returned-residue and telescoping gap-budget identities | `parent-boundary-gate-analysis.md` | **Lemma - new; Opus AI audit passed at `55d0d6d`; external review pending; identity, not termination** |
+| **T99** | A hypothetical persistent parent-layer tail has unbounded but at most logarithmic zero-only gaps whose Cesaro means lie between $K$ and $2K+1$ | `parent-boundary-gate-analysis.md` | **Theorem - new; Opus AI audit passed at `55d0d6d`; external review pending; sparse gap excursions remain possible** |
+| **L100** | For three consecutive parent-boundary starts whose first two blocks have the same length, the second zero-only gap is strictly larger than the first | `parent-gap-exclusion.md` | **Lemma - new; strengthened statement passed symbolic continuation audit and two bounded implementations; external review pending** |
+| **T101** | No infinite safe path can eventually remain entirely in the parent defect layer $d\le1$ | `parent-gap-exclusion.md` | **Theorem - new; Opus symbolic audit plus L100 continuation audit passed; external review pending; child-boundary and nonunique gates remain** |
+| **C102** | Every hypothetical infinite safe path has infinitely many interior starts whose outgoing gate is nonunique or unique in the child boundary layer | `parent-gap-exclusion.md` | **Corollary - new; Opus exhaustive AI audit passed on 41,948 gates; external review pending; exhaustive surviving safe alternatives** |
+| **L103** | Every arbitrary gate has an exact canonical decomposition $x=\rho+jH$ and $D'-3=\rho+jH+2d'$, where $\rho$ is an explicit residue depending only on $(n,k,r)$ | `child-boundary-window.md` | **Lemma - new; fresh audit pending; exact coordinate reduction** |
+| **C104** | At an interior start the gate is unique iff its successor gap lies in the first canonical window $[\rho,\rho+H)$, and is nonunique iff it lies in a later window | `child-boundary-window.md` | **Corollary - new; fresh audit pending; does not exclude repeated window hits** |
+| **C105** | For fixed $(k,r)$, the canonical window origin permutes all residues modulo $H=2^{k+r+3}$ as $n$ varies | `child-boundary-window.md` | **Corollary - new; fresh audit pending; no orbitwise equidistribution claimed** |
+| **L106** | At every unique gate, the canonical origin lies in an exact dyadic band determined by the child positive-block length | `child-boundary-window.md` | **Lemma - new; fresh audit pending; inter-gate coupling** |
+| **C107** | A unique gate leading to a child block of length at least two has $r/\log_2n'\to1$ along every infinite sequence of such gates on a hypothetical infinite safe path | `child-boundary-window.md` | **Corollary - new; fresh audit pending; sparse long-block resets remain possible** |
+| **C108** | Every hypothetical infinite safe path has infinitely many nonunique gates or infinitely many unique longer-child gates preceded by almost-logarithmic gaps | `child-boundary-window.md` | **Corollary - new; fresh audit pending; exhaustive scale alternative, not termination** |
+| **C109** | Unique longer-child reset gates occur only $O(N/\log N)$ times through child-start index $N$, hence have zero density in absolute time | `child-boundary-window.md` | **Corollary - new; fresh audit pending; zero density does not imply finiteness** |
+| **L110** | Every arbitrary gate has exactly $1+j+\min(\lfloor d/2\rfloor,\lfloor2d'/H\rfloor)$ locally valid parent states; every missed canonical window contributes a lower candidate | `gate-multiplicity-analysis.md` | **Lemma - new; fresh audit pending; exact nonuniqueness depth, not termination** |
+| **C111** | Gate multiplicity consumes canonical displacement: $(|\mathcal F|-1)H\le D'-3-\rho$ | `gate-multiplicity-analysis.md` | **Corollary - new; fresh audit pending; truncated by parent headrooms** |
+| **C112** | An upper-nonunique gate with child block length $\ell$ satisfies $2^{k+r+\ell+2}<n'+\ell+4$ | `gate-multiplicity-analysis.md` | **Corollary - new; fresh audit pending; two-block ceiling, not termination** |
+| **L113** | The child excess determines the child block's returned residue exactly; for a unit child the returned residue equals the parent gate excess | `gate-transfer-analysis.md` | **Lemma - new; fresh audit pending; exact inter-gate transfer** |
+| **C114** | Consecutive unit positive blocks obey an exact affine recurrence in $(n,U,D,f)$ and the zero-only gap | `gate-transfer-analysis.md` | **Corollary - new; fresh audit pending; finite-word reduction, not termination** |
+| **C115** | Pure-upper unit gates have an exact three-inequality test and satisfy $2^{r+4}\le D'-4$ | `gate-transfer-analysis.md` | **Corollary - new; fresh audit pending; scale ceiling, not a chain bound** |
+| **L116** | Lowering the initial accumulated quotient to zero preserves every safe digit, index, and residue while increasing both gate defects | `unit-pure-upper-analysis.md` | **Lemma - new; fresh audit pending; safe-word normalization, not original-orbit reachability** |
+| **L117** | A returning unit block is reconstructed exactly from $(n,U,f)$ by four congruence/inequality conditions | `unit-pure-upper-analysis.md` | **Lemma - new; fresh audit pending; exact local state test** |
+| **T118** | A hypothetical infinite all-unit pure-upper tail has adjacent gaps satisfying $n_i<2^{r_{i-1}+r_i+6}$, block starts between the half-critical and critical $J\log_2J$ scales, and quotient ratio in $[1,2]$ | `unit-pure-upper-analysis.md` | **Theorem - new; fresh audit pending; critical-scale restriction, not exclusion** |
+| **L119** | Three consecutive unit blocks obey an exact quotient-free residue identity, a dyadic congruence modulo $2^{\min(r_i,r_{i+1})+2}$, and a valuation formula recovering each gap | `unit-pure-upper-analysis.md` | **Lemma - new; fresh audit pending; exact compatibility, not termination** |
+| **C120** | Two consecutive pure-upper unit gates force their intermediate returned residue to be at least $5$ and satisfy an exact quotient/headroom inequality | `unit-pure-upper-analysis.md` | **Corollary - new; fresh audit pending; excludes ladder coefficients $1,\ldots,4$ only** |
+| **T121** | Every hypothetical infinite all-unit pure-upper tail either has all gaps tending to infinity with growing congruence modulus, or returns infinitely often to one fixed dyadic ladder with coefficient at least $5$ through isolated bounded gaps | `unit-pure-upper-analysis.md` | **Theorem - new; fresh audit pending; exhaustive renewal dichotomy, neither branch excluded** |
+| **T122** | Three identical bounded-gap/unit-residue renewals cannot occur in strict alternation with exactly one intervening gate between successive renewals | `unit-renewal-exclusion.md` | **Theorem - new; fresh audit pending; irregular or more widely spaced ladder returns remain** |
+| **L123** | A fixed nonempty unit-block gap word and its two endpoint residues determine at most one integer start index | `unit-word-rigidity.md` | **Lemma - new; fresh audit pending; exact endpoint rigidity** |
+| **C124** | On an all-unit pure-upper tail, occurrences of any fixed renewal pair satisfy $\limsup M(J)\log_2J/(J\log_2\log_2J)\le1$ and therefore have zero block density | `unit-word-rigidity.md` | **Corollary - new; fresh audit pending; sparse infinite aperiodic returns remain possible** |
+| **L125** | Every equal-endpoint unit word obeys an exact sparse-binary subset equation; successive occurrences of $(R,a)$ have span divisible by $2^{R+2}$ and a forced terminal exponent | `unit-word-arithmetic.md` | **Lemma - new; fresh audit pending; necessary word arithmetic, not a finiteness theorem** |
+| **P126** | For every $7\le a\le32$ not divisible by $3$, infinitely many literal four-block pure-upper safe-map segments contain two occurrences of $(R,a)=(1,a)$ at unbounded spans | `unit-word-arithmetic.md` | **Proposition - new exact construction; fresh audit pending; sharpens T122 but does not concatenate or prove original-orbit reachability** |
+| **L127** | Every equal-endpoint word has an exact normalized forced-start functional, and two words compose only if their sparse integer data satisfy one cross-word equation | `unit-word-composition.md` | **Lemma - new; fresh audit pending; exact compatibility, not proof that no infinite chain exists** |
+| **L128** | Pure-upper unit gates with fixed returned residue occupy disjoint dyadic windows; their outgoing exponents are nondecreasing across later occurrences, with exact child-residue descent when an exponent repeats | `unit-word-composition.md` | **Lemma - new; fresh audit pending; monotone local scale, not termination** |
+| **P129** | Every segment in P126 has one uniquely forced pure-upper continuation gate, after which no pure-upper gate is possible | `unit-word-composition.md` | **Proposition - new exact exclusion; fresh audit pending; eliminates the explicit family as an infinite-tail mechanism only** |
+| **T130** | The all-unit pure-upper mechanism has no branching: the outgoing exponent is the explicit minimum $h^\ast=\min\{h\ge2:2^hf\ge n+h+4\}$, the gate test is three inequalities at that $h^\ast$, and the image is again a unit state. Every infinite such tail is one forward orbit of a deterministic partial map | `unit-chain-determinism.md` | **Theorem - new; uniqueness half machine-checked in Lean (`gate_exponent_unique`, no `sorryAx`); external review pending; reduction, not termination** |
+| **L131** | The wrap count is inert: the $(n,f)$ orbit is independent of $U$, and chain length is nonincreasing in $U$, so a sweep at $U=0$ is exhaustive over all wrap counts | `unit-chain-determinism.md` | **Lemma - new; exhaustive bounded check on 879,882 raised states; external review pending; strengthens L116 from digit words to chain lengths** |
+| **C132** | Pure-upper unit predecessors number at most $v_2(n+3+f)-1$, a repeated $(f,h)$ pair forces exact residue descent (so at most $2^{h+1}$ repeats), and at most $\lceil(n-3)/4\rceil$ chains start at index $n$ | `unit-chain-determinism.md` | **Corollary - new; descent confirmed on all 76 repeats below $n=2000$; external review pending; thinness, not termination** |
+| **T133** | The gap-dependent pure-upper windows admit at most one exponent at *every* block length, so the outgoing gap of a pure-upper gate is forced to $r^\ast=\min\{r\ge0:2^{r+2}f\ge n+k+r+5\}$ | `general-gate-determinism.md` | **Theorem - new; machine-checked in Lean (`gate_exponent_unique`, no `sorryAx`); raw-trace check on 345,785 adjacent-block coordinates; external review pending; removes gap-word freedom, not a termination result** |
+| **C134** | At every pure-upper gate the parent's returned residue lies in a band of width exactly $2^{k+1}$ above $(m+r+3)/2^{r+2}$, so at most $2^{k+1}$ residues are admissible for fixed $(n,k,r)$ | `general-gate-determinism.md` | **Corollary - new; raw-trace check on 40,322 literal pure-upper gates; external review pending; quantifies unit rigidity versus general slack, not termination** |
+| **L135** | A positive block's intermediate residue after $j$ wraps is $n+j+4-2^jA$, and its length is forced to $k=\min\{K\ge1:2^{K+1}A\ge n+K+5\}$, with the predicate upward closed | `block-chain-closed-map.md` | **Lemma - new; raw-trace check on 141,069 blocks including terminating ones; external review pending; closed form, not termination** |
+| **L136** | At *every* adjacent-block gate the zero-only gap is forced to $r=\min\{r\ge0:2^{r+2}f\ge m+r+4\}$ with $m=n+k+1$; the pure-upper hypothesis of T133 is unnecessary | `block-chain-closed-map.md` | **Lemma - new; upward closure machine-checked in Lean (`gap_predicate_upward_closed`, no `sorryAx`); raw-trace check on 114,777 gates; external review pending** |
+| **T137** | The adjacent-positive-block mechanism is a closed deterministic map $\Psi$ on four integers $(n,U,k,f)$, with the two-step residue recurrence $f'=2^{k'+r+1}f-(2^{k'}-1)(n'+4)+k'$; T130 is its unit fibre | `block-chain-closed-map.md` | **Theorem - new; iterating $\Psi$ reproduces 114,777 literal block descriptions over 16,732 paths; external review pending; restores the closed recurrence, not a termination proof** |
+| **T138** | $\Psi$ is a triangular skew product: $\pi\circ\Psi=\widehat\Psi\circ\pi$ for $\pi(n,U,k,f)=(n,k,f)$, with $U$ a passive accumulator $U_i=U_0+\sum_{j<i}k_j$. $U$ enters the safe map only through the zero test, so it decides termination and no digit | `block-chain-closed-map.md` | **Theorem - new; raw-trace check on 114,777 gates; external review pending; base map is three-dimensional, admissibility is not** |
+| **C139** | The digit word at wrap count $U$ is a prefix of the word at $U=0$, block counts are nonincreasing in $U$, and an infinite admissible orbit exists iff one exists with $U_0=0$ | `block-chain-closed-map.md` | **Corollary - new; raw-trace check on 109,373 raised wrap counts; external review pending; generalizes L131 from the unit fibre to all block lengths** |
+| **L140** | Threshold-slack coordinates $\alpha_i,\beta_{i+1}$ invert the map, satisfy a coupled recurrence, and carry parity plus congruences to the growing moduli $2^{r_i+2}$ and $2^{k_{i+1}+1}$ | `block-chain-closed-map.md` | **Lemma - new; raw-trace check on 114,777 gates; external review pending; reformulation intended for a descent argument, not termination** |
+| **L141** | The congruences of L140 leave at most $f_i$ candidate gap slacks and at most $A_{i+1}$ candidate block slacks; the block count is also at least $2$, because $A_{i+1}\ge4$ forces $2^{k_{i+1}+2}<n_{i+1}+k_{i+1}+4$ | `slack-coordinates.md` | **Lemma - new; raw-trace check on 26,293 gap and 21,579 block cases; external review pending; counting bound, not termination** |
+| **C142** | The forced-slack dichotomy is one-sided: the block slack is never arithmetically forced, and the gap slack is forced only when $f_i\le2$; on a pure-upper chain C120's $f_i\ge5$ leaves neither forced | `slack-coordinates.md` | **Corollary - new; proof of $f_i\le2$ at every unique-$\alpha$ gate, not only the modulus-dominant ones; raw-trace check on all 1,236 unique-$\alpha$ gates plus 0 forced block slacks; external review pending; redirects the descent target** |
+
+**C20 answers a stated open question** in OEIS A117846 (Abercrombie, 2007):
+*"Do the values a(n) include all positive numbers?"* — **No.**
+This is unconditional: it does not assume the stabilization conjecture.
+
+---
+
+## B. Established by exhaustive computation
+
+| # | Statement | Range | Method |
+|---|-----------|-------|--------|
+| K1 | Every $m$ stabilizes | $1\le m\le 10^{7}$ | compressed sweep + witness census, accounting identity checked |
+| K2 | Record: $t=327{,}695{,}231$, $c=81{,}923{,}126$, smallest $m=1{,}320{,}111$ | $m\le10^{7}$ | census; re-verified in u128 |
+| K3 | Previous baseline $t=9{,}363{,}863$, $c=2{,}341{,}202$ at $m=31{,}873$ reproduced exactly | $m\le2\times10^{5}$ | 3 independent implementations |
+| K4 | All 68 published terms of A117846 reproduced (both parities) | — | 3 independent implementations |
+| K5 | A073117 $a(397)=38606=398\cdot97$ reproduced | — | 3 independent implementations |
+| K6 | Exactly 106 of the increments $1..1823$ never occur (94.2% attained) | complete for $c\le1823$ | K1 + Theorem 18; exact independent scratch re-enumeration reported at `55d0d6d`, but its implementation is not tracked |
+| K7 | $10^{7}$ starts collapse to **9,911** distinct orbits (1009× compression) | $m\le10^{7}$ | witness census |
+| K8 | 316 is the *joint* most-shared increment (9 orbits) — 313/314/315 have 8 | $m\le10^{7}$ | census |
+| K9 | No nonzero eventually periodic $\Delta q$ word passes exact integrality | minimal periods $p\le54$ | 11,122,706 cycle representations |
+| K10 | Every periodic failure has a proper-divisor factor witness | periods $p\le54$ | exact divisor diagnostics; conjectural beyond range |
+| K11 | No nonzero eventually periodic slope orbit has reduced denominator $d\le501$ | all periods; 250 odd denominators, 463 boundary families | Theorems 32 and 36 + exact base-digit certificates |
+| K12 | Longest arbitrary-state no-down segments are 75, 223, and 822 steps at indices 100, 1000, and 10000 | all positive-$e$ states at each index | exact exhaustive `monotone` scan |
+| K13 | No valid positive state at any index $2\le N\le10^6$ has an infinite no-down continuation; at the checkpoint $N=10^6$ the compressed safe set empties at $1{,}009{,}019$ | all $999{,}999$ positive $e$ values at the checkpoint + Lemma 41 + Theorem 46 | Rust and independent Python generators; matching trajectory digest |
+| K14 | A valid safe path has six consecutive pure-upper gates, five with unit parent blocks | explicit state $(n,U,e)=(971,5,482)$ | Exact Rust safe-map trace and independent symbolic finite-word reconstruction |
+| K15 | No all-unit pure-upper chain has six gates. Least start indices for 1..5 gates are 22, 36, 62, 93, 978; the length-5 record is exactly K14, reached from $(978,11,127)$ | every wrap count, every residue, start index $n\le5\times10^9$; 133,599,589,858 live gate states iterated | T130 determinism + L131 normalization; Rust `unit_chain` enumerating by $(n,h)$, cross-checked against an independent $O(N^2)$ residue scan and against from-scratch Python safe-map traces |
+| K16 | The P126 family is reproduced by the forced map with gap word $(1,L,1,L)$, residues $(a,c,a,c-S)$, and stops after exactly four gates, confirming P129 independently | 36 cases, $a\le32$, spans $S\le320$ | exact arbitrary-precision iteration of T130's map |
+| K17 | With blocks of arbitrary length, the longest run of consecutive pure-upper gates is six, first attained at $(n,U,e)=(960,0,199)$; R8 is therefore sharp in range, and the K14 state gives six both literally and normalized | every wrap count, every residue, start index $n\le60{,}000$ | T133 plus L116 normalization; Rust `pure_upper_run` over the project's `safe_step`, cross-checked against a from-scratch Python block decomposition |
+
+K8 answers MathOverflow Q2 ("what is special about 316?"): **essentially nothing**;
+it wins by a margin of one over its immediate neighbours.
+
+---
+
+## C. Heuristic (explicitly not proved)
+
+| # | Statement | Evidence | Status |
+|---|-----------|----------|--------|
+| H1 | $b_n \sim n^2/4$, i.e. $q_n/n\to1/4$ | measured $0.250075$ on the record orbit; $c/t=0.249998$ at $t=3.3\times10^8$ | **Heuristic** |
+| H2 | $r_n/n$ equidistributes on $[0,1)$ | $\chi^2=13.4$ on 19 df over $2.76\times10^6$ steps | **Heuristic** |
+| H3 | $\Delta q$ frequencies $(\tfrac18,\tfrac12,\tfrac38)$ | measured $(0.12506, 0.49997, 0.37497)$ | **Heuristic** |
+| H4 | Epoch chain has transition matrix with rows $(0,0,1)$, $(\tfrac18,\tfrac12,\tfrac38)$, $(\tfrac16,\tfrac23,\tfrac16)$ | measured to 4 decimals; row 1 is **proved** (T13) | **Heuristic + partly proved** |
+| H5 | Capture probability $\approx \tfrac{1}{2n}$ per step (one admissible target, even $n$ only) | see `symbolic-analysis.md` | **Heuristic** |
+| H6 | $c(m)\gtrsim0.92\sqrt m$ (lower envelope) | flat across all dyadic blocks to $2\times10^5$ | **Heuristic** |
+| H7 | The all-unit pure-upper mechanism has no chain of six gates at any index. Under an equidistribution model for the successor residue, the expected number of length-6 chains starting beyond index $N$ is $O(\log N/N^2)$, of order $10^{-18}$ past the verified range | derivation in `unit-chain-determinism.md`; consistent with K15, but constants uncalibrated (the model overestimates the measured length-1 count by a factor near 3.3) | **Heuristic** |
+| CJ1 | Every $m$ stabilizes (the conjecture) | $m\le10^{7}$ | **Conjecture — OPEN** |
+
+---
+
+## D. Refuted / rejected
+
+| # | Candidate | How it died |
+|---|-----------|-------------|
+| R1 | $P(t>N)\sim C/N$ (naive tail law) | measured exponent $-0.655$, not $-1$; and the refined model predicts $-1/2$. Both wrong. See `symbolic-analysis.md` §5 |
+| R2 | 17 candidate monotone potentials ($|e|$, $|e|/(n+2)$, $q/n$, $v_2(b)$, $\gcd(b,n+1)$, …) | all increase on $\ge35\%$ of $2.17\times10^6$ sampled transitions |
+| R3 | Any affine Lyapunov function | P17; exact convex-hull feasibility test returns 0 directions |
+| R4 | Modular invariant: $b_{n+1}\bmod M$ a function of $(n\bmod M, b\bmod M)$ | fails for every $M\in[2,64]$, explicit witnesses |
+| R5 | Non-absorbing orbit with $e_n$ affine in $n$ | P16 — killed by the admissibility window |
+| R6 | A uniform positive lower bound for the up-step fraction of all sufficiently long valid post-down segments | P66 gives exact words $-1,1^K,0^{K^2},-1$ with fraction $1/(K+1)$ |
+| R7 | Monotonicity of $K$, $v$, $z$, terminal scale $2^zv$, or next-ridge width along arbitrary-terminal pure chains | bounded exact chains refute every listed monotonicity; one valid chain already has length eight |
+| R8 | Pure-upper gate ambiguity is a transient of length at most five | the exact K14 witness contains six consecutive pure-upper gates |
+
+---
+
+## E. What would settle the conjecture
+
+By T2 the conjecture is exactly: *every orbit eventually meets a multiple of $n+1$*.
+By C7 the target has exactly one admissible element per even index. By T6 the
+motion between hits is an exact doubling map — **expanding**. P16 and P17 rule out
+the two natural contraction arguments. So the obstruction is the same as Collatz's:
+an expanding map whose measure-zero target is hit with probability one under the
+natural model, with no mechanism forcing an individual orbit to comply.
+
+A proof would need either
+(i) an equidistribution theorem for $e_n \bmod (n+2)$ strong enough to force a hit
+(this is genuinely hard — the modulus moves every step), or
+(ii) a completely different, arithmetic obstruction to the existence of an orbit
+that avoids $e_n=0$ forever.
+
+See `future-directions.md`.

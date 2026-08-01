@@ -16,9 +16,15 @@ concurrency:
 
 jobs:
   rust:
-    name: Rust theorem and verifier tests
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
+    name: Rust theorem and verifier tests (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        # Development happens on Windows; the frozen results were produced on
+        # Linux. Both are checked so a platform-dependent result cannot hide.
+        os: [ubuntu-latest, windows-latest]
     steps:
       - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@1.94.0
@@ -33,9 +39,13 @@ jobs:
           -- --selftest
 
   python:
-    name: Python certificates and OEIS checks
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
+    name: Python certificates and OEIS checks (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v6
@@ -47,7 +57,26 @@ jobs:
           verification-framework/verify.py
           independent/verify_small_spectrum.py
           independent/verify_safe_certificate.py
+          independent/verify_safe_checkpoint.py
+          independent/verify_safe_block_gates.py
+          independent/verify_general_gate_boundaries.py
+          independent/verify_parent_gap_dynamics.py
+          independent/verify_child_boundary_window.py
+          independent/verify_unit_pure_upper.py
+          independent/verify_unit_word_rigidity.py
+          independent/verify_unit_word_arithmetic.py
+          independent/verify_unit_word_composition.py
+          independent/verify_unit_determinism.py
+          independent/verify_unit_chain_structure.py
+          independent/verify_general_gate_determinism.py
+          independent/verify_pure_upper_run.py
+          independent/verify_block_chain_map.py
+          independent/verify_sharp_growth.py
+          independent/verify_ridge_segments.py
+          independent/verify_mixed_ridges.py
           scripts/periodic_phase_blocks.py
+          scripts/check_tex_structure.py
+          scripts/check_doc_links.py
       - name: Verify published OEIS terms
         run: python verification-framework/verify.py --oeis
       - name: Regenerate the minimal nonsurjectivity certificate
@@ -56,8 +85,46 @@ jobs:
         run: >-
           python independent/verify_safe_certificate.py
           --n 10000 --max-steps 20000
+      - name: Check checkpoint monotonicity and signed safe coordinates
+        run: python independent/verify_safe_checkpoint.py
+      - name: Check adjacent safe-map block gates
+        run: python independent/verify_safe_block_gates.py
+      - name: Check exact arbitrary-block gate boundaries
+        run: python independent/verify_general_gate_boundaries.py
+      - name: Check parent-boundary gap dynamics
+        run: python independent/verify_parent_gap_dynamics.py
+      - name: Check canonical child-boundary windows
+        run: python independent/verify_child_boundary_window.py
+      - name: Check unit pure-upper compatibility
+        run: python independent/verify_unit_pure_upper.py
+      - name: Check fixed unit-word rigidity
+        run: python independent/verify_unit_word_rigidity.py
+      - name: Check sparse unit-word arithmetic
+        run: python independent/verify_unit_word_arithmetic.py
+      - name: Check unit-word composition
+        run: python independent/verify_unit_word_composition.py
+      - name: Check forced-gate determinism against literal safe-map traces
+        run: python independent/verify_unit_determinism.py 200 400 30000
+      - name: Check inert wrap count and the P126/P129 family
+        run: python independent/verify_unit_chain_structure.py 300 1200
+      - name: Check the forced pure-upper gap at arbitrary block length
+        run: python independent/verify_general_gate_determinism.py 220 220
+      - name: Check the pure-upper run ceiling
+        run: python independent/verify_pure_upper_run.py 500
+      - name: Check the closed block-chain map
+        run: python independent/verify_block_chain_map.py 200
+      - name: Check parameterized rebounds and sharp growth
+        run: python independent/verify_sharp_growth.py
+      - name: Check post-down ridge segments
+        run: python independent/verify_ridge_segments.py
+      - name: Check arbitrary mixed-ridge compatibility
+        run: python independent/verify_mixed_ridges.py
       - name: Regenerate the denominator-family certificate
         run: python scripts/periodic_phase_blocks.py --max-denominator 501
+      - name: Check documentation cross-references
+        run: python scripts/check_doc_links.py
+      - name: Check arXiv draft structure
+        run: python scripts/check_tex_structure.py
       - name: Verify committed audit artifact hashes
         shell: bash
         run: |
@@ -68,19 +135,84 @@ jobs:
           a0b60e6d229e56adbba04808130218a807817d5471edfc2f659c253b47370e4b  independent/verify_small_spectrum.py
           HASHES
 
-  lean:
-    name: Lean foundational formalization
+  paper:
+    name: Compile the arXiv draft
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Install a minimal TeX Live
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            texlive-latex-base texlive-latex-recommended texlive-latex-extra \
+            texlive-fonts-recommended lmodern
+          pdflatex --version | head -1
+      - name: Compile, failing on undefined references or bad boxes
+        run: bash scripts/build_paper.sh build-a
+      - name: Compile again, independently
+        run: bash scripts/build_paper.sh build-b
+      - name: Require byte reproducibility, within this TeX environment
+        run: >-
+          python scripts/check_pdf_reproducible.py
+          manuscript/arxiv/build-a/main.pdf
+          manuscript/arxiv/build-b/main.pdf
+          --require
+      # The gate above proves same-environment repeatability only. Whether the
+      # hash also survives a change of TeX Live is a separate empirical
+      # question, and the answer belongs in the provenance record rather than
+      # in a claim. The runner has TeX Live 2023; Debian bookworm has 2022, so
+      # one container answers it. Reported, never enforced: releases differing
+      # is expected behaviour, not a defect in this repository.
+      - name: Measure whether the hash survives a different TeX Live
+        continue-on-error: true
+        run: |
+          docker run --rm -v "$PWD:/w" -w /w debian:bookworm-slim bash -c '
+            set -eu
+            apt-get update -qq
+            DEBIAN_FRONTEND=noninteractive apt-get install -y -qq \
+              --no-install-recommends \
+              texlive-latex-base texlive-latex-recommended texlive-latex-extra \
+              texlive-fonts-recommended lmodern >/dev/null
+            bash scripts/build_paper.sh build-c
+          '
+          echo "--- ubuntu-latest ---"
+          cat manuscript/arxiv/build-a/environment.txt
+          echo "--- debian bookworm ---"
+          cat manuscript/arxiv/build-c/environment.txt
+          python scripts/check_pdf_reproducible.py \
+            manuscript/arxiv/build-a/main.pdf \
+            manuscript/arxiv/build-c/main.pdf
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cloitre-arxiv-draft-pdf
+          path: |
+            manuscript/arxiv/build-a/main.pdf
+            manuscript/arxiv/build-a/environment.txt
+          if-no-files-found: error
+
+  lean:
+    name: Lean formalization and external checking
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
       - name: Install pinned Lean toolchain
-        uses: leanprover/lean-action@v1
+        # leanprover/lean-action v1.5.0
+        uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
         with:
           auto-config: false
           build: true
+          build-args: --wfail
           test: false
           lint: false
           use-mathlib-cache: false
-      - name: Compile the formalization
-        run: lean lean/Conjecture.lean
+      - name: Print the axiom audit
+        run: lake env lean lean/Conjecture.lean
+      - name: Check compiled declarations with Lean's bundled checker
+        run: lake env leanchecker Conjecture
+      - name: Check compiled declarations with pinned nanoda
+        run: bash scripts/check_lean_nanoda.sh

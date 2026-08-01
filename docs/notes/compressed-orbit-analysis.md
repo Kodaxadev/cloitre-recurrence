@@ -70,7 +70,7 @@ every start up to ten million stabilizes, the last one at index 327,695,231.
 ## 4. The census: which orbits are they?
 
 Carrying one extra `u64` per live value — the smallest start reaching it — turns
-the sweep into a complete census (`src/witness.rs`, `src/bin/record.rs`). Each
+the sweep into a complete census (`search-framework/src/witness.rs`, `search-framework/src/bin/record.rs`). Each
 absorbing event then yields a triple $(t,c,m)$, and the identity
 
 $$\#\text{records} + \#\text{merges} + \#\text{live} = \#\text{starts}$$

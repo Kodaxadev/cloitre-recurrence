@@ -107,7 +107,7 @@ a negative next value, contradicting the first paragraph. Equality
 ## Computational probe of monotone segments
 
 The exact tool
-[`search-framework/src/bin/monotone.rs`](search-framework/src/bin/monotone.rs)
+[`search-framework/src/bin/monotone.rs`](../../search-framework/src/bin/monotone.rs)
 tests every state with `e>0` at a selected index until its first down-step or
 absorption. Exhaustive results include:
 
@@ -152,7 +152,7 @@ difference stays constant. The quotient-zero state is valid because `e<N`.
 ## Exact compressed safe sweep
 
 The auxiliary tool
-[`search-framework/src/bin/pure.rs`](search-framework/src/bin/pure.rs)
+[`search-framework/src/bin/pure.rs`](../../search-framework/src/bin/pure.rs)
 implements two distinct computations:
 
 - `--sweep` advances every pure moving-modulus state, ignoring the danger
@@ -362,3 +362,13 @@ which is (45.1). For fixed `N`, multiply the resulting lower bound for
 Theorem 45 improves the leading constant supplied by Theorem 27 by a
 factor of three, but only under eventual monotonicity. It does not force
 the growing forbidden strip to be hit; that remains the uniform problem.
+
+## Checkpoint reduction
+
+Theorem 46 and Lemma 47 are recorded separately in
+[`safe-map-checkpoint-analysis.md`](safe-map-checkpoint-analysis.md).
+They prove that safe-map failure is upward-closed in the starting index and
+conjugate the map to centered doubling with the growing one-sided hole
+`1<=x<=U+2`. In particular, the certified checkpoint at `N=10^6`
+simultaneously rules out an infinite positive no-down path from every valid
+state at every starting index `N<=10^6`.

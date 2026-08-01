@@ -194,3 +194,5 @@ Finally, \(b_n\ge nq_n\), proving (2.5). \(\square\)
 These theorems constrain every counterexample at every sufficiently large
 index. They do not prove that down-steps cease, that \(q_n/n\) stays bounded
 away from zero, or that the absorbing state is reached.
+Chapter 7 uses arbitrarily long fixed rebound cascades to sharpen the
+leading constant in (2.5) from \(1/3\) to \(1\).

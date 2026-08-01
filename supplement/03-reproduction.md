@@ -1,6 +1,7 @@
 # Reproduction commands
 
-Commands assume PowerShell, Rust 1.94.0, Python 3, and Lean 4.32.1.
+Commands assume PowerShell, Rust 1.94.0, Python 3, Lean 4.32.2, and Git Bash
+for the independent Lean checker.
 
 ## Source identity
 
@@ -24,11 +25,13 @@ cargo run --release -- --selftest
 python verify.py --oeis
 
 Set-Location ..
-lean lean\Conjecture.lean
+lake build --wfail
+lake env leanchecker Conjecture
+& 'C:\Program Files\Git\bin\bash.exe' scripts/check_lean_nanoda.sh
 ```
 
-Expected at the freeze: all Rust tests pass, OEIS checks pass, and Lean exits
-zero without `sorryAx`.
+Expected: all Rust tests and OEIS checks pass; Lean compiles with warnings as
+errors; both checkers exit zero; nanoda reports no typechecker errors.
 
 ## Complete \(10^7\) census
 
@@ -108,6 +111,102 @@ python independent\verify_safe_certificate.py `
 ```
 
 Both outputs must report trajectory digest `0xffe3df00b02fcb2d`.
+
+## Post-down ridge probe
+
+To exhaust every down-step state with \(q\le752\) at index \(10^4\), then
+measure the positive no-down segment beginning immediately afterward:
+
+```powershell
+cargo run --release --manifest-path search-framework\Cargo.toml `
+  --bin ridge -- --n 10000 --max-q 752 `
+  --min-steps 50 --max-steps 20000
+```
+
+Use `--max-r 0` for a deliberately restricted boundary-residue probe. Output
+from this command is exploratory and is not a certificate or theorem.
+
+## Mixed-ridge identities
+
+Run the arbitrary-precision raw-state checker:
+
+```powershell
+python independent\verify_mixed_ridges.py
+```
+
+Expected principal counts:
+
+```text
+mixed-ridge finite segments checked: 6846
+segments with positive-prefix zeros: 5158
+adjacent compatibility equations checked: 6486
+literal consecutive ridges with terminal run <= 2 checked: 100
+```
+
+The independent native test is included in the ordinary Rust suite, or can
+be run alone:
+
+```powershell
+cargo test --release --manifest-path search-framework\Cargo.toml `
+  --test mixed_ridges
+```
+
+These are bounded algebra regressions, not a proof that a reachable infinite
+ridge chain exists or terminates.
+
+To measure the terminal-run geometry of one literal orbit:
+
+```powershell
+cargo run --release --manifest-path search-framework\Cargo.toml `
+  --bin ridge_trace -- --m 1320111 --terminal-bound 2
+```
+
+The published record orbit reports 40,963,537 completed ridges and maximum
+initial, internal, and terminal consecutive up-run lengths all equal to two.
+This finite stabilizing orbit does not model the sublinear counterexample
+branch, where Theorem 58 forces initial runs to grow.
+
+## Gate transfer and pure-upper exploration
+
+The ordinary Python and Rust regressions check the exact residue transfer,
+the six-gate witness, quotient erasure, returning-unit reconstruction, and
+the local two-gap inequality used in Theorem 118, plus the fixed-word
+endpoint identity in Lemma 123, sparse composition equation, ordered dyadic
+windows, and the explicit-family exit in Proposition 129:
+
+```powershell
+python independent\verify_child_boundary_window.py
+cargo test --release --manifest-path search-framework\Cargo.toml `
+  --test gate_multiplicity
+python independent\verify_unit_pure_upper.py
+cargo test --release --manifest-path search-framework\Cargo.toml `
+  --test unit_pure_upper
+python independent\verify_unit_word_rigidity.py
+cargo test --release --manifest-path search-framework\Cargo.toml `
+  --test unit_word_rigidity
+python independent\verify_unit_word_arithmetic.py
+cargo test --release --manifest-path search-framework\Cargo.toml `
+  --test unit_word_arithmetic
+python independent\verify_unit_word_composition.py
+cargo test --release --manifest-path search-framework\Cargo.toml `
+  --test unit_word_composition
+```
+
+The optional symbolic finite-word tools use a pinned Z3 package:
+
+```powershell
+python -m pip install -r independent\requirements-exploratory.txt
+python independent\synthesize_pure_upper.py `
+  --gaps 0,1,3,3,1,5 --blocks 6,1,1,1,1,1,0 `
+  --max-n 1000000 --initial-q 5
+python independent\search_pure_upper_pattern.py `
+  --length 6 --first-block 6 --max-block 6 --max-gap 5 `
+  --max-n 1000000 --node-limit 200000
+```
+
+Both commands reproduce a six-gate word. Any unsuccessful symbolic search
+is bounded by the supplied block, gap, index, and solver-node limits and is
+not a proof of nonexistence outside that finite search.
 
 ## Artifact hashing
 

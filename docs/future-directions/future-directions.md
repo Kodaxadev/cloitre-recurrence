@@ -92,35 +92,35 @@ it is not.
 
 ## 6. Equidistribution of $e_n \bmod (n+2)$ — the actual obstruction
 
-By Theorem 2 the conjecture is exactly "every orbit meets a multiple of $n+1$",
-and by Theorem 6 the motion between hits is doubling with a **moving modulus**.
-Fixed-modulus doubling has a complete equidistribution theory; the moving-modulus
-case appears to have none.
+This section is now
+[`future-directions-safe-map.md`](future-directions-safe-map.md): the safe-map
+reduction, the ridge and gate programmes, and the unit-block frontier, with the
+current "do next" targets for each surviving branch.
 
-**Do:** look for the smallest non-trivial model with the same structure —
-$x_{n+1} \equiv 2x_n \pmod{n+c}$ with a window constraint — and ask whether *any*
-capture theorem is provable there, even under an extra hypothesis such as $n$
-restricted to a sparse set. A negative answer (a constructed non-capturing orbit
-in the relaxed model) would be as informative as a positive one, because it would
-localise exactly which feature of the real recurrence does the work.
+## 7. Resolve the low-order mixed-ridge defect
 
-**Success:** a capture theorem for any moving-modulus doubling system, or an
-explicit counterexample in the relaxed model.
+Lemma 73 now encodes every zero in an arbitrary ridge by
 
-Theorem 39 and Lemmas 40--41 now make the smallest useful intermediate target
-more precise. For a positive no-down tail, start the pure map
+\[
+W=\sum_{i\in\mathcal Z^+}(N+i+2)2^{P-1-i}.
+\]
 
-```text
-e_(n+1)=2e_n mod(n+2)
-```
+Corollary 74 extracts a modulus from the final positive up-run, and Theorem
+75 forces exponential local complexity if those terminal runs grow. Theorem
+77 now handles failure of that growth exactly: one fixed terminal length must
+recur, forcing infinitely many shadows of its finite dyadic boundary ladder.
 
-with quotient zero and let `U_n` count wraps. Prove that some zero digit must
-satisfy `U_n+2e_n>=n+1`, or that the pure orbit captures. The compressed
-`pure --safe-sweep` computation proves this separately at each selected start
-index and shows an apparent `O(sqrt(n))` lifetime. A uniform upper bound of any
-finite form would rule out eventual monotone escape.
+**Do:** track the nested low bits of \(W_j\) across repeated visits to the
+same dyadic ladder, with reachability parity imposed at each index. In the
+growing-run branch, improve Corollary 79's log-log ceiling into upper bounds
+for the specific parameters appearing in Theorem 75.
 
-## 7. The general-starting-index question
+**Success:** exclude recurrent visits to every fixed ladder, or show that the
+exponential parameter forced by growing terminal runs exceeds its
+state-window bound. A constructed infinite arbitrary-state chain would also
+be decisive for understanding whether reachability is essential.
+
+## 8. The general-starting-index question
 
 The conjecture is about orbits from $b_1 = m$. Nothing is known about orbits
 started at an arbitrary state $(n_0, b)$. These are *not* all reachable —
@@ -136,7 +136,7 @@ eventually periodic pattern.
 a major result — it would show the conjecture is a statement about reachability
 from $b_1=m$, not about the recurrence, and would redirect the whole problem.
 
-## 8. The shifted family A074482/3/4
+## 9. The shifted family A074482/3/4
 
 Cloitre's original conjecture was for $b_{n+1} = b_n + (b_n \bmod (n+a))$ for every
 integer $a$. Everything in this project was done for $a=0$.

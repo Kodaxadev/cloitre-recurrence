@@ -1,0 +1,60 @@
+\section{A ratchet for the quotient}
+
+The finite-start theorem rests on a simple restriction on decreases of $q_n$.
+
+\begin{lemma}[Forced rebound]
+If $\Delta q_n=-1$ and $3q_n\le n+1$, then $\Delta q_{n+1}=1$.
+\end{lemma}
+
+\begin{proof}
+A down-step gives
+\[
+ q_{n+1}=q_n-1,
+ \qquad
+ r_{n+1}=2r_n-q_n+n+1.
+\]
+The numerator governing the next quotient change is
+\[
+ 2r_{n+1}-q_{n+1}=4r_n-3q_n+2n+3.
+\]
+An up-step at the next transition occurs when this is at least $n+2$. That condition is
+\[
+ 4r_n\ge3q_n-n-1,
+\]
+which follows from $r_n\ge0$ and $3q_n\le n+1$.
+\end{proof}
+
+\begin{theorem}[Ratchet]
+Suppose $3q_k\le k+1$ for every $k\in[u,v]$. Then
+\[
+ q_k\ge q_u-1\qquad(u\le k\le v+1),
+\]
+and every decrease of $q$ in this interval is undone by the next step.
+\end{theorem}
+
+\begin{proof}
+Since $3q_k\le k+1$ forces $q_k\le k$, the bounded-quotient lemma applies at every $k\in[u,v]$; in particular $\Delta q_k\ge-1$, so $q$ falls by at most one per step.
+
+We prove by induction on $k\in[u,v+1]$ a statement stronger than the conclusion:
+\begin{equation}
+ \text{either}\quad q_k\ge q_u,
+ \qquad\text{or}\qquad
+ q_k=q_u-1\ \text{ and }\ q_{k+1}=q_k+1.
+ \label{eq:ratchet-invariant}
+\end{equation}
+Both alternatives give $q_k\ge q_u-1$, so the theorem follows.
+
+At $k=u$ the first alternative holds. Assume \eqref{eq:ratchet-invariant} at some $k\le v$.
+
+If the second alternative holds at $k$, then $q_{k+1}=q_k+1=q_u$, so the first alternative holds at $k+1$.
+
+Otherwise $q_k\ge q_u$. If $q_{k+1}\ge q_u$, the first alternative holds at $k+1$. If instead $q_{k+1}<q_u$, then $q_{k+1}<q_u\le q_k$, so $\Delta q_k=-1$ and $q_{k+1}=q_k-1$; combined with $q_{k+1}<q_u\le q_k=q_{k+1}+1$ this forces
+\[
+ q_k=q_u,\qquad q_{k+1}=q_u-1.
+\]
+Because $k\le v$, the forced-rebound lemma applies at $k$ and yields $\Delta q_{k+1}=1$, that is $q_{k+2}=q_{k+1}+1$. So the second alternative holds at $k+1$, completing the induction.
+\end{proof}
+
+\begin{remark}
+The second alternative in \eqref{eq:ratchet-invariant} cannot be dropped. Tracking only $q_k\ge q_u-1$ would leave open a flat step at level $q_u-1$ followed by a further descent; it is the forced rebound attached to each \emph{arrival} at $q_u-1$ that excludes this, by ensuring the level is never occupied at two consecutive indices. This induction is machine-checked in Lean as \texttt{Conjecture.ratchet}, together with the forced-rebound lemma \texttt{Conjecture.forced\_rebound} and the drop bound \texttt{Conjecture.quotient\_drop\_le\_one} that it uses; the axiom audit reports no use of \texttt{sorryAx}.
+\end{remark}

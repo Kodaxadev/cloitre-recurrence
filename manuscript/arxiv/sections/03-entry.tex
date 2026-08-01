@@ -1,0 +1,57 @@
+\section{Entry into the bounded-quotient regime}
+
+\begin{lemma}[Entry]
+For every $m\ge1$, there exists
+\[
+ n_0\le \lceil\sqrt{2m}\,\rceil+2
+\]
+such that $b_{n_0}<n_0^2$. Once $b_n<n^2$ holds, it continues to hold at every later index.
+\end{lemma}
+
+\begin{proof}
+Let $F(n)=b_n-n^2$. Since $r_n\le n-1$,
+\[
+ F(n+1)-F(n)=r_n-(2n+1)\le-(n+2)<0.
+\]
+Thus $F$ decreases strictly. Starting from $F(2)=m-4$, summing the displayed decrease gives a negative value within at most $\lceil\sqrt{2m}\rceil$ further steps. Strict decrease gives forward invariance.
+\end{proof}
+
+\begin{lemma}[Bounded quotient and three possible changes]
+If $q_n\le n$, then
+\[
+ \Delta q_n:=q_{n+1}-q_n\in\{-1,0,1\},
+ \qquad q_{n+1}\le n+1.
+\]
+Consequently, the region $q_n\le n$ is forward invariant, and every orbit eventually enters it.
+\end{lemma}
+
+\begin{proof}
+Set $d=2r_n-q_n$. If $q_n\le n$, then
+\[
+ -(n+1)<d<2(n+1).
+\]
+The quotient correction in \eqref{eq:transition} is therefore one of $-1,0,1$, and $q_{n+1}\le q_n+1\le n+1$.
+
+For the last sentence of the statement, the entry lemma supplies an index with $b_n<n^2$, and then $q_n=\lfloor b_n/n\rfloor<n$; forward invariance of $b_n<n^2$ therefore places every orbit permanently in the region $q_n\le n$.
+\end{proof}
+
+The coordinate \eqref{eq:e} satisfies an exact doubling law.
+
+\begin{proposition}[Exact doubling coordinate]
+After entry into $q_n\le n$,
+\begin{equation}
+ e_{n+1}=2e_n-\Delta q_n(n+2),
+ \qquad
+ e_{n+1}\equiv2e_n\pmod{n+2}.
+ \label{eq:doubling}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Since $2r_n-q_n=q_n+2e_n$, equation \eqref{eq:transition} gives
+\[
+ r_{n+1}=q_n+2e_n-\Delta q_n(n+1),
+ \qquad q_{n+1}=q_n+\Delta q_n.
+\]
+Subtracting proves \eqref{eq:doubling}.
+\end{proof}
