@@ -1,7 +1,7 @@
 ---
 name: Computational discrepancy
 description: Report a reproduction failure, certificate mismatch, overflow risk, or conflicting implementation
- title: "[compute] "
+title: "[compute] "
 labels: []
 assignees: []
 ---
