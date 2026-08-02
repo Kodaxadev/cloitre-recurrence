@@ -1,8 +1,13 @@
 # Cruthúnas experimental adoption audit plan
 
-**Status:** Planned, non-mutating audit  
-**Cloitre source base:** `d990512d386b6365e4b835a72ac634ce9ddda9f0`  
-**Cruthúnas framework commit:** `49840431d02e8c7cae7d35e82bf3fd4095dc397b`  
+**Status:** Completed non-mutating audit; corrected reporter pin established
+
+**Cloitre source base:** `d990512d386b6365e4b835a72ac634ce9ddda9f0`
+
+**Original audited Cruthúnas commit:** `49840431d02e8c7cae7d35e82bf3fd4095dc397b`
+
+**Replacement Cruthúnas pin:** `f60d61d19254759a1c395cae52663f82212a8121`
+
 **Framework maturity:** CR-0 — Exploration
 
 ## Purpose

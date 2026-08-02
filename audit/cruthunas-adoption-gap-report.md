@@ -13,31 +13,46 @@ or workflow assumption is promoted into Cruthúnas.
 | Audited Cloitre source SHA | `ee9d052015e658a8941f237130ba4aa7df03d29c` |
 | Required Cloitre base SHA | `d990512d386b6365e4b835a72ac634ce9ddda9f0` |
 | Cruthúnas repository | `Kodaxadev/cruthunas` |
-| Pinned framework SHA | `49840431d02e8c7cae7d35e82bf3fd4095dc397b` |
+| Original audited framework SHA | `49840431d02e8c7cae7d35e82bf3fd4095dc397b` |
+| Replacement framework pin | `f60d61d19254759a1c395cae52663f82212a8121` |
 | Operating system | `Windows-11-10.0.26200-SP0` |
 | Audit Python | `Python 3.14.3` |
-| Framework checkout | Detached worktree at the pinned SHA |
-| Installation command | `C:\Users\Justi\AppData\Local\Temp\cruthunas-audit-venv-4984043\Scripts\python.exe -m pip install --disable-pip-version-check -e C:\Users\Justi\Downloads\Alpha\cruthunas-4984043-audit` |
-| Audit command | `C:\Users\Justi\AppData\Local\Temp\cruthunas-audit-venv-4984043\Scripts\cruthunas.exe adoption gaps --root . --json` |
-| Run 1 UTC | `2026-08-01T15:38:41.1101826Z` to `2026-08-01T15:38:42.9779814Z` |
-| Run 2 UTC | `2026-08-01T15:38:58.6117425Z` to `2026-08-01T15:38:59.7785006Z` |
-| Determinism | Byte-identical and semantically identical |
-| Canonical JSON encoding | UTF-8, keys sorted, compact separators, Unicode preserved |
-| Canonical JSON SHA-256 | `20cdadadd84113a13ce1b74e8d08e8d560acd965fdfc3ac9b41967c56d44e0fb` |
-| Captured raw bytes | 79,832-byte UTF-16LE PowerShell capture; SHA-256 `6e6fdea0a37948080eb19ac668cc594d64ca9eb306b5d6518f4a019c0d19565a` |
-| Reporter findings | 95 |
-| Reporter classification | 89 automatic; 6 manual |
+| Original framework checkout | Detached worktree at the original audited SHA |
+| Original installation command | `C:\Users\Justi\AppData\Local\Temp\cruthunas-audit-venv-4984043\Scripts\python.exe -m pip install --disable-pip-version-check -e C:\Users\Justi\Downloads\Alpha\cruthunas-4984043-audit` |
+| Original audit command | `C:\Users\Justi\AppData\Local\Temp\cruthunas-audit-venv-4984043\Scripts\cruthunas.exe adoption gaps --root . --json` |
+| Original run 1 UTC | `2026-08-01T15:38:41.1101826Z` to `2026-08-01T15:38:42.9779814Z` |
+| Original run 2 UTC | `2026-08-01T15:38:58.6117425Z` to `2026-08-01T15:38:59.7785006Z` |
+| Original canonical JSON SHA-256 | `20cdadadd84113a13ce1b74e8d08e8d560acd965fdfc3ac9b41967c56d44e0fb` |
+| Original reporter findings | 95: 89 automatic; 6 manual |
+
+### Replacement-pin reporter verification
+
+| Field | Value |
+|---|---|
+| Framework checkout | Detached checkout at `f60d61d19254759a1c395cae52663f82212a8121` |
+| Audit root | `C:\Users\Justi\AppData\Local\Temp\cruthunas-cloitre-tenth-local` |
+| Audit Python | `C:\Python314\python.exe` (`Python 3.14.3`) |
+| Audit entry | `from cruthunas.cli import main; raise SystemExit(main())` with arguments `adoption gaps --root <audit-root> --json` and `PYTHONPATH` set to the exact framework checkout's `src` |
+| Run 1 UTC | `2026-08-02T00:36:53.082244Z` to `2026-08-02T00:36:53.970568Z` |
+| Run 2 UTC | `2026-08-02T00:36:53.970575Z` to `2026-08-02T00:36:54.813500Z` |
+| Exit/stderr | Expected exit code 1 and empty stderr for both runs |
+| Determinism | 43,933-byte UTF-8 stdout was byte-identical across both runs |
+| Raw JSON SHA-256 | `20de04ebe0bcfe20a85540e33d745c58044e76799754522d28bc28f2b7eba70b` |
+| Reporter findings | 105: 88 automatic; 17 manual |
+
+The raw JSON includes the absolute audit-root string. Its digest is therefore
+tied to the exact root above and is not asserted to be portable across roots.
 
 The pinned reporter does not emit a severity field. The following is an explicit
 auditor-assigned migration-risk classification, not framework output:
 
 | Auditor severity | Count | Basis |
 |---|---:|---|
-| High | 7 | Two identifier/manual cases, four identity cases, and the legacy evidence-manifest decision |
+| High | 17 | Two manual identifier cases, fourteen identity cases, and the legacy evidence-manifest decision |
 | Medium | 16 | Ten missing governed paths and six unpinned workflow actions |
 | Low | 72 | Lossless lexical padding suggestions, still subject to global mapping review |
 
-Reporter categories were: 74 `historical_claim_ids`, 4
+Corrected reporter categories are: 74 `historical_claim_ids`, 14
 `identity_independence`, 1 `manual_migration`, 10 `project_structure`, and 6
 `workflow_pinning`. Exit code 1 is the documented result when gaps exist; both
 runs produced valid reports and did not fail operationally.
@@ -49,19 +64,21 @@ PR update rather than misidentified as the audited source.
 
 ## 2. Executive verdict
 
-**FRAMEWORK DEFECT — adoption reporter failed or produced demonstrably incorrect findings**
+**ORIGINAL FRAMEWORK DEFECT RESOLVED — corrected deterministic inventory ready**
 
-The raw output is deterministic and useful, and this report inventories all 95
-emitted findings. It is not sufficient by itself for a complete migration:
+The original framework output was deterministic but incomplete. It emitted 95
+findings and established two blocking reporter defects:
 
-1. `C2.1` is misread as the shorter automatic token `C2`, losing the `.1` and
+1. It misread `C2.1` as the shorter automatic token `C2`, losing the `.1` and
    producing an incorrect canonical suggestion.
-2. Affirmative independence language such as “independently regenerated and
-   checked” is not reported.
+2. It did not report affirmative independence language such as “independently
+   regenerated and checked.”
 
-Both defects have minimal deterministic reproductions in section 12. No
-conclusion about complete historical-ID or identity coverage may rely on this
-reporter version. Cloitre is not adopted, conformant, or promoted.
+Both defects have minimal deterministic reproductions in section 12. Cruthúnas
+PR #5 fixed them and was squash-merged as the replacement framework pin
+`f60d61d19254759a1c395cae52663f82212a8121` after commit-anchored adversarial
+review. The corrected reporter emits 105 findings: 88 automatic and 17 manual.
+Cloitre remains non-adopted, non-conformant, and unpromoted.
 
 ## 3. Full finding inventory
 
@@ -124,7 +141,7 @@ therefore no source text may be rewritten automatically.
 | 43 | `Q1` → `Q001` | automatic | Low | `literature-review.md` | Lexically accurate; association needs review |
 | 44 | `Q2` → `Q002` | automatic | Low | `literature-review.md`<br>`scripts/coverage_and_tail.py`<br>`theorem-status.md` | Lexically accurate; association needs review |
 | 45 | `G3` → `G003` | automatic | Low | `periodic-orbit-analysis.md` | Lexically accurate; association needs review |
-| 46 | `C2` → `C002` | automatic | High | `theorem-status.md` | **Incorrect:** this is the prefix of `C2.1`; the suggestion loses `.1` |
+| 46 | `C2.1` → no suggestion | manual | High | `theorem-status.md` | Accurate: punctuation cannot be represented losslessly by the current alias contract |
 | 47 | `CJ1` → no suggestion | manual | High | `theorem-status.md` | Accurate: two-letter prefix has no lossless automatic canonical mapping |
 | 48 | `H2` → `H002` | automatic | Low | `theorem-status.md` | Lexically accurate; association needs review |
 | 49 | `H3` → `H003` | automatic | Low | `theorem-status.md` | Lexically accurate; association needs review |
@@ -154,25 +171,34 @@ therefore no source text may be rewritten automatically.
 | 73 | `T34` → `T034` | automatic | Low | `theorem-status.md` | Lexically accurate; association needs review |
 | 74 | `T35` → `T035` | automatic | Low | `theorem-status.md` | Lexically accurate; association needs review |
 
-Finding 46 must not be applied. `C2.1` is not a valid current Cruthúnas alias
-because aliases match `^[A-Z][A-Z0-9-]*$`; preserving its punctuation therefore
-requires a framework or human mapping decision. Finding 47 may preserve `CJ1`
-as an alias, but choosing its one-letter canonical namespace risks collision
-with the `C` corollary family and cannot be guessed.
+Finding 46 retains the exact token `C2.1` and correctly requires a human mapping
+decision; no truncated `C2` finding exists. Finding 47 may preserve `CJ1` as an
+alias, but choosing its one-letter canonical namespace risks collision with the
+`C` corollary family and cannot be guessed.
 
 ### Identity and legacy-record findings
 
 | # | Exact code, class, risk, path | Current state and reporter reason | Accuracy and later action | Dependencies and scientific boundary |
-|---:|---|---|---|
-| 75 | `identity.unstructured_assertion`; manual; High; `research-log.md` | Prose calls a tool an “independent verifier” without governed identity metadata. | Accurate as an unstructured assertion, but it is a retrospective research-log anecdote, not typed reproduction evidence. Retain as background unless a human supplies provenance. | Requires creator/requester/originator/environment/artifact separation. Reclassification could change an evidence boundary. |
-| 76 | `identity.unstructured_assertion`; manual; High; `theorem-status.md` | Three “independent implementations” are asserted for K3–K5. | Accurate. Different implementations are documented; independent human authority is not. Do not promote to `INDEPENDENT_REPRODUCTION`. | Requires claim mapping and durable actor/process/environment records. It affects verification status. |
-| 77 | `identity.unstructured_assertion`; manual; High; `verification-framework/src/main.rs` | Source comments and output label the Rust verifier independent. | Accurate as an implementation-boundary assertion, not proof of independent authority. Preserve code; later evidence may cite it only with full provenance. | Requires mapped computational claims, creator identity, commands, artifacts, and environment. It affects evidence class, not mathematics. |
-| 78 | `identity.unstructured_assertion`; manual; High; `verification-framework/verify.py` | Module/output text calls the Python path a third independent verifier. | Accurate on the same limited basis as finding 77. Language and arithmetic differences alone do not prove independent authority. | Same dependency and verification-status boundary as finding 77. |
-| 79 | `migration.record_manual`; manual; High; `audit/evidence-manifest.md` | A Markdown manifest cannot be converted without claim-by-claim and release-scope choices. | Accurate. It mixes tagged Git artifacts, logical digests, external ignored files, commands, and scope caveats. No direct conversion is safe. | Requires frozen-release analysis, claim IDs, typed evidence contracts, actor identities, and explicit `establishes`/`does_not_establish`. Wrong conversion would change claim support. |
+|---:|---|---|---|---|
+| 75 | `identity.unstructured_assertion`; manual; High; `README.md` | “independent arbitrary-precision certificate” | Accurate provenance-review signal; not proof of independent authority. | Requires mapped claims plus durable actor, process, environment, and artifact provenance. |
+| 76 | `identity.unstructured_assertion`; manual; High; `audit/evidence-manifest.md` | “independently regenerated” | Accurate provenance-review signal; do not promote verification status. | The historical manifest is not typed evidence. |
+| 77 | `identity.unstructured_assertion`; manual; High; `audit/release-readiness.md` | “independently closed” | Accurate provenance-review signal; not external review. | Requires durable reviewer and process attribution. |
+| 78 | `identity.unstructured_assertion`; manual; High; `compressed-orbit-analysis.md` | “re-verified independently” | Accurate provenance-review signal; not evidence by detection alone. | Requires the exact claim, command, environment, artifact, and actor boundary. |
+| 79 | `identity.unstructured_assertion`; manual; High; `independent/verify_safe_certificate.py` | “independently implemented” | Accurate implementation-boundary signal only. | Implementation separation does not establish human independence. |
+| 80 | `identity.unstructured_assertion`; manual; High; `periodic-orbit-analysis.md` | “independent python implementation” | Accurate implementation-boundary signal only. | Requires creator and derivation provenance before evidence classification. |
+| 81 | `identity.unstructured_assertion`; manual; High; `research-log.md` | “independent verifier” | Accurate retrospective prose signal, not typed reproduction evidence. | Requires creator/requester/originator/environment/artifact separation. |
+| 82 | `identity.unstructured_assertion`; manual; High; `search-framework/tests/dynamics.rs` | “recomputed independently” | Accurate provenance-review signal; test code is not identity metadata. | Requires exact computation and actor provenance. |
+| 83 | `identity.unstructured_assertion`; manual; High; `supplement/02-certificates.md` | “independently checked” | Accurate provenance-review signal; not proof of independent authority. | Requires typed evidence and durable attribution. |
+| 84 | `identity.unstructured_assertion`; manual; High; `supplement/03-reproduction.md` | “independent generator” | Accurate implementation-boundary signal only. | Requires creator and derivation provenance. |
+| 85 | `identity.unstructured_assertion`; manual; High; `supplement/README.md` | “independent python generators” | Accurate implementation-boundary signal only. | Requires actor/process/environment separation. |
+| 86 | `identity.unstructured_assertion`; manual; High; `theorem-status.md` | “independent python generators” | Accurate unstructured assertion; do not promote to `INDEPENDENT_REPRODUCTION`. | Requires claim mapping and durable provenance records. |
+| 87 | `identity.unstructured_assertion`; manual; High; `verification-framework/src/main.rs` | “independently confirmed” | Accurate implementation-boundary signal only. | Requires mapped computational claims, creator identity, commands, artifacts, and environment. |
+| 88 | `identity.unstructured_assertion`; manual; High; `verification-framework/verify.py` | “independently confirmed” | Accurate implementation-boundary signal only. | Language and arithmetic differences alone do not prove independent authority. |
+| 89 | `migration.record_manual`; manual; High; `audit/evidence-manifest.md` | A Markdown manifest cannot be converted without claim-by-claim and release-scope choices. | Accurate; no direct conversion is safe. | Requires frozen-release analysis, claim IDs, typed evidence contracts, identities, and explicit support boundaries. |
 
 ### Governed-path findings
 
-Findings 80–89 all have exact code `structure.missing`, automatic
+Findings 90–99 all have exact code `structure.missing`, automatic
 classification, Medium risk, and message “Required governed project path is
 missing.” Each path is in fact absent. Later creation is mechanically defined
 by the pinned framework but still requires an authorized experimental-init PR;
@@ -182,20 +208,20 @@ a scientific claim, but their contents define every later governance boundary.
 
 | # | Missing path | Required later decision or action |
 |---:|---|---|
-| 80 | `.cruthunas/project.yaml` | Initialize only as `experimental`, exact commit pinned, `non-conformant`; no release version |
-| 81 | `RESEARCH_CHARTER.md` | Review a Cloitre-specific charter; the present audit plan is not a substitute |
-| 82 | `claims/claims.yaml` | Create an empty canonical ledger; do not import theorem statuses |
-| 83 | `claims/schema.json` | Copy the pinned canonical claim schema through the atomic init path |
-| 84 | `schemas/claim-proposal-v1.json` | Copy through atomic init; no local schema edits |
-| 85 | `schemas/evidence-v1.json` | Copy through atomic init; no evidence records yet |
-| 86 | `schemas/exemption-v1.json` | Copy through atomic init; create no exemption |
-| 87 | `schemas/framework-release-v1.json` | Copy schema only; experimental mode has no framework-release assertion |
-| 88 | `schemas/project-v1.json` | Copy through atomic init and validate manifest against it |
-| 89 | `schemas/transition-v1.json` | Copy through atomic init; create no scientific transition |
+| 90 | `.cruthunas/project.yaml` | Initialize only as `experimental`, exact commit pinned, `non-conformant`; no release version |
+| 91 | `RESEARCH_CHARTER.md` | Review a Cloitre-specific charter; the present audit plan is not a substitute |
+| 92 | `claims/claims.yaml` | Create an empty canonical ledger; do not import theorem statuses |
+| 93 | `claims/schema.json` | Copy the pinned canonical claim schema through the atomic init path |
+| 94 | `schemas/claim-proposal-v1.json` | Copy through atomic init; no local schema edits |
+| 95 | `schemas/evidence-v1.json` | Copy through atomic init; no evidence records yet |
+| 96 | `schemas/exemption-v1.json` | Copy through atomic init; create no exemption |
+| 97 | `schemas/framework-release-v1.json` | Copy schema only; experimental mode has no framework-release assertion |
+| 98 | `schemas/project-v1.json` | Copy through atomic init and validate manifest against it |
+| 99 | `schemas/transition-v1.json` | Copy through atomic init; create no scientific transition |
 
 ### Workflow findings
 
-Findings 90–95 all have exact code `workflow.unpinned_action`, automatic
+Findings 100–105 all have exact code `workflow.unpinned_action`, automatic
 classification, Medium risk, path `.github\workflows\ci.yml`, and message that
 the action reference is not a full commit SHA. Every finding is accurate.
 The later action is a separate workflow-only PR that resolves each named ref to
@@ -206,12 +232,12 @@ CI is admissible as evidence.
 
 | # | Line | Reported reference |
 |---:|---:|---|
-| 90 | 23 | `actions/checkout@v7` |
-| 91 | 24 | `dtolnay/rust-toolchain@1.94.0` |
-| 92 | 40 | `actions/checkout@v7` |
-| 93 | 41 | `actions/setup-python@v6` |
-| 94 | 76 | `actions/checkout@v7` |
-| 95 | 78 | `leanprover/lean-action@v1` |
+| 100 | 23 | `actions/checkout@v7` |
+| 101 | 24 | `dtolnay/rust-toolchain@1.94.0` |
+| 102 | 40 | `actions/checkout@v7` |
+| 103 | 41 | `actions/setup-python@v6` |
+| 104 | 76 | `actions/checkout@v7` |
+| 105 | 78 | `leanprover/lean-action@v1` |
 
 The compiler selection `1.94.0` is version-specific, but the action
 implementation itself is still a moving non-SHA reference. No workflow
@@ -251,7 +277,7 @@ different historical roles, not globally interchangeable namespaces:
 | Class | Existing meaning | Prospective rule | Main risk |
 |---|---|---|---|
 | `T1`, `T18` | Theorems | Mechanical zero-padding, e.g. `T001`, `T018`; retain original alias | Association must match the exact theorem statement across files |
-| `C2.1`, `C7`, `C19` | Corollaries | Simple integer forms can pad; `C2.1` cannot be preserved by the current alias schema | Decimal subnumbering is lost by the reporter and schema |
+| `C2.1`, `C7`, `C19` | Corollaries | Simple integer forms can pad; `C2.1` cannot be preserved by the current alias schema | `C2.1` requires an explicit human mapping decision |
 | `K1`–`K13` | Bounded computational results/certificates | Mechanical padding, e.g. `K001` | Must not be converted into proof or independent-reproduction status |
 | `CJ1` | Original open conjecture | Human chooses a one-letter canonical ID; `CJ1` can be a historical alias | `C` namespace collision and loss of “conjecture” semantics |
 | `L3`–`L44` | Lemmas | Mechanical padding, e.g. `L003` | Exact source and transitive proof dependencies must be reviewed |
@@ -259,10 +285,10 @@ different historical roles, not globally interchangeable namespaces:
 | `R1`–`R5` | Refuted/rejected ideas | Mechanical padding | These are refutations/corrections, not positive theorem claims |
 | `H*`, `Q*`, `G3`, `O1`, `O2` | Heuristics, prior questions/claims, a periodic candidate, and open branches | Lexical padding is possible | Prefix meaning varies; some entries may be background rather than governable claims |
 
-The reporter's 74 ID findings contain 72 sound lexical padding hints, one valid
-manual case (`CJ1`), and one defective truncation (`C2` from `C2.1`). A reviewed
-mapping must also decide whether every ledger row is a canonical claim at all.
-No identifier was rewritten.
+The corrected reporter's 74 ID findings contain 72 sound lexical padding hints
+and two exact manual cases (`C2.1` and `CJ1`). It emits no truncated `C2` token.
+A reviewed mapping must also decide whether every ledger row is a canonical
+claim at all. No identifier was rewritten.
 
 ## 6. Existing-file mapping
 
@@ -369,11 +395,14 @@ reinterpreted as a Cruthúnas release.
 
 ## 10. Proposed migration sequence
 
-The two reporter defects create a concrete prerequisite. The default sequence
-is retained after a new framework-only step zero.
+The two original reporter defects created a concrete prerequisite. That step is
+now complete at the replacement framework pin; the remaining sequence is still
+authorization-gated and has not begun.
 
 ### PR 0 — repair Cruthúnas adoption reporting
 
+- **Status:** Complete. Cruthúnas PR #5 passed adversarial review and was
+  squash-merged as `f60d61d19254759a1c395cae52663f82212a8121`.
 - **Scope:** In the Cruthúnas repository, recognize punctuated IDs without
   prefix truncation and broaden affirmative independence-language coverage;
   add the two section-12 fixtures as deterministic tests.
@@ -517,7 +546,7 @@ non-adopted repository.
 
 ## 12. False-positive and false-negative assessment
 
-### Confirmed defect A — punctuated historical ID
+### Original confirmed defect A — punctuated historical ID
 
 Minimal fixture outside both repositories:
 
@@ -527,10 +556,11 @@ theorem-status.md: | C2.1 | positive eventual increment | proved |
 
 Expected: one manual incompatible-ID finding for the exact historical token
 `C2.1`, because the current alias schema cannot preserve its punctuation.
-Actual: the reporter emitted automatic `C2 → C002`, silently truncating `.1`.
-This is both a false positive for exact `C2` and a false negative for `C2.1`.
+The original reporter emitted automatic `C2 → C002`, silently truncating `.1`.
+The replacement reporter now retains exact/manual `C2.1` and emits no truncated
+`C2` finding.
 
-### Confirmed defect B — affirmative independence wording
+### Original confirmed defect B — affirmative independence wording
 
 Minimal fixture outside both repositories:
 
@@ -538,17 +568,19 @@ Minimal fixture outside both repositories:
 evidence.md: The certificate is independently regenerated and checked.
 ```
 
-Expected: `identity.unstructured_assertion`. Actual: no non-structure finding.
-The same blind spot occurs in actual files including
+Expected: `identity.unstructured_assertion`. The original reporter emitted no
+non-structure finding. The same blind spot occurred in files including
 `compressed-orbit-analysis.md`, `audit/evidence-manifest.md`,
 `audit/release-readiness.md`, `independent/verify_safe_certificate.py`,
 `independent/verify_small_spectrum.py`, `partial-proofs.md`,
 `periodic-orbit-analysis.md`, `README.md`, `supplement/02-certificates.md`, and
-`search-framework/tests/dynamics.rs`.
+`search-framework/tests/dynamics.rs`. The replacement reporter uses a
+conservative supported grammar and reports 14 affected Cloitre files. Detection
+is a provenance-review signal, never evidence that independence occurred.
 
 ### Other classification checks
 
-- The four emitted identity findings are not treated as proof of independence;
+- The fourteen emitted identity findings are not treated as proof of independence;
   source-code self-descriptions remain manual provenance questions.
 - Explicit negative language such as “not external peer review” and “no second
   implementation” was not incorrectly promoted.
@@ -564,9 +596,9 @@ The same blind spot occurs in actual files including
 - The reporter supplies no severity; the audit classifications in section 1
   are explicitly human-added.
 
-These defects must be fixed on a separate Cruthúnas framework branch with the
-minimal fixtures above. No Cloitre-side workaround is permitted, and any later
-migration must rerun a newly authorized pinned reporter.
+These defects were fixed in Cruthúnas PR #5 without a Cloitre-side workaround.
+The squash-merged `main` commit, not the reviewed feature-branch head, is the
+replacement pin. No initialization or migration occurred in this audit update.
 
 ## 13. Validation
 
@@ -586,9 +618,9 @@ migration must rerun a newly authorized pinned reporter.
 | Four committed artifact hashes from CI | Pass; 4/4 matched |
 | `lake build` | Pass on Lean 4.32.1 |
 | `lean lean/Conjecture.lean` | Pass; only the file's printed standard axiom dependencies |
-| Reporter run 1 | Expected exit 1 with gaps; valid JSON; Git status/diff clean |
-| Reporter run 2 | Expected exit 1 with gaps; byte/semantic match; Git status/diff clean |
-| Corrected minimal defect reproductions | Pass as reproductions; actual output differs from expected semantics as documented |
+| Replacement reporter run 1 | Expected exit 1 with 105 gaps; valid JSON; empty stderr |
+| Replacement reporter run 2 | Expected exit 1; byte-identical output; empty stderr |
+| Corrected defect regressions | Cruthúnas PR #5 passed 68 focused scope, 249 adoption-reporter, and 336 full tests before merge |
 
 Skipped by design: the full ten-million-start census, full million-state safe
 certificate regeneration, ignored row-by-row scan regeneration, workflow
