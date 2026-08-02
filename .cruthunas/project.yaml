@@ -1,0 +1,21 @@
+schema_version: 1
+mode: experimental
+conformance: non-conformant
+framework:
+  repository: Kodaxadev/cruthunas
+  commit: f60d61d19254759a1c395cae52663f82212a8121
+profile: mathematics
+project:
+  id: cloitre-recurrence
+  title: Cloitre recurrence research
+  maintainers:
+    - github: Kodaxadev
+canonical:
+  claim_ledger: claims/claims.yaml
+  research_charter: RESEARCH_CHARTER.md
+  evidence_root: audit/evidence
+  transition_root: audit/transitions
+  release_manifest: audit/evidence-manifest.yaml
+policies:
+  workflow_pinning_required: true
+  agent_evidence_is_provenance_only: true
