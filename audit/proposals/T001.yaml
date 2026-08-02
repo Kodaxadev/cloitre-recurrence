@@ -1,0 +1,18 @@
+schema_version: 1
+id: T001
+kind: THEOREM
+aliases:
+- T1
+title: Absorption equivalence
+statement: 'For the recurrence b_1 = m and b_{n+1} = b_n + (b_n mod n), where m is an integer with m >= 1 and mod denotes the least nonnegative remainder, write b_n = q_n n + r_n with 0 <= r_n < n. For every integer t >= 1 and integer c, the following are equivalent: (1) b_{n+1} - b_n = c for every integer n >= t; (2) b_t = c(t+1) with 0 <= c < t; and (3) q_t = r_t = c.'
+scope: Integer initial values m >= 1; integer indices t,n >= 1; least nonnegative remainders; q_n and r_n are the Euclidean quotient and remainder defined by b_n = q_n n + r_n and 0 <= r_n < n.
+dependencies: []
+source_document: partial-proofs.md
+proof_location: null
+formal_declarations: []
+limitations:
+- This claim is only the absorption-equivalence statement; it does not establish that every orbit stabilizes.
+- This proposal does not import the historical proof, formalization, verification, publication, gate, or theorem status.
+- Definitions and indexing are taken from partial-proofs.md and require separate statement and dependency review before registration.
+proposed_at: 2026-08-02T03:20:38Z
+proposed_by: github:Kodaxadev
