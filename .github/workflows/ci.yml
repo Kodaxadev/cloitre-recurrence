@@ -68,6 +68,9 @@ jobs:
           independent/verify_unit_word_composition.py
           independent/verify_unit_determinism.py
           independent/verify_unit_chain_structure.py
+          independent/unit_gap_words_core.py
+          independent/unit_gap_words_checks.py
+          independent/verify_unit_gap_words.py
           independent/verify_general_gate_determinism.py
           independent/verify_pure_upper_run.py
           independent/verify_block_chain_map.py
@@ -108,6 +111,18 @@ jobs:
         run: python independent/verify_unit_determinism.py 200 400 30000
       - name: Check inert wrap count and the P126/P129 family
         run: python independent/verify_unit_chain_structure.py 300 1200
+      # The default run is the whole contract: six gap words, both oracles, and
+      # the negative controls. The report is a build output, so it is written
+      # into artifacts/ and uploaded rather than tracked.
+      - name: Enumerate the short unit gap words and write the certificate
+        run: >-
+          python independent/verify_unit_gap_words.py
+          --report artifacts/unit-gap-words.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: unit-gap-words-${{ matrix.os }}
+          path: artifacts/unit-gap-words.json
+          if-no-files-found: error
       - name: Check the forced pure-upper gap at arbitrary block length
         run: python independent/verify_general_gate_determinism.py 220 220
       - name: Check the pure-upper run ceiling
