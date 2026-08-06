@@ -21,6 +21,10 @@ manuscript/arxiv/*.log
 manuscript/arxiv/*.out
 manuscript/arxiv/build-*/
 
+# Verifier reports. Regenerable by rerunning the verifier that emits them; CI
+# uploads them as build artifacts instead of tracking them.
+artifacts/
+
 # Platform noise
 .DS_Store
 Thumbs.db
