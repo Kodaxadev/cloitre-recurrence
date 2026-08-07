@@ -71,6 +71,10 @@ jobs:
           independent/unit_gap_words_core.py
           independent/unit_gap_words_checks.py
           independent/verify_unit_gap_words.py
+          independent/unit_gap_extensions_core.py
+          independent/unit_gap_extensions_audit.py
+          independent/unit_gap_extensions_checks.py
+          independent/verify_unit_gap_extensions.py
           independent/verify_general_gate_determinism.py
           independent/verify_pure_upper_run.py
           independent/verify_block_chain_map.py
@@ -123,6 +127,17 @@ jobs:
           name: unit-gap-words-${{ matrix.os }}
           path: artifacts/unit-gap-words.json
           if-no-files-found: error
+      # The three-gap extension tree above K18. The default run regenerates and
+      # re-audits K18 first, so this also re-proves the 342 third-gate inputs.
+      - name: Extend the unit gap words to three gates and write the certificate
+        run: >-
+          python independent/verify_unit_gap_extensions.py
+          --report artifacts/unit-gap-extensions.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: unit-gap-extensions-${{ matrix.os }}
+          path: artifacts/unit-gap-extensions.json
+          if-no-files-found: error
       - name: Check the forced pure-upper gap at arbitrary block length
         run: python independent/verify_general_gate_determinism.py 220 220
       - name: Check the pure-upper run ceiling
@@ -152,6 +167,64 @@ jobs:
           41216cd3830cb97fd809b6aa9f78ee8a3e77ce7f13c7a5244d65ebc7c96beeef  independent/verify_safe_certificate.py
           a0b60e6d229e56adbba04808130218a807817d5471edfc2f659c253b47370e4b  independent/verify_small_spectrum.py
           HASHES
+
+  # The matrix uploads one certificate per operating system; nothing in the
+  # matrix can compare them, because each leg only ever sees its own. This job
+  # is the durable gate: it fails if the two legs ever stop agreeing byte for
+  # byte, so cross-platform determinism stops being an out-of-band claim.
+  #
+  # The two legs are named literally on purpose. The Python matrix declares
+  # exactly ubuntu-latest and windows-latest, and those are the two platforms
+  # the certificates are claimed to agree on, so this job gates that pair and
+  # nothing else. Adding a leg to the matrix means adding a comparison here;
+  # dynamic artifact discovery is deliberately not built.
+  determinism:
+    name: Cross-platform certificate determinism
+    needs: python
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: unit-gap-words-ubuntu-latest
+          path: reports/words-ubuntu
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: unit-gap-words-windows-latest
+          path: reports/words-windows
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: unit-gap-extensions-ubuntu-latest
+          path: reports/ext-ubuntu
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: unit-gap-extensions-windows-latest
+          path: reports/ext-windows
+      - name: Compare the Ubuntu and Windows certificates byte for byte
+        shell: bash
+        run: |
+          set -euo pipefail
+          fail=0
+          compare() {
+            label="$1"; left="$2"; right="$3"
+            echo "--- ${label} ---"
+            sha256sum "${left}" "${right}"
+            wc -c "${left}" "${right}"
+            if cmp -s "${left}" "${right}"; then
+              echo "OK: ${label} is byte-identical across ubuntu-latest and windows-latest"
+            else
+              echo "FAIL: ${label} differs between ubuntu-latest and windows-latest"
+              cmp "${left}" "${right}" || true
+              fail=1
+            fi
+          }
+          compare unit-gap-words.json \
+            reports/words-ubuntu/unit-gap-words.json \
+            reports/words-windows/unit-gap-words.json
+          compare unit-gap-extensions.json \
+            reports/ext-ubuntu/unit-gap-extensions.json \
+            reports/ext-windows/unit-gap-extensions.json
+          exit "${fail}"
 
   paper:
     name: Compile the arXiv draft
