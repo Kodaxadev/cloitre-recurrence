@@ -1,18 +1,18 @@
 # Keep the immutable action pins in .github/workflows/ from going stale.
 #
-# Every `uses:` reference in this repository is a full commit SHA with the
-# upstream tag in a trailing comment. That is deliberate: a tag is mutable, a
+# Every `uses:` reference is a full commit SHA, with a human-readable upstream
+# version or ref comment where useful. That is deliberate: a tag is mutable, a
 # SHA is not. The price of SHA pins is silence -- nothing signals that an
 # upstream action has shipped a fix, so the pins simply rot. This file is that
-# signal. Dependabot rewrites the SHA and the trailing comment together, so the
+# signal. Dependabot rewrites the SHA and its comment together, so the
 # convention survives its updates rather than being undone by them.
 #
-# NOTE ON ACTIVATION: GitHub reads this file from the default branch only. On a
-# research branch it is inert, and it starts working when this line integrates
-# into main. Pull requests are opened against the default branch, which is
-# where the pins being maintained will then live; no target-branch is set,
-# because hardcoding a research branch name into config that lives on main
-# would break as soon as that branch is retired.
+# NOTE ON ACTIVATION: GitHub reads this file from the default branch only, so
+# the copy on a research branch is inert and takes effect when that line
+# integrates. The same bytes are kept on both branches so the two cannot
+# disagree about policy. No target-branch is set, because naming a research
+# branch in configuration that lives on the default branch would break as soon
+# as that branch is retired.
 
 version: 2
 
@@ -27,17 +27,10 @@ updates:
       prefix: "ci"
 
     groups:
-      # CI here is seven jobs across two operating systems and includes Lean
-      # and LaTeX, so every pull request is expensive. Collecting the routine
-      # bumps into one monthly pull request costs one CI run instead of one per
-      # action, and each entry still carries its own version comment, so the
-      # grouped diff stays readable.
-      #
-      # Major updates are deliberately excluded from the group so each one
-      # arrives as its own pull request and gets reviewed on its own merits.
-      # Major artifact-action upgrades are the immediate case: they clear the
-      # deprecated Node runtime but can change action behavior, so they belong
-      # in separate, separately reviewed pull requests.
+      # CI includes multiple verifier and toolchain checks, so every dependency
+      # pull request has a real validation cost. Collect routine bumps into one
+      # monthly pull request instead of one per action. Each entry still
+      # carries its own version comment, so the grouped diff stays readable.
       actions:
         patterns:
           - "*"
@@ -46,11 +39,14 @@ updates:
           - "patch"
 
     ignore:
-      # The Rust toolchain version is evidence, not a dependency. This action
-      # is pinned to a commit on a version branch that hardcodes the toolchain
-      # in its own action.yml, so an automated bump would quietly change the
-      # compiler that produces the Rust verifier results. Upstream also
-      # publishes branches rather than tags, so there is no reliable release
-      # series for Dependabot to follow here. Change this pin deliberately or
-      # not at all.
+      # Major action upgrades can change runtime requirements, inputs, outputs,
+      # or artifact behavior. Keep those as deliberate review work rather than
+      # allowing routine dependency automation to start them.
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+
+      # The Rust toolchain and the action used to install it are part of the
+      # verifier environment. Changes here are evidence-affecting and therefore
+      # remain deliberate rather than automated.
       - dependency-name: "dtolnay/rust-toolchain"
