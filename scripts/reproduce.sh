@@ -53,6 +53,7 @@ python independent/verify_pure_upper_run.py 500
 python independent/verify_block_chain_map.py 200
 python independent/verify_admissible_slack.py 200
 python independent/verify_unit_fibre_periodicity.py
+python independent/verify_block_gap_periodicity.py
 python independent/verify_sharp_growth.py
 python independent/verify_ridge_segments.py
 python independent/verify_mixed_ridges.py
