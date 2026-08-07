@@ -79,6 +79,7 @@ jobs:
           independent/verify_pure_upper_run.py
           independent/verify_block_chain_map.py
           independent/verify_admissible_slack.py
+          independent/verify_unit_fibre_periodicity.py
           independent/verify_sharp_growth.py
           independent/verify_ridge_segments.py
           independent/verify_mixed_ridges.py
@@ -146,6 +147,8 @@ jobs:
         run: python independent/verify_block_chain_map.py 200
       - name: Check admissibility as a slack inequality, both directions
         run: python independent/verify_admissible_slack.py 200
+      - name: Check the unit-fibre periodic-exponent exclusion
+        run: python independent/verify_unit_fibre_periodicity.py
       - name: Check parameterized rebounds and sharp growth
         run: python independent/verify_sharp_growth.py
       - name: Check post-down ridge segments
