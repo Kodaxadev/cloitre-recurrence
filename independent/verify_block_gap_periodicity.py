@@ -126,6 +126,38 @@ def check_V_regression() -> int:
     return V
 
 
+def check_strictness() -> tuple:
+    """The abstract class properly contains the Psi-orbits.
+
+    Exhibits data satisfying (B.0)-(B.1) whose gap is NOT the forced minimum of
+    L136, and which still continues one further admissible step.  This makes the
+    "larger class" claim demonstrably non-vacuous; it is not used in any proof.
+    """
+    from verify_block_chain_map import forced_gap
+
+    def ok(n, U, f):
+        G = n - 2 * U
+        return f >= 1 and f <= G - 3 and G >= 4
+
+    n0, U0, f0, k0, r0, k1 = 20, 0, 1, 4, 4, 5
+    need(ok(n0, U0, f0), "strictness seed is not admissible")
+    need(forced_gap(n0 + k0 + 1, f0) != r0,
+         "strictness witness uses the forced gap after all")
+    n1, U1 = n0 + k0 + 1 + r0, U0 + k0
+    f1 = (f0 << (k1 + r0 + 1)) - ((1 << k1) - 1) * (n1 + 4) + k1
+    need(ok(n1, U1, f1), "strictness witness leaves the window")
+    # and it continues at least one further admissible step
+    cont = []
+    for k2 in range(1, 8):
+        for r1 in range(0, 12):
+            n2, U2 = n1 + k1 + 1 + r1, U1 + k1
+            f2 = (f1 << (k2 + r1 + 1)) - ((1 << k2) - 1) * (n2 + 4) + k2
+            if ok(n2, U2, f2):
+                cont.append((r1, k2))
+    need(cont, "strictness witness does not continue")
+    return (n0, U0, f0), (k0, r0, k1), forced_gap(n0 + k0 + 1, f0), f1, len(cont)
+
+
 def check_phase_control(word=((2, 0), (1, 2), (4, 1))) -> int:
     """NEGATIVE CONTROL 1 for (151.1): fixed (W,V) hold only on one phase."""
     p = len(word)
@@ -385,6 +417,11 @@ def main() -> int:
 
     c = check_t150_specialization()
     print(f"T150 specialization: W identity holds on {c} all-unit words")
+
+    seed, choice, rf, f1, ncont = check_strictness()
+    print(f"scope strictness: {seed} with (k,r,k')={choice} satisfies (B.0)-(B.1) "
+          f"and continues ({ncont} ways), but the forced gap there is r={rf}, so "
+          f"the abstract class properly contains the Psi-orbits")
 
     d = check_degenerate()
     print(f"degenerate cases: p=1, all k=1, all r=0 and all {d} signs of D")

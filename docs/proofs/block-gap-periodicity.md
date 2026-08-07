@@ -1,17 +1,20 @@
 # Periodic block-gap data on the full block chain
 
-**Scope.** This note concerns infinite chains of adjacent returning positive
-blocks under the exact map \(\Psi\) of Theorem 137. It excludes eventual
-periodicity of the joint block-length/gap data \((k_i,r_i)\). It does **not**
-prove termination.
+**Scope.** This note excludes eventual periodicity of the joint block-length/gap
+data \((k_i,r_i)\) on a class **strictly larger** than the genuine
+\(\Psi\)-orbits. It does **not** prove termination.
 
-The statement covers **arbitrary positive block lengths** \(k_i\ge1\), not only
-pure-upper gates and not only the unit fibre \(k_i\equiv1\). Theorem 150 is the
-unit-fibre specialization, recovered in the last section; its proof is not
-repeated here.
+For genuine safe-map orbits the conclusion is **not new**: it already follows
+from Theorem 38, as the section *Relationship to Theorem 38* below sets out. The
+contribution here is that the same exclusion holds on the **abstract block-gap
+affine class**, which drops the threshold and minimality conditions that make a
+sequence a real \(\Psi\)-orbit. The argument runs in block coordinates and uses
+only the closed recurrence, the coordinate and admissibility window, integrality,
+and finite binary combinatorics — **no** greedy threshold condition, and **no**
+T145.
 
-Throughout, an **admissible chain** is a sequence of adjacent returning positive
-blocks obeying (137.2),
+Throughout, an **abstract block-gap affine chain** is integer data
+\((n_i,U_i,G_i,f_i,k_i,r_i)\) with \(k_i\ge1\), \(r_i\ge0\), obeying (137.2),
 
 \[
 f_{i+1}=2^{\,k_{i+1}+r_i+1}f_i-\bigl(2^{k_{i+1}}-1\bigr)(n_{i+1}+4)+k_{i+1},
@@ -31,8 +34,15 @@ G_i=n_i-2U_i,
 \tag{B.1}
 \]
 
-the last being C144 read at every index. Only (B.0), (B.1), integrality, and —
-in one case — T145 are used below.
+the last being C144 read at every index. **Nothing else is assumed.** In
+particular an abstract chain need not have \(r_i\) or \(k_i\) equal to the forced
+minima of L136 and L135, need not satisfy any C115 gate window, and need not be
+realized by any literal safe-map orbit. Only (B.0), (B.1) and integrality are
+used below.
+
+Every \(\Psi\)-chain is an abstract chain, and the containment is **strict**:
+\((n,U,G,f)=(20,0,20,1)\) with \(k_0=4,r_0=4,k_1=5\) satisfies (B.0)–(B.1) and
+continues one further admissible step, while the forced gap there is \(r_0=3\).
 
 ## Step data
 
@@ -100,26 +110,32 @@ B_t:=\sum_{s=0}^{t}(k_s+r_s+1),
 \tag{151.2}
 \]
 
-and if moreover the budget drift
+Write the budget drift
 
 \[
-D:=\sum_{t=0}^{p-1}(r_t+1-k_t)
+D:=\sum_{t=0}^{p-1}(r_t+1-k_t),
+\qquad\text{so}\qquad
+G_{i_0+jp}=G_{i_0}+jD
 \]
 
-is **positive**, then
+by L143. If the chain is infinite then, in the solution
+\(F_j=C\,2^{Pj}+\lambda j+\mu\) of (151.4) with \(\lambda(2^{P}-1)=WP\):
 
 \[
-\boxed{(2^{P}-1)\mid W\!\cdot\!P.}
+D\ge0\ \Longrightarrow\ C=0;
+\qquad
+D>0\ \Longrightarrow\ \boxed{(2^{P}-1)\mid W\!\cdot\!P};
+\qquad
+D=0\ \Longrightarrow\ \boxed{WP=0.}
 \tag{151.3}
 \]
 
-> **Two different prefixes occur, and they are not equal.** \(A_t\) is the
-> *multiplier* prefix: it collects the exponents \(a_s=k_{s+1}+r_s+1\) that still
-> have to be applied after step \(t\). \(B_t\) is the *block-start* prefix: it is
-> the amount by which the index has advanced, \(n_{i+t+1}+4=N_j+B_t\), and it
-> collects \(k_s+r_s+1\). They differ by \(B_t=A_t+k_0-k_{t+1}\), so they agree
-> exactly when the block lengths are constant — which is why the unit fibre does
-> not detect a confusion between them. \(W\) uses \(A_t\) only and is unaffected.
+> **Two prefixes occur and they are not equal.** \(A_t\) is the *multiplier*
+> prefix, collecting the exponents \(a_s=k_{s+1}+r_s+1\) still to be applied after
+> step \(t\); \(B_t\) is the *block-start* prefix, the amount the index has
+> advanced, \(n_{i+t+1}+4=N_j+B_t\). They differ by \(B_t=A_t+k_0-k_{t+1}\), so
+> they agree exactly when the block lengths are constant — which is why the unit
+> fibre cannot detect a confusion. \(W\) uses \(A_t\) only, and is unaffected.
 
 > **The phase is load-bearing.** (151.1) is asserted only at the aligned indices
 > \(i_0+jp\). A rotated phase has the same \(P\), by (B.3), but generally a
@@ -166,16 +182,20 @@ affine in \(j\). Over \(\mathbb R\) its general solution is
 \tag{151.5}
 \]
 
-By L143, \(G_{i+1}-G_i=r_i+1-k_i\), so along the aligned subsequence
-\(G_{i_0+jp}=G_{i_0}+jD\). Since \(D>0\) by hypothesis this is a genuine linear
-*upper* window growing with \(j\), and with (B.1),
-\(1\le F_j\le G_{i_0}+jD-3=O(j)\). Narrowing (151.3) to \(D>0\) is deliberate:
-it is exactly what T153 consumes, and it avoids presenting a decreasing bound as
-ordinary asymptotic control in a case that is anyway vacuous. If
-\(C>0\) then \(F_j\) grows exponentially and breaks the upper bound; if \(C<0\)
-then \(F_j\to-\infty\) and breaks \(F_j\ge1\). Hence \(C=0\), so
-\(F_j=\lambda j+\mu\) for all \(j\), and \(\lambda=F_1-F_0\in\mathbb Z\). With
-(151.5) this is (151.3). \(\square\)
+By L143, \(G_{i+1}-G_i=r_i+1-k_i\), so \(G_{i_0+jp}=G_{i_0}+jD\).
+
+*The case \(D\ge0\).* Then \(G_{i_0+jp}=G_{i_0}+jD=O(j)\), and (B.1) gives
+\(1\le F_j\le G_{i_0}+jD-3=O(j)\). If \(C>0\) then \(F_j\) grows exponentially
+and breaks that upper bound; if \(C<0\) then \(F_j\to-\infty\) and breaks
+\(F_j\ge1\). Hence \(C=0\) and \(F_j=\lambda j+\mu\) for every \(j\).
+
+*The case \(D>0\).* Each \(F_j\) is an integer, so \(\lambda=F_1-F_0\in\mathbb Z\),
+and (151.5) gives \((2^{P}-1)\mid WP\).
+
+*The case \(D=0\).* Now \(G_{i_0+jp}=G_{i_0}\) is constant, so (B.1) gives the
+**two-sided** bound \(1\le F_j\le G_{i_0}-3\): the aligned subsequence is
+bounded. With \(C=0\) from above, \(F_j=\lambda j+\mu\) is bounded, which forces
+\(\lambda=0\). Then (151.5) reads \(WP=0\). \(\square\)
 
 ## Lemma 152 (cyclic run lengths detect a proper binary period)
 
@@ -269,8 +289,12 @@ up to rotation, the two readings are interchangeable. The shift visible in
 
 ## Theorem 153 (no eventually periodic block-gap data)
 
-No infinite admissible chain of adjacent returning positive blocks has eventually
+No infinite abstract block-gap affine chain satisfying (B.0)–(B.1) has eventually
 periodic joint data \((k_i,r_i)\).
+
+**In particular**, no infinite adjacent-positive-block \(\Psi\)-chain has
+eventually periodic joint block/gap data — though that consequence is not new;
+see *Relationship to Theorem 38*.
 
 ### Proof
 
@@ -280,13 +304,16 @@ Suppose one does. Take the primitive period word, \(p\ge1\), and let
 **\(D<0\).** By L143, \(G_{i_0+jp}=G_{i_0}+jD\to-\infty\). But (B.1) gives
 \(f\ge1\) and \(f\le G-3\), so \(G_i\ge4\) at every index. Contradiction.
 
-**\(D=0\).** Then \(G_{i_0+jp}=G_{i_0}\) for all \(j\), and within a period the
-increments \(r_t+1-k_t\) repeat, so for \(0\le t<p\) the value
-\(G_{i_0+jp+t}=G_{i_0}+\sum_{s<t}(r_s+1-k_s)\) is independent of \(j\). Hence
-\(\sup_iG_i=\max_{t<p}G_{i_0+t}<\infty\) over the whole tail, and taking the
-maximum with the finite prefix, \(C:=\sup_iG_i<\infty\). T145 then bounds every
-chain of \(N\ge2\) consecutive positive blocks by \(N\le3C-13\), a finite number,
-contradicting an infinite chain.
+**\(D=0\).** By L151 the aligned subsequence is bounded, which forces both
+\(C=0\) and \(\lambda=0\), so \(WP=0\). But \(P=\sum_t(k_{t+1}+r_t+1)\ge2p\ge2\)
+because each summand is at least \(1+0+1\), and
+
+\[
+W=\sum_{t}\bigl(2^{x_t}-1\bigr)2^{\,P-A_t}\ge1>0
+\]
+
+because every \(x_t=k_{t+1}\ge1\) makes each summand at least \(2^{P-A_t}\ge1\).
+So \(WP>0\), a contradiction. No appeal to T145 is needed, and none is made.
 
 **\(D>0\).** This is the case L151 was built for. By (151.3),
 \(a:=PW/d\in\mathbb Z\) where \(d=2^{P}-1\), and \(W/d=a/P\).
@@ -330,43 +357,44 @@ the period. \(\square\)
 ### What is left open
 
 Theorem 153 constrains the *shape* of the data an infinite chain could carry. It
-does not prove termination, and none of the following is excluded:
+does not prove termination, and none of the following is excluded: bounded but
+aperiodic joint data; unbounded aperiodic joint data; general nonperiodic budget
+excursions — no bound on \(C=\sup_iG_i\) follows, so T145 is not upgraded; or the
+stabilization conjecture itself.
 
-* infinite chains with **bounded but aperiodic** joint data;
-* infinite chains with **unbounded aperiodic** joint data;
-* general nonperiodic budget excursions — no bound on \(C=\sup_i G_i\) follows,
-  so T145 is not upgraded;
-* the stabilization conjecture itself.
+## Relationship to Theorem 38, and to Theorem 150
 
-## Theorem 150 as the unit-fibre specialization
+For **genuine safe-map orbits** the final consequence is not logically new. A
+positive block contributes one zero digit followed by \(k_i\) wrap digits, and the
+gap contributes \(r_i\) further zero-only blocks, so eventually periodic
+\((k_i,r_i)\) gives an eventually periodic nonzero quotient-change word —
+schematically \(0\,1^{k_i}\,0^{r_i}\) repeated — which T38 already excludes.
 
-Put \(k_i\equiv1\). Then \(x_t\equiv1\), each one-run of \(W\) has length one, and
-(152.2) reads \((1,r_1+1),\dots,(1,r_0+1)\): the binary word is a single one
-followed by \(r_i+1\) zeros, repeated. The cyclic distance between successive
-one-bits is therefore
+The new content of L151–T153 lies elsewhere: the exclusion is proved **directly in
+block coordinates** and **for the larger abstract affine class**, which drops the
+threshold and minimality conditions making a sequence a genuine \(\Psi\)-orbit;
+that containment is strict, by the witness in the scope section. T38 is an
+independent earlier exclusion at the level of global orbits, and neither statement
+subsumes the other.
 
-\[
-1+(r_i+1)=r_i+2=h_i,
-\]
-
-which is exactly the gap word of T150, and \(W\) collapses to T150's coefficient
-under \(h_i=r_i+2\). L152 specializes to L149, and Theorem 153 specializes to
-Theorem 150. The verifier checks this as a numerical identity on \(W\), not
-merely as agreement of verdicts. T150's proof is not repeated.
+**T150 is the all-unit specialization of this affine theorem**, not of T38. At
+\(k_i\equiv1\) each one-run of \(W\) has length one, so successive one-bits sit at
+cyclic distance \(1+(r_i+1)=r_i+2=h_i\) — exactly T150's gap word, with \(W\)
+collapsing to T150's coefficient. L152 specializes to L149. The verifier checks
+this as an identity on \(W\), not as agreement of verdicts; T150's proof is not
+repeated.
 
 ## Verification
 
 `independent/verify_block_gap_periodicity.py` is an independent arithmetic
-verifier. It recovers \(2^{P}\), \(W\) and \(V\) by finite differencing the
-composed map and compares **all three** against the closed forms above, so
-(151.2) is genuinely checked rather than merely fitted. It carries the asymmetric
-witness \((k,r)=\bigl((2,0),(1,2),(4,1)\bigr)\), where \(V=5749\) while the
-\(A_t\)-for-\(B_t\) confusion would give \(5515\). It checks the phase control on
-an asymmetric mixed word; reconstructs the cyclic run-pair word and requires the
-rotation (152.2), with two independent mutations that must fail — pairing a
-one-run with the **preceding** zero-run, and a literal **reverse-direction** run
-parser; brute-forces both directions of L152; confirms the T150 coefficient
-identity; and searches primitive period words for (151.3).
-
-That last search is **regression only**. Theorem 153 is unconditional in \(P\)
-and does not rest on it.
+verifier. It recovers \(2^{P}\), \(W\) and \(V\) by finite differencing and
+compares **all three** against the closed forms, so (151.2) is checked rather than
+fitted; it pins the asymmetric witness \(\bigl((2,0),(1,2),(4,1)\bigr)\), where
+\(V=5749\) while the \(A_t\)-for-\(B_t\) confusion gives \(5515\). It checks the
+phase control; requires the rotation (152.2) against two mutations that must fail
+— pairing a one-run with the **preceding** zero-run, and a literal
+**reverse-direction** parser; brute-forces both directions of L152; confirms the
+T150 coefficient identity; exhibits the strictness witness showing the abstract
+class properly contains the \(\Psi\)-orbits; and searches primitive period words
+for (151.3). That last search is **regression only**: T153 is unconditional in
+\(P\) and does not rest on it.
