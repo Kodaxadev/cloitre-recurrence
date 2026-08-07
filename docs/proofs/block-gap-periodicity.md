@@ -77,7 +77,7 @@ index over one period (the right sum, from (B.1)):
 
 ## Lemma 151 (aligned period composition, and a divisibility)
 
-Let an admissible chain have eventually periodic joint data: for some \(i_0\) and
+Let an abstract block-gap affine chain have eventually periodic joint data: for some \(i_0\) and
 primitive period word \((k_0,r_0),\dots,(k_{p-1},r_{p-1})\),
 
 \[
@@ -110,15 +110,8 @@ B_t:=\sum_{s=0}^{t}(k_s+r_s+1),
 \tag{151.2}
 \]
 
-Write the budget drift
-
-\[
-D:=\sum_{t=0}^{p-1}(r_t+1-k_t),
-\qquad\text{so}\qquad
-G_{i_0+jp}=G_{i_0}+jD
-\]
-
-by L143. If the chain is infinite then, in the solution
+Write the budget drift \(D:=\sum_{t}(r_t+1-k_t)\), so that
+\(G_{i_0+jp}=G_{i_0}+jD\) by (B.1). If the chain is infinite then, in the solution
 \(F_j=C\,2^{Pj}+\lambda j+\mu\) of (151.4) with \(\lambda(2^{P}-1)=WP\):
 
 \[
@@ -182,7 +175,9 @@ affine in \(j\). Over \(\mathbb R\) its general solution is
 \tag{151.5}
 \]
 
-By L143, \(G_{i+1}-G_i=r_i+1-k_i\), so \(G_{i_0+jp}=G_{i_0}+jD\).
+By (B.1),
+\(G_{i+1}-G_i=(n_{i+1}-2U_{i+1})-(n_i-2U_i)=(k_i+1+r_i)-2k_i=r_i+1-k_i\),
+so \(G_{i_0+jp}=G_{i_0}+jD\).
 
 *The case \(D\ge0\).* Then \(G_{i_0+jp}=G_{i_0}+jD=O(j)\), and (B.1) gives
 \(1\le F_j\le G_{i_0}+jD-3=O(j)\). If \(C>0\) then \(F_j\) grows exponentially
@@ -301,7 +296,7 @@ see *Relationship to Theorem 38*.
 Suppose one does. Take the primitive period word, \(p\ge1\), and let
 \(P,W,D\) be as above. Three cases.
 
-**\(D<0\).** By L143, \(G_{i_0+jp}=G_{i_0}+jD\to-\infty\). But (B.1) gives
+**\(D<0\).** By (B.1), \(G_{i_0+jp}=G_{i_0}+jD\to-\infty\). But (B.1) also gives
 \(f\ge1\) and \(f\le G-3\), so \(G_i\ge4\) at every index. Contradiction.
 
 **\(D=0\).** By L151 the aligned subsequence is bounded, which forces both
