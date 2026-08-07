@@ -1,0 +1,52 @@
+# Keep the immutable action pins in .github/workflows/ from going stale.
+#
+# Every `uses:` reference is a full commit SHA, with a human-readable upstream
+# version or ref comment where useful. That is deliberate: a tag is mutable, a
+# SHA is not. The price of SHA pins is silence -- nothing signals that an
+# upstream action has shipped a fix, so the pins simply rot. This file is that
+# signal. Dependabot rewrites the SHA and its comment together, so the
+# convention survives its updates rather than being undone by them.
+#
+# NOTE ON ACTIVATION: GitHub reads this file from the default branch only, so
+# the copy on a research branch is inert and takes effect when that line
+# integrates. The same bytes are kept on both branches so the two cannot
+# disagree about policy. No target-branch is set, because naming a research
+# branch in configuration that lives on the default branch would break as soon
+# as that branch is retired.
+
+version: 2
+
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 3
+    commit-message:
+      # Matches the prefix this repository already uses for workflow changes.
+      prefix: "ci"
+
+    groups:
+      # CI includes multiple verifier and toolchain checks, so every dependency
+      # pull request has a real validation cost. Collect routine bumps into one
+      # monthly pull request instead of one per action. Each entry still
+      # carries its own version comment, so the grouped diff stays readable.
+      actions:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+
+    ignore:
+      # Major action upgrades can change runtime requirements, inputs, outputs,
+      # or artifact behavior. Keep those as deliberate review work rather than
+      # allowing routine dependency automation to start them.
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+
+      # The Rust toolchain and the action used to install it are part of the
+      # verifier environment. Changes here are evidence-affecting and therefore
+      # remain deliberate rather than automated.
+      - dependency-name: "dtolnay/rust-toolchain"
