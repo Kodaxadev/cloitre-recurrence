@@ -156,11 +156,13 @@ Three external checks run over the compiled development: Lean's bundled `leanche
 docker build -t cloitre . && docker run --rm cloitre
 ```
 
-That runs every fast check against pinned toolchains (Rust 1.94.0, Python 3.13, Lean 4.32.2). `scripts/reproduce.sh` runs the same checks in the same order as CI, and prints at the end the heavy commands that are deliberately excluded.
+`scripts/reproduce.sh` runs the core fast scientific checks locally against pinned toolchains (Rust 1.94.0, Python 3.13, Lean 4.32.2), and prints at the end the heavy commands that are deliberately excluded. CI adds what one host cannot supply: platform-matrix execution, cross-platform certificate comparison, documentation and TeX structural checks, and the hosted paper-reproducibility environment.
 
 ### What continuous integration covers
 
-Every push and pull request on the research branch runs:
+The research workflow runs on pull requests and on manual workflow dispatch; pushes to `main` run it automatically. A plain push to a research branch does **not** trigger it, so exact-SHA evidence on a research branch comes from a pull request or from `gh workflow run ci.yml --ref <branch>`.
+
+A run provides:
 
 * **Rust** theorem and verifier tests, on Ubuntu **and** Windows;
 * **Python** certificates and OEIS checks, on Ubuntu **and** Windows;
