@@ -96,6 +96,39 @@ def check_composition(words) -> int:
     return len(words)
 
 
+def check_phase_alignment(word=(4, 2, 5)) -> int:
+    """NEGATIVE CONTROL for (148.1).
+
+    (148.1) holds only at the aligned indices i0 + k*p.  Starting one step later
+    sees a rotation of the exponent word: P is unchanged but W and V are not.
+    This fires if anyone restores the false "for every i" statement.
+    """
+    p = len(word)
+    need(len(set(word)) > 1, "phase control needs a nonconstant word")
+    rots = [tuple(word[j:] + word[:j]) for j in range(p)]
+    P0, W0, V0 = closed_form_WV(rots[0])
+
+    coeffs = {closed_form_WV(r)[1:] for r in rots}
+    need(len(coeffs) == p,
+         f"phase control is vacuous: rotations of {word} share (W,V)")
+
+    misfires = 0
+    for j, rot in enumerate(rots):
+        Pj, Wj, Vj = closed_form_WV(rot)
+        need(Pj == P0, "P must be rotation invariant")
+        for f0, m0 in ((10, 100), (7, 200), (13, 57)):
+            actual = compose(rot, f0, m0)
+            need(actual == (1 << Pj) * f0 - Wj * m0 - Vj,
+                 f"(148.1) failed in its own phase {j} of {word}")
+            wrong = (1 << P0) * f0 - W0 * m0 - V0     # phase-0 coefficients
+            if j != 0:
+                need(wrong != actual,
+                     f"phase-0 (W,V) wrongly predicted phase {j} of {word}: "
+                     "the 'for every i' reading would look valid here")
+                misfires += 1
+    return misfires
+
+
 # ------------------------------------------- L149: cyclic gaps + orientation
 def cyclic_gaps(W: int, P: int) -> tuple[int, ...]:
     S = sorted(i for i in range(P) if (W >> i) & 1)
@@ -162,9 +195,18 @@ def check_bridge(p_max: int) -> tuple[int, int]:
             prim += is_prim
             mp = min_binary_period(W, P)
             need(is_prim == (mp == P), f"(149.2) failed for {word}")
-            if mp < P:                       # L149 conclusion must hold
-                g = cyclic_gaps(W, P)
-                need(not primitive(g), f"L149 failed for {word}")
+            g = cyclic_gaps(W, P)
+            if mp < P:                       # L149 forward direction
+                need(not primitive(g), f"L149 forward failed for {word}")
+            if not primitive(g):             # L149 converse direction
+                c = min(d for d in range(1, len(g))
+                        if len(g) % d == 0 and g == g[:d] * (len(g) // d))
+                dd = sum(g[:c])
+                need(P == (len(g) // c) * dd and 0 < dd < P,
+                     f"L149 converse: bad d for {word}")
+                S = {i for i in range(P) if (W >> i) & 1}
+                need({(x + dd) % P for x in S} == S,
+                     f"L149 converse: S+d != S for {word}")
     return total, prim
 
 
@@ -256,13 +298,18 @@ def main() -> int:
     k = check_composition(words)
     print(f"L148 (148.1): W and V recovered by finite differencing on {k} words")
 
+    mis = check_phase_alignment()
+    print(f"L148 phase control: (148.1) holds in each phase of (4,2,5) with that "
+          f"phase's own (W,V); the phase-0 coefficients mispredict every one of "
+          f"{mis} unaligned cases, as a 'for every i' reading would require")
+
     asym = check_orientation(words)
     print(f"L149 (149.1): gaps are rotations of the reversed word; "
           f"{asym} of {len(words)} words refute a rotation-only convention")
 
     total, prim = check_bridge(args.p_bridge)
-    print(f"L149 + (149.2): {total} exponent words with P<={args.p_bridge} "
-          f"({prim} primitive), equivalence and L149 hold on all")
+    print(f"L149 both directions + (149.2): {total} exponent words with "
+          f"P<={args.p_bridge} ({prim} primitive), equivalence holds on all")
 
     hits, prim_hits = check_divisibility_hits(args.p_hits)
     print(f"T150 regression: {hits} words satisfy (148.2) for P<={args.p_hits}; "

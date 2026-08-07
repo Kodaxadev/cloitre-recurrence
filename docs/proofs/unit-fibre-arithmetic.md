@@ -21,12 +21,18 @@ with \(h_i=r_i+2\ge2\) and the admissibility window
 \tag{U.1}
 \]
 
-at every index. This is (147.4) with L143's survival test; the exponent is
-(130.2)'s least admissible \(h\). **Greedy minimality of \(h_i\) is not used
-anywhere below.** Every statement is therefore proved for the larger class of
-sequences obeying (U.0) and (U.1) with *arbitrary* exponents \(h_i\ge2\), and so
-holds a fortiori for the real gate, whose extra tests (C115's parent defect,
-window and headroom) only shrink the class further.
+at every index. This is (147.4) with L143's survival test; on the real fibre
+\(h_i\) is the least exponent \(h\ge2\) for which the implied successor
+\(f_{i+1}\) is positive.
+
+**Exactly what the proofs use.** L148, L149 and T150 below use only integer
+sequences satisfying (U.0), (U.1) and \(h_i\ge2\). They do **not** use the
+unit-state congruences of L117, they do **not** use greedy minimality of
+\(h_i\), and they do **not** use the additional gate windows of C115 (parent
+defect, window \(M\), child headroom \(U\)). Every statement is therefore proved
+for that larger class, and holds a fortiori for the real gate, whose extra tests
+only shrink it. The transport identities (U.2)–(U.4) immediately below are
+recorded for orientation and are *not* inputs to L148–T150.
 
 ## The transport identity
 
@@ -66,20 +72,31 @@ solution instead.
 ## Lemma 148 (one period composes to an affine map, and forces a divisibility)
 
 Let a chain obey (U.0) and (U.1) at every index, and suppose its exponent
-sequence is eventually periodic: \(h_{i+p}=h_i\) for all \(i\ge i_0\), with
-primitive period word \((h_0,\dots,h_{p-1})\). Put
+sequence is eventually periodic with primitive period \(p\), so that for some
+\(i_0\)
+
+\[
+h_{i_0+t}=h_t\quad(0\le t<p),
+\qquad
+h_{i+p}=h_i\quad(i\ge i_0).
+\tag{148.0}
+\]
+
+**Fix that phase.** Put
 
 \[
 P=\sum_{t=0}^{p-1}h_t,\qquad
-\sigma_t=h_0+\cdots+h_{t-1},\qquad
+\sigma_0=0,\quad\sigma_t=\sum_{j=0}^{t-1}h_j,\qquad
 W=\sum_{t=1}^{p}2^{\,P-\sigma_t},\qquad
 V=\sum_{t=1}^{p}\sigma_t2^{\,P-\sigma_t}.
 \]
 
-Then for every \(i\ge i_0\)
+Then for every \(k\ge0\)
 
 \[
-f_{i+p}=2^{P}f_i-Wm_i-V,
+\boxed{
+f_{i_0+(k+1)p}=2^{P}f_{i_0+kp}-W\,m_{i_0+kp}-V,
+}
 \tag{148.1}
 \]
 
@@ -90,16 +107,28 @@ and, if the chain is infinite,
 \tag{148.2}
 \]
 
+> **The phase matters.** (148.1) is asserted only at the indices
+> \(i=i_0+kp\). Starting one step later sees the *rotated* word
+> \((h_1,\dots,h_{p-1},h_0)\); \(P\) is unchanged, but \(W\) and \(V\) generally
+> are not. For \((4,2,5)\) the three phases give \(W=161,529,69\) — so the same
+> \((W,V)\) at an unaligned index is simply false. No phase-dependent
+> \(W_j,V_j\) are needed: T150 uses one phase only. The verifier carries this as
+> a negative control.
+
 ### Proof
 
-**(148.1).** Induct on \(t\). Unfolding (U.0) once introduces the target
-\(m_{i+t}=m_i+\sigma_t\) at step \(t\), after which it is multiplied by
+**(148.1).** Fix \(k\) and write \(i=i_0+kp\); by (148.0) the exponents
+encountered from \(i\) are \(h_0,\dots,h_{p-1}\) in that order. Induct on
+\(t\le p\): unfolding (U.0) introduces the target \(m_{i+t}=m_i+\sigma_t\) at
+step \(t\), after which it is multiplied by
 \(2^{h_t}2^{h_{t+1}}\cdots2^{h_{p-1}}=2^{\sigma_p-\sigma_t}=2^{P-\sigma_t}\).
 Summing the contributions gives
 \(f_{i+p}=2^Pf_i-\sum_{t=1}^{p}2^{P-\sigma_t}(m_i+\sigma_t)\), which is (148.1).
+The induction uses (148.0) only along the aligned block, so it does not assert
+anything at unaligned indices.
 
-**(148.2).** Read the chain stroboscopically: \(F_k:=f_{i_0+kp}\) and
-\(M_k:=m_{i_0+kp}=M_0+kP\). By (148.1),
+**(148.2).** Read the chain stroboscopically in that same phase:
+\(F_k:=f_{i_0+kp}\) and \(M_k:=m_{i_0+kp}=M_0+kP\). By (148.1),
 
 \[
 F_{k+1}=2^{P}F_k-W(M_0+kP)-V,
@@ -133,10 +162,19 @@ Let \(B\) be a \(P\)-bit binary word, \(P\ge1\), with one-bit set
 gap word** \((g_0,\dots,g_{p-1})\) by listing \(S\) in cyclic order and taking
 successive cyclic differences, so \(\sum g_t=P\).
 
-If \(B\) has a period \(d_0\mid P\) with \(d_0<P\), then the cyclic gap word is a
-repetition of a strictly shorter word.
+Then \(B\) has a period \(d_0\mid P\) with \(d_0<P\) **if and only if** the
+cyclic gap word is a repetition of a strictly shorter word. Equivalently:
 
-### Proof
+\[
+\text{the cyclic gap word is primitive}
+\iff
+B\text{ has minimal period }P.
+\tag{149.0}
+\]
+
+### Proof, forward direction
+
+Assume \(B\) has period \(d_0\mid P\), \(d_0<P\).
 
 Periodicity of \(B\) with period \(d_0\) says \(S+d_0=S\) in \(\mathbb Z/P\).
 Let \(e=P/d_0>1\). Translation \(\tau:x\mapsto x+d_0\) has order \(e\) in
@@ -149,7 +187,43 @@ same number \(c=p/e\) of elements of \(S\). Since \(\tau\) is a rotation it
 preserves the cyclic order of \(S\), and it advances the cyclically sorted list
 by exactly \(c\) positions. Writing \(s_{t+c}=s_t+d_0\) (indices mod \(p\),
 positions mod \(P\)) gives \(g_{t+c}=g_t\) for every \(t\). So the gap word has
-period \(c<p\). \(\square\)
+period \(c<p\).
+
+### Proof, converse direction
+
+Assume the cyclic gap word \((g_0,\dots,g_{p-1})\) has a proper period
+\(c\mid p\), \(c<p\). Put
+
+\[
+d=g_0+g_1+\cdots+g_{c-1}.
+\]
+
+Because the same \(c\)-gap block repeats \(p/c\) times and the gaps sum to
+\(P\),
+
+\[
+P=\frac pc\,d,
+\qquad\text{so}\qquad
+0<d<P
+\]
+
+since \(p/c\ge2\). Listing the one-bits in cyclic order as \(s_0,\dots,s_{p-1}\),
+periodicity of the gap word gives
+\(s_{t+c}-s_t=g_t+\cdots+g_{t+c-1}=d\) for every \(t\) (the sum telescopes and is
+the same \(d\) for each \(t\), again by \(g_{t+c}=g_t\)). Hence translation by
+\(d\) carries each one-bit to the one-bit \(c\) positions later in cyclic order,
+so
+
+\[
+S+d=S \pmod P,
+\]
+
+which says exactly that \(B\) has period \(d\), and \(d<P\) is proper.
+\(\square\)
+
+Together the two directions give (149.0). Only the forward direction is used by
+T150; the converse is recorded because the bridge (149.2) below states an
+equivalence and is regression-tested as one.
 
 **Bridge.** For the word of Lemma 148, \(W\) has one-bits exactly at the
 positions \(\{P-\sigma_t: 1\le t\le p\}\subseteq[0,P-2]\); bit \(0\) is set
@@ -164,8 +238,9 @@ increasing order from \(0\) and taking cyclic differences returns
 the **reversal** of the exponent word — not the word itself. The orientation
 matters and is easy to get backwards; it is checked mechanically by the
 verifier. Since a finite word is primitive if and only if its reversal is
-primitive, and if and only if each of its rotations is primitive, this transfers
-primitivity in both directions:
+primitive, and if and only if each of its rotations is primitive, (149.1)
+identifies "cyclic gap word primitive" with "exponent word primitive". Feeding
+that into the equivalence (149.0) gives
 
 \[
 (h_0,\dots,h_{p-1})\ \text{primitive}
@@ -265,8 +340,13 @@ admissible window — is narrowed, not resolved.
 
 ## Verification
 
-`independent/verify_unit_fibre_periodicity.py` regenerates the whole chain of
-reasoning from scratch:
+`independent/verify_unit_fibre_periodicity.py` is an **independent arithmetic
+verifier plus a replay against the existing exact gate implementation**. The
+arithmetic — composition, \(W\) and \(V\), orientation, binary periods,
+divisibility — is rederived from the recurrence alone; only the final transport
+replay imports `gate` and `is_unit_state` from `unit_gap_words_core`, so that
+part is a cross-check against the existing implementation rather than an
+independent one. Specifically it:
 
 * it recomputes \(W\) and \(V\) by finite differencing the composed map, rather
   than trusting the closed form, and compares against (148.1);
