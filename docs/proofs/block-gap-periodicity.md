@@ -92,18 +92,34 @@ W=\sum_{t=0}^{p-1}\bigl(2^{x_t}-1\bigr)2^{\,P-A_t},
 \]
 
 \[
-V=\sum_{t=0}^{p-1}\Bigl[\bigl(2^{x_t}-1\bigr)\bigl(A_t-a_t+\kappa_t\bigr)-x_t\Bigr]2^{\,P-A_t},
+\boxed{
+V=\sum_{t=0}^{p-1}\Bigl[\bigl(2^{x_t}-1\bigr)B_t-x_t\Bigr]2^{\,P-A_t},
 \qquad
-\kappa_t:=k_t+z_t,
+B_t:=\sum_{s=0}^{t}(k_s+r_s+1),
+}
 \tag{151.2}
 \]
 
-and if the chain is infinite then
+and if moreover the budget drift
+
+\[
+D:=\sum_{t=0}^{p-1}(r_t+1-k_t)
+\]
+
+is **positive**, then
 
 \[
 \boxed{(2^{P}-1)\mid W\!\cdot\!P.}
 \tag{151.3}
 \]
+
+> **Two different prefixes occur, and they are not equal.** \(A_t\) is the
+> *multiplier* prefix: it collects the exponents \(a_s=k_{s+1}+r_s+1\) that still
+> have to be applied after step \(t\). \(B_t\) is the *block-start* prefix: it is
+> the amount by which the index has advanced, \(n_{i+t+1}+4=N_j+B_t\), and it
+> collects \(k_s+r_s+1\). They differ by \(B_t=A_t+k_0-k_{t+1}\), so they agree
+> exactly when the block lengths are constant — which is why the unit fibre does
+> not detect a confusion between them. \(W\) uses \(A_t\) only and is unaffected.
 
 > **The phase is load-bearing.** (151.1) is asserted only at the aligned indices
 > \(i_0+jp\). A rotated phase has the same \(P\), by (B.3), but generally a
@@ -122,10 +138,12 @@ F_{j+1}=2^{P}F_j-\sum_{t}\bigl(2^{x_t}-1\bigr)\bigl(n_{(t+1)}+4\bigr)2^{P-A_t}
 +\sum_{t}x_t2^{P-A_t}.
 \]
 
-By (B.1), \(n_{(t+1)}+4=N_j+\sum_{s\le t}(k_s+r_s+1)\), an affine function of
-\(N_j\) with coefficient \(1\). Collecting the \(N_j\) coefficient gives \(W\) as
-displayed, and the remaining constants give \(V\) as in (151.2). The induction
-runs only along the aligned block, so nothing is asserted off-phase.
+By (B.1) the index advances by \(k_s+r_s+1\) at step \(s\), so
+\(n_{(t+1)}+4=N_j+B_t\) — an affine function of \(N_j\) with coefficient \(1\).
+Collecting the \(N_j\) coefficient gives \(W\) as displayed, which uses the
+multiplier prefix \(A_t\) only; the remaining constants give \(V\) as in (151.2),
+which uses the block-start prefix \(B_t\). The induction runs only along the
+aligned block, so nothing is asserted off-phase.
 
 Note that the \(+k_{i+1}=+x_t\) term of (B.0) is an additive constant: it never
 multiplies \(N_j\), so it contributes to \(V\) alone and **does not enter \(W\)**.
@@ -149,8 +167,11 @@ affine in \(j\). Over \(\mathbb R\) its general solution is
 \]
 
 By L143, \(G_{i+1}-G_i=r_i+1-k_i\), so along the aligned subsequence
-\(G_{i_0+jp}=G_{i_0}+jD\) with \(D:=\sum_t(r_t+1-k_t)\); this is affine in \(j\)
-whatever the sign of \(D\). With (B.1), \(1\le F_j\le G_{i_0}+jD-3=O(j)\). If
+\(G_{i_0+jp}=G_{i_0}+jD\). Since \(D>0\) by hypothesis this is a genuine linear
+*upper* window growing with \(j\), and with (B.1),
+\(1\le F_j\le G_{i_0}+jD-3=O(j)\). Narrowing (151.3) to \(D>0\) is deliberate:
+it is exactly what T153 consumes, and it avoids presenting a decreasing bound as
+ordinary asymptotic control in a case that is anyway vacuous. If
 \(C>0\) then \(F_j\) grows exponentially and breaks the upper bound; if \(C<0\)
 then \(F_j\to-\infty\) and breaks \(F_j\ge1\). Hence \(C=0\), so
 \(F_j=\lambda j+\mu\) for all \(j\), and \(\lambda=F_1-F_0\in\mathbb Z\). With
@@ -176,14 +197,24 @@ B\text{ has a period }d_0\mid P,\ d_0<P
 
 **(\(\Rightarrow\))** Let \(\tau:x\mapsto x+d_0\) on \(\mathbb Z/P\). Since
 \(B\) has period \(d_0\), \(\tau\) preserves \(B\), hence preserves the transition
-set \(\{i:b_i\ne b_{i+1}\}\), hence permutes the maximal runs while preserving
-cyclic order. Because \(\tau\) preserves digit values it carries one-runs to
-one-runs and zero-runs to zero-runs, so it advances the cyclic run list by an
-**even** number of runs — that is, by a whole number \(c\) of run pairs. As
-\(B\) contains both digits the run list is nonempty, and \(\tau\) has order
-\(e=P/d_0>1\) acting freely on \(\mathbb Z/P\), hence freely on the run pairs; so
-\(e\mid p\) where \(p\) is the number of pairs, and \(c=p/e<p\). Advancing by
-\(c\) pairs fixes the run-pair word, so that word has period \(c<p\).
+set \(\{i:b_i\ne b_{i+1}\}\); and since it preserves digit values it carries
+one-runs to one-runs and zero-runs to zero-runs. So \(\tau\) permutes the set
+\(S_1\) of **starts of one-runs**, where \(|S_1|=p\) is the number of run pairs.
+
+The shift count is then obtained by counting, not by freeness. The \(e=P/d_0\)
+half-open intervals \([jd_0,(j+1)d_0)\), \(0\le j<e\), partition \(\mathbb Z/P\),
+and \(\tau\) carries each onto the next. Hence every interval contains the same
+number of elements of \(S_1\), namely
+
+\[
+c:=\frac pe,
+\]
+
+so in particular \(e\mid p\), and \(c<p\) because \(e>1\). Since \(\tau\) is a
+rotation it preserves the cyclic order of \(S_1\), so it advances the cyclically
+ordered list of one-run starts by exactly \(c\) positions — equivalently, it
+advances the run-pair word by exactly \(c\) pairs. As \(\tau\) fixes the word,
+the run-pair word has period \(c<p\).
 
 **(\(\Leftarrow\))** Suppose the run-pair word has a proper period \(c\mid p\),
 \(c<p\). Let \(d\) be the total bit length of the first \(c\) pairs. Since the
@@ -327,11 +358,15 @@ merely as agreement of verdicts. T150's proof is not repeated.
 
 `independent/verify_block_gap_periodicity.py` is an independent arithmetic
 verifier. It recovers \(2^{P}\), \(W\) and \(V\) by finite differencing the
-composed map rather than trusting the closed forms; checks the phase control on
+composed map and compares **all three** against the closed forms above, so
+(151.2) is genuinely checked rather than merely fitted. It carries the asymmetric
+witness \((k,r)=\bigl((2,0),(1,2),(4,1)\bigr)\), where \(V=5749\) while the
+\(A_t\)-for-\(B_t\) confusion would give \(5515\). It checks the phase control on
 an asymmetric mixed word; reconstructs the cyclic run-pair word and requires the
-rotation (152.2), with a mutation that rejects the unshifted pairing; brute-forces
-both directions of L152; confirms the T150 coefficient identity; and searches
-primitive period words for (151.3).
+rotation (152.2), with two independent mutations that must fail — pairing a
+one-run with the **preceding** zero-run, and a literal **reverse-direction** run
+parser; brute-forces both directions of L152; confirms the T150 coefficient
+identity; and searches primitive period words for (151.3).
 
 That last search is **regression only**. Theorem 153 is unconditional in \(P\)
 and does not rest on it.

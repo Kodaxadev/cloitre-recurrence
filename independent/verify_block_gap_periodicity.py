@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Independent check of L151, L152 and T153 (full block chain).
 
-Recovers 2^P, W and V by finite differencing the composed T137 map rather than
-trusting the closed forms in `block-gap-periodicity.md`.  Nothing here is part
-of the proof of T153, which is unconditional in P; the bounded searches are
-regression and falsification data.
+Recovers 2^P, W and V by finite differencing the composed T137 map and compares
+all three against the closed forms in `block-gap-periodicity.md`, so (151.2) is
+checked rather than merely fitted.  Nothing here is part of the proof of T153,
+which is unconditional in P; the bounded searches are regression and
+falsification data.
 """
 from __future__ import annotations
 
@@ -40,17 +41,26 @@ def compose(word, n0: int, f0: int) -> tuple[int, int]:
     return n, f
 
 
-def closed_forms(word) -> tuple[int, int]:
-    """(B.2)/(151.1): P and W."""
+def closed_forms(word) -> tuple[int, int, int]:
+    """(B.2)/(151.1)/(151.2): P, W and V.
+
+    Two distinct prefixes occur and they are equal only when the block lengths
+    are constant, which is why the unit fibre cannot detect a confusion:
+
+      A_t = sum_{s<=t} (k_{s+1} + r_s + 1)   the *multiplier* prefix  -> W
+      B_t = sum_{s<=t} (k_s   + r_s + 1)     the *block-start* prefix -> V
+    """
     p = len(word)
     x = [word[(t + 1) % p][0] for t in range(p)]      # x_t = k_{t+1}
     z = [word[t][1] + 1 for t in range(p)]            # z_t = r_t + 1
     P = sum(xi + zi for xi, zi in zip(x, z))
-    A = W = 0
-    for xi, zi in zip(x, z):
-        A += xi + zi
-        W += ((1 << xi) - 1) << (P - A)
-    return P, W
+    A = B = W = V = 0
+    for t in range(p):
+        A += x[t] + z[t]
+        B += word[t][0] + word[t][1] + 1
+        W += ((1 << x[t]) - 1) << (P - A)
+        V += (((1 << x[t]) - 1) * B - x[t]) << (P - A)
+    return P, W, V
 
 
 def primitive(word) -> bool:
@@ -70,38 +80,70 @@ def order_mod(q: int) -> int:
 
 # ------------------------------------------------------- L151: composition
 def check_composition(words) -> int:
+    """All three coefficients are recovered empirically and compared to the
+    closed forms; V is checked, not merely fitted."""
     for word in words:
-        P, W = closed_forms(word)
+        P, W, V = closed_forms(word)
         # (B.3): P is also the total index increase over one period
         n1, _ = compose(word, 100, 10)
         need(n1 - 100 == P, f"(B.3) failed for {word}: {n1-100} != {P}")
         base = compose(word, 100, 10)[1]
         w_emp = base - compose(word, 101, 10)[1]      # -d/dN
         pow_emp = compose(word, 100, 11)[1] - base    # d/df
+        v_emp = (1 << P) * 10 - w_emp * 104 - base    # residual constant
         need(pow_emp == 1 << P, f"2^P mismatch for {word}")
         need(w_emp == W, f"W mismatch for {word}: {w_emp} != {W}")
-        v_emp = (1 << P) * 10 - w_emp * (100 + 4) - base
-        need(base == (1 << P) * 10 - W * 104 - v_emp,
-             f"(151.1) inconsistent for {word}")
+        need(v_emp == V, f"V mismatch for {word}: {v_emp} != {V}")
+        # and the full affine law at several independent (n0, f0)
+        for n0, f0 in ((100, 10), (250, 3), (57, 21), (13, 40)):
+            need(compose(word, n0, f0)[1] == (1 << P) * f0 - W * (n0 + 4) - V,
+                 f"(151.1) failed for {word} at {(n0, f0)}")
     return len(words)
+
+
+def check_V_regression() -> int:
+    """The witness that separates the two prefixes.
+
+    For ((2,0),(1,2),(4,1)) the correct V is 5749; substituting the multiplier
+    prefix A_t for the block-start prefix B_t gives 5515.  A_t == B_t whenever
+    the block lengths are constant, so only a genuinely mixed word detects it.
+    """
+    word = ((2, 0), (1, 2), (4, 1))
+    P, W, V = closed_forms(word)
+    exact = (1 << P) * 10 - W * 104 - compose(word, 100, 10)[1]
+    need(exact == 5749, f"witness V changed: expected 5749, got {exact}")
+    need(V == 5749, f"closed-form V wrong: expected 5749, got {V}")
+    # the historical wrong formula, kept so the indexing error cannot return
+    p = len(word)
+    x = [word[(t + 1) % p][0] for t in range(p)]
+    z = [word[t][1] + 1 for t in range(p)]
+    A = 0
+    wrong = 0
+    for t in range(p):
+        A += x[t] + z[t]
+        wrong += (((1 << x[t]) - 1) * A - x[t]) << (P - A)
+    need(wrong != V, "the A_t-for-B_t mutation is no longer distinguishable")
+    return V
 
 
 def check_phase_control(word=((2, 0), (1, 2), (4, 1))) -> int:
     """NEGATIVE CONTROL 1 for (151.1): fixed (W,V) hold only on one phase."""
     p = len(word)
     rots = [tuple(word[j:] + word[:j]) for j in range(p)]
-    coeffs = {closed_forms(r) for r in rots}
+    coeffs = {closed_forms(r)[:2] for r in rots}
     need(len(coeffs) == p,
          f"phase control is vacuous: rotations of {word} share (P,W)")
-    P0, W0 = closed_forms(rots[0])
-    V0 = (1 << P0) * 10 - W0 * 104 - compose(rots[0], 100, 10)[1]
+    P0, W0, V0c = closed_forms(rots[0])
+    V0 = V0c
+    need(V0 == (1 << P0) * 10 - W0 * 104 - compose(rots[0], 100, 10)[1],
+         'phase-0 closed-form V disagrees with composition')
     misfires = 0
     for j, rot in enumerate(rots):
-        Pj, Wj = closed_forms(rot)
+        Pj, Wj, Vjc = closed_forms(rot)
         need(Pj == P0, "P must be rotation invariant by (B.3)")
         for n0, f0 in ((100, 10), (200, 7), (57, 13)):
             actual = compose(rot, n0, f0)[1]
-            Vj = (1 << Pj) * 10 - Wj * 104 - compose(rot, 100, 10)[1]
+            Vj = Vjc
             need(actual == (1 << Pj) * f0 - Wj * (n0 + 4) - Vj,
                  f"(151.1) failed in its own phase {j} of {word}")
             if j != 0:
@@ -136,10 +178,31 @@ def rotations(word) -> set:
 
 
 def run_pairs_preceding(W: int, P: int) -> tuple[tuple[int, int], ...]:
-    """MUTATION: pair each one-run with the zero-run BEFORE it."""
+    """MUTATION A: pair each one-run with the zero-run BEFORE it."""
     pairs = run_pairs(W, P)
     p = len(pairs)
     return tuple((pairs[t][0], pairs[(t - 1) % p][1]) for t in range(p))
+
+
+def run_pairs_reversed(W: int, P: int) -> tuple[tuple[int, int], ...]:
+    """MUTATION B: a literal wrong-direction parser.
+
+    Walks the cyclic word low-to-high instead of high-to-low, still pairing each
+    one-run with the zero-run that follows it *in that direction*.  This is an
+    actual re-parse of the bit word, not a rearrangement of the correct answer.
+    """
+    seq = [(W >> i) & 1 for i in range(P)]              # index 0 = LSB: reversed
+    need(any(seq) and not all(seq), "word must contain both digits")
+    start = next(i for i in range(P) if seq[i] == 1 and seq[(i - 1) % P] == 0)
+    lens, i = [], 0
+    while i < P:
+        v, L = seq[(start + i) % P], 0
+        while L < P and seq[(start + i + L) % P] == v:
+            L += 1
+        lens.append(L)
+        i += L
+    need(len(lens) % 2 == 0, "alternating run list must have even length")
+    return tuple((lens[j], lens[j + 1]) for j in range(0, len(lens), 2))
 
 
 def check_orientation(words) -> tuple[int, int, int]:
@@ -153,7 +216,7 @@ def check_orientation(words) -> tuple[int, int, int]:
     """
     shift_free = prec_rejected = rev_rejected = 0
     for word in words:
-        P, W = closed_forms(word)
+        P, W, _V = closed_forms(word)
         got = run_pairs(W, P)
         p = len(word)
         fwd = tuple((word[t][0], word[t][1] + 1) for t in range(p))
@@ -167,12 +230,12 @@ def check_orientation(words) -> tuple[int, int, int]:
         shift_free += 1
         if run_pairs_preceding(W, P) not in rotations(fwd):
             prec_rejected += 1
-        if tuple(reversed(fwd)) not in rotations(fwd):
+        if run_pairs_reversed(W, P) not in rotations(fwd):
             rev_rejected += 1
     need(prec_rejected > 0,
          "orientation control vacuous: no word rejects the preceding-zero pairing")
     need(rev_rejected > 0,
-         "orientation control vacuous: no word rejects the reversed reading")
+         "orientation control vacuous: no word rejects the reverse-direction parse")
     return shift_free, prec_rejected, rev_rejected
 
 
@@ -205,7 +268,7 @@ def check_lemma152_and_bridge(p_max: int, max_letter: int) -> tuple[int, int]:
     total = prim = 0
     for P in range(2, p_max + 1):
         for word in all_words(P, max_letter):
-            Pw, W = closed_forms(word)
+            Pw, W, _ = closed_forms(word)
             if Pw != P:
                 continue
             total += 1
@@ -235,7 +298,7 @@ def check_divisibility(p_max: int, max_letter: int) -> tuple[int, int]:
     for P in range(2, p_max + 1):
         d = (1 << P) - 1
         for word in all_words(P, max_letter):
-            Pw, W = closed_forms(word)
+            Pw, W, _ = closed_forms(word)
             if Pw != P or (W * P) % d:
                 continue
             hits += 1
@@ -263,7 +326,7 @@ def check_t150_specialization() -> int:
     cases = [(2, 3), (3, 2), (2, 2, 3), (4, 2, 5), (2, 3, 4, 2), (7, 3), (5,)]
     for hs in cases:
         word = tuple((1, h - 2) for h in hs)             # k=1, r = h-2
-        P1, W1 = closed_forms(word)
+        P1, W1, _ = closed_forms(word)
         P2, W2 = w_t150(hs)
         need(P1 == P2 and W1 == W2,
              f"T150 specialization failed at h={hs}: ({P1},{W1}) != ({P2},{W2})")
@@ -275,7 +338,7 @@ def check_degenerate() -> int:
     seen = set()
     for word in [((1, 0),), ((3, 2),), ((1, 1), (1, 2)), ((2, 0), (3, 0)),
                  ((1, 5), (4, 0)), ((2, 0), (1, 2), (4, 1)), ((1, 0), (2, 2))]:
-        P, W = closed_forms(word)
+        P, W, _ = closed_forms(word)
         need(W % 2 == 1 and W < (1 << (P - 1)), f"W shape wrong for {word}")
         run_pairs(W, P)                                   # must not raise
         D = sum(r + 1 - k for k, r in word)
@@ -295,8 +358,11 @@ def main() -> int:
              ((4, 0), (1, 1), (1, 4))]
 
     k = check_composition(words)
-    print(f"L151 (B.3)/(151.1): P and W recovered by finite differencing "
-          f"on {k} mixed-block words")
+    print(f"L151 coefficients: 2^P, W and the corrected V independently "
+          f"recovered and matched on {k} mixed-block words")
+    v = check_V_regression()
+    print(f"L151 (151.2) regression: asymmetric witness ((2,0),(1,2),(4,1)) "
+          f"has V={v}; the A_t-for-B_t confusion would give 5515")
 
     mis = check_phase_control()
     print(f"L151 phase control: each rotation composes with its own (W,V); "
@@ -305,7 +371,7 @@ def main() -> int:
     sf, pr, rv = check_orientation(words)
     print(f"L152 (152.2): run pairs are a rotation of (k_t, r_t+1) on all {sf} "
           f"words (the index shift is itself a rotation); {pr} reject the "
-          f"preceding-zero pairing and {rv} reject the reversed reading")
+          f"preceding-zero pairing and {rv} reject the reverse-direction parse")
 
     tot, prim = check_lemma152_and_bridge(args.p_max, args.max_letter)
     print(f"L152 both directions + (152.3): {tot} joint words with "
