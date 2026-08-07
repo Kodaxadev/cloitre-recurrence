@@ -35,9 +35,9 @@ updates:
       #
       # Major updates are deliberately excluded from the group so each one
       # arrives as its own pull request and gets reviewed on its own merits.
-      # The pending artifact-action v4 -> v5 upgrade is the immediate case: it
-      # clears the Node 20 deprecation warning but changes action behavior, and
-      # it is meant to be a separate, separately reviewed chore.
+      # Major artifact-action upgrades are the immediate case: they clear the
+      # deprecated Node runtime but can change action behavior, so they belong
+      # in separate, separately reviewed pull requests.
       actions:
         patterns:
           - "*"
