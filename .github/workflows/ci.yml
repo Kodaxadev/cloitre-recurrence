@@ -26,8 +26,8 @@ jobs:
         # Linux. Both are checked so a platform-dependent result cannot hide.
         os: [ubuntu-latest, windows-latest]
     steps:
-      - uses: actions/checkout@v7
-      - uses: dtolnay/rust-toolchain@1.94.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: dtolnay/rust-toolchain@35d8a35b823d6c20db516f5c35eb0a9640942c17 # 1.94.0
       - name: Test primary search framework
         run: cargo test --release --manifest-path search-framework/Cargo.toml
       - name: Test independent Rust verifier
@@ -47,8 +47,8 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-python@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: "3.13"
       - name: Compile verification scripts
@@ -122,7 +122,7 @@ jobs:
         run: >-
           python independent/verify_unit_gap_words.py
           --report artifacts/unit-gap-words.json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: unit-gap-words-${{ matrix.os }}
           path: artifacts/unit-gap-words.json
@@ -133,7 +133,7 @@ jobs:
         run: >-
           python independent/verify_unit_gap_extensions.py
           --report artifacts/unit-gap-extensions.json
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: unit-gap-extensions-${{ matrix.os }}
           path: artifacts/unit-gap-extensions.json
@@ -231,8 +231,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-python@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: "3.13"
       - name: Install a minimal TeX Live
@@ -277,7 +277,7 @@ jobs:
           python scripts/check_pdf_reproducible.py \
             manuscript/arxiv/build-a/main.pdf \
             manuscript/arxiv/build-c/main.pdf
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: cloitre-arxiv-draft-pdf
           path: |
@@ -290,7 +290,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       - name: Install pinned Lean toolchain
         # leanprover/lean-action v1.5.0
         uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
