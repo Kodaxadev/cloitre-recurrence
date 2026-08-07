@@ -14,6 +14,21 @@ reproduction commands.
 | 106 increments through 1823 are absent | Theorem 18 plus complete \(10^7\) census | `data/excluded_increments.txt` |
 | Periodic denominator families through 501 fail | Exact family enumeration and immutable digest | 463-family Python certificate |
 | Safe map at \(N=10^6\) empties | Dominance theorem plus complete compressed state exhaustion | Rust and independent Python generators agree on every terminal count and the trajectory digest |
+| The six two-gap all-unit words are exhaustively classified (K18) | Proved start bound from C114/C115, then complete enumeration inside it | [`independent/verify_unit_gap_words.py`](../independent/verify_unit_gap_words.py); four independent routes agree by exact row identity, ten negative controls reject |
+| The nine three-gap all-unit words are exhaustively classified (K19) | The 342 continuing K18 states, with \(r_2,r_3\le3\) proved rather than assumed | [`independent/verify_unit_gap_extensions.py`](../independent/verify_unit_gap_extensions.py); same four routes, thirteen negative controls reject at their recorded layers |
+
+The two gap-word verifiers are split across shared core, audit and check modules
+(`unit_gap_words_core.py`, `unit_gap_words_checks.py`, `unit_gap_extensions_core.py`,
+`unit_gap_extensions_audit.py`, `unit_gap_extensions_checks.py`) in
+[`independent/`](../independent/). Each writes a JSON report as a build output
+rather than a tracked file; CI regenerates both on Ubuntu and Windows and compares
+them byte for byte. The canonical byte counts and SHA-256 identities are recorded
+once, in [`docs/theorem-status.md`](../docs/theorem-status.md), and are not
+duplicated here.
+
+An undefined next gate in either classification means only that the all-unit
+partial map is undefined at that point. It is not termination of the safe
+trajectory, and none is claimed.
 
 ## Independence boundary
 
