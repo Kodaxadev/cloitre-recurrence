@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
-# Run the same checks as .github/workflows/ci.yml, in the same order.
+# Run the core fast scientific checks used by CI, on one host and in CI's order.
+#
+# CI additionally provides what a single host cannot: OS-matrix execution on
+# Ubuntu and Windows, the cross-platform K18/K19 certificate determinism
+# comparison, and hosted documentation and paper structural checks.
 #
 # Intended for the pinned Docker image (see Dockerfile), but works on any host
 # with the right toolchains on PATH. Every step is fast; the heavy computations

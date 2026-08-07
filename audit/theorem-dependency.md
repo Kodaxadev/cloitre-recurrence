@@ -49,8 +49,8 @@ flowchart TD
   L41 --> K13["K13 finite safe certificate at N=10^6"]
   L42 --> K13
   L41 --> T46["T46 checkpoint monotonicity"]
-  K13 -.-> C46["C46 safe termination for every N <= 10^6"]
-  T46 --> C46
+  K13 -.-> SAFECOV["K13 with T46: safe termination for every N <= 10^6"]
+  T46 --> SAFECOV
   T46 --> C48["C48 parity of a least safe-map failure"]
   C9 --> C48
   L43 --> L47["L47 signed-distance safe map"]
@@ -141,7 +141,7 @@ flowchart TD
   C93 --> C102
   L83 --> L110["L110 exact gate multiplicity"]
   L92 --> L110
-  L103 --> L110
+  L103["L103 canonical gate decomposition"] --> L110
   L110 --> C111["C111 displacement budget"]
   L53 --> C112["C112 upper-nonunique two-block ceiling"]
   L110 --> C112
@@ -170,42 +170,27 @@ flowchart TD
   L125 --> L127["L127 exact word composition"]
   C114 & C115 --> L128["L128 disjoint outgoing dyadic windows"]
   P126 & L117 & C115 & L128 --> P129["P129 explicit family exits pure-upper"]
-  T24 --> O1["Open branch A: infinitely many down-steps"]
-  T38 --> O1
-  T56 --> O1
-  C59 --> O1
-  T69 --> O1
-  T72 --> O1
-  T75 --> O1
-  T77 --> O1
-  C79 --> O1
-  T24 --> O2["Open branch B: eventually no down-steps"]
-  T38 --> O2
-  L42 --> O2
-  T55 --> O2
-  T56 --> O2
-  C81 --> O2
-  C93 --> O2
-  C97 --> O2
-  T99 --> O2
-  C102 --> O2
-  C82 --> O2
-  C84 --> O2
-  C86 --> O2
-  C88 --> O2
-  C89 --> O2
-  T90 --> O2
-  T91 --> O2
-  C115 --> O2
-  T118 --> O2
-  T121 --> O2
-  T122 --> O2
-  C124 --> O2
-  L125 --> O2
-  P126 --> O2
-  L127 --> O2
-  L128 --> O2
-  P129 --> O2
+  %% Determinism spine: the branching gate search collapses to one forced orbit.
+  %% Only structurally load-bearing edges are drawn; the ledger holds the rest.
+  L127 & L128 & P129 --> T130["T130 all-unit continuation is forced"]
+  T130 --> L131["L131 wrap count is inert"] & T133["T133 one exponent at every block length"]
+  T133 --> L135["L135 forced block length"] & L136["L136 forced zero-only gap"]
+  L135 & L136 --> T137["T137 closed four-integer map"] --> T138["T138 triangular skew product"] --> C139["C139 wrap count adds nothing"]
+  T137 --> L140["L140 threshold-slack coordinates"] --> L141["L141 bounded slack candidates"] --> C142["C142 forcing is one-sided"]
+  T138 & L140 --> L143["L143 admissibility is one budget inequality"] --> C144["C144 residue capped by budget"]
+  L143 & C144 --> T145["T145 chain length N <= 3C-13"] --> C146["C146 unbounded budget"] --> C147["C147 expanding recurrence, moving window"]
+
+  %% Exhaustive computation about the restricted all-unit mechanism. These are
+  %% results, not logical prerequisites, so they carry no edge into the open
+  %% branches: nothing downstream depends on them.
+  C114 & C115 -.->|proved bound| K18["K18 six two-gap words, 2,706 states"]
+  T130 & L131 -.->|forced map| K18 -.->|342 continuing states| K19["K19 nine three-gap words, 74 fourth gates"]
+
+  T24 & T38 & T56 & C59 & T69 & T72 & T75 & T77 & C79 --> O1["Open branch A: infinitely many down-steps"]
+  T24 & T38 & L42 & T55 & T56 & C81 & C93 & C97 & T99 --> O2["Open branch B: eventually no down-steps"]
+  C102 & C82 & C84 & C86 & C88 & C89 & T90 & T91 --> O2
+  C115 & T118 & T121 & T122 & C124 & L125 & P126 & L127 & L128 & P129 --> O2
+  C147 --> O2
   U["Uniform termination of the safe map"] -->|would eliminate| O2
   O1 --> CJ["Original stabilization conjecture remains open"]
   O2 --> CJ
@@ -216,8 +201,8 @@ flowchart TD
   classDef compute fill:#e5efff,stroke:#3566a8,color:#13243d;
   classDef open fill:#fff1d6,stroke:#ad6b00,color:#422900;
   classDef formal fill:#eee4ff,stroke:#6542a6,color:#261642;
-  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64,L65,P66,L67,L68,T69,L70,C71,T72,L73,C74,T75,L76,T77,L78,C79,L80,C81,C82,L83,C84,L85,C86,L87,C88,C89,T90,T91,L110,C111,C112,L113,C114,C115,L116,L117,T118,L119,C120,T121,T122,L123,C124,L125,P126,L127,L128,P129 proof;
-  class K1,K11,K13,C46 compute;
+  class D,T1,T2,L3,L4,T5,T6,C9,L12,T13,T14,T18,C19,C20,L21,T22,C23,T24,L26,T27,T25,L28,T32,L33,T36,T38,T39,L40,L41,L42,L43,L44,T45,T46,L47,C48,L49,T50,L51,C52,L53,C54,T55,T56,C57,T58,C59,L60,C61,L62,L63,C64,L65,P66,L67,L68,T69,L70,C71,T72,L73,C74,T75,L76,T77,L78,C79,L80,C81,C82,L83,C84,L85,C86,L87,C88,C89,T90,T91,L103,L110,C111,C112,L113,C114,C115,L116,L117,T118,L119,C120,T121,T122,L123,C124,L125,P126,L127,L128,P129,T130,L131,T133,L135,L136,T137,T138,C139,L140,L141,C142,L143,C144,T145,C146,C147 proof;
+  class K1,K11,K13,SAFECOV,K18,K19 compute;
   class O1,O2,U,CJ open;
   class F formal;
 ```
@@ -356,7 +341,7 @@ flowchart TD
 | 3 | T22 -> C23 -> T24 -> T27 | Quantifier audit at every sufficiently large index |
 | 4 | L40 -> L41 -> L42 | Exact necessity direction and explicit limitation to no-down tails |
 | 5 | L43 -> L44 -> T45 | Fresh audit because these entered immediately before the freeze |
-| 6 | L41 -> T46 -> C46 | Contrapositive audit and confirmation that one checkpoint covers all smaller indices |
+| 6 | L41 -> T46 -> SAFECOV | Contrapositive audit and confirmation that one checkpoint covers all smaller indices |
 | 7 | C48 -> L49 -> T50 | Backward-predecessor validity, complementary-residue merge, and exact slack endpoint |
 | 8 | L43 -> L44 -> L51 -> C52 | Wrap-run acceleration, threshold endpoints, equality family, and boundary-return limitation |
 | 9 | L51 -> L53 -> C54 and T55 | Autonomous-coordinate endpoints, telescoping limit, and quantitative positive-block bound |

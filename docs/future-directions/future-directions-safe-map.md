@@ -324,30 +324,77 @@ f_{i+1}=2^{k_{i+1}+r_i+1}f_i-\bigl(2^{k_{i+1}}-1\bigr)(n_{i+1}+4)+k_{i+1}.
 Every surviving branch is therefore one forward orbit of that map, with no gap
 word, no block-length word, and no digit simulation.
 
-**Do next, arbitrary-length branch:** build the chain argument on that
-recurrence. The unit case reached Lemma 119 and Theorem 118 by eliminating the
-index between consecutive instances of its recurrence; the same elimination is
-now available with \(k_{i+1}\) carried through. Combine it with Corollary 134's
-residue band of width \(2^{k+1}\) and the length/gap trade (134.2), and look
-for either a descent or a growing modulus. That is the missing ingredient — the
-one-step arithmetic is complete.
+## Where the frontier actually is
 
-**Do next, fixed-ladder branch:** it no longer has a combinatorial dimension
-to search, so what remains there is a termination proof for one forced
-one-dimensional orbit. No inequality argument can supply it: the constraints
-alone admit chains of length \(O(n/\log n)\), and the observed ceiling of five
-is arithmetic rather than metric. The concrete target is a 2-adic obstruction
-built on
+The chain argument asked for above has since been built, and it moved the
+frontier rather than closing it. The useful pattern is that every step removed
+*search freedom* rather than proving termination: branching gate search →
+forced continuation → closed \(\Psi\) orbit → slack and budget control → one
+expanding recurrence against a moving window.
+
+Lemma 140 inverts the map into threshold-slack coordinates and Lemma 141 bounds
+the candidate slacks, but Corollary 142 shows the forcing is **one-sided** — the
+block slack is never arithmetically forced, and on a pure-upper chain neither
+slack is. No purely local forcing argument can finish, which is why the next
+step changed coordinates instead of pushing harder on the same inequalities.
+
+Lemma 143 supplies that change. With the budget \(G_i=n_i-2U_i\), continuation
+is *equivalent* to the single inequality \(\alpha_i\le G_{i+1}-4\):
+admissibility stops being a test applied from outside the map and becomes one
+inequality inside its own coordinates. Corollary 144 then caps the returned
+residue by the budget alone, \(f_i\le G_i-3\), where Lemma 140 gave only
+\(O(n)\).
+
+Theorem 145 is the first bound on the length of a \(\Psi\)-orbit at all: a
+chain of \(N\ge2\) consecutive positive blocks satisfies \(N\le3C-13\) with
+\(C=\max_i(n_i-2U_i)\), and its arithmetic core is machine-checked in Lean. It
+is not a termination theorem, for a precise reason: nothing bounds \(C\) in
+terms of \((n_0,U_0)\). Corollary 146 turns that into a dichotomy — an infinite
+chain has **unbounded** budget, \(\sup_iG_i=\infty\). Note the exact form:
+unboundedness, not divergence. Divergence follows only in the all-unit branch,
+where \(G\) is monotone; an earlier revision overstated this and was corrected.
+
+**The actual unresolved problem.** Corollary 147 states what is left, sharply.
+On an all-unit chain the survival test and the residue cap are the same
+inequality at successive indices, so the chain is the orbit of
+
+\[
+f_{i+1}=2^{r_i+2}f_i-n_{i+1}-3,
+\qquad
+n_{i+1}=n_i+2+r_i,
+\qquad
+G_{i+1}=G_i+r_i,
+\]
+
+with the window widening relative to the index exactly when \(r_iU_i>G_i\).
+That is the whole obstruction: a **one-dimensional expanding recurrence aimed
+at a moving admissible window**. Nothing excludes it, and no inequality of the
+kind used so far can, because C142 already showed the forcing is one-sided.
+What is needed is an arithmetic obstruction — the 2-adic route below is the
+concrete candidate — or a descent in some coordinate that survives expansion.
+
+**The concrete 2-adic target** stands, now aimed at C147's recurrence rather
+than at the word framing:
 
 \[
 v_2\bigl(n_{i+1}+3+f_{i+1}\bigr)=h_i+v_2(f_i),
 \]
 
 which is (130.7) in valuation form and couples the forced exponents to the
-2-adic valuations of the residues. The exhaustive sweep is now cheap enough to
-test any candidate invariant against every orbit below \(5\times10^9\). In the
+2-adic valuations of the residues. The exhaustive sweep is cheap enough to test
+any candidate invariant against every orbit below \(5\times10^9\). In the
 growing-modulus branch, combine nested congruences across overlapping triples
 with the state-window bounds. In the mixed-block case, treat near-maximal
-unique gaps as renewal points and accumulate both headroom terms from
-Lemma 110.
+unique gaps as renewal points and accumulate both headroom terms from Lemma 110.
+
+**Where K18 and K19 sit.** The gap-word classifications are finite evidence
+about the *restricted all-unit mechanism*, not the central proof route. Inside
+the proved start bounds from C114 and C115 they classify the two-gap words
+exhaustively (six words, 2,706 states) and then the three-gap words continuing
+from them (nine words, 342 states, 74 admitting a fourth gate). They show that
+continuation thins out quickly in that restricted setting and give a hard test
+bed for candidate invariants. They do **not** bound the general branch and do
+not touch C147: an undefined next gate means only that the all-unit partial map
+is undefined there, which is not termination. Treat them as instrumentation for
+the expanding-window problem, not as progress toward it.
 
