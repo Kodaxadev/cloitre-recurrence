@@ -42,6 +42,8 @@ python independent/verify_unit_determinism.py 200 400 30000
 python independent/verify_unit_chain_structure.py 300 1200
 python independent/verify_unit_gap_words.py \
   --report artifacts/unit-gap-words.json
+python independent/verify_unit_gap_extensions.py \
+  --report artifacts/unit-gap-extensions.json
 python independent/verify_general_gate_determinism.py 220 220
 python independent/verify_pure_upper_run.py 500
 python independent/verify_block_chain_map.py 200
